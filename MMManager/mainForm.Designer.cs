@@ -28,8 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.lblInstanceName = new System.Windows.Forms.Label();
+            this.cbInstanceName = new System.Windows.Forms.ComboBox();
+            this.tbPeerLocation = new System.Windows.Forms.TextBox();
+            this.lblPeerLocation = new System.Windows.Forms.Label();
+            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.tbPeerName = new System.Windows.Forms.TextBox();
             this.lblPeerName = new System.Windows.Forms.Label();
             this.btnPeer = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -53,13 +61,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btnShowBase = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-            this.tbPeerName = new System.Windows.Forms.TextBox();
-            this.tbPassword = new System.Windows.Forms.TextBox();
-            this.lblPassword = new System.Windows.Forms.Label();
-            this.tbPeerLocation = new System.Windows.Forms.TextBox();
-            this.lblPeerLocation = new System.Windows.Forms.Label();
-            this.cbInstanceName = new System.Windows.Forms.ComboBox();
-            this.lblInstanceName = new System.Windows.Forms.Label();
+            this.btnBrowseInstance = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -87,6 +90,7 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.btnBrowseInstance);
             this.splitContainer2.Panel1.Controls.Add(this.lblInstanceName);
             this.splitContainer2.Panel1.Controls.Add(this.cbInstanceName);
             this.splitContainer2.Panel1.Controls.Add(this.tbPeerLocation);
@@ -111,6 +115,66 @@
             this.splitContainer2.Size = new System.Drawing.Size(1115, 752);
             this.splitContainer2.SplitterDistance = 857;
             this.splitContainer2.TabIndex = 7;
+            // 
+            // lblInstanceName
+            // 
+            this.lblInstanceName.AutoSize = true;
+            this.lblInstanceName.Location = new System.Drawing.Point(13, 47);
+            this.lblInstanceName.Name = "lblInstanceName";
+            this.lblInstanceName.Size = new System.Drawing.Size(79, 13);
+            this.lblInstanceName.TabIndex = 22;
+            this.lblInstanceName.Text = "Instance Name";
+            // 
+            // cbInstanceName
+            // 
+            this.cbInstanceName.FormattingEnabled = true;
+            this.cbInstanceName.Location = new System.Drawing.Point(17, 63);
+            this.cbInstanceName.Name = "cbInstanceName";
+            this.cbInstanceName.Size = new System.Drawing.Size(154, 21);
+            this.cbInstanceName.TabIndex = 21;
+            // 
+            // tbPeerLocation
+            // 
+            this.tbPeerLocation.Location = new System.Drawing.Point(419, 8);
+            this.tbPeerLocation.Name = "tbPeerLocation";
+            this.tbPeerLocation.Size = new System.Drawing.Size(127, 20);
+            this.tbPeerLocation.TabIndex = 20;
+            this.tbPeerLocation.TextChanged += new System.EventHandler(this.tbPeerLocation_TextChanged);
+            // 
+            // lblPeerLocation
+            // 
+            this.lblPeerLocation.AutoSize = true;
+            this.lblPeerLocation.Location = new System.Drawing.Point(364, 11);
+            this.lblPeerLocation.Name = "lblPeerLocation";
+            this.lblPeerLocation.Size = new System.Drawing.Size(48, 13);
+            this.lblPeerLocation.TabIndex = 19;
+            this.lblPeerLocation.Text = "Location";
+            // 
+            // tbPassword
+            // 
+            this.tbPassword.Location = new System.Drawing.Point(259, 8);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.PasswordChar = '*';
+            this.tbPassword.Size = new System.Drawing.Size(82, 20);
+            this.tbPassword.TabIndex = 18;
+            this.tbPassword.TextChanged += new System.EventHandler(this.tbPassword_TextChanged);
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(202, 11);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(53, 13);
+            this.lblPassword.TabIndex = 17;
+            this.lblPassword.Text = "Password";
+            // 
+            // tbPeerName
+            // 
+            this.tbPeerName.Location = new System.Drawing.Point(54, 8);
+            this.tbPeerName.Name = "tbPeerName";
+            this.tbPeerName.Size = new System.Drawing.Size(133, 20);
+            this.tbPeerName.TabIndex = 16;
+            this.tbPeerName.TextChanged += new System.EventHandler(this.tbPeerName_TextChanged);
             // 
             // lblPeerName
             // 
@@ -359,65 +423,16 @@
             this.propertyGrid1.Size = new System.Drawing.Size(254, 752);
             this.propertyGrid1.TabIndex = 7;
             // 
-            // tbPeerName
+            // btnBrowseInstance
             // 
-            this.tbPeerName.Location = new System.Drawing.Point(54, 8);
-            this.tbPeerName.Name = "tbPeerName";
-            this.tbPeerName.Size = new System.Drawing.Size(133, 20);
-            this.tbPeerName.TabIndex = 16;
-            this.tbPeerName.TextChanged += new System.EventHandler(this.tbPeerName_TextChanged);
-            // 
-            // tbPassword
-            // 
-            this.tbPassword.Location = new System.Drawing.Point(259, 8);
-            this.tbPassword.Name = "tbPassword";
-            this.tbPassword.PasswordChar = '*';
-            this.tbPassword.Size = new System.Drawing.Size(82, 20);
-            this.tbPassword.TabIndex = 18;
-            this.tbPassword.TextChanged += new System.EventHandler(this.tbPassword_TextChanged);
-            // 
-            // lblPassword
-            // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(202, 11);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(53, 13);
-            this.lblPassword.TabIndex = 17;
-            this.lblPassword.Text = "Password";
-            // 
-            // tbPeerLocation
-            // 
-            this.tbPeerLocation.Location = new System.Drawing.Point(419, 8);
-            this.tbPeerLocation.Name = "tbPeerLocation";
-            this.tbPeerLocation.Size = new System.Drawing.Size(127, 20);
-            this.tbPeerLocation.TabIndex = 20;
-            this.tbPeerLocation.TextChanged += new System.EventHandler(this.tbPeerLocation_TextChanged);
-            // 
-            // lblPeerLocation
-            // 
-            this.lblPeerLocation.AutoSize = true;
-            this.lblPeerLocation.Location = new System.Drawing.Point(364, 11);
-            this.lblPeerLocation.Name = "lblPeerLocation";
-            this.lblPeerLocation.Size = new System.Drawing.Size(48, 13);
-            this.lblPeerLocation.TabIndex = 19;
-            this.lblPeerLocation.Text = "Location";
-            // 
-            // cbInstanceName
-            // 
-            this.cbInstanceName.FormattingEnabled = true;
-            this.cbInstanceName.Location = new System.Drawing.Point(17, 63);
-            this.cbInstanceName.Name = "cbInstanceName";
-            this.cbInstanceName.Size = new System.Drawing.Size(154, 21);
-            this.cbInstanceName.TabIndex = 21;
-            // 
-            // lblInstanceName
-            // 
-            this.lblInstanceName.AutoSize = true;
-            this.lblInstanceName.Location = new System.Drawing.Point(13, 47);
-            this.lblInstanceName.Name = "lblInstanceName";
-            this.lblInstanceName.Size = new System.Drawing.Size(79, 13);
-            this.lblInstanceName.TabIndex = 22;
-            this.lblInstanceName.Text = "Instance Name";
+            this.btnBrowseInstance.Location = new System.Drawing.Point(177, 61);
+            this.btnBrowseInstance.Name = "btnBrowseInstance";
+            this.btnBrowseInstance.Size = new System.Drawing.Size(28, 23);
+            this.btnBrowseInstance.TabIndex = 23;
+            this.btnBrowseInstance.Text = "...";
+            this.toolTip1.SetToolTip(this.btnBrowseInstance, "Open Folder in Explorer");
+            this.btnBrowseInstance.UseVisualStyleBackColor = true;
+            this.btnBrowseInstance.Click += new System.EventHandler(this.btnBrowseInstance_Click);
             // 
             // mainForm
             // 
@@ -481,6 +496,8 @@
         private System.Windows.Forms.Label lblPeerLocation;
         private System.Windows.Forms.Label lblInstanceName;
         private System.Windows.Forms.ComboBox cbInstanceName;
+        private System.Windows.Forms.Button btnBrowseInstance;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

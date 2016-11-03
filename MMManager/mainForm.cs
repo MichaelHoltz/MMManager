@@ -189,8 +189,8 @@ namespace MMManager
                 mmmI.ForgeVersion = "1.10.0";
                 mmmPeer.ForgeInfo.Version = "2";
                 mmmPeer.ForgeInfo.Location = "test2";
-                mmmPeer.Instances = new SortedList<short, MMMInstance>(31);
-                mmmPeer.Instances.Add(1, mmmI); // Add Default Instance
+                mmmPeer.Instances = new SortedList<String, MMMInstance>(31);
+                mmmPeer.Instances.Add(mmmI.InstanceName, mmmI); // Add Default Instance
 
             }
             else
@@ -237,6 +237,24 @@ namespace MMManager
         private void tbPeerLocation_TextChanged(object sender, EventArgs e)
         {
             mmmPeer.LocationID = tbPeerLocation.Text;
+        }
+
+        private void btnBrowseInstance_Click(object sender, EventArgs e)
+        {
+            //Find the Selected Instance
+            //Going to have an error here the first time!!!
+            MMMInstance mmmi = mmmPeer.Instances[cbInstanceName.Text];
+            
+            if (mmmi.InstancePath == null)
+                mmmi.InstancePath = Properties.Settings.Default["UserAppData"].ToString() + Properties.Settings.Default["DefaultMCRoot"].ToString();
+            String path = mmmi.InstancePath;
+            //Show the Folder            
+            //folderBrowserDialog1.SelectedPath = Properties.Settings.Default["UserAppData"].ToString() + Properties.Settings.Default["DefaultMCRoot"].ToString();
+            //folderBrowserDialog1.ShowDialog();
+            //mmb.ModFilePath = folderBrowserDialog1.SelectedPath;
+            //propertyGrid1.Update(); // Update the property Grid
+            //propertyGrid1.Refresh();
+            Process.Start(path); // Open Explorer Window to path for browsing.
         }
     }
 }

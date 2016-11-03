@@ -6,7 +6,7 @@
       <Value Profile="(Default)">c:\MMManager</Value>
     </Setting>
     <Setting Name="DefaultMCRoot" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\notepad++</Value>
+      <Value Profile="(Default)">\.minecraft</Value>
     </Setting>
     <Setting Name="UserAppData" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

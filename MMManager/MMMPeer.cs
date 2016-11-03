@@ -29,7 +29,7 @@ namespace MMManager
         /// Sorted List of Instances for this peer. Not working in the Property View Control.
         /// </summary>
         [DescriptionAttribute("Expand to Instance Information.")]
-        public SortedList<Int16, MMMInstance> Instances { get; set; }
+        public SortedList<String, MMMInstance> Instances { get; set; }
         [Description("Testing Discription"), TypeConverter(typeof(ExpandableObjectConverter))]
         public MMMForgeInfo ForgeInfo { get; set; }
 
@@ -37,7 +37,7 @@ namespace MMManager
         public MMMPeer()
         {
             //Setup an Empty Instance to start.
-            Instances = new SortedList<short, MMMInstance>(0);
+            Instances = new SortedList<String, MMMInstance>(0);
             ForgeInfo = new MMMForgeInfo();
         }
     }

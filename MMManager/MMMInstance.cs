@@ -20,7 +20,10 @@ namespace MMManager
         /// </summary>
         public String InstanceName {get; set; }
         /// <summary>
-        /// True if this is the active instance
+        /// Actual Path to Instance Location
+        /// </summary>
+        public String InstancePath { get; set; }
+        /// True if this is the active instance - Also Go to Default Location
         /// </summary>
         public Boolean ActiveInstance { get; set; }
         /// <summary>
