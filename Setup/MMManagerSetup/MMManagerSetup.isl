@@ -340,8 +340,10 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
+		<row><td>ICSharpCode.SharpZipLib.dll</td><td>{D734470B-2368-4DE6-A6B1-1B93925305D9}</td><td>INSTALLDIR</td><td>2</td><td/><td>icsharpcode.sharpziplib.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{F20290B8-2D4F-45AF-B2C7-938F7B33D65E}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>MMManager.exe</td><td>{28634033-9263-4F0E-A443-056942595318}</td><td>INSTALLDIR</td><td>2</td><td/><td>mmmanager.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Newtonsoft.Json.dll</td><td>{DA5A1D33-33E9-4D8A-BE62-AF2C3BEF4A8E}</td><td>INSTALLDIR</td><td>2</td><td/><td>newtonsoft.json.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1051,8 +1053,10 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>INSTALLDIR</td><td>ICSharpCode.SharpZipLib.dll</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>INSTALLDIR</td><td>MMManager.exe</td></row>
+		<row><td>INSTALLDIR</td><td>Newtonsoft.Json.dll</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1867,8 +1871,10 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>AlwaysInstall</td><td>ICSharpCode.SharpZipLib.dll</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>MMManager.exe</td></row>
+		<row><td>AlwaysInstall</td><td>Newtonsoft.Json.dll</td></row>
 	</table>
 
 	<table name="File">
@@ -1883,8 +1889,10 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>icsharpcode.sharpziplib.dll</td><td>ICSharpCode.SharpZipLib.dll</td><td>ICSHAR~1.DLL|ICSharpCode.SharpZipLib.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\projects\MMManager\MMManager\bin\Debug\ICSharpCode.SharpZipLib.dll</td><td>1</td><td/></row>
 		<row><td>mmmanager.exe</td><td>MMManager.exe</td><td>MMMANA~1.EXE|MMManager.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\projects\MMManager\MMManager\bin\Debug\MMManager.exe</td><td>1</td><td/></row>
 		<row><td>mmmanager.exe.config</td><td>ISX_DEFAULTCOMPONENT</td><td>MMMANA~1.CON|MMManager.exe.config</td><td>0</td><td/><td/><td/><td>1</td><td>C:\projects\MMManager\MMManager\bin\Debug\MMManager.exe.config</td><td>1</td><td/></row>
+		<row><td>newtonsoft.json.dll</td><td>Newtonsoft.Json.dll</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\projects\MMManager\MMManager\bin\Debug\Newtonsoft.Json.dll</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2026,8 +2034,10 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
+		<row><td>ICSharpCode.SharpZipLib.dll</td><td/><td/><td>_9C584997_F548_4C40_B01D_5ECBBA133F9B_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_1CAA522B_59C0_4414_A9FE_43181A22DD67_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>MMManager.exe</td><td/><td/><td>_39BB5FBA_7A63_4E43_9CBB_60B271FCE0CB_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Newtonsoft.Json.dll</td><td/><td/><td>_FECE78A4_38B9_45D3_9FE0_67E99759798F_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2615,7 +2625,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Michael Holtz</td><td>0</td><td/><td>497328236</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Michael Holtz</td><td>0</td><td/><td>497338509</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>497348299</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>497348299</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>497348299</td></row>
@@ -3716,8 +3726,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>497348299</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>497348299</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>497348299</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MichaelHoltz.com</td><td>0</td><td/><td>497328236</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Michael Holtz</td><td>0</td><td/><td>497328236</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MichaelHoltz.com</td><td>0</td><td/><td>497338509</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Michael Holtz</td><td>0</td><td/><td>497338509</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>LAUNCH~1.EXE|Launch MMManager.exe</td><td>0</td><td/><td>497334059</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>497348299</td></row>
 	</table>
