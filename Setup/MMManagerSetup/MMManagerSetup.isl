@@ -1151,7 +1151,7 @@
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
 		<row><td>MICHAEL_HOLTZ</td><td>ProgramFilesFolder</td><td>MICHAE~1|Michael Holtz</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME</td><td>TELEDYNE_CONTROLS</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
-		<row><td>MY_PRODUCT_NAME1</td><td>MICHAEL_HOLTZ</td><td>MMMANA~1|MMManager</td><td/><td>0</td><td/></row>
+		<row><td>MY_PRODUCT_NAME1</td><td>TARGETDIR</td><td>MMMANA~1|MMManager</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
@@ -2615,7 +2615,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Michael Holtz</td><td>0</td><td/><td>497315563</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Michael Holtz</td><td>0</td><td/><td>497328236</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>497348299</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>497348299</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>497348299</td></row>
@@ -3716,8 +3716,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>497348299</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>497348299</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>497348299</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.mikeholtz.com</td><td>0</td><td/><td>497327851</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Michael Holtz</td><td>0</td><td/><td>497315563</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MichaelHoltz.com</td><td>0</td><td/><td>497328236</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Michael Holtz</td><td>0</td><td/><td>497328236</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>LAUNCH~1.EXE|Launch MMManager.exe</td><td>0</td><td/><td>497334059</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>497348299</td></row>
 	</table>
@@ -3967,7 +3967,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{4C2F89A2-3A96-4999-9FAB-DBF4EE6F0B94}</td></row>
 		<row><td>ISUSSignature</td><td>{41F87466-303B-41A6-9C6F-0D18EB8646A7}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewISToday,viewLearnMore</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
