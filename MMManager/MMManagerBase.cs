@@ -9,55 +9,23 @@ namespace MMManager
     class MMManagerBase
     {
 
-        String baseName;    //Name of Basic Instance
 
-        public String BaseName
-        {
-            get { return baseName; }
-            set { baseName = value; }
-        }
-        String modFilePath; //Path to Folder of Mod Files
+        public String BaseName { get; set; }
 
-        public String ModFilePath
-        {
-            get { return modFilePath; }
-            set { modFilePath = value; }
-        }
-        System.Collections.Generic.SortedList<Int16, String> modFiles;  //List of Mod Files  (To be enumerated by Folder)
+        public String ModFilePath { get; set; }
+        
 
-        public System.Collections.Generic.SortedList<Int16, String> ModFiles
-        {
-            get { return modFiles; }
-            set { modFiles = value; }
-        }
-        String saveFilePath; //Path to Folder of Save Files
+        public System.Collections.Generic.SortedList<Int16, String> ModFiles { get; set; }
 
-        public String SaveFilePath
-        {
-            get { return saveFilePath; }
-            set { saveFilePath = value; }
-        }
-        SortedList<Int16, String> saveFiles;    //List of Save Files    (To be enumerated by Folder
+        public String SaveFilePath { get; set; }
+        
 
-        public SortedList<Int16, String> SaveFiles
-        {
-            get { return saveFiles; }
-            set { saveFiles = value; }
-        }
-        String loaderFile;
+        public SortedList<Int16, String> SaveFiles { get; set; }
 
-        public String LoaderFile
-        {
-            get { return loaderFile; }
-            set { loaderFile = value; }
-        }
-        String informationFile;
+        public String LoaderFile { get; set; }
+        
 
-        public String InformationFile
-        {
-            get { return informationFile; }
-            set { informationFile = value; }
-        }
+        public String InformationFile { get; set; }
 
         public void SetDefaults()
         {

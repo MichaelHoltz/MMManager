@@ -10,14 +10,27 @@ using System.Configuration;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using System.IO;
+
 namespace MMManager
 {
     public partial class mainForm : Form
     {
+        MMMPeer mmmPeer;
         MMManagerBase mmb;
         public mainForm()
         {
             InitializeComponent();
+            
+            try
+            {
+                string json = File.ReadAllText("mmmPeer.json");
+                mmmPeer = JsonConvert.DeserializeObject<MMMPeer>(json);
+            }
+            catch
+            {
+                mmmPeer = new MMMPeer();
+            }
+
             mmb = new MMManagerBase();
             mmb.SetDefaults(); // TEMP
         }
@@ -159,9 +172,36 @@ namespace MMManager
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string json = JsonConvert.SerializeObject(mmb);
+            string json = JsonConvert.SerializeObject(mmmPeer);
             
-            File.WriteAllText("mmb.json", json);
+            File.WriteAllText("mmmPeer.json", json);
+        }
+
+        private void btnPeer_Click(object sender, EventArgs e)
+        {
+            //Must have an Instance.
+            if (mmmPeer.Instances == null || mmmPeer.Instances.Count ==0)
+            {
+                MMMInstance mmmI = new MMMInstance();
+                mmmI.ActiveInstance = true;
+                mmmI.InstanceName = "Default Instance";
+                mmmI.MineCraftVersion = "1.7.0";
+                mmmI.ForgeVersion = "1.10.0";
+                mmmPeer.ForgeInfo.Version = "2";
+                mmmPeer.ForgeInfo.Location = "test2";
+                mmmPeer.Instances = new SortedList<short, MMMInstance>(31);
+                mmmPeer.Instances.Add(1, mmmI); // Add Default Instance
+
+            }
+            else
+            {
+               // mmmPeer.ForgeInfo = new MMMForgeInfo();
+              //  mmmPeer.ForgeInfo.Version = "2";
+              //  mmmPeer.ForgeInfo.Location = "test2";
+                MessageBox.Show(mmmPeer.Instances.Values[0].InstanceName);
+            }
+            propertyGrid1.SelectedObject = mmmPeer; //Set to Peer Object
+            
         }
     }
 }

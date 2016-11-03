@@ -51,6 +51,7 @@
             this.btnShowBase = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.button2 = new System.Windows.Forms.Button();
+            this.btnPeer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -78,6 +79,7 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.btnPeer);
             this.splitContainer2.Panel1.Controls.Add(this.button2);
             this.splitContainer2.Panel1.Controls.Add(this.btnFormTesting);
             this.splitContainer2.Panel1.Controls.Add(this.btnModsSelector);
@@ -322,6 +324,16 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // btnPeer
+            // 
+            this.btnPeer.Location = new System.Drawing.Point(567, 41);
+            this.btnPeer.Name = "btnPeer";
+            this.btnPeer.Size = new System.Drawing.Size(75, 23);
+            this.btnPeer.TabIndex = 14;
+            this.btnPeer.Text = "Peer Props";
+            this.btnPeer.UseVisualStyleBackColor = true;
+            this.btnPeer.Click += new System.EventHandler(this.btnPeer_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -374,6 +386,7 @@
         private System.Windows.Forms.Label lblArchiveOptions;
         private System.Windows.Forms.Button btnFormTesting;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnPeer;
     }
 }
 
