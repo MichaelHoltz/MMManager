@@ -1,0 +1,27 @@
+﻿Link to Configuration Manager as well as ConfigurationProperty Tag.. Property Tags
+https://msdn.microsoft.com/en-us/library/system.configuration.configurationmanager(v=vs.100).aspx
+
+    // Get or set the console foreground color.
+    [ConfigurationProperty("foreground",
+       DefaultValue = ConsoleColor.White,
+       IsRequired = false)]
+    public ConsoleColor ForegroundColor
+    {
+      get
+      {
+        return (ConsoleColor)this["foreground"];
+      }
+      set
+      {
+        this["foreground"] = value;
+      }
+    }
+
+File Compare Links
+http://stackoverflow.com/questions/27338444/how-to-compare-files-in-two-different-folders-and-perform-conditional-copying
+
+External App Start Control
+http://stackoverflow.com/questions/1746079/how-can-i-open-windows-explorer-to-a-certain-directory-from-within-a-wpf-app
+
+Opening Jar Files from C#
+http://www.codeproject.com/Articles/27606/Opening-Jars-with-C
