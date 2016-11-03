@@ -30,6 +30,13 @@
         {
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.btnFormTesting = new System.Windows.Forms.Button();
+            this.btnModsSelector = new System.Windows.Forms.Button();
+            this.gbVersion = new System.Windows.Forms.GroupBox();
+            this.cbForgeVersion = new System.Windows.Forms.ComboBox();
+            this.cbMCVersion = new System.Windows.Forms.ComboBox();
+            this.lblForgeVersion = new System.Windows.Forms.Label();
+            this.lblMCVersion = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lblFileCount1 = new System.Windows.Forms.Label();
             this.lblPath1 = new System.Windows.Forms.Label();
@@ -38,28 +45,22 @@
             this.lblPath2 = new System.Windows.Forms.Label();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.gbArchive = new System.Windows.Forms.GroupBox();
+            this.lblArchiveOptions = new System.Windows.Forms.Label();
             this.BtnArchive = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnShowBase = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-            this.gbVersion = new System.Windows.Forms.GroupBox();
-            this.lblMCVersion = new System.Windows.Forms.Label();
-            this.lblForgeVersion = new System.Windows.Forms.Label();
-            this.cbMCVersion = new System.Windows.Forms.ComboBox();
-            this.cbForgeVersion = new System.Windows.Forms.ComboBox();
-            this.btnModsSelector = new System.Windows.Forms.Button();
-            this.lblArchiveOptions = new System.Windows.Forms.Label();
-            this.btnFormTesting = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.gbVersion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.gbArchive.SuspendLayout();
-            this.gbVersion.SuspendLayout();
             this.SuspendLayout();
             // 
             // folderBrowserDialog1
@@ -77,6 +78,7 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.button2);
             this.splitContainer2.Panel1.Controls.Add(this.btnFormTesting);
             this.splitContainer2.Panel1.Controls.Add(this.btnModsSelector);
             this.splitContainer2.Panel1.Controls.Add(this.gbVersion);
@@ -91,6 +93,77 @@
             this.splitContainer2.Size = new System.Drawing.Size(1115, 497);
             this.splitContainer2.SplitterDistance = 857;
             this.splitContainer2.TabIndex = 7;
+            // 
+            // btnFormTesting
+            // 
+            this.btnFormTesting.Location = new System.Drawing.Point(443, 44);
+            this.btnFormTesting.Name = "btnFormTesting";
+            this.btnFormTesting.Size = new System.Drawing.Size(82, 33);
+            this.btnFormTesting.TabIndex = 12;
+            this.btnFormTesting.Text = "Testing Form";
+            this.btnFormTesting.UseVisualStyleBackColor = true;
+            this.btnFormTesting.Click += new System.EventHandler(this.btnFormTesting_Click);
+            // 
+            // btnModsSelector
+            // 
+            this.btnModsSelector.Location = new System.Drawing.Point(441, 15);
+            this.btnModsSelector.Name = "btnModsSelector";
+            this.btnModsSelector.Size = new System.Drawing.Size(85, 23);
+            this.btnModsSelector.TabIndex = 11;
+            this.btnModsSelector.Text = "ModsSelector";
+            this.btnModsSelector.UseVisualStyleBackColor = true;
+            this.btnModsSelector.Click += new System.EventHandler(this.btnModsSelector_Click);
+            // 
+            // gbVersion
+            // 
+            this.gbVersion.Controls.Add(this.cbForgeVersion);
+            this.gbVersion.Controls.Add(this.cbMCVersion);
+            this.gbVersion.Controls.Add(this.lblForgeVersion);
+            this.gbVersion.Controls.Add(this.lblMCVersion);
+            this.gbVersion.Location = new System.Drawing.Point(6, 5);
+            this.gbVersion.Name = "gbVersion";
+            this.gbVersion.Size = new System.Drawing.Size(429, 72);
+            this.gbVersion.TabIndex = 10;
+            this.gbVersion.TabStop = false;
+            this.gbVersion.Text = "Version Options";
+            // 
+            // cbForgeVersion
+            // 
+            this.cbForgeVersion.FormattingEnabled = true;
+            this.cbForgeVersion.Location = new System.Drawing.Point(224, 36);
+            this.cbForgeVersion.Name = "cbForgeVersion";
+            this.cbForgeVersion.Size = new System.Drawing.Size(195, 21);
+            this.cbForgeVersion.TabIndex = 3;
+            // 
+            // cbMCVersion
+            // 
+            this.cbMCVersion.FormattingEnabled = true;
+            this.cbMCVersion.Items.AddRange(new object[] {
+            "1.7.10",
+            "1.10.7",
+            "1.6.0"});
+            this.cbMCVersion.Location = new System.Drawing.Point(10, 36);
+            this.cbMCVersion.Name = "cbMCVersion";
+            this.cbMCVersion.Size = new System.Drawing.Size(208, 21);
+            this.cbMCVersion.TabIndex = 2;
+            // 
+            // lblForgeVersion
+            // 
+            this.lblForgeVersion.AutoSize = true;
+            this.lblForgeVersion.Location = new System.Drawing.Point(221, 20);
+            this.lblForgeVersion.Name = "lblForgeVersion";
+            this.lblForgeVersion.Size = new System.Drawing.Size(72, 13);
+            this.lblForgeVersion.TabIndex = 1;
+            this.lblForgeVersion.Text = "Forge Version";
+            // 
+            // lblMCVersion
+            // 
+            this.lblMCVersion.AutoSize = true;
+            this.lblMCVersion.Location = new System.Drawing.Point(7, 20);
+            this.lblMCVersion.Name = "lblMCVersion";
+            this.lblMCVersion.Size = new System.Drawing.Size(61, 13);
+            this.lblMCVersion.TabIndex = 0;
+            this.lblMCVersion.Text = "MC Version";
             // 
             // splitContainer1
             // 
@@ -190,6 +263,15 @@
             this.gbArchive.TabStop = false;
             this.gbArchive.Text = "Archive Options";
             // 
+            // lblArchiveOptions
+            // 
+            this.lblArchiveOptions.AutoSize = true;
+            this.lblArchiveOptions.Location = new System.Drawing.Point(115, 20);
+            this.lblArchiveOptions.Name = "lblArchiveOptions";
+            this.lblArchiveOptions.Size = new System.Drawing.Size(166, 13);
+            this.lblArchiveOptions.TabIndex = 5;
+            this.lblArchiveOptions.Text = "Automatically Copy all current files";
+            // 
             // BtnArchive
             // 
             this.BtnArchive.Location = new System.Drawing.Point(6, 19);
@@ -230,85 +312,15 @@
             this.propertyGrid1.Size = new System.Drawing.Size(254, 497);
             this.propertyGrid1.TabIndex = 7;
             // 
-            // gbVersion
+            // button2
             // 
-            this.gbVersion.Controls.Add(this.cbForgeVersion);
-            this.gbVersion.Controls.Add(this.cbMCVersion);
-            this.gbVersion.Controls.Add(this.lblForgeVersion);
-            this.gbVersion.Controls.Add(this.lblMCVersion);
-            this.gbVersion.Location = new System.Drawing.Point(6, 5);
-            this.gbVersion.Name = "gbVersion";
-            this.gbVersion.Size = new System.Drawing.Size(429, 72);
-            this.gbVersion.TabIndex = 10;
-            this.gbVersion.TabStop = false;
-            this.gbVersion.Text = "Version Options";
-            // 
-            // lblMCVersion
-            // 
-            this.lblMCVersion.AutoSize = true;
-            this.lblMCVersion.Location = new System.Drawing.Point(7, 20);
-            this.lblMCVersion.Name = "lblMCVersion";
-            this.lblMCVersion.Size = new System.Drawing.Size(61, 13);
-            this.lblMCVersion.TabIndex = 0;
-            this.lblMCVersion.Text = "MC Version";
-            // 
-            // lblForgeVersion
-            // 
-            this.lblForgeVersion.AutoSize = true;
-            this.lblForgeVersion.Location = new System.Drawing.Point(221, 20);
-            this.lblForgeVersion.Name = "lblForgeVersion";
-            this.lblForgeVersion.Size = new System.Drawing.Size(72, 13);
-            this.lblForgeVersion.TabIndex = 1;
-            this.lblForgeVersion.Text = "Forge Version";
-            // 
-            // cbMCVersion
-            // 
-            this.cbMCVersion.FormattingEnabled = true;
-            this.cbMCVersion.Items.AddRange(new object[] {
-            "1.7.10",
-            "1.10.7",
-            "1.6.0"});
-            this.cbMCVersion.Location = new System.Drawing.Point(10, 36);
-            this.cbMCVersion.Name = "cbMCVersion";
-            this.cbMCVersion.Size = new System.Drawing.Size(208, 21);
-            this.cbMCVersion.TabIndex = 2;
-            // 
-            // cbForgeVersion
-            // 
-            this.cbForgeVersion.FormattingEnabled = true;
-            this.cbForgeVersion.Location = new System.Drawing.Point(224, 36);
-            this.cbForgeVersion.Name = "cbForgeVersion";
-            this.cbForgeVersion.Size = new System.Drawing.Size(195, 21);
-            this.cbForgeVersion.TabIndex = 3;
-            // 
-            // btnModsSelector
-            // 
-            this.btnModsSelector.Location = new System.Drawing.Point(441, 15);
-            this.btnModsSelector.Name = "btnModsSelector";
-            this.btnModsSelector.Size = new System.Drawing.Size(85, 23);
-            this.btnModsSelector.TabIndex = 11;
-            this.btnModsSelector.Text = "ModsSelector";
-            this.btnModsSelector.UseVisualStyleBackColor = true;
-            this.btnModsSelector.Click += new System.EventHandler(this.btnModsSelector_Click);
-            // 
-            // lblArchiveOptions
-            // 
-            this.lblArchiveOptions.AutoSize = true;
-            this.lblArchiveOptions.Location = new System.Drawing.Point(115, 20);
-            this.lblArchiveOptions.Name = "lblArchiveOptions";
-            this.lblArchiveOptions.Size = new System.Drawing.Size(166, 13);
-            this.lblArchiveOptions.TabIndex = 5;
-            this.lblArchiveOptions.Text = "Automatically Copy all current files";
-            // 
-            // btnFormTesting
-            // 
-            this.btnFormTesting.Location = new System.Drawing.Point(443, 44);
-            this.btnFormTesting.Name = "btnFormTesting";
-            this.btnFormTesting.Size = new System.Drawing.Size(82, 33);
-            this.btnFormTesting.TabIndex = 12;
-            this.btnFormTesting.Text = "Testing Form";
-            this.btnFormTesting.UseVisualStyleBackColor = true;
-            this.btnFormTesting.Click += new System.EventHandler(this.btnFormTesting_Click);
+            this.button2.Location = new System.Drawing.Point(567, 63);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(92, 33);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Save JSON";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // mainForm
             // 
@@ -323,6 +335,8 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.gbVersion.ResumeLayout(false);
+            this.gbVersion.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -331,8 +345,6 @@
             this.splitContainer1.ResumeLayout(false);
             this.gbArchive.ResumeLayout(false);
             this.gbArchive.PerformLayout();
-            this.gbVersion.ResumeLayout(false);
-            this.gbVersion.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -361,6 +373,7 @@
         private System.Windows.Forms.Button btnModsSelector;
         private System.Windows.Forms.Label lblArchiveOptions;
         private System.Windows.Forms.Button btnFormTesting;
+        private System.Windows.Forms.Button button2;
     }
 }
 

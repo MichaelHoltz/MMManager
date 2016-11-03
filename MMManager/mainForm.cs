@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using System.IO;
 namespace MMManager
 {
     public partial class mainForm : Form
@@ -153,6 +155,13 @@ namespace MMManager
         {
             frmTesting ft = new frmTesting();
             ft.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string json = JsonConvert.SerializeObject(mmb);
+            
+            File.WriteAllText("mmb.json", json);
         }
     }
 }

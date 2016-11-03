@@ -41,4 +41,4 @@ http://www.codeproject.com/Articles/1415/Introduction-to-TCP-client-server-in-C
 Peer to Peer
 https://msdn.microsoft.com/en-us/library/system.net.peertopeer(v=vs.100).aspx
 http://stackoverflow.com/questions/1821680/peer-to-peer-file-transfer-c-sharp
-http://www.codeproject.com/Articles/1297/Peer-to-Peer-Communicator-and-File-Transfer
+http://www.codeproject.com/Articles/1297/Peer-to-Peer-Communicator-and-File-Transfer (Ancient and C++)
