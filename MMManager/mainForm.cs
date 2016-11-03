@@ -172,7 +172,7 @@ namespace MMManager
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string json = JsonConvert.SerializeObject(mmmPeer);
+            string json = JsonConvert.SerializeObject(mmmPeer,Formatting.Indented);
             
             File.WriteAllText("mmmPeer.json", json);
         }
@@ -200,8 +200,43 @@ namespace MMManager
               //  mmmPeer.ForgeInfo.Location = "test2";
                 MessageBox.Show(mmmPeer.Instances.Values[0].InstanceName);
             }
+
+            //Set the Peer Properties or auto Assign them.
+            tbPeerName.Text = mmmPeer.UserName;
+            tbPassword.Text = mmmPeer.Password;
+            tbPeerLocation.Text = Environment.MachineName;
+            //Set the Instance properties.
+            foreach (var item in mmmPeer.Instances)
+            {
+                cbForgeVersion.Items.Add((item.Value as MMMInstance).ForgeVersion);
+                cbMCVersion.Items.Add((item.Value as MMMInstance).MineCraftVersion);
+                cbInstanceName.Items.Add((item.Value as MMMInstance).InstanceName);
+                if ((item.Value as MMMInstance).ActiveInstance)
+                {
+                    cbForgeVersion.SelectedText = (item.Value as MMMInstance).ForgeVersion;
+                    cbMCVersion.SelectedText = (item.Value as MMMInstance).MineCraftVersion;
+                    cbInstanceName.SelectedText = (item.Value as MMMInstance).InstanceName;
+                }
+            }
+
+
             propertyGrid1.SelectedObject = mmmPeer; //Set to Peer Object
             
+        }
+
+        private void tbPeerName_TextChanged(object sender, EventArgs e)
+        {
+            mmmPeer.UserName = tbPeerName.Text;
+        }
+
+        private void tbPassword_TextChanged(object sender, EventArgs e)
+        {
+            mmmPeer.Password = tbPassword.Text;
+        }
+
+        private void tbPeerLocation_TextChanged(object sender, EventArgs e)
+        {
+            mmmPeer.LocationID = tbPeerLocation.Text;
         }
     }
 }

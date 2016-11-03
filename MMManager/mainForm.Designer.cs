@@ -30,6 +30,9 @@
         {
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.lblPeerName = new System.Windows.Forms.Label();
+            this.btnPeer = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.btnFormTesting = new System.Windows.Forms.Button();
             this.btnModsSelector = new System.Windows.Forms.Button();
             this.gbVersion = new System.Windows.Forms.GroupBox();
@@ -50,8 +53,13 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btnShowBase = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-            this.button2 = new System.Windows.Forms.Button();
-            this.btnPeer = new System.Windows.Forms.Button();
+            this.tbPeerName = new System.Windows.Forms.TextBox();
+            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.tbPeerLocation = new System.Windows.Forms.TextBox();
+            this.lblPeerLocation = new System.Windows.Forms.Label();
+            this.cbInstanceName = new System.Windows.Forms.ComboBox();
+            this.lblInstanceName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -79,6 +87,14 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.lblInstanceName);
+            this.splitContainer2.Panel1.Controls.Add(this.cbInstanceName);
+            this.splitContainer2.Panel1.Controls.Add(this.tbPeerLocation);
+            this.splitContainer2.Panel1.Controls.Add(this.lblPeerLocation);
+            this.splitContainer2.Panel1.Controls.Add(this.tbPassword);
+            this.splitContainer2.Panel1.Controls.Add(this.lblPassword);
+            this.splitContainer2.Panel1.Controls.Add(this.tbPeerName);
+            this.splitContainer2.Panel1.Controls.Add(this.lblPeerName);
             this.splitContainer2.Panel1.Controls.Add(this.btnPeer);
             this.splitContainer2.Panel1.Controls.Add(this.button2);
             this.splitContainer2.Panel1.Controls.Add(this.btnFormTesting);
@@ -92,15 +108,44 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.propertyGrid1);
-            this.splitContainer2.Size = new System.Drawing.Size(1115, 497);
+            this.splitContainer2.Size = new System.Drawing.Size(1115, 752);
             this.splitContainer2.SplitterDistance = 857;
             this.splitContainer2.TabIndex = 7;
             // 
+            // lblPeerName
+            // 
+            this.lblPeerName.AutoSize = true;
+            this.lblPeerName.Location = new System.Drawing.Point(14, 11);
+            this.lblPeerName.Name = "lblPeerName";
+            this.lblPeerName.Size = new System.Drawing.Size(35, 13);
+            this.lblPeerName.TabIndex = 15;
+            this.lblPeerName.Text = "Name";
+            // 
+            // btnPeer
+            // 
+            this.btnPeer.Location = new System.Drawing.Point(748, 50);
+            this.btnPeer.Name = "btnPeer";
+            this.btnPeer.Size = new System.Drawing.Size(75, 23);
+            this.btnPeer.TabIndex = 14;
+            this.btnPeer.Text = "Peer Props";
+            this.btnPeer.UseVisualStyleBackColor = true;
+            this.btnPeer.Click += new System.EventHandler(this.btnPeer_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(748, 11);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(92, 33);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Save JSON";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // btnFormTesting
             // 
-            this.btnFormTesting.Location = new System.Drawing.Point(443, 44);
+            this.btnFormTesting.Location = new System.Drawing.Point(513, 121);
             this.btnFormTesting.Name = "btnFormTesting";
-            this.btnFormTesting.Size = new System.Drawing.Size(82, 33);
+            this.btnFormTesting.Size = new System.Drawing.Size(114, 33);
             this.btnFormTesting.TabIndex = 12;
             this.btnFormTesting.Text = "Testing Form";
             this.btnFormTesting.UseVisualStyleBackColor = true;
@@ -108,9 +153,9 @@
             // 
             // btnModsSelector
             // 
-            this.btnModsSelector.Location = new System.Drawing.Point(441, 15);
+            this.btnModsSelector.Location = new System.Drawing.Point(511, 92);
             this.btnModsSelector.Name = "btnModsSelector";
-            this.btnModsSelector.Size = new System.Drawing.Size(85, 23);
+            this.btnModsSelector.Size = new System.Drawing.Size(116, 23);
             this.btnModsSelector.TabIndex = 11;
             this.btnModsSelector.Text = "ModsSelector";
             this.btnModsSelector.UseVisualStyleBackColor = true;
@@ -122,7 +167,7 @@
             this.gbVersion.Controls.Add(this.cbMCVersion);
             this.gbVersion.Controls.Add(this.lblForgeVersion);
             this.gbVersion.Controls.Add(this.lblMCVersion);
-            this.gbVersion.Location = new System.Drawing.Point(6, 5);
+            this.gbVersion.Location = new System.Drawing.Point(17, 107);
             this.gbVersion.Name = "gbVersion";
             this.gbVersion.Size = new System.Drawing.Size(429, 72);
             this.gbVersion.TabIndex = 10;
@@ -140,10 +185,6 @@
             // cbMCVersion
             // 
             this.cbMCVersion.FormattingEnabled = true;
-            this.cbMCVersion.Items.AddRange(new object[] {
-            "1.7.10",
-            "1.10.7",
-            "1.6.0"});
             this.cbMCVersion.Location = new System.Drawing.Point(10, 36);
             this.cbMCVersion.Name = "cbMCVersion";
             this.cbMCVersion.Size = new System.Drawing.Size(208, 21);
@@ -174,7 +215,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer1.Location = new System.Drawing.Point(6, 208);
+            this.splitContainer1.Location = new System.Drawing.Point(6, 497);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -190,7 +231,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.lblFileCount2);
             this.splitContainer1.Panel2.Controls.Add(this.lblPath2);
             this.splitContainer1.Panel2.Controls.Add(this.listBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(849, 270);
+            this.splitContainer1.Size = new System.Drawing.Size(849, 236);
             this.splitContainer1.SplitterDistance = 391;
             this.splitContainer1.TabIndex = 9;
             // 
@@ -198,7 +239,7 @@
             // 
             this.lblFileCount1.AutoSize = true;
             this.lblFileCount1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblFileCount1.Location = new System.Drawing.Point(0, 255);
+            this.lblFileCount1.Location = new System.Drawing.Point(0, 221);
             this.lblFileCount1.Name = "lblFileCount1";
             this.lblFileCount1.Size = new System.Drawing.Size(31, 13);
             this.lblFileCount1.TabIndex = 2;
@@ -210,8 +251,9 @@
             this.lblPath1.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblPath1.Location = new System.Drawing.Point(0, 0);
             this.lblPath1.Name = "lblPath1";
-            this.lblPath1.Size = new System.Drawing.Size(0, 13);
+            this.lblPath1.Size = new System.Drawing.Size(33, 13);
             this.lblPath1.TabIndex = 1;
+            this.lblPath1.Text = "Mods";
             // 
             // listBox1
             // 
@@ -221,14 +263,14 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(0, 20);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(390, 212);
+            this.listBox1.Size = new System.Drawing.Size(390, 186);
             this.listBox1.TabIndex = 0;
             // 
             // lblFileCount2
             // 
             this.lblFileCount2.AutoSize = true;
             this.lblFileCount2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblFileCount2.Location = new System.Drawing.Point(0, 255);
+            this.lblFileCount2.Location = new System.Drawing.Point(0, 221);
             this.lblFileCount2.Name = "lblFileCount2";
             this.lblFileCount2.Size = new System.Drawing.Size(34, 13);
             this.lblFileCount2.TabIndex = 3;
@@ -240,8 +282,9 @@
             this.lblPath2.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblPath2.Location = new System.Drawing.Point(0, 0);
             this.lblPath2.Name = "lblPath2";
-            this.lblPath2.Size = new System.Drawing.Size(0, 13);
+            this.lblPath2.Size = new System.Drawing.Size(37, 13);
             this.lblPath2.TabIndex = 2;
+            this.lblPath2.Text = "Saves";
             // 
             // listBox2
             // 
@@ -251,14 +294,14 @@
             this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(0, 20);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(453, 212);
+            this.listBox2.Size = new System.Drawing.Size(453, 186);
             this.listBox2.TabIndex = 0;
             // 
             // gbArchive
             // 
             this.gbArchive.Controls.Add(this.lblArchiveOptions);
             this.gbArchive.Controls.Add(this.BtnArchive);
-            this.gbArchive.Location = new System.Drawing.Point(12, 109);
+            this.gbArchive.Location = new System.Drawing.Point(17, 442);
             this.gbArchive.Name = "gbArchive";
             this.gbArchive.Size = new System.Drawing.Size(390, 49);
             this.gbArchive.TabIndex = 8;
@@ -268,11 +311,11 @@
             // lblArchiveOptions
             // 
             this.lblArchiveOptions.AutoSize = true;
-            this.lblArchiveOptions.Location = new System.Drawing.Point(115, 20);
+            this.lblArchiveOptions.Location = new System.Drawing.Point(126, 25);
             this.lblArchiveOptions.Name = "lblArchiveOptions";
-            this.lblArchiveOptions.Size = new System.Drawing.Size(166, 13);
+            this.lblArchiveOptions.Size = new System.Drawing.Size(254, 13);
             this.lblArchiveOptions.TabIndex = 5;
-            this.lblArchiveOptions.Text = "Automatically Copy all current files";
+            this.lblArchiveOptions.Text = "Automatically Copy all current files to Dated Location";
             // 
             // BtnArchive
             // 
@@ -286,7 +329,8 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 164);
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(514, 176);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
@@ -296,7 +340,8 @@
             // 
             // btnShowBase
             // 
-            this.btnShowBase.Location = new System.Drawing.Point(127, 164);
+            this.btnShowBase.Enabled = false;
+            this.btnShowBase.Location = new System.Drawing.Point(629, 176);
             this.btnShowBase.Name = "btnShowBase";
             this.btnShowBase.Size = new System.Drawing.Size(75, 23);
             this.btnShowBase.TabIndex = 6;
@@ -311,39 +356,80 @@
             this.propertyGrid1.Name = "propertyGrid1";
             this.propertyGrid1.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
             this.propertyGrid1.SelectedObject = this.folderBrowserDialog1;
-            this.propertyGrid1.Size = new System.Drawing.Size(254, 497);
+            this.propertyGrid1.Size = new System.Drawing.Size(254, 752);
             this.propertyGrid1.TabIndex = 7;
             // 
-            // button2
+            // tbPeerName
             // 
-            this.button2.Location = new System.Drawing.Point(567, 63);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(92, 33);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "Save JSON";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.tbPeerName.Location = new System.Drawing.Point(54, 8);
+            this.tbPeerName.Name = "tbPeerName";
+            this.tbPeerName.Size = new System.Drawing.Size(133, 20);
+            this.tbPeerName.TabIndex = 16;
+            this.tbPeerName.TextChanged += new System.EventHandler(this.tbPeerName_TextChanged);
             // 
-            // btnPeer
+            // tbPassword
             // 
-            this.btnPeer.Location = new System.Drawing.Point(567, 41);
-            this.btnPeer.Name = "btnPeer";
-            this.btnPeer.Size = new System.Drawing.Size(75, 23);
-            this.btnPeer.TabIndex = 14;
-            this.btnPeer.Text = "Peer Props";
-            this.btnPeer.UseVisualStyleBackColor = true;
-            this.btnPeer.Click += new System.EventHandler(this.btnPeer_Click);
+            this.tbPassword.Location = new System.Drawing.Point(259, 8);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.PasswordChar = '*';
+            this.tbPassword.Size = new System.Drawing.Size(82, 20);
+            this.tbPassword.TabIndex = 18;
+            this.tbPassword.TextChanged += new System.EventHandler(this.tbPassword_TextChanged);
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(202, 11);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(53, 13);
+            this.lblPassword.TabIndex = 17;
+            this.lblPassword.Text = "Password";
+            // 
+            // tbPeerLocation
+            // 
+            this.tbPeerLocation.Location = new System.Drawing.Point(419, 8);
+            this.tbPeerLocation.Name = "tbPeerLocation";
+            this.tbPeerLocation.Size = new System.Drawing.Size(127, 20);
+            this.tbPeerLocation.TabIndex = 20;
+            this.tbPeerLocation.TextChanged += new System.EventHandler(this.tbPeerLocation_TextChanged);
+            // 
+            // lblPeerLocation
+            // 
+            this.lblPeerLocation.AutoSize = true;
+            this.lblPeerLocation.Location = new System.Drawing.Point(364, 11);
+            this.lblPeerLocation.Name = "lblPeerLocation";
+            this.lblPeerLocation.Size = new System.Drawing.Size(48, 13);
+            this.lblPeerLocation.TabIndex = 19;
+            this.lblPeerLocation.Text = "Location";
+            // 
+            // cbInstanceName
+            // 
+            this.cbInstanceName.FormattingEnabled = true;
+            this.cbInstanceName.Location = new System.Drawing.Point(17, 63);
+            this.cbInstanceName.Name = "cbInstanceName";
+            this.cbInstanceName.Size = new System.Drawing.Size(154, 21);
+            this.cbInstanceName.TabIndex = 21;
+            // 
+            // lblInstanceName
+            // 
+            this.lblInstanceName.AutoSize = true;
+            this.lblInstanceName.Location = new System.Drawing.Point(13, 47);
+            this.lblInstanceName.Name = "lblInstanceName";
+            this.lblInstanceName.Size = new System.Drawing.Size(79, 13);
+            this.lblInstanceName.TabIndex = 22;
+            this.lblInstanceName.Text = "Instance Name";
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1118, 511);
+            this.ClientSize = new System.Drawing.Size(1118, 766);
             this.Controls.Add(this.splitContainer2);
             this.DoubleBuffered = true;
             this.Name = "mainForm";
             this.Text = "MMManager";
             this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
@@ -387,6 +473,14 @@
         private System.Windows.Forms.Button btnFormTesting;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnPeer;
+        private System.Windows.Forms.Label lblPeerName;
+        private System.Windows.Forms.TextBox tbPeerName;
+        private System.Windows.Forms.TextBox tbPassword;
+        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.TextBox tbPeerLocation;
+        private System.Windows.Forms.Label lblPeerLocation;
+        private System.Windows.Forms.Label lblInstanceName;
+        private System.Windows.Forms.ComboBox cbInstanceName;
     }
 }
 
