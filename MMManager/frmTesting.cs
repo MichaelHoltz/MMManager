@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Net.PeerToPeer;
 
 namespace MMManager
 {
@@ -24,6 +25,11 @@ namespace MMManager
                 label1.Text = openFileDialog1.FileName;
             }
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

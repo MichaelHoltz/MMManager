@@ -28,3 +28,17 @@ http://www.codeproject.com/Articles/27606/Opening-Jars-with-C
 
 Reading External Settings / Save Configurations as JSON
 http://stackoverflow.com/questions/21171894/reading-external-configuration-file
+
+UDP Info and Example
+https://msdn.microsoft.com/en-us/library/system.net.sockets.udpclient.aspx
+
+UDP Send File question
+http://stackoverflow.com/questions/4109313/send-a-file-in-c-sharp-with-udp-protocol-from-a-computer-to-other-computer
+
+TCP Server Example (OLD)
+http://www.codeproject.com/Articles/1415/Introduction-to-TCP-client-server-in-C
+
+Peer to Peer
+https://msdn.microsoft.com/en-us/library/system.net.peertopeer(v=vs.100).aspx
+http://stackoverflow.com/questions/1821680/peer-to-peer-file-transfer-c-sharp
+http://www.codeproject.com/Articles/1297/Peer-to-Peer-Communicator-and-File-Transfer

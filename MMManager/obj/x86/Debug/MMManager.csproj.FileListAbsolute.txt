@@ -1,0 +1,11 @@
+C:\projects\MMManager\MMManager\bin\Debug\MMManager.exe.config
+C:\projects\MMManager\MMManager\bin\Debug\MMManager.exe
+C:\projects\MMManager\MMManager\bin\Debug\MMManager.pdb
+C:\projects\MMManager\MMManager\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\projects\MMManager\MMManager\obj\x86\Debug\MMManager.frmModsSelect.resources
+C:\projects\MMManager\MMManager\obj\x86\Debug\MMManager.frmTesting.resources
+C:\projects\MMManager\MMManager\obj\x86\Debug\MMManager.mainForm.resources
+C:\projects\MMManager\MMManager\obj\x86\Debug\MMManager.Properties.Resources.resources
+C:\projects\MMManager\MMManager\obj\x86\Debug\MMManager.csproj.GenerateResource.Cache
+C:\projects\MMManager\MMManager\obj\x86\Debug\MMManager.exe
+C:\projects\MMManager\MMManager\obj\x86\Debug\MMManager.pdb
