@@ -15,16 +15,11 @@ namespace MMManager
         /// <summary>
         /// userName
         /// </summary>
-        public String UserName { get; set; }
-        /// <summary>
-        /// Password in Clear Text - TODO ENCRYPT
-        /// </summary>
-        public String Password { get; set; }
+        public String UserName { get; set; } = "MyUserName";
         /// <summary>
         /// Hostname or IP address to identify location of Peer
         /// </summary>
-
-        public String LocationID { get; set; }
+        public String LocationID { get; set; } = Environment.MachineName;
         /// <summary>
         /// Sorted List of Instances for this peer. Not working in the Property View Control.
         /// </summary>

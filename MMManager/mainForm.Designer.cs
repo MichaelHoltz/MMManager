@@ -31,13 +31,16 @@
             this.components = new System.ComponentModel.Container();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.btnApplicationSettings = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbMinecraftProfiles = new System.Windows.Forms.ComboBox();
+            this.lblMinecraftProfiles = new System.Windows.Forms.Label();
             this.btnBrowseInstance = new System.Windows.Forms.Button();
             this.lblInstanceName = new System.Windows.Forms.Label();
             this.cbInstanceName = new System.Windows.Forms.ComboBox();
             this.tbPeerLocation = new System.Windows.Forms.TextBox();
             this.lblPeerLocation = new System.Windows.Forms.Label();
-            this.tbPassword = new System.Windows.Forms.TextBox();
-            this.lblPassword = new System.Windows.Forms.Label();
             this.tbPeerName = new System.Windows.Forms.TextBox();
             this.lblPeerName = new System.Windows.Forms.Label();
             this.btnPeer = new System.Windows.Forms.Button();
@@ -60,13 +63,8 @@
             this.lblArchiveOptions = new System.Windows.Forms.Label();
             this.BtnArchive = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnShowBase = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.lblMinecraftProfiles = new System.Windows.Forms.Label();
-            this.cbMinecraftProfiles = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -94,6 +92,7 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.btnApplicationSettings);
             this.splitContainer2.Panel1.Controls.Add(this.label2);
             this.splitContainer2.Panel1.Controls.Add(this.label1);
             this.splitContainer2.Panel1.Controls.Add(this.cbMinecraftProfiles);
@@ -103,8 +102,6 @@
             this.splitContainer2.Panel1.Controls.Add(this.cbInstanceName);
             this.splitContainer2.Panel1.Controls.Add(this.tbPeerLocation);
             this.splitContainer2.Panel1.Controls.Add(this.lblPeerLocation);
-            this.splitContainer2.Panel1.Controls.Add(this.tbPassword);
-            this.splitContainer2.Panel1.Controls.Add(this.lblPassword);
             this.splitContainer2.Panel1.Controls.Add(this.tbPeerName);
             this.splitContainer2.Panel1.Controls.Add(this.lblPeerName);
             this.splitContainer2.Panel1.Controls.Add(this.btnPeer);
@@ -115,7 +112,6 @@
             this.splitContainer2.Panel1.Controls.Add(this.splitContainer1);
             this.splitContainer2.Panel1.Controls.Add(this.gbArchive);
             this.splitContainer2.Panel1.Controls.Add(this.button1);
-            this.splitContainer2.Panel1.Controls.Add(this.btnShowBase);
             // 
             // splitContainer2.Panel2
             // 
@@ -123,6 +119,52 @@
             this.splitContainer2.Size = new System.Drawing.Size(1115, 752);
             this.splitContainer2.SplitterDistance = 857;
             this.splitContainer2.TabIndex = 7;
+            // 
+            // btnApplicationSettings
+            // 
+            this.btnApplicationSettings.Location = new System.Drawing.Point(748, 92);
+            this.btnApplicationSettings.Name = "btnApplicationSettings";
+            this.btnApplicationSettings.Size = new System.Drawing.Size(75, 37);
+            this.btnApplicationSettings.TabIndex = 28;
+            this.btnApplicationSettings.Text = "Application Settings";
+            this.btnApplicationSettings.UseVisualStyleBackColor = true;
+            this.btnApplicationSettings.Click += new System.EventHandler(this.btnApplicationSettings_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(20, 186);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 27;
+            this.label2.Text = "label2";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 164);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "label1";
+            // 
+            // cbMinecraftProfiles
+            // 
+            this.cbMinecraftProfiles.FormattingEnabled = true;
+            this.cbMinecraftProfiles.Location = new System.Drawing.Point(17, 133);
+            this.cbMinecraftProfiles.Name = "cbMinecraftProfiles";
+            this.cbMinecraftProfiles.Size = new System.Drawing.Size(170, 21);
+            this.cbMinecraftProfiles.TabIndex = 25;
+            this.cbMinecraftProfiles.SelectedIndexChanged += new System.EventHandler(this.cbMinecraftProfiles_SelectedIndexChanged);
+            // 
+            // lblMinecraftProfiles
+            // 
+            this.lblMinecraftProfiles.AutoSize = true;
+            this.lblMinecraftProfiles.Location = new System.Drawing.Point(14, 116);
+            this.lblMinecraftProfiles.Name = "lblMinecraftProfiles";
+            this.lblMinecraftProfiles.Size = new System.Drawing.Size(88, 13);
+            this.lblMinecraftProfiles.TabIndex = 24;
+            this.lblMinecraftProfiles.Text = "Minecraft Profiles";
             // 
             // btnBrowseInstance
             // 
@@ -154,7 +196,7 @@
             // 
             // tbPeerLocation
             // 
-            this.tbPeerLocation.Location = new System.Drawing.Point(419, 8);
+            this.tbPeerLocation.Location = new System.Drawing.Point(261, 11);
             this.tbPeerLocation.Name = "tbPeerLocation";
             this.tbPeerLocation.Size = new System.Drawing.Size(127, 20);
             this.tbPeerLocation.TabIndex = 20;
@@ -163,29 +205,11 @@
             // lblPeerLocation
             // 
             this.lblPeerLocation.AutoSize = true;
-            this.lblPeerLocation.Location = new System.Drawing.Point(364, 11);
+            this.lblPeerLocation.Location = new System.Drawing.Point(206, 14);
             this.lblPeerLocation.Name = "lblPeerLocation";
             this.lblPeerLocation.Size = new System.Drawing.Size(48, 13);
             this.lblPeerLocation.TabIndex = 19;
             this.lblPeerLocation.Text = "Location";
-            // 
-            // tbPassword
-            // 
-            this.tbPassword.Location = new System.Drawing.Point(259, 8);
-            this.tbPassword.Name = "tbPassword";
-            this.tbPassword.PasswordChar = '*';
-            this.tbPassword.Size = new System.Drawing.Size(82, 20);
-            this.tbPassword.TabIndex = 18;
-            this.tbPassword.TextChanged += new System.EventHandler(this.tbPassword_TextChanged);
-            // 
-            // lblPassword
-            // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(202, 11);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(53, 13);
-            this.lblPassword.TabIndex = 17;
-            this.lblPassword.Text = "Password";
             // 
             // tbPeerName
             // 
@@ -421,62 +445,14 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // btnShowBase
-            // 
-            this.btnShowBase.Enabled = false;
-            this.btnShowBase.Location = new System.Drawing.Point(626, 218);
-            this.btnShowBase.Name = "btnShowBase";
-            this.btnShowBase.Size = new System.Drawing.Size(75, 23);
-            this.btnShowBase.TabIndex = 6;
-            this.btnShowBase.Text = "Show Base";
-            this.btnShowBase.UseVisualStyleBackColor = true;
-            this.btnShowBase.Click += new System.EventHandler(this.btnShowBase_Click);
-            // 
             // propertyGrid1
             // 
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
             this.propertyGrid1.Name = "propertyGrid1";
             this.propertyGrid1.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
-            this.propertyGrid1.SelectedObject = this.folderBrowserDialog1;
             this.propertyGrid1.Size = new System.Drawing.Size(254, 752);
             this.propertyGrid1.TabIndex = 7;
-            // 
-            // lblMinecraftProfiles
-            // 
-            this.lblMinecraftProfiles.AutoSize = true;
-            this.lblMinecraftProfiles.Location = new System.Drawing.Point(14, 116);
-            this.lblMinecraftProfiles.Name = "lblMinecraftProfiles";
-            this.lblMinecraftProfiles.Size = new System.Drawing.Size(88, 13);
-            this.lblMinecraftProfiles.TabIndex = 24;
-            this.lblMinecraftProfiles.Text = "Minecraft Profiles";
-            // 
-            // cbMinecraftProfiles
-            // 
-            this.cbMinecraftProfiles.FormattingEnabled = true;
-            this.cbMinecraftProfiles.Location = new System.Drawing.Point(17, 133);
-            this.cbMinecraftProfiles.Name = "cbMinecraftProfiles";
-            this.cbMinecraftProfiles.Size = new System.Drawing.Size(170, 21);
-            this.cbMinecraftProfiles.TabIndex = 25;
-            this.cbMinecraftProfiles.SelectedIndexChanged += new System.EventHandler(this.cbMinecraftProfiles_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 164);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 26;
-            this.label1.Text = "label1";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 186);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 27;
-            this.label2.Text = "label2";
             // 
             // mainForm
             // 
@@ -487,6 +463,7 @@
             this.DoubleBuffered = true;
             this.Name = "mainForm";
             this.Text = "MMManager";
+            this.Load += new System.EventHandler(this.mainForm_Load);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -518,7 +495,6 @@
         private System.Windows.Forms.GroupBox gbArchive;
         private System.Windows.Forms.Button BtnArchive;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnShowBase;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.Label lblFileCount1;
         private System.Windows.Forms.Label lblFileCount2;
@@ -534,8 +510,6 @@
         private System.Windows.Forms.Button btnPeer;
         private System.Windows.Forms.Label lblPeerName;
         private System.Windows.Forms.TextBox tbPeerName;
-        private System.Windows.Forms.TextBox tbPassword;
-        private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox tbPeerLocation;
         private System.Windows.Forms.Label lblPeerLocation;
         private System.Windows.Forms.Label lblInstanceName;
@@ -546,6 +520,7 @@
         private System.Windows.Forms.Label lblMinecraftProfiles;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnApplicationSettings;
     }
 }
 

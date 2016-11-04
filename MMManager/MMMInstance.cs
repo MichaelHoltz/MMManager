@@ -18,7 +18,7 @@ namespace MMManager
         /// should be mutually exclusive such that there are not duplicates of contained
         /// classes..
         /// </summary>
-        public String InstanceName {get; set; }
+        public String InstanceName {get; set; } = "Default Instance";
         /// <summary>
         /// Actual Path to Instance Location
         /// </summary>

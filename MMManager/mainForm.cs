@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Configuration;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using System.IO;
@@ -15,13 +10,16 @@ namespace MMManager
 {
     public partial class mainForm : Form
     {
+        MMMApplicationSettings mas; // Application Settings
         MMMPeer mmmPeer;
-        MMManagerBase mmb;
         MMMlauncherProfiles mmmLauncherProfiles;
         public mainForm()
         {
             InitializeComponent();
-            
+            //Load Application Settings.
+            mas = new MMMApplicationSettings();
+            mas.LoadSettings();
+           
             try
             {
                 string json = File.ReadAllText("mmmPeer.json");
@@ -34,7 +32,7 @@ namespace MMManager
 
             try
             {
-                string json = File.ReadAllText(Properties.Settings.Default["UserAppData"].ToString() + Properties.Settings.Default["DefaultMCRoot"].ToString() + "\\launcher_profiles.json");
+                string json = File.ReadAllText(mas.UserAppData + mas.DefaultMCRoot + "\\launcher_profiles.json");
                 mmmLauncherProfiles = JsonConvert.DeserializeObject<MMMlauncherProfiles>(json);
                 foreach (var item in mmmLauncherProfiles.Profiles)
                 {
@@ -54,19 +52,10 @@ namespace MMManager
             {
                 mmmLauncherProfiles = new MMMlauncherProfiles();
             }
-            mmb = new MMManagerBase();
-            mmb.SetDefaults(); // TEMP
         }
-
-        private void btnShowBase_Click(object sender, EventArgs e)
+        private void mainForm_Load(object sender, EventArgs e)
         {
-            //Show the Folder            
-            folderBrowserDialog1.SelectedPath = Properties.Settings.Default["UserAppData"].ToString() + Properties.Settings.Default["DefaultMCRoot"].ToString();
-            folderBrowserDialog1.ShowDialog();
-            mmb.ModFilePath = folderBrowserDialog1.SelectedPath;
-            propertyGrid1.Update(); // Update the property Grid
-            propertyGrid1.Refresh();
-            Process.Start(mmb.ModFilePath); // Open Explorer Window to path for browsing.
+            propertyGrid1.SelectedObject = mas; // Set Property View to Application Settings
         }
 
         //Example to Compare and make two directories the same.
@@ -77,9 +66,6 @@ namespace MMManager
             listBox1.Items.Clear();
             listBox2.Items.Clear();
             ArchiveAll(sourcePath, destinationPath);
-    
-
-
 
         }
         private void ArchiveAll(String sourcePath, String destinationPath)
@@ -157,27 +143,23 @@ namespace MMManager
             //}        
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void BtnArchive_Click(object sender, EventArgs e)
         {
             DateTime dt = DateTime.Now;
-            mmb.BaseName = dt.Year + "_" + dt.Month + "_" + dt.Day + "_" + dt.Hour + "_" + dt.Minute;
-            propertyGrid1.SelectedObject = mmb;
-            string sourcePath = Properties.Settings.Default["UserAppData"].ToString() + Properties.Settings.Default["DefaultMCRoot"].ToString(); // @"C:\Users\Administrator\Desktop\Source";
-            string destinationPath = Properties.Settings.Default["MainBackupRoot"].ToString(); //@"C:\Users\Administrator\Desktop\Dest";
-            string sourcePathNow = sourcePath + mmb.ModFilePath;
-            string destinationPathNow = destinationPath + "\\" + mmb.BaseName + mmb.ModFilePath;
-            ArchiveAll(sourcePathNow,destinationPathNow);
-            sourcePathNow = sourcePath + mmb.InformationFile;
-            destinationPathNow = destinationPath + "\\" + mmb.BaseName + mmb.InformationFile;
-            ArchiveAll(sourcePathNow, destinationPathNow);
-            sourcePathNow = sourcePath + mmb.SaveFilePath;
-            destinationPathNow = destinationPath + "\\" + mmb.BaseName + mmb.SaveFilePath;
-            ArchiveAll(sourcePathNow, destinationPathNow);
+            String path = mmmPeer.Instances["Default Instance"].InstancePath;
+            //mmb.BaseName = dt.Year + "_" + dt.Month + "_" + dt.Day + "_" + dt.Hour + "_" + dt.Minute;
+            //propertyGrid1.SelectedObject = mmb;
+            //string sourcePath = Properties.Settings.Default["UserAppData"].ToString() + Properties.Settings.Default["DefaultMCRoot"].ToString(); // @"C:\Users\Administrator\Desktop\Source";
+            //string destinationPath = Properties.Settings.Default["MainBackupRoot"].ToString(); //@"C:\Users\Administrator\Desktop\Dest";
+            //string sourcePathNow = sourcePath + mmb.ModFilePath;
+            //string destinationPathNow = destinationPath + "\\" + mmb.BaseName + mmb.ModFilePath;
+            //ArchiveAll(sourcePathNow,destinationPathNow);
+            //sourcePathNow = sourcePath + mmb.InformationFile;
+            //destinationPathNow = destinationPath + "\\" + mmb.BaseName + mmb.InformationFile;
+            //ArchiveAll(sourcePathNow, destinationPathNow);
+            //sourcePathNow = sourcePath + mmb.SaveFilePath;
+            //destinationPathNow = destinationPath + "\\" + mmb.BaseName + mmb.SaveFilePath;
+            //ArchiveAll(sourcePathNow, destinationPathNow);
         }
 
         private void btnModsSelector_Click(object sender, EventArgs e)
@@ -195,8 +177,8 @@ namespace MMManager
 
         private void button2_Click(object sender, EventArgs e)
         {
+            mas.SaveSettings();
             string json = JsonConvert.SerializeObject(mmmPeer,Formatting.Indented);
-            
             File.WriteAllText("mmmPeer.json", json);
         }
 
@@ -207,7 +189,7 @@ namespace MMManager
             {
                 MMMInstance mmmI = new MMMInstance();
                 mmmI.ActiveInstance = true;
-                mmmI.InstanceName = "Default Instance";
+                mmmI.InstanceName = "Current Minecraft Settings";
                 mmmI.MineCraftVersion = "1.7.0";
                 mmmI.ForgeVersion = "1.10.0";
                 mmmPeer.ForgeInfo.Version = "2";
@@ -218,15 +200,11 @@ namespace MMManager
             }
             else
             {
-               // mmmPeer.ForgeInfo = new MMMForgeInfo();
-              //  mmmPeer.ForgeInfo.Version = "2";
-              //  mmmPeer.ForgeInfo.Location = "test2";
                 MessageBox.Show(mmmPeer.Instances.Values[0].InstanceName);
             }
 
             //Set the Peer Properties or auto Assign them.
             tbPeerName.Text = mmmPeer.UserName;
-            tbPassword.Text = mmmPeer.Password;
             tbPeerLocation.Text = Environment.MachineName;
             //Set the Instance properties.
             foreach (var item in mmmPeer.Instances)
@@ -250,11 +228,6 @@ namespace MMManager
         private void tbPeerName_TextChanged(object sender, EventArgs e)
         {
             mmmPeer.UserName = tbPeerName.Text;
-        }
-
-        private void tbPassword_TextChanged(object sender, EventArgs e)
-        {
-            mmmPeer.Password = tbPassword.Text;
         }
 
         private void tbPeerLocation_TextChanged(object sender, EventArgs e)
@@ -292,6 +265,15 @@ namespace MMManager
                     label1.Text = (item.Value as MMMProfile).lastVersionId;
                     label2.Text = (item.Value as MMMProfile).javaArgs;
                 }
+            }
+        }
+
+
+        private void btnApplicationSettings_Click(object sender, EventArgs e)
+        {
+            if (mas != null)
+            {
+                propertyGrid1.SelectedObject = mas;
             }
         }
     }

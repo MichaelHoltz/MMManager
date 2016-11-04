@@ -1,27 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MMManager.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
   <Profiles />
-  <Settings>
-    <Setting Name="MainBackupRoot" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\MMManager</Value>
-    </Setting>
-    <Setting Name="DefaultMCRoot" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\.minecraft</Value>
-    </Setting>
-    <Setting Name="UserAppData" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="SaveFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\saves</Value>
-    </Setting>
-    <Setting Name="InformationFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\info</Value>
-    </Setting>
-    <Setting Name="ModFilePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\mods</Value>
-    </Setting>
-    <Setting Name="LoaderFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Forge Loader</Value>
-    </Setting>
-  </Settings>
+  <Settings />
 </SettingsFile>
