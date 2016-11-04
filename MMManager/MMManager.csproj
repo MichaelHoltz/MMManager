@@ -92,8 +92,10 @@
     <Compile Include="MMManagerFileCompare.cs" />
     <Compile Include="MMMForgeInfo.cs" />
     <Compile Include="MMMInstance.cs" />
+    <Compile Include="MMMlauncherProfiles.cs" />
     <Compile Include="MMMMineCraftInfo.cs" />
     <Compile Include="MMMPeer.cs" />
+    <Compile Include="MMMProfile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />

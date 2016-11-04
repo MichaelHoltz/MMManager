@@ -17,6 +17,7 @@ namespace MMManager
     {
         MMMPeer mmmPeer;
         MMManagerBase mmb;
+        MMMlauncherProfiles mmmLauncherProfiles;
         public mainForm()
         {
             InitializeComponent();
@@ -31,6 +32,28 @@ namespace MMManager
                 mmmPeer = new MMMPeer();
             }
 
+            try
+            {
+                string json = File.ReadAllText(Properties.Settings.Default["UserAppData"].ToString() + Properties.Settings.Default["DefaultMCRoot"].ToString() + "\\launcher_profiles.json");
+                mmmLauncherProfiles = JsonConvert.DeserializeObject<MMMlauncherProfiles>(json);
+                foreach (var item in mmmLauncherProfiles.Profiles)
+                {
+                    
+                    cbMinecraftProfiles.Items.Add((item.Value as MMMProfile).name);
+                    if (mmmLauncherProfiles.selectedProfile == (item.Value as MMMProfile).name)
+                    {
+                        cbMinecraftProfiles.Text = mmmLauncherProfiles.selectedProfile;
+                        label1.Text = (item.Value as MMMProfile).lastVersionId;
+                        label2.Text = (item.Value as MMMProfile).javaArgs;
+                    }
+                }
+                
+
+            }
+            catch
+            {
+                mmmLauncherProfiles = new MMMlauncherProfiles();
+            }
             mmb = new MMManagerBase();
             mmb.SetDefaults(); // TEMP
         }
@@ -255,6 +278,21 @@ namespace MMManager
             //propertyGrid1.Update(); // Update the property Grid
             //propertyGrid1.Refresh();
             Process.Start(path); // Open Explorer Window to path for browsing.
+        }
+
+        private void cbMinecraftProfiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (var item in mmmLauncherProfiles.Profiles)
+            {
+
+                
+                if (cbMinecraftProfiles.Text == (item.Value as MMMProfile).name)
+                {
+                   // cbMinecraftProfiles.Text = mmmLauncherProfiles.selectedProfile;
+                    label1.Text = (item.Value as MMMProfile).lastVersionId;
+                    label2.Text = (item.Value as MMMProfile).javaArgs;
+                }
+            }
         }
     }
 }

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.btnBrowseInstance = new System.Windows.Forms.Button();
             this.lblInstanceName = new System.Windows.Forms.Label();
             this.cbInstanceName = new System.Windows.Forms.ComboBox();
             this.tbPeerLocation = new System.Windows.Forms.TextBox();
@@ -61,8 +62,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btnShowBase = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-            this.btnBrowseInstance = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblMinecraftProfiles = new System.Windows.Forms.Label();
+            this.cbMinecraftProfiles = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -90,6 +94,10 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.label2);
+            this.splitContainer2.Panel1.Controls.Add(this.label1);
+            this.splitContainer2.Panel1.Controls.Add(this.cbMinecraftProfiles);
+            this.splitContainer2.Panel1.Controls.Add(this.lblMinecraftProfiles);
             this.splitContainer2.Panel1.Controls.Add(this.btnBrowseInstance);
             this.splitContainer2.Panel1.Controls.Add(this.lblInstanceName);
             this.splitContainer2.Panel1.Controls.Add(this.cbInstanceName);
@@ -115,6 +123,17 @@
             this.splitContainer2.Size = new System.Drawing.Size(1115, 752);
             this.splitContainer2.SplitterDistance = 857;
             this.splitContainer2.TabIndex = 7;
+            // 
+            // btnBrowseInstance
+            // 
+            this.btnBrowseInstance.Location = new System.Drawing.Point(177, 61);
+            this.btnBrowseInstance.Name = "btnBrowseInstance";
+            this.btnBrowseInstance.Size = new System.Drawing.Size(28, 23);
+            this.btnBrowseInstance.TabIndex = 23;
+            this.btnBrowseInstance.Text = "...";
+            this.toolTip1.SetToolTip(this.btnBrowseInstance, "Open Folder in Explorer");
+            this.btnBrowseInstance.UseVisualStyleBackColor = true;
+            this.btnBrowseInstance.Click += new System.EventHandler(this.btnBrowseInstance_Click);
             // 
             // lblInstanceName
             // 
@@ -231,7 +250,7 @@
             this.gbVersion.Controls.Add(this.cbMCVersion);
             this.gbVersion.Controls.Add(this.lblForgeVersion);
             this.gbVersion.Controls.Add(this.lblMCVersion);
-            this.gbVersion.Location = new System.Drawing.Point(17, 107);
+            this.gbVersion.Location = new System.Drawing.Point(17, 218);
             this.gbVersion.Name = "gbVersion";
             this.gbVersion.Size = new System.Drawing.Size(429, 72);
             this.gbVersion.TabIndex = 10;
@@ -394,7 +413,7 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(514, 176);
+            this.button1.Location = new System.Drawing.Point(511, 218);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 7;
@@ -405,7 +424,7 @@
             // btnShowBase
             // 
             this.btnShowBase.Enabled = false;
-            this.btnShowBase.Location = new System.Drawing.Point(629, 176);
+            this.btnShowBase.Location = new System.Drawing.Point(626, 218);
             this.btnShowBase.Name = "btnShowBase";
             this.btnShowBase.Size = new System.Drawing.Size(75, 23);
             this.btnShowBase.TabIndex = 6;
@@ -423,16 +442,41 @@
             this.propertyGrid1.Size = new System.Drawing.Size(254, 752);
             this.propertyGrid1.TabIndex = 7;
             // 
-            // btnBrowseInstance
+            // lblMinecraftProfiles
             // 
-            this.btnBrowseInstance.Location = new System.Drawing.Point(177, 61);
-            this.btnBrowseInstance.Name = "btnBrowseInstance";
-            this.btnBrowseInstance.Size = new System.Drawing.Size(28, 23);
-            this.btnBrowseInstance.TabIndex = 23;
-            this.btnBrowseInstance.Text = "...";
-            this.toolTip1.SetToolTip(this.btnBrowseInstance, "Open Folder in Explorer");
-            this.btnBrowseInstance.UseVisualStyleBackColor = true;
-            this.btnBrowseInstance.Click += new System.EventHandler(this.btnBrowseInstance_Click);
+            this.lblMinecraftProfiles.AutoSize = true;
+            this.lblMinecraftProfiles.Location = new System.Drawing.Point(14, 116);
+            this.lblMinecraftProfiles.Name = "lblMinecraftProfiles";
+            this.lblMinecraftProfiles.Size = new System.Drawing.Size(88, 13);
+            this.lblMinecraftProfiles.TabIndex = 24;
+            this.lblMinecraftProfiles.Text = "Minecraft Profiles";
+            // 
+            // cbMinecraftProfiles
+            // 
+            this.cbMinecraftProfiles.FormattingEnabled = true;
+            this.cbMinecraftProfiles.Location = new System.Drawing.Point(17, 133);
+            this.cbMinecraftProfiles.Name = "cbMinecraftProfiles";
+            this.cbMinecraftProfiles.Size = new System.Drawing.Size(170, 21);
+            this.cbMinecraftProfiles.TabIndex = 25;
+            this.cbMinecraftProfiles.SelectedIndexChanged += new System.EventHandler(this.cbMinecraftProfiles_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 164);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "label1";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(20, 186);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 27;
+            this.label2.Text = "label2";
             // 
             // mainForm
             // 
@@ -498,6 +542,10 @@
         private System.Windows.Forms.ComboBox cbInstanceName;
         private System.Windows.Forms.Button btnBrowseInstance;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ComboBox cbMinecraftProfiles;
+        private System.Windows.Forms.Label lblMinecraftProfiles;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 
