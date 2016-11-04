@@ -58,108 +58,27 @@ namespace MMManager
             propertyGrid1.SelectedObject = mas; // Set Property View to Application Settings
         }
 
-        //Example to Compare and make two directories the same.
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string sourcePath = Properties.Settings.Default["UserAppData"].ToString() + Properties.Settings.Default["DefaultMCRoot"].ToString(); // @"C:\Users\Administrator\Desktop\Source";
-            string destinationPath = Properties.Settings.Default["MainBackupRoot"].ToString(); //@"C:\Users\Administrator\Desktop\Dest";
-            listBox1.Items.Clear();
-            listBox2.Items.Clear();
-            ArchiveAll(sourcePath, destinationPath);
 
-        }
-        private void ArchiveAll(String sourcePath, String destinationPath)
-        {
-            listBox1.Items.Clear();
-            listBox2.Items.Clear();
-
-            System.IO.DirectoryInfo dir1 = new System.IO.DirectoryInfo(sourcePath);
-            lblPath1.Text = sourcePath;
-            System.IO.DirectoryInfo dir2 = new System.IO.DirectoryInfo(destinationPath);
-            if(!dir2.Exists)
-                dir2.Create();
-            lblPath2.Text = destinationPath;
-            IEnumerable<System.IO.FileInfo> list1 = dir1.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
-            listBox1.Items.AddRange(list1.ToArray());
-            IEnumerable<System.IO.FileInfo> list2 = dir2.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
-            listBox2.Items.AddRange(list2.ToArray());
-            bool IsInDestination = false;
-            bool IsInSource = false;
-
-            foreach (System.IO.FileInfo s in list1)
-            {
-                IsInDestination = false;
-
-                foreach (System.IO.FileInfo s2 in list2)
-                {
-                    if (s.Name == s2.Name)
-                    {
-                        IsInDestination = true;
-                        break;
-                    }
-                    else
-                    {
-                        IsInDestination = false;
-                    }
-                }
-
-                if (!IsInDestination)
-                {
-                    System.IO.File.Copy(s.FullName, System.IO.Path.Combine(destinationPath, s.Name), true);
-                }
-            }
-
-            list1 = dir1.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
-
-            list2 = dir2.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
-            listBox2.Items.Clear();
-            listBox2.Items.AddRange(list2.ToArray());
-            //bool areIdentical = list1.SequenceEqual(list2, new MMManagerFileCompare());
-
-            //if (!areIdentical)
-            //{
-            //    foreach (System.IO.FileInfo s in list2)
-            //    {
-            //        IsInSource = true;
-
-            //        foreach (System.IO.FileInfo s2 in list1)
-            //        {
-            //            if (s.Name == s2.Name)
-            //            {
-            //                IsInSource = true;
-            //                break;
-            //            }
-            //            else
-            //            {
-            //                IsInSource = false;
-            //            }
-            //        }
-
-            //        //if (!IsInSource)
-            //        //{
-            //        //    System.IO.File.Copy(s.FullName, System.IO.Path.Combine(sourcePath, s.Name), true);
-            //        //}
-            //    }
-            //}        
-        }
+ 
 
         private void BtnArchive_Click(object sender, EventArgs e)
         {
             DateTime dt = DateTime.Now;
-            String path = mmmPeer.Instances["Default Instance"].InstancePath;
-            //mmb.BaseName = dt.Year + "_" + dt.Month + "_" + dt.Day + "_" + dt.Hour + "_" + dt.Minute;
-            //propertyGrid1.SelectedObject = mmb;
-            //string sourcePath = Properties.Settings.Default["UserAppData"].ToString() + Properties.Settings.Default["DefaultMCRoot"].ToString(); // @"C:\Users\Administrator\Desktop\Source";
-            //string destinationPath = Properties.Settings.Default["MainBackupRoot"].ToString(); //@"C:\Users\Administrator\Desktop\Dest";
-            //string sourcePathNow = sourcePath + mmb.ModFilePath;
-            //string destinationPathNow = destinationPath + "\\" + mmb.BaseName + mmb.ModFilePath;
-            //ArchiveAll(sourcePathNow,destinationPathNow);
+            string sourcePath = mas.UserAppData + mas.DefaultMCRoot;
+            string destinationPath = mas.MainBackupRoot;
+
+            
+            String backup = dt.Year + "_" + dt.Month + "_" + dt.Day + "_" + dt.Hour + "_" + dt.Minute;
+            string sourcePathNow = sourcePath + mas.ModFilePath;
+            string destinationPathNow = destinationPath + "\\" + backup + mas.ModFilePath;
+            MMManagerFileCompare.DirectoryCopy(sourcePathNow, destinationPathNow, true);
             //sourcePathNow = sourcePath + mmb.InformationFile;
             //destinationPathNow = destinationPath + "\\" + mmb.BaseName + mmb.InformationFile;
-            //ArchiveAll(sourcePathNow, destinationPathNow);
-            //sourcePathNow = sourcePath + mmb.SaveFilePath;
-            //destinationPathNow = destinationPath + "\\" + mmb.BaseName + mmb.SaveFilePath;
-            //ArchiveAll(sourcePathNow, destinationPathNow);
+            //MMManagerFileCompare.DirectoryCopy(sourcePath, destinationPath, true);
+            sourcePathNow = sourcePath + mas.SaveFilePath;
+            destinationPathNow = destinationPath + "\\" + backup + mas.SaveFilePath;
+            MMManagerFileCompare.DirectoryCopy(sourcePathNow, destinationPathNow, true);
+            MessageBox.Show("Backup to: " + backup + " Complete.");
         }
 
         private void btnModsSelector_Click(object sender, EventArgs e)

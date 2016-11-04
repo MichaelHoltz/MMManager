@@ -88,7 +88,6 @@
     <Compile Include="mainForm.Designer.cs">
       <DependentUpon>mainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MMManagerBase.cs" />
     <Compile Include="MMManagerFileCompare.cs" />
     <Compile Include="MMMApplicationSettings.cs" />
     <Compile Include="MMMForgeInfo.cs" />

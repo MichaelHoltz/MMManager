@@ -62,7 +62,6 @@
             this.gbArchive = new System.Windows.Forms.GroupBox();
             this.lblArchiveOptions = new System.Windows.Forms.Label();
             this.BtnArchive = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
@@ -111,7 +110,6 @@
             this.splitContainer2.Panel1.Controls.Add(this.gbVersion);
             this.splitContainer2.Panel1.Controls.Add(this.splitContainer1);
             this.splitContainer2.Panel1.Controls.Add(this.gbArchive);
-            this.splitContainer2.Panel1.Controls.Add(this.button1);
             // 
             // splitContainer2.Panel2
             // 
@@ -434,17 +432,6 @@
             this.BtnArchive.UseVisualStyleBackColor = true;
             this.BtnArchive.Click += new System.EventHandler(this.BtnArchive_Click);
             // 
-            // button1
-            // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(511, 218);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // propertyGrid1
             // 
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -494,7 +481,6 @@
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.GroupBox gbArchive;
         private System.Windows.Forms.Button BtnArchive;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.Label lblFileCount1;
         private System.Windows.Forms.Label lblFileCount2;
