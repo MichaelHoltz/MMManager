@@ -5,11 +5,13 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using System.IO;
-
+using System.Threading;
 namespace MMManager
 {
     public partial class mainForm : Form
     {
+        private Object thisLock = new Object();
+
         MMMApplicationSettings mas; // Application Settings
         MMMPeer mmmPeer;
         MMMlauncherProfiles mmmLauncherProfiles;
@@ -63,12 +65,13 @@ namespace MMManager
 
         private void BtnArchive_Click(object sender, EventArgs e)
         {
+            MMManagerFileCompare.NewDirectoryCopyFileInfo += MMManagerFileCompare_NewDirectoryCopyFileInfo;
             DateTime dt = DateTime.Now;
             string sourcePath = mas.UserAppData + mas.DefaultMCRoot;
             string destinationPath = mas.MainBackupRoot;
-
-            
             String backup = dt.Year + "_" + dt.Month + "_" + dt.Day + "_" + dt.Hour + "_" + dt.Minute;
+            MMManagerFileCompare.DirectoryCopy(sourcePath, destinationPath + "\\" + backup, false);
+
             string sourcePathNow = sourcePath + mas.ModFilePath;
             string destinationPathNow = destinationPath + "\\" + backup + mas.ModFilePath;
             MMManagerFileCompare.DirectoryCopy(sourcePathNow, destinationPathNow, true);
@@ -78,7 +81,7 @@ namespace MMManager
             sourcePathNow = sourcePath + mas.SaveFilePath;
             destinationPathNow = destinationPath + "\\" + backup + mas.SaveFilePath;
             MMManagerFileCompare.DirectoryCopy(sourcePathNow, destinationPathNow, true);
-            MessageBox.Show("Backup to: " + backup + " Complete.");
+            //MessageBox.Show("Backup to: " + backup + " Complete.");
         }
 
         private void btnModsSelector_Click(object sender, EventArgs e)
@@ -194,6 +197,33 @@ namespace MMManager
             {
                 propertyGrid1.SelectedObject = mas;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            button1.Text = MMManagerFileCompare.maxThreadCount.ToString();
+            
+        }
+        delegate void SetTextCallback(string text);
+        private void SetText(string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.label3.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.label3.Text = text;
+            }
+        }
+
+        private void MMManagerFileCompare_NewDirectoryCopyFileInfo(object sender, DirectoryCopyEventArgs e)
+        {
+            SetText(e.fileInfo);
         }
     }
 }
