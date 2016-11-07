@@ -225,5 +225,19 @@ namespace MMManager
         {
             SetText(e.fileInfo);
         }
+
+        private void btnChatForm_Click(object sender, EventArgs e)
+        {
+            MMMChatClient mcc = new MMMChatClient();
+            mcc.Show();
+            //MMMChatTicTacToeForm mcf = new MMMChatTicTacToeForm();
+            //mcf.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+           // MMMp2pManager c = new MMMp2pManager();
+            
+        }
     }
 }

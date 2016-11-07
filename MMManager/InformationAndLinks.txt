@@ -42,3 +42,25 @@ Peer to Peer
 https://msdn.microsoft.com/en-us/library/system.net.peertopeer(v=vs.100).aspx
 http://stackoverflow.com/questions/1821680/peer-to-peer-file-transfer-c-sharp
 http://www.codeproject.com/Articles/1297/Peer-to-Peer-Communicator-and-File-Transfer (Ancient and C++)
+
+
+  <system.serviceModel>
+
+    <client>
+      <!-- chat instance participating in the mesh -->
+      <endpoint name="WPFChatEndpoint"
+                address="net.p2p://WPFChatMesh/rolandrodriguez.net/wpfchat"
+                binding="netPeerTcpBinding"
+                bindingConfiguration="WPFChatBinding"
+                contract="MMManager.IChat">
+      </endpoint>
+    </client>
+    <bindings>
+      <netPeerTcpBinding>
+        <binding name="WPFChatBinding" port="0">
+          <resolver mode="Auto"/>
+          <security mode="None"/>
+        </binding>
+      </netPeerTcpBinding>
+    </bindings>
+  </system.serviceModel>
