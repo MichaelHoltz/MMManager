@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
+using System.Media;
 namespace MMManager
 {
     public partial class Form1 : Form
@@ -300,6 +300,8 @@ namespace MMManager
             theButton.Text = letters[letterPos++];
             if (letterPos > 4)
             {
+                SoundPlayer simpleSound = new SoundPlayer(@"c:\Windows\Media\chimes.wav");
+                simpleSound.Play();
                 letterPos = 0;
                 timer2.Enabled = false;
                // theButton.Font = new Font("Microsoft Sans Serif", 12);
