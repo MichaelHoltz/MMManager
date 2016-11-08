@@ -64,3 +64,5 @@ http://www.codeproject.com/Articles/1297/Peer-to-Peer-Communicator-and-File-Tran
       </netPeerTcpBinding>
     </bindings>
   </system.serviceModel>
+
+http://stackoverflow.com/questions/16112622/2d-sprite-animations-without-using-xna-or-other-third-party-libraries
