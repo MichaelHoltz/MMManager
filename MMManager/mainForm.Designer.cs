@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.button3 = new System.Windows.Forms.Button();
             this.btnSoloTicTacToe = new System.Windows.Forms.Button();
             this.btnChatForm = new System.Windows.Forms.Button();
             this.btnApplicationSettings = new System.Windows.Forms.Button();
@@ -68,7 +69,6 @@
             this.BtnArchive = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -125,6 +125,16 @@
             this.splitContainer2.Size = new System.Drawing.Size(1115, 752);
             this.splitContainer2.SplitterDistance = 857;
             this.splitContainer2.TabIndex = 7;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(538, 270);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(110, 35);
+            this.button3.TabIndex = 31;
+            this.button3.Text = "Chat";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // btnSoloTicTacToe
             // 
@@ -489,16 +499,6 @@
             this.propertyGrid1.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
             this.propertyGrid1.Size = new System.Drawing.Size(254, 752);
             this.propertyGrid1.TabIndex = 7;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(538, 270);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(110, 35);
-            this.button3.TabIndex = 31;
-            this.button3.Text = "Chat";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // mainForm
             // 
