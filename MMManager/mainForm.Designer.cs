@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.btnSoloTicTacToe = new System.Windows.Forms.Button();
             this.btnChatForm = new System.Windows.Forms.Button();
             this.btnApplicationSettings = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -67,6 +68,7 @@
             this.BtnArchive = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -94,6 +96,8 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.button3);
+            this.splitContainer2.Panel1.Controls.Add(this.btnSoloTicTacToe);
             this.splitContainer2.Panel1.Controls.Add(this.btnChatForm);
             this.splitContainer2.Panel1.Controls.Add(this.btnApplicationSettings);
             this.splitContainer2.Panel1.Controls.Add(this.label2);
@@ -121,6 +125,16 @@
             this.splitContainer2.Size = new System.Drawing.Size(1115, 752);
             this.splitContainer2.SplitterDistance = 857;
             this.splitContainer2.TabIndex = 7;
+            // 
+            // btnSoloTicTacToe
+            // 
+            this.btnSoloTicTacToe.Location = new System.Drawing.Point(516, 218);
+            this.btnSoloTicTacToe.Name = "btnSoloTicTacToe";
+            this.btnSoloTicTacToe.Size = new System.Drawing.Size(97, 23);
+            this.btnSoloTicTacToe.TabIndex = 30;
+            this.btnSoloTicTacToe.Text = "TicTacToeSolo";
+            this.btnSoloTicTacToe.UseVisualStyleBackColor = true;
+            this.btnSoloTicTacToe.Click += new System.EventHandler(this.btnSoloTicTacToe_Click);
             // 
             // btnChatForm
             // 
@@ -476,6 +490,16 @@
             this.propertyGrid1.Size = new System.Drawing.Size(254, 752);
             this.propertyGrid1.TabIndex = 7;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(538, 270);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(110, 35);
+            this.button3.TabIndex = 31;
+            this.button3.Text = "Chat";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -545,6 +569,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnChatForm;
+        private System.Windows.Forms.Button btnSoloTicTacToe;
+        private System.Windows.Forms.Button button3;
     }
 }
 

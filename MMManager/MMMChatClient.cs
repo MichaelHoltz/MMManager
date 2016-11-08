@@ -87,7 +87,8 @@ namespace MMManager
                     grpMessageWindow.Enabled = true;
                     grpUserList.Enabled = true;
                 
-                    grpUserCredentials.Enabled = false;                    
+                    grpUserCredentials.Enabled = false;
+                    gbTicTacToe.Enabled = true; //Enable TicTacToe                     
                     this.AcceptButton = btnSend;
                     rtbMessages.AppendText("*****************************WEL-COME to Chat Application*****************************\r\n");
                     txtSendMessage.Select();

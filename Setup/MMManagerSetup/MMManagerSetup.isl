@@ -63,7 +63,7 @@
 		<createdtm>06/21/1999 06:00</createdtm>
 		<lastsavedtm>07/14/2000 09:50</lastsavedtm>
 		<pagecount>200</pagecount>
-		<wordcount>0</wordcount>
+		<wordcount>8</wordcount>
 		<charcount/>
 		<appname>InstallShield Express</appname>
 		<security>1</security>
@@ -3977,7 +3977,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{4C2F89A2-3A96-4999-9FAB-DBF4EE6F0B94}</td></row>
 		<row><td>ISUSSignature</td><td>{41F87466-303B-41A6-9C6F-0D18EB8646A7}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewISToday,viewLearnMore</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewISToday,viewLearnMore,viewSystemSearch,viewUpgradePaths</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4353,7 +4353,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]MMManager.exe</td><td/></row>
 		<row><td>ProductCode</td><td>{A85A3C12-E5C5-4A57-8AA6-88006F091D2A}</td><td/></row>
-		<row><td>ProductName</td><td>MMManagerSetup</td><td/></row>
+		<row><td>ProductName</td><td>MMManager</td><td/></row>
 		<row><td>ProductVersion</td><td>1.00.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>

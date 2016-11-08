@@ -239,5 +239,17 @@ namespace MMManager
            // MMMp2pManager c = new MMMp2pManager();
             
         }
+
+        private void btnSoloTicTacToe_Click(object sender, EventArgs e)
+        {
+            Form1 frm = new Form1();
+            frm.Show();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            MMMChatClient mcc2 = new MMMChatClient();
+            mcc2.Show();
+        }
     }
 }
