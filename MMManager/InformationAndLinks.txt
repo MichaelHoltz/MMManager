@@ -68,3 +68,4 @@ http://www.codeproject.com/Articles/1297/Peer-to-Peer-Communicator-and-File-Tran
 http://stackoverflow.com/questions/16112622/2d-sprite-animations-without-using-xna-or-other-third-party-libraries
 
 http://soundbible.com/
+http://stackoverflow.com/questions/6240002/play-two-sounds-simultaneusly
