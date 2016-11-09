@@ -153,7 +153,7 @@
             this.Controls.Add(this.lblPlayer);
             this.DoubleBuffered = true;
             this.Name = "TicTacToeScore";
-            this.Size = new System.Drawing.Size(160, 121);
+            this.Size = new System.Drawing.Size(160, 126);
             this.ResumeLayout(false);
             this.PerformLayout();
 

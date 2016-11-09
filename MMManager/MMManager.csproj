@@ -108,6 +108,12 @@
     <Compile Include="GameControls\TicTacToeOptions.Designer.cs">
       <DependentUpon>TicTacToeOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameControls\TicTacToePlayers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GameControls\TicTacToePlayers.Designer.cs">
+      <DependentUpon>TicTacToePlayers.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameControls\TicTacToeScore.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -159,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GameControls\TicTacToeOptions.resx">
       <DependentUpon>TicTacToeOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameControls\TicTacToePlayers.resx">
+      <DependentUpon>TicTacToePlayers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GameControls\TicTacToeScore.resx">
       <DependentUpon>TicTacToeScore.cs</DependentUpon>

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.ticTacToeBoard1 = new MMManager.GameControls.TicTacToeBoard();
+            this.ticTacToePlayers1 = new MMManager.GameControls.TicTacToePlayers();
             this.SuspendLayout();
             // 
             // ticTacToeBoard1
@@ -40,12 +41,21 @@
             this.ticTacToeBoard1.Size = new System.Drawing.Size(387, 343);
             this.ticTacToeBoard1.TabIndex = 9;
             // 
+            // ticTacToePlayers1
+            // 
+            this.ticTacToePlayers1.Location = new System.Drawing.Point(443, 35);
+            this.ticTacToePlayers1.Name = "ticTacToePlayers1";
+            this.ticTacToePlayers1.PlayerName = "Guest";
+            this.ticTacToePlayers1.Size = new System.Drawing.Size(290, 144);
+            this.ticTacToePlayers1.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(407, 361);
+            this.ClientSize = new System.Drawing.Size(779, 361);
+            this.Controls.Add(this.ticTacToePlayers1);
             this.Controls.Add(this.ticTacToeBoard1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -56,6 +66,7 @@
 
         #endregion
         private GameControls.TicTacToeBoard ticTacToeBoard1;
+        private GameControls.TicTacToePlayers ticTacToePlayers1;
     }
 }
 
