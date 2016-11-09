@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using System.Media;
 namespace MMManager
 {
     class MMManagerTTTButton :Button
@@ -11,8 +9,17 @@ namespace MMManager
         public Boolean allowClick { get; set; } = true;
         protected override void OnClick(EventArgs e)
         {
-            if(customEnable && allowClick)
+            if (customEnable && allowClick)
+            {
                 base.OnClick(e);
+            }
+            else
+            {
+                string currentDir = System.IO.Directory.GetCurrentDirectory();
+                SoundPlayer simpleSound = new SoundPlayer(currentDir + @"\Sounds\Blop.wav");
+                simpleSound.Play();
+
+            }
         }
     }
 }

@@ -96,6 +96,24 @@
     <Compile Include="frmTesting.Designer.cs">
       <DependentUpon>frmTesting.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameControls\TicTacToeBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GameControls\TicTacToeBoard.Designer.cs">
+      <DependentUpon>TicTacToeBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameControls\TicTacToeOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GameControls\TicTacToeOptions.Designer.cs">
+      <DependentUpon>TicTacToeOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameControls\TicTacToeScore.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GameControls\TicTacToeScore.Designer.cs">
+      <DependentUpon>TicTacToeScore.cs</DependentUpon>
+    </Compile>
     <Compile Include="IChat.cs" />
     <Compile Include="IChatChannel.cs" />
     <Compile Include="IChatService.cs" />
@@ -136,6 +154,15 @@
     <EmbeddedResource Include="frmTesting.resx">
       <DependentUpon>frmTesting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GameControls\TicTacToeBoard.resx">
+      <DependentUpon>TicTacToeBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameControls\TicTacToeOptions.resx">
+      <DependentUpon>TicTacToeOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameControls\TicTacToeScore.resx">
+      <DependentUpon>TicTacToeScore.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -168,6 +195,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="InformationAndLinks.txt" />
+    <Content Include="Sounds\Blop.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Bomb_Exploding.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Cat Scream.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Cat_Meow_2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\fire_bow.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Incoming_Suspense.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\TomCat.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Woosh.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
