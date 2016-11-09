@@ -11,10 +11,11 @@ namespace MMManager.GameControls
 {
     public partial class TicTacToeScore : UserControl
     {
-        public Dictionary<String, int> PlayerScores { get; set; } = new Dictionary<string, int>();
+        private Dictionary<String, int> PlayerScores { get; set; }
         public TicTacToeScore()
         {
             InitializeComponent();
+            PlayerScores = new Dictionary<string, int>();
         }
         /// <summary>
         /// Add Player Name to Score Board and Sets Score to zero

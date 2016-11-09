@@ -59,7 +59,6 @@
             this.ticTacToeScore1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ticTacToeScore1.Location = new System.Drawing.Point(123, 12);
             this.ticTacToeScore1.Name = "ticTacToeScore1";
-            this.ticTacToeScore1.PlayerScores = ((System.Collections.Generic.Dictionary<string, int>)(resources.GetObject("ticTacToeScore1.PlayerScores")));
             this.ticTacToeScore1.Size = new System.Drawing.Size(160, 121);
             this.ticTacToeScore1.TabIndex = 0;
             // 

@@ -41,7 +41,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Location = new System.Drawing.Point(0, 409);
+            this.label1.Location = new System.Drawing.Point(0, 526);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 12;
@@ -51,7 +51,7 @@
             // 
             this.groupBox1.AutoSize = true;
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupBox1.Location = new System.Drawing.Point(3, 190);
+            this.groupBox1.Location = new System.Drawing.Point(16, 215);
             this.groupBox1.MinimumSize = new System.Drawing.Size(150, 150);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(150, 150);
@@ -88,7 +88,7 @@
             this.ticTacToeOptions1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ticTacToeOptions1.Location = new System.Drawing.Point(0, 0);
             this.ticTacToeOptions1.Name = "ticTacToeOptions1";
-            this.ticTacToeOptions1.Size = new System.Drawing.Size(166, 184);
+            this.ticTacToeOptions1.Size = new System.Drawing.Size(166, 209);
             this.ticTacToeOptions1.TabIndex = 13;
             // 
             // TicTacToeBoard
@@ -103,7 +103,7 @@
             this.Controls.Add(this.btnStart);
             this.DoubleBuffered = true;
             this.Name = "TicTacToeBoard";
-            this.Size = new System.Drawing.Size(387, 422);
+            this.Size = new System.Drawing.Size(662, 539);
             this.ResumeLayout(false);
             this.PerformLayout();
 

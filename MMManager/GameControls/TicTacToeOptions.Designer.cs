@@ -32,11 +32,9 @@
             this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
             this.lblGridSize = new System.Windows.Forms.Label();
             this.gbRandomOptions = new System.Windows.Forms.GroupBox();
-            this.cbRowColClear = new System.Windows.Forms.CheckBox();
-            this.cbExtraTurns = new System.Windows.Forms.CheckBox();
-            this.cbBombs = new System.Windows.Forms.CheckBox();
-            this.cbShuffle = new System.Windows.Forms.CheckBox();
+            this.clbRandomOptions = new System.Windows.Forms.CheckedListBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblGameOptions = new System.Windows.Forms.Label();
             this.gbRandomOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,7 +48,7 @@
             this.domainUpDown1.Items.Add("8");
             this.domainUpDown1.Items.Add("9");
             this.domainUpDown1.Items.Add("10");
-            this.domainUpDown1.Location = new System.Drawing.Point(33, 30);
+            this.domainUpDown1.Location = new System.Drawing.Point(16, 51);
             this.domainUpDown1.Name = "domainUpDown1";
             this.domainUpDown1.ReadOnly = true;
             this.domainUpDown1.Size = new System.Drawing.Size(56, 20);
@@ -61,7 +59,7 @@
             // lblGridSize
             // 
             this.lblGridSize.AutoSize = true;
-            this.lblGridSize.Location = new System.Drawing.Point(30, 14);
+            this.lblGridSize.Location = new System.Drawing.Point(13, 35);
             this.lblGridSize.Name = "lblGridSize";
             this.lblGridSize.Size = new System.Drawing.Size(49, 13);
             this.lblGridSize.TabIndex = 13;
@@ -69,63 +67,37 @@
             // 
             // gbRandomOptions
             // 
-            this.gbRandomOptions.Controls.Add(this.cbShuffle);
-            this.gbRandomOptions.Controls.Add(this.cbRowColClear);
-            this.gbRandomOptions.Controls.Add(this.cbExtraTurns);
-            this.gbRandomOptions.Controls.Add(this.cbBombs);
-            this.gbRandomOptions.Location = new System.Drawing.Point(3, 56);
+            this.gbRandomOptions.Controls.Add(this.clbRandomOptions);
+            this.gbRandomOptions.Location = new System.Drawing.Point(10, 81);
             this.gbRandomOptions.Name = "gbRandomOptions";
             this.gbRandomOptions.Size = new System.Drawing.Size(136, 123);
             this.gbRandomOptions.TabIndex = 17;
             this.gbRandomOptions.TabStop = false;
             this.gbRandomOptions.Text = "Random Options";
             // 
-            // cbRowColClear
+            // clbRandomOptions
             // 
-            this.cbRowColClear.AutoSize = true;
-            this.cbRowColClear.Enabled = false;
-            this.cbRowColClear.Location = new System.Drawing.Point(6, 69);
-            this.cbRowColClear.Name = "cbRowColClear";
-            this.cbRowColClear.Size = new System.Drawing.Size(101, 17);
-            this.cbRowColClear.TabIndex = 19;
-            this.cbRowColClear.Text = "Row / Col Clear";
-            this.toolTip1.SetToolTip(this.cbRowColClear, "Uncover Space to Clear Entire Row or Column");
-            this.cbRowColClear.UseVisualStyleBackColor = true;
+            this.clbRandomOptions.CheckOnClick = true;
+            this.clbRandomOptions.FormattingEnabled = true;
+            this.clbRandomOptions.Items.AddRange(new object[] {
+            "Bombs",
+            "Extra Turns",
+            "Row / Col Clear",
+            "Shuffle"});
+            this.clbRandomOptions.Location = new System.Drawing.Point(6, 19);
+            this.clbRandomOptions.Name = "clbRandomOptions";
+            this.clbRandomOptions.Size = new System.Drawing.Size(124, 94);
+            this.clbRandomOptions.TabIndex = 19;
             // 
-            // cbExtraTurns
+            // lblGameOptions
             // 
-            this.cbExtraTurns.AutoSize = true;
-            this.cbExtraTurns.Enabled = false;
-            this.cbExtraTurns.Location = new System.Drawing.Point(6, 45);
-            this.cbExtraTurns.Name = "cbExtraTurns";
-            this.cbExtraTurns.Size = new System.Drawing.Size(80, 17);
-            this.cbExtraTurns.TabIndex = 18;
-            this.cbExtraTurns.Text = "Extra Turns";
-            this.toolTip1.SetToolTip(this.cbExtraTurns, "Uncover Space to Get Extra Turn");
-            this.cbExtraTurns.UseVisualStyleBackColor = true;
-            // 
-            // cbBombs
-            // 
-            this.cbBombs.AutoSize = true;
-            this.cbBombs.Location = new System.Drawing.Point(6, 21);
-            this.cbBombs.Name = "cbBombs";
-            this.cbBombs.Size = new System.Drawing.Size(58, 17);
-            this.cbBombs.TabIndex = 17;
-            this.cbBombs.Text = "Bombs";
-            this.toolTip1.SetToolTip(this.cbBombs, "Uncover Space to Lose Turn");
-            this.cbBombs.UseVisualStyleBackColor = true;
-            // 
-            // cbShuffle
-            // 
-            this.cbShuffle.AutoSize = true;
-            this.cbShuffle.Enabled = false;
-            this.cbShuffle.Location = new System.Drawing.Point(6, 92);
-            this.cbShuffle.Name = "cbShuffle";
-            this.cbShuffle.Size = new System.Drawing.Size(59, 17);
-            this.cbShuffle.TabIndex = 20;
-            this.cbShuffle.Text = "Shuffle";
-            this.toolTip1.SetToolTip(this.cbShuffle, "Uncover Space to Shuffle the entire board");
-            this.cbShuffle.UseVisualStyleBackColor = true;
+            this.lblGameOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGameOptions.Location = new System.Drawing.Point(4, 5);
+            this.lblGameOptions.Name = "lblGameOptions";
+            this.lblGameOptions.Size = new System.Drawing.Size(151, 20);
+            this.lblGameOptions.TabIndex = 18;
+            this.lblGameOptions.Text = "Game Options";
+            this.lblGameOptions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TicTacToeOptions
             // 
@@ -133,14 +105,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.lblGameOptions);
             this.Controls.Add(this.gbRandomOptions);
             this.Controls.Add(this.lblGridSize);
             this.Controls.Add(this.domainUpDown1);
             this.DoubleBuffered = true;
             this.Name = "TicTacToeOptions";
-            this.Size = new System.Drawing.Size(145, 183);
+            this.Size = new System.Drawing.Size(159, 215);
             this.gbRandomOptions.ResumeLayout(false);
-            this.gbRandomOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,10 +123,8 @@
         private System.Windows.Forms.DomainUpDown domainUpDown1;
         private System.Windows.Forms.Label lblGridSize;
         private System.Windows.Forms.GroupBox gbRandomOptions;
-        private System.Windows.Forms.CheckBox cbShuffle;
-        private System.Windows.Forms.CheckBox cbRowColClear;
-        private System.Windows.Forms.CheckBox cbExtraTurns;
-        private System.Windows.Forms.CheckBox cbBombs;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckedListBox clbRandomOptions;
+        private System.Windows.Forms.Label lblGameOptions;
     }
 }

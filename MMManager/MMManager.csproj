@@ -120,6 +120,12 @@
     <Compile Include="GameControls\TicTacToeScore.Designer.cs">
       <DependentUpon>TicTacToeScore.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameControls\TicTacToeStartOrJoin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GameControls\TicTacToeStartOrJoin.Designer.cs">
+      <DependentUpon>TicTacToeStartOrJoin.cs</DependentUpon>
+    </Compile>
     <Compile Include="IChat.cs" />
     <Compile Include="IChatChannel.cs" />
     <Compile Include="IChatService.cs" />
@@ -171,6 +177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GameControls\TicTacToeScore.resx">
       <DependentUpon>TicTacToeScore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameControls\TicTacToeStartOrJoin.resx">
+      <DependentUpon>TicTacToeStartOrJoin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
