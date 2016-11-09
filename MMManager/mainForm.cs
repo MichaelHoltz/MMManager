@@ -251,5 +251,7 @@ namespace MMManager
             MMMChatClient mcc2 = new MMMChatClient();
             mcc2.Show();
         }
+
+
     }
 }

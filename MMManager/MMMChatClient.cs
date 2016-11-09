@@ -12,24 +12,21 @@ namespace MMManager
         private delegate void UserJoined(string name);
         private delegate void UserSendMessage(string name, string message);
         private delegate void UserLeft(string name);
-        //private delegate void UserSendButton(string name, int ButtonNum);
-        //private delegate void StartingTicTacToe(string name, TicTacToeBoard theBoard);
         private delegate void UserTicTacToeMessage(string name, TicTacToeBoard theBoard);
 
         private static event UserJoined NewJoin;
         private static event UserSendMessage MessageSent;
         private static event UserLeft RemoveUser;
-        //private static event UserSendButton ButtonSend;
-        //private static event StartingTicTacToe StartTicTacToe;
         private static event UserTicTacToeMessage TicTacToeMessageSent;
 
         private string userName;
         private IChatChannel channel;
         private DuplexChannelFactory<IChatChannel> factory;
-
         public MMMChatClient()
         {
             InitializeComponent();
+            channel = null;
+            factory = null;
             this.AcceptButton = btnLogin;
         }
 
@@ -47,46 +44,23 @@ namespace MMManager
                     NewJoin += new UserJoined(MMMChatClient_NewJoin);
                     MessageSent += new UserSendMessage(MMMChatClient_MessageSent);
                     RemoveUser += new UserLeft(MMMChatClient_RemoveUser);
-                   // ButtonSend +=new UserSendButton( MMMChatClient_ButtonSend);
-                   // StartTicTacToe += new StartingTicTacToe(MMMChatClient_TicTacToeStarted);
                     TicTacToeMessageSent += new UserTicTacToeMessage(MMMChatClient_TicTacToeMessageSent);
                     channel = null;
                     this.userName = txtUserName.Text.Trim();
 
-
-
-                    #region Converting from App.config - Just needed to syncronize!
-                    //NetPeerTcpBinding binding = new NetPeerTcpBinding();
-                    //binding.Name = "PeerTcpConfig";
-                    //binding.Port = 0;
-                    //binding.Security.Mode = SecurityMode.None;
-                    //binding.Resolver.Mode = System.ServiceModel.PeerResolvers.PeerResolverMode.Auto;
-
-                    //System.ServiceModel.Description.ContractDescription ContractDesc = new System.ServiceModel.Description.ContractDescription("MMManager.IChatService", "MMManager");
-                    //ContractDesc.ContractType = typeof(IChatService);
-                    //ContractDesc.ConfigurationName = "ChatEndPoint";
-
-                    //System.ServiceModel.Description.ServiceEndpoint ChatEndPoint = new System.ServiceModel.Description.ServiceEndpoint(ContractDesc);
-                    //ChatEndPoint.Name = "ChatEndPoint";
-                    //ChatEndPoint.Address = new EndpointAddress("net.p2p://localhost/ChatServer");
-                    //ChatEndPoint.Binding = binding;
-                    //ChatEndPoint.Contract = ContractDesc;
                     //InstanceContext context = new InstanceContext(new MMMChatClient(txtUserName.Text.Trim()));
-                    //factory = new DuplexChannelFactory<IChatChannel>(context, "ChatEndPoint");
-
-                    #endregion 
-
-                    InstanceContext context = new InstanceContext(new MMMChatClient(txtUserName.Text.Trim()));
+                    InstanceContext context = new InstanceContext(this);
                     factory =  new DuplexChannelFactory<IChatChannel>(context, "ChatEndPoint");
+
                     channel = factory.CreateChannel();
                     IOnlineStatus status = channel.GetProperty<IOnlineStatus>();
                     status.Offline += new EventHandler(Offline);
                     status.Online += new EventHandler(Online);                    
                     channel.Open();                    
-                    channel.Join(this.userName);
+                    //channel.Join(this.userName);
                     grpMessageWindow.Enabled = true;
                     grpUserList.Enabled = true;
-                
+                    channel.Join(this.userName);
                     grpUserCredentials.Enabled = false;
                     gbTicTacToe.Enabled = true; //Enable TicTacToe                     
                     this.AcceptButton = btnSend;
@@ -130,8 +104,8 @@ namespace MMManager
         void MMMChatClient_NewJoin(string name)
         {
             rtbMessages.AppendText("\r\n");
-            rtbMessages.AppendText(name + " joined at: [" + DateTime.Now.ToString() + "]");            
-            lstUsers.Items.Add(name);       
+            rtbMessages.AppendText(name + " joined at: [" + DateTime.Now.ToString() + "]");
+            lstUsers.Items.Add(name);
         }
 
         void Online(object sender, EventArgs e)
@@ -145,55 +119,12 @@ namespace MMManager
             rtbMessages.AppendText("\r\nOffline: " + this.userName);
         }
 
-
-
-        //private void MMMChatClient_ButtonSend(string name, int ButtonNum)
-        //{
-
-        //    if (ButtonNum == 1)
-        //        setValue(b1);
-        //    //AllButtonClick(b1, EventArgs.Empty);
-        //    if (ButtonNum == 2)
-        //        setValue(b2);
-        //    //AllButtonClick(b2, EventArgs.Empty);
-        //    if (ButtonNum == 3)
-        //        setValue(b3);
-        //    //AllButtonClick(b3, EventArgs.Empty);
-        //    if (ButtonNum == 4)
-        //        setValue(b4);
-        //    //AllButtonClick(b4, EventArgs.Empty);
-        //    if (ButtonNum == 5)
-        //        setValue(b5);
-        //    //AllButtonClick(b5, EventArgs.Empty);
-        //    if (ButtonNum == 6)
-        //        setValue(b6);
-        //    //AllButtonClick(b6, EventArgs.Empty);
-        //    if (ButtonNum == 7)
-        //        setValue(b7);
-        //    //AllButtonClick(b7, EventArgs.Empty);
-        //    if (ButtonNum == 8)
-        //        setValue(b8);
-        //    //AllButtonClick(b8, EventArgs.Empty);
-        //    if (ButtonNum == 9)
-        //        setValue(b9);
-        //    //AllButtonClick(b9, EventArgs.Empty);
-        //    if (ButtonNum == 10)
-        //        reset();
-        //    //AllButtonClick(bc, EventArgs.Empty);
-
-
-        //}
-        //private void MMMChatClient_TicTacToeStarted(string name, TicTacToeBoard theBoard)
-        //{
-        //    //Message REceived to start TickTack Toe
-        //    if (name != this.userName)
-        //    {
-        //        MessageBox.Show("Tic Tac Toe Request");
-        //        btnStartTicTacToe.Text = "Accept";
-        //        theTicTacToeBoard = theBoard;
-        //        theTicTacToeBoard.SecondName = name;
-        //    }
-        //}
+        /// <summary>
+        /// Event Handler for All TTT Messages.
+        /// All sessions connected receive all messages.
+        /// </summary>
+        /// <param name="name">The User Name</param>
+        /// <param name="theBoard">The Current Board</param>
         private void MMMChatClient_TicTacToeMessageSent(string name, TicTacToeBoard theBoard)
         {
             propertyGrid1.SelectedObject = theBoard;
@@ -264,23 +195,7 @@ namespace MMManager
                 MessageSent(memberName, message);
             }
         }
-        //public void SendButton(string memberName, int ButtonNum)
-        //{
-        //    if (ButtonSend != null)
-        //    {
-        //        ButtonSend(memberName, ButtonNum);
-        //    }
-        //}
-
-        //public void RequestStartTicTacToe(string memberName, TicTacToeBoard generatedBoard)
-        //{
-        //    if (StartTicTacToe != null)
-        //    {
-        //        StartTicTacToe(memberName, generatedBoard);
-        //    }
-        //  //  MessageBox.Show("Contract Start Tic Tack Toe");
-        //   // throw new NotImplementedException();
-        //}
+  
         public void TicTacToeMessage(string memberName, TicTacToeBoard generatedBoard)
         {
             if (TicTacToeMessageSent != null)
@@ -303,20 +218,38 @@ namespace MMManager
         {
             try
             {
+                NewJoin = null;
+                MessageSent = null;
+                RemoveUser = null;
+                TicTacToeMessageSent = null;
+
                 if (channel != null)
                 {
-                    channel.Leave(this.userName);
+                   // channel.Leave(this.userName);
                     channel.Close();
                 }
                 if (factory != null)
                 {
                     factory.Close();
                 }
+                //if (context != null)
+                //{
+                //    object  o = context.GetServiceInstance();
+                //    context.ReleaseServiceInstance();
+                //    context.Abort();
+                //    (o as MMMChatClient).Close();
+                //    o = null;
+                //}
+                //if (iMMMChatClient != null)
+                //{
+                //    iMMMChatClient.Close();
+                //}
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
+
         }
         #region ticTacToe
         private void reset()
@@ -422,6 +355,9 @@ namespace MMManager
 
         }
 
+        private void MMMChatClient_FormClosed(object sender, FormClosedEventArgs e)
+        {
 
+        }
     }
 }

@@ -297,6 +297,7 @@ namespace MMManager
             this.Name = "MMMChatClient";
             this.Text = "MMMChatClient";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MMMChatClient_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MMMChatClient_FormClosed);
             this.grpMessageWindow.ResumeLayout(false);
             this.grpMessageWindow.PerformLayout();
             this.grpUserCredentials.ResumeLayout(false);
