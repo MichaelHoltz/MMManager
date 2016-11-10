@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("");
             this.lbAvailableGames = new System.Windows.Forms.ListBox();
             this.lblAvailableGames = new System.Windows.Forms.Label();
             this.btnJoin = new System.Windows.Forms.Button();
             this.btnWatch = new System.Windows.Forms.Button();
             this.scALL = new System.Windows.Forms.SplitContainer();
+            this.ticTacToeOptions1 = new MMManager.GameControls.TicTacToeOptions();
             this.scNewOrJoin = new System.Windows.Forms.SplitContainer();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.btnStartGame = new System.Windows.Forms.Button();
             this.btnCreateRemove = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.ticTacToeOptions1 = new MMManager.GameControls.TicTacToeOptions();
             ((System.ComponentModel.ISupportInitialize)(this.scALL)).BeginInit();
             this.scALL.Panel1.SuspendLayout();
             this.scALL.Panel2.SuspendLayout();
@@ -59,6 +59,8 @@
             this.lbAvailableGames.Name = "lbAvailableGames";
             this.lbAvailableGames.Size = new System.Drawing.Size(191, 82);
             this.lbAvailableGames.TabIndex = 0;
+            this.lbAvailableGames.Click += new System.EventHandler(this.lbAvailableGames_Click);
+            this.lbAvailableGames.SelectedIndexChanged += new System.EventHandler(this.lbAvailableGames_SelectedIndexChanged);
             // 
             // lblAvailableGames
             // 
@@ -78,6 +80,7 @@
             this.btnJoin.TabIndex = 3;
             this.btnJoin.Text = "Join";
             this.btnJoin.UseVisualStyleBackColor = true;
+            this.btnJoin.Click += new System.EventHandler(this.btnJoin_Click);
             // 
             // btnWatch
             // 
@@ -88,6 +91,7 @@
             this.btnWatch.TabIndex = 4;
             this.btnWatch.Text = "Watch";
             this.btnWatch.UseVisualStyleBackColor = true;
+            this.btnWatch.Click += new System.EventHandler(this.btnWatch_Click);
             // 
             // scALL
             // 
@@ -107,6 +111,16 @@
             this.scALL.Size = new System.Drawing.Size(429, 200);
             this.scALL.SplitterDistance = 149;
             this.scALL.TabIndex = 5;
+            // 
+            // ticTacToeOptions1
+            // 
+            this.ticTacToeOptions1.AutoSize = true;
+            this.ticTacToeOptions1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ticTacToeOptions1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ticTacToeOptions1.Location = new System.Drawing.Point(0, 0);
+            this.ticTacToeOptions1.Name = "ticTacToeOptions1";
+            this.ticTacToeOptions1.Size = new System.Drawing.Size(149, 200);
+            this.ticTacToeOptions1.TabIndex = 1;
             // 
             // scNewOrJoin
             // 
@@ -134,6 +148,16 @@
             this.scNewOrJoin.SplitterDistance = 87;
             this.scNewOrJoin.TabIndex = 0;
             // 
+            // listView1
+            // 
+            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem7});
+            this.listView1.Location = new System.Drawing.Point(28, 28);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(216, 53);
+            this.listView1.TabIndex = 2;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
             // btnStartGame
             // 
             this.btnStartGame.Location = new System.Drawing.Point(150, 3);
@@ -142,6 +166,7 @@
             this.btnStartGame.TabIndex = 1;
             this.btnStartGame.Text = "StartGame";
             this.btnStartGame.UseVisualStyleBackColor = true;
+            this.btnStartGame.Click += new System.EventHandler(this.btnStartGame_Click);
             // 
             // btnCreateRemove
             // 
@@ -151,6 +176,7 @@
             this.btnCreateRemove.TabIndex = 0;
             this.btnCreateRemove.Text = "Create Game";
             this.btnCreateRemove.UseVisualStyleBackColor = true;
+            this.btnCreateRemove.Click += new System.EventHandler(this.btnCreateRemove_Click);
             // 
             // btnRefresh
             // 
@@ -160,26 +186,7 @@
             this.btnRefresh.TabIndex = 5;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
-            // 
-            // listView1
-            // 
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
-            this.listView1.Location = new System.Drawing.Point(28, 28);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(216, 53);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
-            // ticTacToeOptions1
-            // 
-            this.ticTacToeOptions1.AutoSize = true;
-            this.ticTacToeOptions1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ticTacToeOptions1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ticTacToeOptions1.Location = new System.Drawing.Point(0, 0);
-            this.ticTacToeOptions1.Name = "ticTacToeOptions1";
-            this.ticTacToeOptions1.Size = new System.Drawing.Size(149, 200);
-            this.ticTacToeOptions1.TabIndex = 1;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // TicTacToeStartOrJoin
             // 
