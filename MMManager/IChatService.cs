@@ -13,6 +13,9 @@ namespace MMManager
         void SendMessage(string memberName, string message);
 
         [OperationContract(IsOneWay = true)]
+        void InitializeMesh();
+
+        [OperationContract(IsOneWay = true)]
         void TicTacToeMessage(string memberName, TicTacToeBoard generatedBoard);
     }
 }

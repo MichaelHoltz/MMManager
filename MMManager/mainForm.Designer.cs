@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.button3 = new System.Windows.Forms.Button();
             this.btnSoloTicTacToe = new System.Windows.Forms.Button();
             this.btnChatForm = new System.Windows.Forms.Button();
             this.btnApplicationSettings = new System.Windows.Forms.Button();
@@ -46,8 +45,6 @@
             this.lblPeerLocation = new System.Windows.Forms.Label();
             this.tbPeerName = new System.Windows.Forms.TextBox();
             this.lblPeerName = new System.Windows.Forms.Label();
-            this.btnPeer = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.btnFormTesting = new System.Windows.Forms.Button();
             this.btnModsSelector = new System.Windows.Forms.Button();
             this.gbVersion = new System.Windows.Forms.GroupBox();
@@ -96,7 +93,6 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.button3);
             this.splitContainer2.Panel1.Controls.Add(this.btnSoloTicTacToe);
             this.splitContainer2.Panel1.Controls.Add(this.btnChatForm);
             this.splitContainer2.Panel1.Controls.Add(this.btnApplicationSettings);
@@ -111,8 +107,6 @@
             this.splitContainer2.Panel1.Controls.Add(this.lblPeerLocation);
             this.splitContainer2.Panel1.Controls.Add(this.tbPeerName);
             this.splitContainer2.Panel1.Controls.Add(this.lblPeerName);
-            this.splitContainer2.Panel1.Controls.Add(this.btnPeer);
-            this.splitContainer2.Panel1.Controls.Add(this.button2);
             this.splitContainer2.Panel1.Controls.Add(this.btnFormTesting);
             this.splitContainer2.Panel1.Controls.Add(this.btnModsSelector);
             this.splitContainer2.Panel1.Controls.Add(this.gbVersion);
@@ -126,21 +120,11 @@
             this.splitContainer2.SplitterDistance = 857;
             this.splitContainer2.TabIndex = 7;
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(538, 270);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(110, 35);
-            this.button3.TabIndex = 31;
-            this.button3.Text = "Chat";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
-            // 
             // btnSoloTicTacToe
             // 
-            this.btnSoloTicTacToe.Location = new System.Drawing.Point(516, 218);
+            this.btnSoloTicTacToe.Location = new System.Drawing.Point(527, 56);
             this.btnSoloTicTacToe.Name = "btnSoloTicTacToe";
-            this.btnSoloTicTacToe.Size = new System.Drawing.Size(97, 23);
+            this.btnSoloTicTacToe.Size = new System.Drawing.Size(110, 35);
             this.btnSoloTicTacToe.TabIndex = 30;
             this.btnSoloTicTacToe.Text = "TicTacToeSolo";
             this.btnSoloTicTacToe.UseVisualStyleBackColor = true;
@@ -148,19 +132,19 @@
             // 
             // btnChatForm
             // 
-            this.btnChatForm.Location = new System.Drawing.Point(516, 163);
+            this.btnChatForm.Location = new System.Drawing.Point(527, 14);
             this.btnChatForm.Name = "btnChatForm";
             this.btnChatForm.Size = new System.Drawing.Size(110, 35);
             this.btnChatForm.TabIndex = 29;
-            this.btnChatForm.Text = "Chat";
+            this.btnChatForm.Text = "Chat Tic Tac Toe";
             this.btnChatForm.UseVisualStyleBackColor = true;
             this.btnChatForm.Click += new System.EventHandler(this.btnChatForm_Click);
             // 
             // btnApplicationSettings
             // 
-            this.btnApplicationSettings.Location = new System.Drawing.Point(748, 92);
+            this.btnApplicationSettings.Location = new System.Drawing.Point(738, 14);
             this.btnApplicationSettings.Name = "btnApplicationSettings";
-            this.btnApplicationSettings.Size = new System.Drawing.Size(75, 37);
+            this.btnApplicationSettings.Size = new System.Drawing.Size(114, 33);
             this.btnApplicationSettings.TabIndex = 28;
             this.btnApplicationSettings.Text = "Application Settings";
             this.btnApplicationSettings.UseVisualStyleBackColor = true;
@@ -264,29 +248,9 @@
             this.lblPeerName.TabIndex = 15;
             this.lblPeerName.Text = "Name";
             // 
-            // btnPeer
-            // 
-            this.btnPeer.Location = new System.Drawing.Point(748, 50);
-            this.btnPeer.Name = "btnPeer";
-            this.btnPeer.Size = new System.Drawing.Size(75, 23);
-            this.btnPeer.TabIndex = 14;
-            this.btnPeer.Text = "Peer Props";
-            this.btnPeer.UseVisualStyleBackColor = true;
-            this.btnPeer.Click += new System.EventHandler(this.btnPeer_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(748, 11);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(92, 33);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "Save JSON";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // btnFormTesting
             // 
-            this.btnFormTesting.Location = new System.Drawing.Point(513, 121);
+            this.btnFormTesting.Location = new System.Drawing.Point(738, 102);
             this.btnFormTesting.Name = "btnFormTesting";
             this.btnFormTesting.Size = new System.Drawing.Size(114, 33);
             this.btnFormTesting.TabIndex = 12;
@@ -296,9 +260,9 @@
             // 
             // btnModsSelector
             // 
-            this.btnModsSelector.Location = new System.Drawing.Point(511, 92);
+            this.btnModsSelector.Location = new System.Drawing.Point(738, 58);
             this.btnModsSelector.Name = "btnModsSelector";
-            this.btnModsSelector.Size = new System.Drawing.Size(116, 23);
+            this.btnModsSelector.Size = new System.Drawing.Size(114, 33);
             this.btnModsSelector.TabIndex = 11;
             this.btnModsSelector.Text = "ModsSelector";
             this.btnModsSelector.UseVisualStyleBackColor = true;
@@ -509,6 +473,7 @@
             this.DoubleBuffered = true;
             this.Name = "mainForm";
             this.Text = "MMManager";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
             this.Load += new System.EventHandler(this.mainForm_Load);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
@@ -551,8 +516,6 @@
         private System.Windows.Forms.Button btnModsSelector;
         private System.Windows.Forms.Label lblArchiveOptions;
         private System.Windows.Forms.Button btnFormTesting;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button btnPeer;
         private System.Windows.Forms.Label lblPeerName;
         private System.Windows.Forms.TextBox tbPeerName;
         private System.Windows.Forms.TextBox tbPeerLocation;
@@ -570,7 +533,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnChatForm;
         private System.Windows.Forms.Button btnSoloTicTacToe;
-        private System.Windows.Forms.Button button3;
     }
 }
 

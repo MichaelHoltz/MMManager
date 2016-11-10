@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.Drawing;
 
 namespace MMManager
 {
@@ -28,11 +29,16 @@ namespace MMManager
             channel = null;
             factory = null;
             this.AcceptButton = btnLogin;
+
         }
 
-        public MMMChatClient(string userName)
+        public MMMChatClient(string userName):this()
         {
             this.userName = userName;
+            if (userName != null)
+            {
+                txtUserName.Text = userName;
+            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -62,9 +68,11 @@ namespace MMManager
                     grpUserList.Enabled = true;
                     channel.Join(this.userName);
                     grpUserCredentials.Enabled = false;
-                    gbTicTacToe.Enabled = true; //Enable TicTacToe                     
+                    gbTicTacToe.Enabled = true; //Enable TicTacToe                    
+                    channel.InitializeMesh(); //Doesn't do anything..
                     this.AcceptButton = btnSend;
-                    rtbMessages.AppendText("*****************************WEL-COME to Chat Application*****************************\r\n");
+                    //rtbMessages.PrependText("\r\n*****************************WELCOME to the Chat Application*****************************");
+                    rtbMessages.AppendColorText("*****************************WELCOME to the Chat Application*****************************\r\n", Color.Green);
                     txtSendMessage.Select();
                     txtSendMessage.Focus();
                 }
@@ -81,8 +89,8 @@ namespace MMManager
         {
             try
             {
-                rtbMessages.AppendText("\r\n");
-                rtbMessages.AppendText(name + " left at " + DateTime.Now.ToString());
+                //rtbMessages.AppendText( "\r\n" + name + " left at " + DateTime.Now.ToString() + "\r\n");
+                rtbMessages.AppendColorText("\r\n" + name + " left at " + DateTime.Now.ToString() + "\r\n", Color.Green);
                 lstUsers.Items.Remove(name);
             }
             catch (Exception ex)
@@ -97,26 +105,32 @@ namespace MMManager
             {
                 lstUsers.Items.Add(name);
             }
-            rtbMessages.AppendText("\r\n");
-            rtbMessages.AppendText(name + " says: " + message);
+            
+            //rtbMessages.AppendText( name + " says: " + message + "\r\n");
+            rtbMessages.AppendColorText(name + " says: " + message + "\r\n", Color.Blue);
+           // rtbMessages.PrependColorText(name + " says: ", Color.Goldenrod);
+           // rtbMessages.PrependColorText(message + "\r\n", Color.Black);
         }
 
         void MMMChatClient_NewJoin(string name)
         {
-            rtbMessages.AppendText("\r\n");
-            rtbMessages.AppendText(name + " joined at: [" + DateTime.Now.ToString() + "]");
+            rtbMessages.AppendColorText("\r\n" + name + " joined at: [" + DateTime.Now.ToString() + "]\r\n", Color.Red);
+            //rtbMessages.AppendText("\r\n" + name + " joined at: [" + DateTime.Now.ToString() + "]\r\n" );
+
             lstUsers.Items.Add(name);
         }
 
         void Online(object sender, EventArgs e)
-        {            
-            rtbMessages.AppendText("\r\nOnline: " + this.userName);
+        { 
+            //rtbMessages.AppendText("\r\nOnline: " + this.userName + "\r\n");
+            rtbMessages.AppendColorText("\r\nOnline: " + this.userName + "\r\n", Color.Green);
             gbTicTacToe.Enabled = true; //Enable TicTacToe    
         }
 
         void Offline(object sender, EventArgs e)
         {
-            rtbMessages.AppendText("\r\nOffline: " + this.userName);
+            //rtbMessages.AppendText("\r\nOffline: " + this.userName + "\r\n");
+            rtbMessages.AppendColorText("\r\nOffline: " + this.userName + "\r\n", Color.Green);
         }
 
         /// <summary>
@@ -133,7 +147,7 @@ namespace MMManager
             //Message REceived to start TickTack Toe
             if (theBoard.Message == TicTacToeBoard.MessageCode.Start)
             {
-                MessageBox.Show("Tic Tac Toe Request");
+                MessageBox.Show(this, "Tic Tac Toe Request");
                 btnStartTicTacToe.Text = "Accept";
                 theTicTacToeBoard = theBoard;
                 theTicTacToeBoard.SecondName = name;
@@ -204,6 +218,10 @@ namespace MMManager
             }
         }
 
+        public void InitializeMesh()
+        {
+            //do nothing
+        }
         #endregion
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -225,25 +243,13 @@ namespace MMManager
 
                 if (channel != null)
                 {
-                   // channel.Leave(this.userName);
+                    channel.Leave(this.userName); //Removes user from other members list.
                     channel.Close();
                 }
                 if (factory != null)
                 {
                     factory.Close();
                 }
-                //if (context != null)
-                //{
-                //    object  o = context.GetServiceInstance();
-                //    context.ReleaseServiceInstance();
-                //    context.Abort();
-                //    (o as MMMChatClient).Close();
-                //    o = null;
-                //}
-                //if (iMMMChatClient != null)
-                //{
-                //    iMMMChatClient.Close();
-                //}
             }
             catch (Exception ex)
             {
@@ -358,6 +364,14 @@ namespace MMManager
         private void MMMChatClient_FormClosed(object sender, FormClosedEventArgs e)
         {
 
+        }
+
+        private void txtUserName_TextChanged(object sender, EventArgs e)
+        {
+            if (txtUserName.Text.Trim().Length > 0)
+            {
+                this.userName = txtUserName.Text.Trim();
+            }
         }
     }
 }

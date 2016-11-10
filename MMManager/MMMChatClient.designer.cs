@@ -32,7 +32,6 @@ namespace MMManager
             this.grpMessageWindow = new System.Windows.Forms.GroupBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.txtSendMessage = new System.Windows.Forms.TextBox();
-            this.rtbMessages = new System.Windows.Forms.RichTextBox();
             this.grpUserCredentials = new System.Windows.Forms.GroupBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.txtUserName = new System.Windows.Forms.TextBox();
@@ -51,6 +50,7 @@ namespace MMManager
             this.btnStartTicTacToe = new System.Windows.Forms.Button();
             this.gbTicTacToe = new System.Windows.Forms.GroupBox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.rtbMessages = new MMManager.Controls.RichTextBox();
             this.grpMessageWindow.SuspendLayout();
             this.grpUserCredentials.SuspendLayout();
             this.grpUserList.SuspendLayout();
@@ -59,9 +59,9 @@ namespace MMManager
             // 
             // grpMessageWindow
             // 
+            this.grpMessageWindow.Controls.Add(this.rtbMessages);
             this.grpMessageWindow.Controls.Add(this.btnSend);
             this.grpMessageWindow.Controls.Add(this.txtSendMessage);
-            this.grpMessageWindow.Controls.Add(this.rtbMessages);
             this.grpMessageWindow.Enabled = false;
             this.grpMessageWindow.Location = new System.Drawing.Point(12, 71);
             this.grpMessageWindow.Name = "grpMessageWindow";
@@ -88,15 +88,6 @@ namespace MMManager
             this.txtSendMessage.Size = new System.Drawing.Size(408, 55);
             this.txtSendMessage.TabIndex = 1;
             // 
-            // rtbMessages
-            // 
-            this.rtbMessages.Location = new System.Drawing.Point(9, 33);
-            this.rtbMessages.Name = "rtbMessages";
-            this.rtbMessages.ReadOnly = true;
-            this.rtbMessages.Size = new System.Drawing.Size(501, 190);
-            this.rtbMessages.TabIndex = 0;
-            this.rtbMessages.Text = "";
-            // 
             // grpUserCredentials
             // 
             this.grpUserCredentials.Controls.Add(this.btnLogin);
@@ -122,10 +113,11 @@ namespace MMManager
             // txtUserName
             // 
             this.txtUserName.Location = new System.Drawing.Point(77, 12);
-            this.txtUserName.MaxLength = 10;
+            this.txtUserName.MaxLength = 32;
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(158, 20);
             this.txtUserName.TabIndex = 1;
+            this.txtUserName.TextChanged += new System.EventHandler(this.txtUserName_TextChanged);
             // 
             // lblLoginName
             // 
@@ -277,16 +269,24 @@ namespace MMManager
             // 
             // propertyGrid1
             // 
-            this.propertyGrid1.Location = new System.Drawing.Point(884, 20);
+            this.propertyGrid1.Location = new System.Drawing.Point(1061, 36);
             this.propertyGrid1.Name = "propertyGrid1";
             this.propertyGrid1.Size = new System.Drawing.Size(202, 407);
             this.propertyGrid1.TabIndex = 35;
+            // 
+            // rtbMessages
+            // 
+            this.rtbMessages.Location = new System.Drawing.Point(9, 19);
+            this.rtbMessages.Name = "rtbMessages";
+            this.rtbMessages.Size = new System.Drawing.Size(500, 204);
+            this.rtbMessages.TabIndex = 3;
+            this.rtbMessages.Text = "";
             // 
             // MMMChatClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1126, 556);
+            this.ClientSize = new System.Drawing.Size(1275, 556);
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.gbTicTacToe);
             this.Controls.Add(this.grpUserList);
@@ -316,7 +316,6 @@ namespace MMManager
         private System.Windows.Forms.Label lblLoginName;
         private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.Button btnLogin;
-        private System.Windows.Forms.RichTextBox rtbMessages;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.TextBox txtSendMessage;
         private System.Windows.Forms.ListBox lstUsers;
@@ -332,6 +331,7 @@ namespace MMManager
         private System.Windows.Forms.Button btnStartTicTacToe;
         private System.Windows.Forms.GroupBox gbTicTacToe;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private Controls.RichTextBox rtbMessages;
     }
 }
 

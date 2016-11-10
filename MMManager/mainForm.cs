@@ -57,7 +57,44 @@ namespace MMManager
         }
         private void mainForm_Load(object sender, EventArgs e)
         {
-            propertyGrid1.SelectedObject = mas; // Set Property View to Application Settings
+            //propertyGrid1.SelectedObject = mas; // Set Property View to Application Settings
+            if (mmmPeer.Instances == null || mmmPeer.Instances.Count == 0)
+            {
+                MMMInstance mmmI = new MMMInstance();
+                mmmI.ActiveInstance = true;
+                mmmI.InstanceName = "Current Minecraft Settings";
+                mmmI.MineCraftVersion = "1.7.0";
+                mmmI.ForgeVersion = "1.10.0";
+                mmmPeer.ForgeInfo.Version = "2";
+                mmmPeer.ForgeInfo.Location = "test2";
+                mmmPeer.Instances = new SortedList<String, MMMInstance>(31);
+                mmmPeer.Instances.Add(mmmI.InstanceName, mmmI); // Add Default Instance
+
+            }
+            else
+            {
+                //MessageBox.Show(mmmPeer.Instances.Values[0].InstanceName);
+            }
+
+            //Set the Peer Properties or auto Assign them.
+            tbPeerName.Text = mmmPeer.UserName;
+            tbPeerLocation.Text = Environment.MachineName;
+            //Set the Instance properties.
+            foreach (var item in mmmPeer.Instances)
+            {
+                cbForgeVersion.Items.Add((item.Value as MMMInstance).ForgeVersion);
+                cbMCVersion.Items.Add((item.Value as MMMInstance).MineCraftVersion);
+                cbInstanceName.Items.Add((item.Value as MMMInstance).InstanceName);
+                if ((item.Value as MMMInstance).ActiveInstance)
+                {
+                    cbForgeVersion.SelectedText = (item.Value as MMMInstance).ForgeVersion;
+                    cbMCVersion.SelectedText = (item.Value as MMMInstance).MineCraftVersion;
+                    cbInstanceName.SelectedText = (item.Value as MMMInstance).InstanceName;
+                }
+            }
+
+
+            propertyGrid1.SelectedObject = mmmPeer; //Set to Peer Object
         }
 
 
@@ -97,55 +134,9 @@ namespace MMManager
             ft.ShowDialog();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            mas.SaveSettings();
-            string json = JsonConvert.SerializeObject(mmmPeer,Formatting.Indented);
-            File.WriteAllText("mmmPeer.json", json);
-        }
-
-        private void btnPeer_Click(object sender, EventArgs e)
-        {
-            //Must have an Instance.
-            if (mmmPeer.Instances == null || mmmPeer.Instances.Count ==0)
-            {
-                MMMInstance mmmI = new MMMInstance();
-                mmmI.ActiveInstance = true;
-                mmmI.InstanceName = "Current Minecraft Settings";
-                mmmI.MineCraftVersion = "1.7.0";
-                mmmI.ForgeVersion = "1.10.0";
-                mmmPeer.ForgeInfo.Version = "2";
-                mmmPeer.ForgeInfo.Location = "test2";
-                mmmPeer.Instances = new SortedList<String, MMMInstance>(31);
-                mmmPeer.Instances.Add(mmmI.InstanceName, mmmI); // Add Default Instance
-
-            }
-            else
-            {
-                MessageBox.Show(mmmPeer.Instances.Values[0].InstanceName);
-            }
-
-            //Set the Peer Properties or auto Assign them.
-            tbPeerName.Text = mmmPeer.UserName;
-            tbPeerLocation.Text = Environment.MachineName;
-            //Set the Instance properties.
-            foreach (var item in mmmPeer.Instances)
-            {
-                cbForgeVersion.Items.Add((item.Value as MMMInstance).ForgeVersion);
-                cbMCVersion.Items.Add((item.Value as MMMInstance).MineCraftVersion);
-                cbInstanceName.Items.Add((item.Value as MMMInstance).InstanceName);
-                if ((item.Value as MMMInstance).ActiveInstance)
-                {
-                    cbForgeVersion.SelectedText = (item.Value as MMMInstance).ForgeVersion;
-                    cbMCVersion.SelectedText = (item.Value as MMMInstance).MineCraftVersion;
-                    cbInstanceName.SelectedText = (item.Value as MMMInstance).InstanceName;
-                }
-            }
 
 
-            propertyGrid1.SelectedObject = mmmPeer; //Set to Peer Object
-            
-        }
+ 
 
         private void tbPeerName_TextChanged(object sender, EventArgs e)
         {
@@ -214,6 +205,7 @@ namespace MMManager
             {
                 SetTextCallback d = new SetTextCallback(SetText);
                 this.Invoke(d, new object[] { text });
+                
             }
             else
             {
@@ -228,7 +220,8 @@ namespace MMManager
 
         private void btnChatForm_Click(object sender, EventArgs e)
         {
-            MMMChatClient mcc = new MMMChatClient();
+            MMMChatClient mcc = new MMMChatClient(mmmPeer.UserName);
+            mcc.StartPosition = FormStartPosition.CenterParent;
             mcc.Show();
             //MMMChatTicTacToeForm mcf = new MMMChatTicTacToeForm();
             //mcf.Show();
@@ -246,12 +239,11 @@ namespace MMManager
             frm.Show();
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MMMChatClient mcc2 = new MMMChatClient();
-            mcc2.Show();
+            mas.SaveSettings();
+            string json = JsonConvert.SerializeObject(mmmPeer, Formatting.Indented);
+            File.WriteAllText("mmmPeer.json", json);
         }
-
-
     }
 }
