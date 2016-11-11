@@ -4,35 +4,65 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Media;
+using MMManager.GameInterfaces;
 
 namespace MMManager.GameControls
 {
-    public partial class TicTacToeBoard : UserControl
+    public partial class TicTacToeBoard : UserControl,IGame
     {
         private MMManagerTTTButton theButton;
         private String[] letters = new String[5] { "J", "K", "M", "L", "N" };
-        private char[] symbols = new char[2] { 'X', 'O' };
+        private const int PCOUNT = 2;
+        private char[] symbols = new char[PCOUNT] { 'X', 'O' };
         private int SymbolPos = 0;
         private int TurnPos = 0;
         private int letterPos = 0;
+        private int TotalNumMoves = 0;
         int maxY = 4;
         int maxX = 4;
         int maxBombCount = 2;
         private char[,] grid;
         MMManagerTTTButton[,] b;
         private Color bColor;
+        private string playerName;
+
+        public string PlayerName
+        {
+            get { return playerName; }
+            set
+            {
+                playerName = value;
+                GameInfo.PlayerName = value;
+            }
+        }
+
+        public IGameInfo GameInfo
+        {
+            get
+            {
+                return this.ticTacToeStartOrJoin1; 
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public TicTacToeBoard()
         {
             InitializeComponent();
-            bColor = btnStart.BackColor;
+
+            bColor = Color.FromKnownColor(KnownColor.Control);
+            
         }
-        private void GenerateNewGame()
+        public void GenerateNewGame()
         {
-            groupBox1.Controls.Clear();
-            groupBox1.Enabled = true;
+            
+            bgGame.Controls.Clear();
+            bgGame.Enabled = true;
             SymbolPos = 0; // Reset to start with X or the first symbol
-            maxX = Convert.ToInt32(ticTacToeOptions1.GridSize);
+            maxX = Convert.ToInt32(GameInfo.GameOptions.GridSize);
             maxY = maxX; // Keep Symetry
             int y = 0;
             int x = 0;
@@ -57,7 +87,7 @@ namespace MMManager.GameControls
                     b[y, x].Top = (y * 40) + 20;
                     b[y, x].Click += Button_Click;
                     b[y, x].Tag = "0";
-                    groupBox1.Controls.Add(b[y, x]);
+                    bgGame.Controls.Add(b[y, x]);
                 }
             }
             maxBombCount = maxY - 1;
@@ -72,12 +102,10 @@ namespace MMManager.GameControls
                 }
             }
             getCurrentTurn(); //Show Who's Turn it is
+            JoinGame(PlayerName, 0);
+            //_game.JoinGame(_game.PlayerName, 0);
         }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            GenerateNewGame();
 
-        }
         private bool CheckWin(int y, int x, int n, ref char winLine, List<Point> winningList)
         {
             bool win = true;
@@ -103,15 +131,24 @@ namespace MMManager.GameControls
 
             char winLine = '\0'; //Null
             bool win = true;
-            #region Load Grid
+            #region Load Grid - Can be done dynamically
+            TotalNumMoves = 0; //Rest for counting again
             for (y = 0; y < maxY; y++)
             {
                 for (x = 0; x < maxX; x++)
                 {
-                    btn = (groupBox1.Controls.Find("B" + y + x, false).First() as Button);
-                    btn.BackColor = bColor;
+                    btn = (bgGame.Controls.Find("B" + y + x, false).First() as Button); //Find the Button
+                    //This is a reset
+                    btn.BackColor = bColor; 
                     btn.UseVisualStyleBackColor = true;
                     grid[y, x] = btn.Text.ToCharArray(0, 1)[0];
+                    for (int i = 0; i < PCOUNT; i++)
+                    {
+                        if (grid[y, x] == symbols[i])
+                        {
+                            TotalNumMoves++;
+                        }
+                    }
                 }
             }
             #endregion
@@ -207,6 +244,13 @@ namespace MMManager.GameControls
                 }
                 AllButtonsEnable(false);
                 label1.Text = "Game Over";
+                GameInfo.GameOver(label1.Text);
+            }
+            //Check for Draw
+            if (TotalNumMoves == maxX * maxY) // All spaces are filled
+            {
+                label1.Text = "Cat's Game";
+                GameInfo.GameOver(label1.Text);
             }
 
         }
@@ -315,6 +359,49 @@ namespace MMManager.GameControls
                 //groupBox1.Enabled = true;
             }
 
+        }
+
+  
+        private void ticTacToeStartOrJoin1_Load(object sender, EventArgs e)
+        {
+            
+          //  _gameInfo = this.ticTacToeStartOrJoin1;
+          //  _gameInfo.Game = this;
+        }
+
+
+
+
+
+        public void JoinGame(string playerName, int startingScore)
+        {
+            GameInfo.JoinGame(playerName, startingScore);
+            //_game.JoinGame(playerName, startingScore);
+        }
+
+        public void LeaveGame(string playerName)
+        {
+            GameInfo.LeaveGame(playerName);
+
+        }
+
+        public void UpdateScore(string playerName, int currentScore)
+        {
+            GameInfo.UpdateScore(playerName, currentScore);
+        }
+
+        public int GetScore(string playerName)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        private void TicTacToeBoard_Load(object sender, EventArgs e)
+        {
+            GameInfo.Game = this; //Set the Child control to see parent.
+            //_game = this;
+            
         }
     }
 }

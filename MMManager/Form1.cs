@@ -13,5 +13,15 @@ namespace MMManager
             InitializeComponent();
         }
 
+        private void ticTacToeBoard1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            ticTacToeBoard1.PlayerName = tbUserName.Text.Trim();
+            //this.ticTacToeBoard1.setPlayerName(tbUserName.Text.Trim());
+        }
     }
 }

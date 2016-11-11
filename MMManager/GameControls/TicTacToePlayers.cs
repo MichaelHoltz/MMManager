@@ -6,34 +6,68 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using MMManager.GameInterfaces;
 namespace MMManager.GameControls
 {
-    public partial class TicTacToePlayers : UserControl
+    public partial class TicTacToePlayers : UserControl, IPlayer
     {
-        public string PlayerName { get; set; } = "Guest";
+        int TempCount = 0;
+
+
+
         public TicTacToePlayers()
         {
             InitializeComponent();
         }
 
-        private void btnJoin_Click(object sender, EventArgs e)
-        {
-            JoinGame("Dummy");
-        }
-        public bool JoinGame(string playerName)
-        {
-            ticTacToeScore1.AddPlayer(playerName);
-            return true;
-        }
-        private void btnLeave_Click(object sender, EventArgs e)
-        {
 
+        public string PlayerName { get; set; } = "Guest";
+        public char PlayerSymbol { get; set; }
+
+        public bool PlayerTurn
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        public bool LeaveGame(string playerName)
+        public bool PlayerWon 
         {
-            return true;
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void JoinGame(string playerName, int startingScore)
+        {
+            ticTacToeScore1.JoinGame(playerName, 0);
+        }
+
+        public void LeaveGame(string playerName)
+        {
+            ticTacToeScore1.LeaveGame(playerName);
+        }
+
+        public void UpdateScore(string playerName, int currentScore)
+        {
+            ticTacToeScore1.UpdateScore(playerName, currentScore);
+        }
+
+        public int GetScore(string playerName)
+        {
+            return  ticTacToeScore1.GetScore(playerName);
         }
     }
 }

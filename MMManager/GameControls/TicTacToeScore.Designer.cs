@@ -28,148 +28,72 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblPlayer = new System.Windows.Forms.Label();
-            this.lblPlayer4Name = new System.Windows.Forms.Label();
-            this.lblPlayer3Name = new System.Windows.Forms.Label();
-            this.lblPlayer2Name = new System.Windows.Forms.Label();
-            this.lblPlayer1Name = new System.Windows.Forms.Label();
-            this.lblPlayer4Score = new System.Windows.Forms.Label();
-            this.lblPlayer3Score = new System.Windows.Forms.Label();
-            this.lblPlayer2Score = new System.Windows.Forms.Label();
-            this.lblPlayer1Score = new System.Windows.Forms.Label();
-            this.lblScore = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Key = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // lblPlayer
+            // dataGridView1
             // 
-            this.lblPlayer.AutoSize = true;
-            this.lblPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPlayer.Location = new System.Drawing.Point(6, 5);
-            this.lblPlayer.Name = "lblPlayer";
-            this.lblPlayer.Size = new System.Drawing.Size(42, 13);
-            this.lblPlayer.TabIndex = 0;
-            this.lblPlayer.Text = "Player";
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Key,
+            this.Value});
+            this.dataGridView1.Location = new System.Drawing.Point(-1, -1);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 3, 0, 0);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowTemplate.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(180, 143);
+            this.dataGridView1.TabIndex = 13;
             // 
-            // lblPlayer4Name
+            // Key
             // 
-            this.lblPlayer4Name.AutoSize = true;
-            this.lblPlayer4Name.Location = new System.Drawing.Point(6, 103);
-            this.lblPlayer4Name.Name = "lblPlayer4Name";
-            this.lblPlayer4Name.Size = new System.Drawing.Size(42, 13);
-            this.lblPlayer4Name.TabIndex = 7;
-            this.lblPlayer4Name.Text = "Player4";
-            this.lblPlayer4Name.Visible = false;
+            this.Key.DataPropertyName = "Key";
+            this.Key.HeaderText = "Player";
+            this.Key.Name = "Key";
+            this.Key.ReadOnly = true;
+            this.Key.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
-            // lblPlayer3Name
+            // Value
             // 
-            this.lblPlayer3Name.AutoSize = true;
-            this.lblPlayer3Name.Location = new System.Drawing.Point(6, 77);
-            this.lblPlayer3Name.Name = "lblPlayer3Name";
-            this.lblPlayer3Name.Size = new System.Drawing.Size(42, 13);
-            this.lblPlayer3Name.TabIndex = 6;
-            this.lblPlayer3Name.Text = "Player3";
-            this.lblPlayer3Name.Visible = false;
-            // 
-            // lblPlayer2Name
-            // 
-            this.lblPlayer2Name.AutoSize = true;
-            this.lblPlayer2Name.Location = new System.Drawing.Point(6, 52);
-            this.lblPlayer2Name.Name = "lblPlayer2Name";
-            this.lblPlayer2Name.Size = new System.Drawing.Size(42, 13);
-            this.lblPlayer2Name.TabIndex = 5;
-            this.lblPlayer2Name.Text = "Player2";
-            // 
-            // lblPlayer1Name
-            // 
-            this.lblPlayer1Name.AutoSize = true;
-            this.lblPlayer1Name.Location = new System.Drawing.Point(6, 27);
-            this.lblPlayer1Name.Name = "lblPlayer1Name";
-            this.lblPlayer1Name.Size = new System.Drawing.Size(42, 13);
-            this.lblPlayer1Name.TabIndex = 4;
-            this.lblPlayer1Name.Text = "Player1";
-            // 
-            // lblPlayer4Score
-            // 
-            this.lblPlayer4Score.AutoSize = true;
-            this.lblPlayer4Score.Location = new System.Drawing.Point(114, 103);
-            this.lblPlayer4Score.Name = "lblPlayer4Score";
-            this.lblPlayer4Score.Size = new System.Drawing.Size(42, 13);
-            this.lblPlayer4Score.TabIndex = 11;
-            this.lblPlayer4Score.Text = "Player4";
-            this.lblPlayer4Score.Visible = false;
-            // 
-            // lblPlayer3Score
-            // 
-            this.lblPlayer3Score.AutoSize = true;
-            this.lblPlayer3Score.Location = new System.Drawing.Point(114, 76);
-            this.lblPlayer3Score.Name = "lblPlayer3Score";
-            this.lblPlayer3Score.Size = new System.Drawing.Size(42, 13);
-            this.lblPlayer3Score.TabIndex = 10;
-            this.lblPlayer3Score.Text = "Player3";
-            this.lblPlayer3Score.Visible = false;
-            // 
-            // lblPlayer2Score
-            // 
-            this.lblPlayer2Score.AutoSize = true;
-            this.lblPlayer2Score.Location = new System.Drawing.Point(114, 51);
-            this.lblPlayer2Score.Name = "lblPlayer2Score";
-            this.lblPlayer2Score.Size = new System.Drawing.Size(42, 13);
-            this.lblPlayer2Score.TabIndex = 9;
-            this.lblPlayer2Score.Text = "Player2";
-            // 
-            // lblPlayer1Score
-            // 
-            this.lblPlayer1Score.AutoSize = true;
-            this.lblPlayer1Score.Location = new System.Drawing.Point(114, 26);
-            this.lblPlayer1Score.Name = "lblPlayer1Score";
-            this.lblPlayer1Score.Size = new System.Drawing.Size(42, 13);
-            this.lblPlayer1Score.TabIndex = 8;
-            this.lblPlayer1Score.Text = "Player1";
-            // 
-            // lblScore
-            // 
-            this.lblScore.AutoSize = true;
-            this.lblScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblScore.Location = new System.Drawing.Point(114, 5);
-            this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(40, 13);
-            this.lblScore.TabIndex = 12;
-            this.lblScore.Text = "Score";
+            this.Value.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Value.DataPropertyName = "Value";
+            this.Value.HeaderText = "Score";
+            this.Value.Name = "Value";
+            this.Value.ReadOnly = true;
+            this.Value.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Value.Width = 60;
             // 
             // TicTacToeScore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.lblScore);
-            this.Controls.Add(this.lblPlayer4Score);
-            this.Controls.Add(this.lblPlayer3Score);
-            this.Controls.Add(this.lblPlayer2Score);
-            this.Controls.Add(this.lblPlayer1Score);
-            this.Controls.Add(this.lblPlayer4Name);
-            this.Controls.Add(this.lblPlayer3Name);
-            this.Controls.Add(this.lblPlayer2Name);
-            this.Controls.Add(this.lblPlayer1Name);
-            this.Controls.Add(this.lblPlayer);
+            this.Controls.Add(this.dataGridView1);
             this.DoubleBuffered = true;
             this.Name = "TicTacToeScore";
-            this.Size = new System.Drawing.Size(160, 126);
+            this.Size = new System.Drawing.Size(179, 142);
+            this.Load += new System.EventHandler(this.TicTacToeScore_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblPlayer;
-        private System.Windows.Forms.Label lblPlayer4Name;
-        private System.Windows.Forms.Label lblPlayer3Name;
-        private System.Windows.Forms.Label lblPlayer2Name;
-        private System.Windows.Forms.Label lblPlayer1Name;
-        private System.Windows.Forms.Label lblPlayer4Score;
-        private System.Windows.Forms.Label lblPlayer3Score;
-        private System.Windows.Forms.Label lblPlayer2Score;
-        private System.Windows.Forms.Label lblPlayer1Score;
-        private System.Windows.Forms.Label lblScore;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Key;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
     }
 }

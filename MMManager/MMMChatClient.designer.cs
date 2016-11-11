@@ -30,6 +30,7 @@ namespace MMManager
         private void InitializeComponent()
         {
             this.grpMessageWindow = new System.Windows.Forms.GroupBox();
+            this.rtbMessages = new MMManager.Controls.RichTextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.txtSendMessage = new System.Windows.Forms.TextBox();
             this.grpUserCredentials = new System.Windows.Forms.GroupBox();
@@ -50,7 +51,7 @@ namespace MMManager
             this.btnStartTicTacToe = new System.Windows.Forms.Button();
             this.gbTicTacToe = new System.Windows.Forms.GroupBox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-            this.rtbMessages = new MMManager.Controls.RichTextBox();
+            this.ticTacToeBoard1 = new MMManager.GameControls.TicTacToeBoard();
             this.grpMessageWindow.SuspendLayout();
             this.grpUserCredentials.SuspendLayout();
             this.grpUserList.SuspendLayout();
@@ -69,6 +70,14 @@ namespace MMManager
             this.grpMessageWindow.TabIndex = 0;
             this.grpMessageWindow.TabStop = false;
             this.grpMessageWindow.Text = "Message window";
+            // 
+            // rtbMessages
+            // 
+            this.rtbMessages.Location = new System.Drawing.Point(9, 19);
+            this.rtbMessages.Name = "rtbMessages";
+            this.rtbMessages.Size = new System.Drawing.Size(500, 204);
+            this.rtbMessages.TabIndex = 3;
+            this.rtbMessages.Text = "";
             // 
             // btnSend
             // 
@@ -134,7 +143,7 @@ namespace MMManager
             this.grpUserList.Enabled = false;
             this.grpUserList.Location = new System.Drawing.Point(534, 71);
             this.grpUserList.Name = "grpUserList";
-            this.grpUserList.Size = new System.Drawing.Size(149, 296);
+            this.grpUserList.Size = new System.Drawing.Size(138, 296);
             this.grpUserList.TabIndex = 2;
             this.grpUserList.TabStop = false;
             this.grpUserList.Text = "Users online";
@@ -144,7 +153,7 @@ namespace MMManager
             this.lstUsers.FormattingEnabled = true;
             this.lstUsers.Location = new System.Drawing.Point(16, 19);
             this.lstUsers.Name = "lstUsers";
-            this.lstUsers.Size = new System.Drawing.Size(127, 264);
+            this.lstUsers.Size = new System.Drawing.Size(113, 264);
             this.lstUsers.TabIndex = 0;
             // 
             // b9
@@ -260,33 +269,35 @@ namespace MMManager
             this.gbTicTacToe.Controls.Add(this.b5);
             this.gbTicTacToe.Controls.Add(this.b6);
             this.gbTicTacToe.Enabled = false;
-            this.gbTicTacToe.Location = new System.Drawing.Point(689, 71);
+            this.gbTicTacToe.Location = new System.Drawing.Point(234, 415);
             this.gbTicTacToe.Name = "gbTicTacToe";
-            this.gbTicTacToe.Size = new System.Drawing.Size(195, 296);
+            this.gbTicTacToe.Size = new System.Drawing.Size(195, 195);
             this.gbTicTacToe.TabIndex = 34;
             this.gbTicTacToe.TabStop = false;
             this.gbTicTacToe.Text = "Network Tic-Tac-Toe";
             // 
             // propertyGrid1
             // 
-            this.propertyGrid1.Location = new System.Drawing.Point(1061, 36);
+            this.propertyGrid1.Location = new System.Drawing.Point(470, 387);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(202, 407);
+            this.propertyGrid1.Size = new System.Drawing.Size(202, 306);
             this.propertyGrid1.TabIndex = 35;
             // 
-            // rtbMessages
+            // ticTacToeBoard1
             // 
-            this.rtbMessages.Location = new System.Drawing.Point(9, 19);
-            this.rtbMessages.Name = "rtbMessages";
-            this.rtbMessages.Size = new System.Drawing.Size(500, 204);
-            this.rtbMessages.TabIndex = 3;
-            this.rtbMessages.Text = "";
+            this.ticTacToeBoard1.AutoSize = true;
+            this.ticTacToeBoard1.Location = new System.Drawing.Point(693, 91);
+            this.ticTacToeBoard1.Name = "ticTacToeBoard1";
+            this.ticTacToeBoard1.PlayerName = null;
+            this.ticTacToeBoard1.Size = new System.Drawing.Size(456, 492);
+            this.ticTacToeBoard1.TabIndex = 36;
             // 
             // MMMChatClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1275, 556);
+            this.ClientSize = new System.Drawing.Size(1275, 727);
+            this.Controls.Add(this.ticTacToeBoard1);
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.gbTicTacToe);
             this.Controls.Add(this.grpUserList);
@@ -305,6 +316,7 @@ namespace MMManager
             this.grpUserList.ResumeLayout(false);
             this.gbTicTacToe.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -332,6 +344,7 @@ namespace MMManager
         private System.Windows.Forms.GroupBox gbTicTacToe;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private Controls.RichTextBox rtbMessages;
+        private GameControls.TicTacToeBoard ticTacToeBoard1;
     }
 }
 

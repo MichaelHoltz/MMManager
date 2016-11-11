@@ -1,5 +1,6 @@
 ﻿
 using System.ServiceModel;
+using MMManager.GameObjects;
 namespace MMManager
 {
     [ServiceContract( CallbackContract = typeof(IChatService), Namespace ="MMManager")]

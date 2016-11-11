@@ -30,80 +30,67 @@
         {
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnStart = new System.Windows.Forms.Button();
+            this.bgGame = new System.Windows.Forms.GroupBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.ticTacToeScore1 = new MMManager.GameControls.TicTacToeScore();
-            this.ticTacToeOptions1 = new MMManager.GameControls.TicTacToeOptions();
+            this.ticTacToeStartOrJoin1 = new MMManager.GameControls.TicTacToeStartOrJoin();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Location = new System.Drawing.Point(0, 526);
+            this.label1.Location = new System.Drawing.Point(0, 533);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 12;
             this.label1.Text = "label1";
             // 
-            // groupBox1
+            // bgGame
             // 
-            this.groupBox1.AutoSize = true;
-            this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupBox1.Location = new System.Drawing.Point(16, 215);
-            this.groupBox1.MinimumSize = new System.Drawing.Size(150, 150);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(150, 150);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Tic Tac Toe";
-            // 
-            // btnStart
-            // 
-            this.btnStart.Location = new System.Drawing.Point(224, 161);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(101, 23);
-            this.btnStart.TabIndex = 9;
-            this.btnStart.Text = "Start / Reset";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.button2_Click);
+            this.bgGame.AutoSize = true;
+            this.bgGame.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bgGame.Location = new System.Drawing.Point(3, 280);
+            this.bgGame.MinimumSize = new System.Drawing.Size(150, 150);
+            this.bgGame.Name = "bgGame";
+            this.bgGame.Size = new System.Drawing.Size(150, 150);
+            this.bgGame.TabIndex = 10;
+            this.bgGame.TabStop = false;
+            this.bgGame.Text = "Tic Tac Toe";
             // 
             // timer2
             // 
             this.timer2.Interval = 500;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // ticTacToeScore1
+            // ticTacToeStartOrJoin1
             // 
-            this.ticTacToeScore1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ticTacToeScore1.Location = new System.Drawing.Point(172, 3);
-            this.ticTacToeScore1.Name = "ticTacToeScore1";
-            this.ticTacToeScore1.Size = new System.Drawing.Size(212, 98);
-            this.ticTacToeScore1.TabIndex = 14;
-            // 
-            // ticTacToeOptions1
-            // 
-            this.ticTacToeOptions1.AutoSize = true;
-            this.ticTacToeOptions1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ticTacToeOptions1.Location = new System.Drawing.Point(0, 0);
-            this.ticTacToeOptions1.Name = "ticTacToeOptions1";
-            this.ticTacToeOptions1.Size = new System.Drawing.Size(166, 209);
-            this.ticTacToeOptions1.TabIndex = 13;
+            this.ticTacToeStartOrJoin1.AutoSize = true;
+            this.ticTacToeStartOrJoin1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ticTacToeStartOrJoin1.Game = null;
+            this.ticTacToeStartOrJoin1.GameMode = MMManager.GameInterfaces.ControlStatus.Hosting;
+            this.ticTacToeStartOrJoin1.GameName = null;
+            this.ticTacToeStartOrJoin1.Location = new System.Drawing.Point(3, 4);
+            this.ticTacToeStartOrJoin1.Name = "ticTacToeStartOrJoin1";
+            this.ticTacToeStartOrJoin1.PlayerName = null;
+            this.ticTacToeStartOrJoin1.PlayerSymbol = '\0';
+            this.ticTacToeStartOrJoin1.PlayerTurn = false;
+            this.ticTacToeStartOrJoin1.PlayerWon = false;
+            this.ticTacToeStartOrJoin1.Size = new System.Drawing.Size(378, 270);
+            this.ticTacToeStartOrJoin1.TabIndex = 13;
+            this.ticTacToeStartOrJoin1.Load += new System.EventHandler(this.ticTacToeStartOrJoin1_Load);
             // 
             // TicTacToeBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.Controls.Add(this.ticTacToeScore1);
-            this.Controls.Add(this.ticTacToeOptions1);
+            this.Controls.Add(this.ticTacToeStartOrJoin1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.bgGame);
             this.DoubleBuffered = true;
             this.Name = "TicTacToeBoard";
-            this.Size = new System.Drawing.Size(662, 539);
+            this.Size = new System.Drawing.Size(396, 546);
+            this.Load += new System.EventHandler(this.TicTacToeBoard_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -112,10 +99,8 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.GroupBox bgGame;
         private System.Windows.Forms.Timer timer2;
-        private TicTacToeOptions ticTacToeOptions1;
-        private TicTacToeScore ticTacToeScore1;
+        private TicTacToeStartOrJoin ticTacToeStartOrJoin1;
     }
 }

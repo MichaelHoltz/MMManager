@@ -129,6 +129,11 @@
     <Compile Include="GameControls\TicTacToeStartOrJoin.Designer.cs">
       <DependentUpon>TicTacToeStartOrJoin.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameInterfaces\IGame.cs" />
+    <Compile Include="GameInterfaces\IGameInfo.cs" />
+    <Compile Include="GameInterfaces\IGameOptions.cs" />
+    <Compile Include="GameInterfaces\IPlayer.cs" />
+    <Compile Include="GameInterfaces\IScore.cs" />
     <Compile Include="IChat.cs" />
     <Compile Include="IChatChannel.cs" />
     <Compile Include="IChatService.cs" />
@@ -159,7 +164,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="TicTacToeBoard.cs" />
+    <Compile Include="GameObjects\TicTacToeBoard.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

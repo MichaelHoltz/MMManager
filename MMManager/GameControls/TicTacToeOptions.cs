@@ -6,10 +6,10 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using MMManager.GameInterfaces;
 namespace MMManager.GameControls
 {
-    public partial class TicTacToeOptions : UserControl
+    public partial class TicTacToeOptions : UserControl,IGameOptions
     {
         public TicTacToeOptions()
         {

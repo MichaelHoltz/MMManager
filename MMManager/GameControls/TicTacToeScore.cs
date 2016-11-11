@@ -6,40 +6,63 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using MMManager.GameInterfaces;
 namespace MMManager.GameControls
 {
-    public partial class TicTacToeScore : UserControl
+    public partial class TicTacToeScore : UserControl, IScore
     {
         private Dictionary<String, int> PlayerScores { get; set; }
         public TicTacToeScore()
         {
             InitializeComponent();
             PlayerScores = new Dictionary<string, int>();
+            
+            dataGridView1.DataSource = PlayerScores.ToList();
+
+            dataGridView1.Columns[1].Visible = false; // Default to Hiding the Score.
+
         }
         /// <summary>
         /// Add Player Name to Score Board and Sets Score to zero
         /// </summary>
         /// <param name="playerName"></param>
         /// <returns></returns>
-        public bool AddPlayer(string playerName)
+        public void JoinGame(string playerName, int startingScore)
         {
-            bool result = false;
             try
             {
                 PlayerScores.Add(playerName, 0);
-                result = true;
+                dataGridView1.DataSource = PlayerScores.ToList();
+               // dataGridView1.Refresh();
             }
             catch
             {
-                result = false;
+                MessageBox.Show("Problem adding" + playerName);
             }
-            return result;
+            //return result;
+            return;
+        }
+        public void LeaveGame(string playerName)
+        {
+            PlayerScores.Remove(playerName);
+            dataGridView1.DataSource = PlayerScores.ToList();
         }
 
-        public void UpdatePlayerScore(string playerName, int score)
+        public int GetScore(string playerName)
         {
+            return PlayerScores[playerName]; // What if the player Name isn't there
+            
+        }
+        public void UpdateScore(string playerName, int score)
+        {
+            dataGridView1.Columns[1].Visible = true; // Show the Score if setting it.
             PlayerScores[playerName] = score;
+            dataGridView1.DataSource = PlayerScores.ToList();
+        }
+
+        private void TicTacToeScore_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

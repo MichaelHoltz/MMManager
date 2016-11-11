@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Drawing;
-
+using MMManager.GameObjects;
 namespace MMManager
 {
 
@@ -38,6 +38,8 @@ namespace MMManager
             if (userName != null)
             {
                 txtUserName.Text = userName;
+                ticTacToeBoard1.PlayerName = userName;
+                //Need Computer or Game Name so we can filter
             }
         }
 

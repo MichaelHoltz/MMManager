@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MMManager
+namespace MMManager.GameObjects
 {
     public class TicTacToeBoard
     {
