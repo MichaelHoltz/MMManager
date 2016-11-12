@@ -4,18 +4,18 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using MMManager.GameInterfaces;
+using MMManager.GameObjects;
+
 namespace MMManager.GameControls
 {
     public partial class TicTacToeStartOrJoin : UserControl, IGameInfo
     {
         private ControlStatus _gameMode;
-        private GameFlowStatus _gameStatus;
-//        private IGameInfo _gameInfo;
-//        private IScore _gameScore;
+        private SharedTicTacToeBoardData theSharedTicTacToBoardData;
+        private SharedTicTacToeBoardData.GameState _gameState;
         public TicTacToeStartOrJoin()
         {
             InitializeComponent();
-            
         }
 
         public IGameOptions GameOptions
@@ -30,12 +30,12 @@ namespace MMManager.GameControls
             }
         }
         public string GameName { get; set; }
-        public string PlayerName { get; set; }
-        public char PlayerSymbol { get; set; }
+       // public string PlayerName { get; set; }
+        //public char PlayerSymbol { get; set; }
 
-        public bool PlayerTurn { get; set; }
+        //public bool PlayerTurn { get; set; }
 
-        public bool PlayerWon { get; set; }
+//        public bool PlayerWon { get; set; }
 
         public IGame Game { get; set; }
         //{
@@ -69,18 +69,15 @@ namespace MMManager.GameControls
                 {
                     case ControlStatus.Hosting:
                         panel2.Visible = false;
-                        panel3.Visible = false;
                         panel1.Visible = true;
                         break;
                     case ControlStatus.Joined:
                         panel1.Visible = false;
-                        panel3.Visible = false;
                         panel2.Visible = true;
                         break;
                     case ControlStatus.Watching:
                         panel1.Visible = false;
                         panel2.Visible = false;
-                        panel3.Visible = true;
                         break;
                     default:
                         break;
@@ -88,37 +85,34 @@ namespace MMManager.GameControls
             }
         }
 
-        public GameFlowStatus GameStatus
+        public SharedTicTacToeBoardData.GameState GameState
         {
             get
             {
-                return _gameStatus;
+                return _gameState;
             }
 
             set
             {
-                _gameStatus = value;
-                switch (_gameStatus)
+                _gameState = value;
+                switch (_gameState)
                 {
-                    case GameFlowStatus.Waiting:
+                    case SharedTicTacToeBoardData.GameState.Waiting:
                         break;
-                    case GameFlowStatus.Playing:
+                    case SharedTicTacToeBoardData.GameState.Playing:
                         panel1.Visible = false;
                         panel2.Visible = false;
-                        panel3.Visible = true;
 
                         break;
-                    case GameFlowStatus.GameOver:
+                    case SharedTicTacToeBoardData.GameState.GameOver:
                         if (GameMode == ControlStatus.Hosting)
                         {
                             panel2.Visible = false;
-                            panel3.Visible = false;
                             panel1.Visible = true;
                         }
                         if(GameMode == ControlStatus.Joined || GameMode==ControlStatus.Watching)
                         {
                             panel1.Visible = false;
-                            panel3.Visible = false;
                             panel2.Visible = true;
                         }
                         break;
@@ -128,18 +122,57 @@ namespace MMManager.GameControls
             }
         }
 
+        public List<IPlayer> Players { get; set; }
+
+        public SharedTicTacToeBoardData BoardData
+        {
+            get
+            {
+                return theSharedTicTacToBoardData;
+            }
+
+            set
+            {
+                theSharedTicTacToBoardData = value;
+            }
+        }
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+           
+           // Game.SendMessage("Looking for Games", PlayerName, )
             //SEND a message to Get Responses from Connected Players
         }
 
         private void btnWatch_Click(object sender, EventArgs e)
         {
             //This is for Just Watching the Game.. And allows there to be multiple Games on the same network
+            MessageBox.Show("Not implemented yet.");
         }
 
         private void btnJoin_Click(object sender, EventArgs e)
         {
+            if (btnJoin.Text == "Join")
+            {
+
+                JoinGame(Player.PlayerName, 0);
+                theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Join;
+                theSharedTicTacToBoardData.MessageSender = Player.PlayerName;
+                theSharedTicTacToBoardData.MessageString = lbAvailableGames.SelectedItem.ToString();
+                Game.SendMessage(lbAvailableGames.SelectedItem.ToString(), Player.PlayerName, theSharedTicTacToBoardData); // Send message to Everyone
+                btnJoin.Text = "Leave";
+                rbHost.Enabled = false;
+            }
+            else
+            {
+                LeaveGame(Player.PlayerName);
+                theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.LeaveGame;
+                theSharedTicTacToBoardData.MessageSender = Player.PlayerName;
+                theSharedTicTacToBoardData.MessageString = lbAvailableGames.SelectedItem.ToString();
+                Game.SendMessage(lbAvailableGames.SelectedItem.ToString(), Player.PlayerName, theSharedTicTacToBoardData); // Send message to Everyone
+                btnJoin.Text = "Join";
+                rbHost.Enabled = true;
+            }
             //Sign up to Play the Game that is selected.
             //Toggle to Leave Game
         }
@@ -147,8 +180,34 @@ namespace MMManager.GameControls
         private void lbAvailableGames_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Enable or Disable the Join and Watch buttons
-        }
+            if (lbAvailableGames.Items.Count > 0 && lbAvailableGames.SelectedItem != null)
+            {
+                if (lbAvailableGames.SelectedItem.ToString() != "No Games Found")
+                {
+                    btnJoin.Enabled = true;
+                    btnWatch.Enabled = true;
+                    foreach (var item in theSharedTicTacToBoardData.Players)
+                    {
+                        ticTacToePlayers1.JoinGame(item.PlayerName, 0);
+                    }
 
+                }
+                else
+                {
+                    btnJoin.Enabled = false;
+                    btnWatch.Enabled = false;
+                    //Add Players from the game.
+
+
+                }
+            }
+            else
+            {
+                btnJoin.Enabled = false;
+                btnWatch.Enabled = false;
+
+            }
+        }
         private void btnCreateRemove_Click(object sender, EventArgs e)
         {
             //Create a game - if a game has been created but hasn't been started it can be removed.
@@ -156,18 +215,29 @@ namespace MMManager.GameControls
             {
                 btnCreateRemove.Text = "Remove Game";
                 //this.GameName = this.pl
-                
-                GameName = PlayerName + "'s Game";
-                GenerateNewGame();
+                GameName = this.Player.PlayerName + "'s Game";
+                theSharedTicTacToBoardData = GenerateNewGame(); // Get a blank board after generating the game.
                 AddGame(GameName);
+                JoinGame(Player.PlayerName, 0);
                 btnStartGame.Enabled = true; // Allow the game to be started.. want to wait for other players usually.
+                rbJoinGame.Enabled = false;
+                Game.SendMessage(GameName, Player.PlayerName, theSharedTicTacToBoardData); // Send message to Everyone
+
             }
             else
             {
                 btnCreateRemove.Text = "Create Game";
                 btnStartGame.Enabled = false; // Can't start a game if there isn't one.
-                LeaveGame(PlayerName);
+                LeaveGame(Player.PlayerName);
+                GameScore.ClearAllPlayers();
                 RemoveGame(GameName);
+                rbJoinGame.Enabled = true;
+
+
+                theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.RemoveGame;
+                theSharedTicTacToBoardData.MessageString = GameName;
+                Game.SendMessage(GameName, Player.PlayerName, theSharedTicTacToBoardData); // Send message to Everyone
+                
 
                 //DO Housekeeping to remove the game.
             }
@@ -177,12 +247,15 @@ namespace MMManager.GameControls
         {
             if (btnStartGame.Text == "Start Game")
             {
-                panel1.Visible = false;
+                panel1.Visible = false; // Need these to be Setable or the Joiner will be stuck looking at Joinig
                 panel2.Visible = false;
-                panel3.Visible = true;    
                 btnCreateRemove.Enabled = false;
                 btnStartGame.Enabled = false;
-                btnStartGame.Text = "Playing Game";
+                //btnStartGame.Text = "Playing Game";
+                theSharedTicTacToBoardData.MessageSender = Player.PlayerName;
+                theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Start;
+                theSharedTicTacToBoardData.MessageString = GameName;
+                Game.SendMessage(GameName, Player.PlayerName, theSharedTicTacToBoardData); // Send message to Everyone
             }
             //Should have Play Again?
             //This button can be enabled if one or more players have joined.
@@ -228,16 +301,16 @@ namespace MMManager.GameControls
         {
             throw new NotImplementedException();
         }
-        public void GenerateNewGame()
+        public SharedTicTacToeBoardData GenerateNewGame()
         {
             //Game.
-            Game.GenerateNewGame(); // Actually Generates the Game.
+            return Game.GenerateNewGame(); // Actually Generates the Game.
         }
 
         public void GameOver(string results)
         {
             //Need to Check if Hosting, Joined, or Watching.
-            GameStatus = GameFlowStatus.GameOver;
+            GameState = SharedTicTacToeBoardData.GameState.GameOver;
             if (btnStartGame.Text == "Playing Game")
             {
                 btnCreateRemove.Enabled = true;
@@ -248,12 +321,27 @@ namespace MMManager.GameControls
         }
         public void JoinGame(string playerName, int startingScore)
         {
+            //IPlayer p = new TicTacToePlayers();
+            //p.
+            //Players.Add(new IPlayer())
+            MMManager.GameObjects.Player p = new GameObjects.Player();
+            p.PlayerName = Player.PlayerName;
+            p.PlayerSymbol = Player.PlayerSymbol;
+            p.PlayerTurn = Player.PlayerTurn;
+            p.PlayerWon = Player.PlayerWon;
+            theSharedTicTacToBoardData.Players.Add(p); // Add this Player.
             GameScore.JoinGame(playerName, startingScore);
             //throw new NotImplementedException();
         }
 
         public void LeaveGame(string playerName)
         {
+            MMManager.GameObjects.Player p = new GameObjects.Player();
+            p.PlayerName = Player.PlayerName;
+            p.PlayerSymbol = Player.PlayerSymbol;
+            p.PlayerTurn = Player.PlayerTurn;
+            p.PlayerWon = Player.PlayerWon;
+            theSharedTicTacToBoardData.Players.Remove(p); // Remove this Player.
             GameScore.LeaveGame(playerName);
             //throw new NotImplementedException();
         }
@@ -270,21 +358,24 @@ namespace MMManager.GameControls
 
         private void TicTacToeStartOrJoin_Load(object sender, EventArgs e)
         {
-            GameScore = this.ticTacToeScore1;
-            panel1.Left = 6;
-            panel2.Left = 6;
-            panel3.Left = 6;
+            Player = this.ticTacToePlayers1;
+            GameScore = this.ticTacToePlayers1.ScoreBoard;
+            panel1.Left = 218;
+            panel2.Left = 218;
 
         }
 
-        private void btnHostGame_Click(object sender, EventArgs e)
+
+        private void rbHost_CheckedChanged(object sender, EventArgs e)
         {
             GameMode = ControlStatus.Hosting;
         }
 
-        private void btnJoinGame_Click(object sender, EventArgs e)
+        private void rbJoinGame_CheckedChanged(object sender, EventArgs e)
         {
             GameMode = ControlStatus.Joined;
         }
+
+
     }
 }

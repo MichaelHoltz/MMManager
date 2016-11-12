@@ -28,19 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ticTacToeBoard1 = new MMManager.GameControls.TicTacToeBoard();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tbUserName = new System.Windows.Forms.TextBox();
             this.btnUpdate = new System.Windows.Forms.Button();
+            this.ticTacToeBoard1 = new MMManager.GameControls.TicTacToeBoard();
             this.SuspendLayout();
-            // 
-            // ticTacToeBoard1
-            // 
-            this.ticTacToeBoard1.AutoSize = true;
-            this.ticTacToeBoard1.Location = new System.Drawing.Point(12, 61);
-            this.ticTacToeBoard1.Name = "ticTacToeBoard1";
-            this.ticTacToeBoard1.Size = new System.Drawing.Size(484, 513);
-            this.ticTacToeBoard1.TabIndex = 12;
-            this.ticTacToeBoard1.Load += new System.EventHandler(this.ticTacToeBoard1_Load);
             // 
             // tbUserName
             // 
@@ -60,15 +52,27 @@
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
+            // ticTacToeBoard1
+            // 
+            this.ticTacToeBoard1.AutoSize = true;
+            this.ticTacToeBoard1.Location = new System.Drawing.Point(8, 66);
+            this.ticTacToeBoard1.Name = "ticTacToeBoard1";
+            this.ticTacToeBoard1.PlayerName = null;
+            this.ticTacToeBoard1.ServiceProvider = null;
+            this.ticTacToeBoard1.Size = new System.Drawing.Size(389, 461);
+            this.ticTacToeBoard1.TabIndex = 15;
+            this.ticTacToeBoard1.Load += new System.EventHandler(this.ticTacToeBoard1_Load_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(507, 696);
+            this.Controls.Add(this.ticTacToeBoard1);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.tbUserName);
-            this.Controls.Add(this.ticTacToeBoard1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -77,9 +81,9 @@
         }
 
         #endregion
-        private GameControls.TicTacToeBoard ticTacToeBoard1;
         private System.Windows.Forms.TextBox tbUserName;
         private System.Windows.Forms.Button btnUpdate;
+        private GameControls.TicTacToeBoard ticTacToeBoard1;
     }
 }
 

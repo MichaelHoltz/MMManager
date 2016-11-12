@@ -9,31 +9,47 @@ using System.Windows.Forms;
 using MMManager.GameInterfaces;
 namespace MMManager.GameControls
 {
-    public partial class TicTacToePlayers : UserControl, IPlayer
+    public partial class TicTacToePlayers : UserControl, IPlayer, IScore
     {
-        int TempCount = 0;
-
-
-
         public TicTacToePlayers()
         {
             InitializeComponent();
         }
-
-
-        public string PlayerName { get; set; } = "Guest";
-        public char PlayerSymbol { get; set; }
-
-        public bool PlayerTurn
-        {
+        public string PlayerName
+        { 
             get
             {
-                throw new NotImplementedException();
+                return ticTacToePlayer1.PlayerName;
             }
 
             set
             {
-                throw new NotImplementedException();
+                ticTacToePlayer1.PlayerName = value;
+            }
+        }
+
+        public char PlayerSymbol
+        {
+            get
+            {
+                return ticTacToePlayer1.PlayerSymbol;
+            }
+
+            set
+            {
+                ticTacToePlayer1.PlayerSymbol = value;
+            }
+        }
+        public bool PlayerTurn
+        {
+            get
+            {
+                return ticTacToePlayer1.PlayerTurn;
+            }
+
+            set
+            {
+                ticTacToePlayer1.PlayerTurn = value;
             }
         }
 
@@ -41,33 +57,52 @@ namespace MMManager.GameControls
         {
             get
             {
-                throw new NotImplementedException();
+                return ticTacToePlayer1.PlayerWon;
             }
 
             set
             {
-                throw new NotImplementedException();
+                ticTacToePlayer1.PlayerWon = value;
             }
         }
 
+        public IScore ScoreBoard { get; set; }
+
         public void JoinGame(string playerName, int startingScore)
         {
-            ticTacToeScore1.JoinGame(playerName, 0);
+            ScoreBoard.JoinGame(playerName, 0);
+            
         }
 
         public void LeaveGame(string playerName)
         {
-            ticTacToeScore1.LeaveGame(playerName);
+            ScoreBoard.LeaveGame(playerName);
         }
 
         public void UpdateScore(string playerName, int currentScore)
         {
-            ticTacToeScore1.UpdateScore(playerName, currentScore);
+            ScoreBoard.UpdateScore(playerName, currentScore);
         }
 
         public int GetScore(string playerName)
         {
-            return  ticTacToeScore1.GetScore(playerName);
+            return ScoreBoard.GetScore(playerName);
+        }
+
+        private void ticTacToePlayer1_Load(object sender, EventArgs e)
+        {
+            ScoreBoard = ticTacToeScore1;
+        }
+
+        private void TicTacToePlayers_Load(object sender, EventArgs e)
+        {
+            ScoreBoard = ticTacToeScore1;
+        }
+
+        public void ClearAllPlayers()
+        {
+            ScoreBoard.ClearAllPlayers();
+
         }
     }
 }

@@ -11,5 +11,6 @@ namespace MMManager.GameInterfaces
         void LeaveGame(String playerName);
         void UpdateScore(String playerName, int currentScore);
         int GetScore(String playerName);
+        void ClearAllPlayers();
     }
 }

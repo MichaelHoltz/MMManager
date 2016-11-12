@@ -5,15 +5,21 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Media;
 using MMManager.GameInterfaces;
+using MMManager.GameObjects;
 
 namespace MMManager.GameControls
 {
+    [Serializable]
     public partial class TicTacToeBoard : UserControl,IGame
     {
+        private SharedTicTacToeBoardData sharedTicTacToeBoardData; //Contains all neeeded
         private MMManagerTTTButton theButton;
         private String[] letters = new String[5] { "J", "K", "M", "L", "N" };
+        
+        //Control of Player Count
         private const int PCOUNT = 2;
         private char[] symbols = new char[PCOUNT] { 'X', 'O' };
+
         private int SymbolPos = 0;
         private int TurnPos = 0;
         private int letterPos = 0;
@@ -25,14 +31,13 @@ namespace MMManager.GameControls
         MMManagerTTTButton[,] b;
         private Color bColor;
         private string playerName;
-
+       // private IPlayer Player;
         public string PlayerName
         {
             get { return playerName; }
             set
             {
                 playerName = value;
-                GameInfo.PlayerName = value;
             }
         }
 
@@ -49,6 +54,24 @@ namespace MMManager.GameControls
             }
         }
 
+        /// <summary>
+        /// This is the host form.. that handles messages in general
+        /// </summary>
+        public IMessageRelay ServiceProvider { get; set; }
+
+        public IPlayer MyPlayer
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public TicTacToeBoard()
         {
             InitializeComponent();
@@ -56,9 +79,14 @@ namespace MMManager.GameControls
             bColor = Color.FromKnownColor(KnownColor.Control);
             
         }
-        public void GenerateNewGame()
+
+        public SharedTicTacToeBoardData GenerateNewGame()
         {
-            
+            sharedTicTacToeBoardData = new SharedTicTacToeBoardData(); //Nothing here!
+            sharedTicTacToeBoardData.Message = SharedTicTacToeBoardData.MessageCode.NewGame;
+            sharedTicTacToeBoardData.MessageString = GameInfo.GameName;
+            //sharedTicTacToeBoard.Players.Add()
+            //Remove all Buttons
             bgGame.Controls.Clear();
             bgGame.Enabled = true;
             SymbolPos = 0; // Reset to start with X or the first symbol
@@ -90,6 +118,7 @@ namespace MMManager.GameControls
                     bgGame.Controls.Add(b[y, x]);
                 }
             }
+            //IF bombs are wanted.. Set tags on the buttons.. Maybe not what I want.
             maxBombCount = maxY - 1;
             while (bombCount <= maxBombCount)
             {
@@ -101,8 +130,11 @@ namespace MMManager.GameControls
                     b[y, x].Tag = "1";
                 }
             }
+
+
             getCurrentTurn(); //Show Who's Turn it is
-            JoinGame(PlayerName, 0);
+            //JoinGame(PlayerName, 0);
+            return sharedTicTacToeBoardData;
             //_game.JoinGame(_game.PlayerName, 0);
         }
 
@@ -373,22 +405,22 @@ namespace MMManager.GameControls
 
 
 
-        public void JoinGame(string playerName, int startingScore)
-        {
-            GameInfo.JoinGame(playerName, startingScore);
-            //_game.JoinGame(playerName, startingScore);
-        }
+        //public void JoinGame(string playerName, int startingScore)
+        //{
+        //    GameInfo.JoinGame(playerName, startingScore);
+        //    //_game.JoinGame(playerName, startingScore);
+        //}
 
-        public void LeaveGame(string playerName)
-        {
-            GameInfo.LeaveGame(playerName);
+        //public void LeaveGame(string playerName)
+        //{
+        //    GameInfo.LeaveGame(playerName);
 
-        }
+        //}
 
-        public void UpdateScore(string playerName, int currentScore)
-        {
-            GameInfo.UpdateScore(playerName, currentScore);
-        }
+        //public void UpdateScore(string playerName, int currentScore)
+        //{
+        //    GameInfo.UpdateScore(playerName, currentScore);
+        //}
 
         public int GetScore(string playerName)
         {
@@ -399,9 +431,97 @@ namespace MMManager.GameControls
 
         private void TicTacToeBoard_Load(object sender, EventArgs e)
         {
+
             GameInfo.Game = this; //Set the Child control to see parent.
+            GameInfo.Player.PlayerName = PlayerName;
+           // GameInfo.Player = new ticTacToeStartOrJoin1.Player()
             //_game = this;
             
+        }
+
+        public void ReciveMessage(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData)
+        {
+            if (memberName == GameInfo.Player.PlayerName)
+                return;
+            GameInfo.BoardData = theSharedBoardData;
+            //A new Game has been published
+            if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.NewGame)
+            {
+                GameInfo.AddGame(theSharedBoardData.MessageString);
+
+            }
+            //A game has be removed
+            if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.RemoveGame)
+            {
+                theSharedBoardData.Players.Clear();
+                GameInfo.RemoveGame(theSharedBoardData.MessageString);
+                GameInfo.GameScore.ClearAllPlayers();
+                //GameInfo.GameScore.LeaveGame()
+
+            }
+            //Message REceived to start TickTack Toe
+            if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Start)
+            {
+                foreach (var item in GameInfo.Players)
+                {
+                    GameInfo.GameScore.UpdateScore(item.PlayerName, 0);
+                }
+                //btnStartTicTacToe.Text = "Accept";
+                //theTicTacToeBoard = theSharedBoard;
+                //theTicTacToeBoard.SecondName = memberName;
+            }
+            if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Join)
+            {
+                GameInfo.GameScore.JoinGame(theSharedBoardData.MessageSender, 0);
+                //Need to see the BOARD NOW!!!!
+            }
+            if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.LeaveGame)
+            {
+                GameInfo.GameScore.LeaveGame(theSharedBoardData.MessageSender);
+                //Remove the Board now.
+            }
+            if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Move)
+            {
+                //Button b = null;
+                //foreach (Control item in gbTicTacToe.Controls)
+                //{
+                //    if (item.Name == theSharedBoard.MessageString)
+                //    {
+                //        b = (item as Button);
+                //        b.Text = theSharedBoard.MessageValue;
+                //        if (theSharedBoard.MessageValue != "B!")
+                //            b.Enabled = false;
+                //        break;
+                //    }
+
+                //}
+
+
+            }
+            if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Reset)
+            {
+                //reset();
+            }
+        }
+
+        public void SendMessage(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData)
+        {
+            if (ServiceProvider != null)
+            {
+
+                ServiceProvider.SendTicTacToeMessage(gameName, memberName, theSharedBoardData);
+            }
+            else
+            {
+                throw new NotImplementedException("No Service Provider supplied");
+            }
+        }
+
+        public SharedTicTacToeBoardData ResetGame()
+        {
+            //Need to Clear something!!!
+            return sharedTicTacToeBoardData;
+            //Clear the Board and do the same logic as Generating the Game.. 
         }
     }
 }

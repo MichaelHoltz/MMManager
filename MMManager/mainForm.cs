@@ -57,6 +57,9 @@ namespace MMManager
         }
         private void mainForm_Load(object sender, EventArgs e)
         {
+            string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.Text += String.Format("  Ver. {0}", version);
+
             //propertyGrid1.SelectedObject = mas; // Set Property View to Application Settings
             if (mmmPeer.Instances == null || mmmPeer.Instances.Count == 0)
             {

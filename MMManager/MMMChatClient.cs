@@ -4,16 +4,17 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Drawing;
 using MMManager.GameObjects;
+using MMManager.GameInterfaces;
 namespace MMManager
 {
 
-    public partial class MMMChatClient : Form, IChatService
+    public partial class MMMChatClient : Form, IChatService, IMessageRelay
     {
-        private TicTacToeBoard theTicTacToeBoard; //Contains all neeeded
+        private SharedTicTacToeBoardData theTicTacToeBoardData; //Contains all neeeded
         private delegate void UserJoined(string name);
         private delegate void UserSendMessage(string name, string message);
         private delegate void UserLeft(string name);
-        private delegate void UserTicTacToeMessage(string name, TicTacToeBoard theBoard);
+        public delegate void UserTicTacToeMessage(string gameName, string memberName, SharedTicTacToeBoardData theBoard);
 
         private static event UserJoined NewJoin;
         private static event UserSendMessage MessageSent;
@@ -21,7 +22,7 @@ namespace MMManager
         private static event UserTicTacToeMessage TicTacToeMessageSent;
 
         private string userName;
-        private IChatChannel channel;
+        public IChatChannel channel; //Shared for sending messages as call back.
         private DuplexChannelFactory<IChatChannel> factory;
         public MMMChatClient()
         {
@@ -55,9 +56,10 @@ namespace MMManager
                     TicTacToeMessageSent += new UserTicTacToeMessage(MMMChatClient_TicTacToeMessageSent);
                     channel = null;
                     this.userName = txtUserName.Text.Trim();
-
-                    //InstanceContext context = new InstanceContext(new MMMChatClient(txtUserName.Text.Trim()));
-                    InstanceContext context = new InstanceContext(this);
+                    ticTacToeBoard1.GameInfo.Player.PlayerName = this.userName; // Assign Player Name when Logging in.
+                    ticTacToeBoard1.GameInfo.GameName = this.userName + "'s Game"; // Default to something.. but will be overwritten in GameInfo if needed.
+                    InstanceContext context = new InstanceContext(new MMMChatClient(txtUserName.Text.Trim()));
+                    //InstanceContext context = new InstanceContext(this);
                     factory =  new DuplexChannelFactory<IChatChannel>(context, "ChatEndPoint");
 
                     channel = factory.CreateChannel();
@@ -70,13 +72,15 @@ namespace MMManager
                     grpUserList.Enabled = true;
                     channel.Join(this.userName);
                     grpUserCredentials.Enabled = false;
-                    gbTicTacToe.Enabled = true; //Enable TicTacToe                    
+                    //gbTicTacToe.Enabled = true; //Enable TicTacToe                    
                     channel.InitializeMesh(); //Doesn't do anything..
                     this.AcceptButton = btnSend;
                     //rtbMessages.PrependText("\r\n*****************************WELCOME to the Chat Application*****************************");
                     rtbMessages.AppendColorText("*****************************WELCOME to the Chat Application*****************************\r\n", Color.Green);
                     txtSendMessage.Select();
                     txtSendMessage.Focus();
+                    if(ticTacToeBoard1.ServiceProvider == null)
+                        ticTacToeBoard1.ServiceProvider = this; // Set this form to be the service provider for the game.
                 }
                 catch (Exception ex)
                 {
@@ -91,7 +95,6 @@ namespace MMManager
         {
             try
             {
-                //rtbMessages.AppendText( "\r\n" + name + " left at " + DateTime.Now.ToString() + "\r\n");
                 rtbMessages.AppendColorText("\r\n" + name + " left at " + DateTime.Now.ToString() + "\r\n", Color.Green);
                 lstUsers.Items.Remove(name);
             }
@@ -117,21 +120,18 @@ namespace MMManager
         void MMMChatClient_NewJoin(string name)
         {
             rtbMessages.AppendColorText("\r\n" + name + " joined at: [" + DateTime.Now.ToString() + "]\r\n", Color.Red);
-            //rtbMessages.AppendText("\r\n" + name + " joined at: [" + DateTime.Now.ToString() + "]\r\n" );
 
             lstUsers.Items.Add(name);
         }
 
         void Online(object sender, EventArgs e)
         { 
-            //rtbMessages.AppendText("\r\nOnline: " + this.userName + "\r\n");
             rtbMessages.AppendColorText("\r\nOnline: " + this.userName + "\r\n", Color.Green);
-            gbTicTacToe.Enabled = true; //Enable TicTacToe    
+            //Enable TicTacToe    
         }
 
         void Offline(object sender, EventArgs e)
         {
-            //rtbMessages.AppendText("\r\nOffline: " + this.userName + "\r\n");
             rtbMessages.AppendColorText("\r\nOffline: " + this.userName + "\r\n", Color.Green);
         }
 
@@ -141,50 +141,10 @@ namespace MMManager
         /// </summary>
         /// <param name="name">The User Name</param>
         /// <param name="theBoard">The Current Board</param>
-        private void MMMChatClient_TicTacToeMessageSent(string name, TicTacToeBoard theBoard)
+        private void MMMChatClient_TicTacToeMessageSent(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData)
         {
-            propertyGrid1.SelectedObject = theBoard;
-            if (name == this.userName)
-                return;
-            //Message REceived to start TickTack Toe
-            if (theBoard.Message == TicTacToeBoard.MessageCode.Start)
-            {
-                MessageBox.Show(this, "Tic Tac Toe Request");
-                btnStartTicTacToe.Text = "Accept";
-                theTicTacToeBoard = theBoard;
-                theTicTacToeBoard.SecondName = name;
-            }
-            if (theBoard.Message == TicTacToeBoard.MessageCode.Accept)
-            {
-                btnStartTicTacToe.Text = "Playing: " + theBoard.SecondName;
-                theTicTacToeBoard = theBoard;
-                theTicTacToeBoard.SecondName = name;
-                theTicTacToeBoard.Message = TicTacToeBoard.MessageCode.Play;
-            }
-
-            if (theBoard.Message == TicTacToeBoard.MessageCode.Move)
-            {
-                Button b = null;
-                foreach (Control item in gbTicTacToe.Controls)
-                {
-                    if (item.Name == theBoard.MessageString)
-                    {
-                        b = (item as Button);
-                        b.Text = theBoard.MessageValue;
-                        if (theBoard.MessageValue != "B!") 
-                            b.Enabled = false;
-                        break;
-                    }
-
-                }
-                
-
-            }
-            if (theBoard.Message == TicTacToeBoard.MessageCode.Reset)
-            {
-                reset();
-            }
-
+            propertyGrid1.SelectedObject = theSharedBoardData; // For Debugging Stuff.. will be removed.
+            ticTacToeBoard1.ReciveMessage(gameName, memberName, theSharedBoardData);
         }
         #region IChatService Members
 
@@ -212,11 +172,11 @@ namespace MMManager
             }
         }
   
-        public void TicTacToeMessage(string memberName, TicTacToeBoard generatedBoard)
+        public void TicTacToeMessage(string gameName, string memberName, SharedTicTacToeBoardData generatedBoardData)
         {
             if (TicTacToeMessageSent != null)
             {
-                TicTacToeMessageSent(memberName, generatedBoard);
+                TicTacToeMessageSent(gameName, memberName, generatedBoardData);
             }
         }
 
@@ -260,49 +220,28 @@ namespace MMManager
 
         }
         #region ticTacToe
-        private void reset()
-        {
-            b1.Text = "";
-            b1.Enabled = true;
-            b2.Text = "";
-            b2.Enabled = true;
-            b3.Text = "";
-            b3.Enabled = true;
-            b4.Text = "";
-            b4.Enabled = true;
-            b5.Text = "";
-            b5.Enabled = true;
-            b6.Text = "";
-            b6.Enabled = true;
-            b7.Text = "";
-            b7.Enabled = true;
-            b8.Text = "";
-            b8.Enabled = true;
-            b9.Text = "";
-            b9.Enabled = true;
-            btnStartTicTacToe.Text = "Start Tic Tac Toe";
-        }
+
 
 
         private void setButtonValue(Button b)
         {
-            b.Text = theTicTacToeBoard.Move(Convert.ToInt32(b.Tag), this.userName);
-            theTicTacToeBoard.MessageValue = b.Text;
-            if (b.Text == "B!")
-            {
+            //b.Text = theTicTacToeBoard.Move(Convert.ToInt32(b.Tag), this.userName);
+            //theTicTacToeBoard.MessageValue = b.Text;
+            //if (b.Text == "B!")
+            //{
 
-            }
-            else
-            {
-                b.Enabled = false;
-            }
+            //}
+            //else
+            //{
+            //    b.Enabled = false;
+            //}
 
         }
 
         private void AllButtonClick(object sender, EventArgs e)
         {
-            theTicTacToeBoard.Message = TicTacToeBoard.MessageCode.Move;
-            theTicTacToeBoard.MessageString = (sender as Button).Name;
+            theTicTacToeBoardData.Message = SharedTicTacToeBoardData.MessageCode.Move;
+            theTicTacToeBoardData.MessageString = (sender as Button).Name;
 
             setButtonValue(sender as Button);
             //Button b = (sender as Button);
@@ -316,13 +255,14 @@ namespace MMManager
             //{
             //    b.Enabled = false;
             //}
-            channel.TicTacToeMessage(this.userName, theTicTacToeBoard); // Update The other player
-            if (theTicTacToeBoard.CheckReset())
-            {
-                theTicTacToeBoard.Message = TicTacToeBoard.MessageCode.Reset;
-                reset();
-                channel.TicTacToeMessage(this.userName, theTicTacToeBoard); // Update The other player
-            }
+            
+            channel.TicTacToeMessage(ticTacToeBoard1.GameInfo.GameName,ticTacToeBoard1.GameInfo.Player.PlayerName, theTicTacToeBoardData); // Update The other player
+            //if (theTicTacToeBoard.CheckReset())
+            //{
+            //    theTicTacToeBoard.Message = SharedTicTacToeBoard.MessageCode.Reset;
+            //    reset();
+            //    channel.TicTacToeMessage(ticTacToeBoard1.GameInfo.GameName, ticTacToeBoard1.GameInfo.Player.PlayerName, theTicTacToeBoard); // Update The other player
+            //}
         }
         #endregion
 
@@ -333,40 +273,36 @@ namespace MMManager
         /// <param name="e"></param>
         private void btnStartTicTacToe_Click(object sender, EventArgs e)
         {
-            //Can Start a Game
-            if (theTicTacToeBoard != null)
-            {
-                if (theTicTacToeBoard.State == TicTacToeBoard.GameState.Playing)
-                    return;
-            }
-            if (btnStartTicTacToe.Text.StartsWith("Start"))
-            {
-                theTicTacToeBoard = new TicTacToeBoard();
-                theTicTacToeBoard.FirstName = this.userName;
-                theTicTacToeBoard.State = TicTacToeBoard.GameState.Waiting;
-                theTicTacToeBoard.Message = TicTacToeBoard.MessageCode.Start;
-                channel.TicTacToeMessage(this.userName, theTicTacToeBoard);
-                btnStartTicTacToe.Text = "Waiting..";
-                // btnStartTicTacToe.Enabled = false;
-            }
-            else //Accept
-            {
-                if (theTicTacToeBoard != null)
-                {
-                    theTicTacToeBoard.SecondName = this.userName;
-                    theTicTacToeBoard.Message = TicTacToeBoard.MessageCode.Accept;
-                    theTicTacToeBoard.State = TicTacToeBoard.GameState.Playing;
-                    btnStartTicTacToe.Text = "Playing: " + theTicTacToeBoard.FirstName;
-                    channel.TicTacToeMessage(this.userName, theTicTacToeBoard);
-                }
-            }
+            ////Can Start a Game
+            //if (theTicTacToeBoardData != null)
+            //{
+            //    if (theTicTacToeBoardData.State == SharedTicTacToeBoardData.GameState.Playing)
+            //        return;
+            //}
+            //if (btnStartTicTacToe.Text.StartsWith("Start"))
+            //{
+            //    theTicTacToeBoardData= new SharedTicTacToeBoardData();
+            //    //theTicTacToeBoard.FirstName = this.userName;
+            //    theTicTacToeBoardData.State = SharedTicTacToeBoardData.GameState.Waiting;
+            //    theTicTacToeBoardData.Message = SharedTicTacToeBoardData.MessageCode.Start;
+            //    channel.TicTacToeMessage(ticTacToeBoard1.GameInfo.GameName, ticTacToeBoard1.GameInfo.Player.PlayerName, theTicTacToeBoardData);
+            //    btnStartTicTacToe.Text = "Waiting..";
+            //    // btnStartTicTacToe.Enabled = false;
+            //}
+            //else //Accept
+            //{
+            //    if (theTicTacToeBoardData != null)
+            //    {
+            //       // theTicTacToeBoard.SecondName = this.userName;
+            //        theTicTacToeBoardData.Message = SharedTicTacToeBoardData.MessageCode.Join;
+            //        theTicTacToeBoardData.State = SharedTicTacToeBoardData.GameState.Playing;
+            //       // btnStartTicTacToe.Text = "Playing: " + theTicTacToeBoard.FirstName;
+            //        channel.TicTacToeMessage(ticTacToeBoard1.GameInfo.GameName, ticTacToeBoard1.GameInfo.Player.PlayerName, theTicTacToeBoardData);
+            //    }
+            //}
 
         }
 
-        private void MMMChatClient_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
-        }
 
         private void txtUserName_TextChanged(object sender, EventArgs e)
         {
@@ -374,6 +310,23 @@ namespace MMManager
             {
                 this.userName = txtUserName.Text.Trim();
             }
+        }
+
+        private void MMMChatClient_Load(object sender, EventArgs e)
+        {
+            string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.Text += String.Format("  Ver. {0}", version);
+            //ticTacToeBoard1.ServiceProvider = this.channel; // Set this form to be the service provider for the game.
+        }
+
+        public void SendTicTacToeMessage(string gameName, string memberName, SharedTicTacToeBoardData generatedBoardData)
+        {
+            channel.TicTacToeMessage(gameName,memberName, generatedBoardData); // Send messages using the proper channel
+        }
+
+        private void ticTacToeBoard1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

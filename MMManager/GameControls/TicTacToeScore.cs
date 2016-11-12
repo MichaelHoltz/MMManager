@@ -37,7 +37,7 @@ namespace MMManager.GameControls
             }
             catch
             {
-                MessageBox.Show("Problem adding" + playerName);
+                MessageBox.Show( playerName + " Already Taken");
             }
             //return result;
             return;
@@ -62,6 +62,14 @@ namespace MMManager.GameControls
 
         private void TicTacToeScore_Load(object sender, EventArgs e)
         {
+
+        }
+
+        public void ClearAllPlayers()
+        {
+            PlayerScores.Clear();
+            dataGridView1.Columns[1].Visible = false; // Show the Score if setting it.
+            dataGridView1.DataSource = PlayerScores.ToList();
 
         }
     }

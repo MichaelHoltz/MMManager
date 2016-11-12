@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MMManager.GameInterfaces;
+using MMManager.GameObjects;
 namespace MMManager.GameInterfaces
 {
-    public interface IGameInfo: IPlayer
+    public interface IGameInfo
     {
         IGame Game { get; set; } 
         IGameOptions GameOptions { get; set; }
+        List<IPlayer> Players { get; set; }
+        IPlayer Player { get; set; }
         IScore GameScore { get; set; }
         void GameOver(string results);
-        void RemoveGame(string gameName);
         void AddGame(string gameName);
+        void RemoveGame(string gameName);
         string GameName { get; set; }
         void StartGame(string gameName);
         
@@ -20,19 +23,14 @@ namespace MMManager.GameInterfaces
         void WatchGame();
 
         ControlStatus GameMode { get; set;}
-        GameFlowStatus GameStatus { get; set; }
+        SharedTicTacToeBoardData.GameState GameState { get; set; }
+        SharedTicTacToeBoardData BoardData { get; set; }
     }
+
     public enum ControlStatus
     {
         Hosting=0,
         Joined=1,
         Watching=2
-    }
-    public enum GameFlowStatus
-    {
-        Waiting=0,
-        Playing=1,
-        GameOver=2
-
     }
 }

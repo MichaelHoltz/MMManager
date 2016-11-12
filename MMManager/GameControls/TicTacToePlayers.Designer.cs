@@ -28,37 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.ticTacToePlayer1 = new MMManager.GameControls.TicTacToePlayer();
             this.ticTacToeScore1 = new MMManager.GameControls.TicTacToeScore();
-            this.lblSymbol = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // ticTacToePlayer1
+            // 
+            this.ticTacToePlayer1.Location = new System.Drawing.Point(3, 3);
+            this.ticTacToePlayer1.Name = "ticTacToePlayer1";
+            this.ticTacToePlayer1.PlayerName = "MyName";
+            this.ticTacToePlayer1.PlayerSymbol = 'M';
+            this.ticTacToePlayer1.PlayerTurn = false;
+            this.ticTacToePlayer1.PlayerWon = false;
+            this.ticTacToePlayer1.ScoreBoard = null;
+            this.ticTacToePlayer1.Size = new System.Drawing.Size(181, 60);
+            this.ticTacToePlayer1.TabIndex = 5;
+            this.ticTacToePlayer1.Load += new System.EventHandler(this.ticTacToePlayer1_Load);
             // 
             // ticTacToeScore1
             // 
             this.ticTacToeScore1.AutoSize = true;
             this.ticTacToeScore1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ticTacToeScore1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ticTacToeScore1.Location = new System.Drawing.Point(3, 34);
+            this.ticTacToeScore1.Location = new System.Drawing.Point(3, 69);
             this.ticTacToeScore1.Name = "ticTacToeScore1";
             this.ticTacToeScore1.Size = new System.Drawing.Size(181, 144);
             this.ticTacToeScore1.TabIndex = 4;
-            // 
-            // lblSymbol
-            // 
-            this.lblSymbol.AutoSize = true;
-            this.lblSymbol.Location = new System.Drawing.Point(9, 9);
-            this.lblSymbol.Name = "lblSymbol";
-            this.lblSymbol.Size = new System.Drawing.Size(41, 13);
-            this.lblSymbol.TabIndex = 5;
-            this.lblSymbol.Text = "Symbol";
             // 
             // TicTacToePlayers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lblSymbol);
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.ticTacToePlayer1);
             this.Controls.Add(this.ticTacToeScore1);
+            this.DoubleBuffered = true;
             this.Name = "TicTacToePlayers";
-            this.Size = new System.Drawing.Size(453, 468);
+            this.Size = new System.Drawing.Size(187, 216);
+            this.Load += new System.EventHandler(this.TicTacToePlayers_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -66,6 +75,6 @@
 
         #endregion
         private TicTacToeScore ticTacToeScore1;
-        private System.Windows.Forms.Label lblSymbol;
+        private TicTacToePlayer ticTacToePlayer1;
     }
 }

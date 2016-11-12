@@ -49,7 +49,7 @@
             // 
             this.bgGame.AutoSize = true;
             this.bgGame.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.bgGame.Location = new System.Drawing.Point(3, 280);
+            this.bgGame.Location = new System.Drawing.Point(3, 308);
             this.bgGame.MinimumSize = new System.Drawing.Size(150, 150);
             this.bgGame.Name = "bgGame";
             this.bgGame.Size = new System.Drawing.Size(150, 150);
@@ -66,16 +66,15 @@
             // 
             this.ticTacToeStartOrJoin1.AutoSize = true;
             this.ticTacToeStartOrJoin1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ticTacToeStartOrJoin1.BoardData = null;
             this.ticTacToeStartOrJoin1.Game = null;
             this.ticTacToeStartOrJoin1.GameMode = MMManager.GameInterfaces.ControlStatus.Hosting;
             this.ticTacToeStartOrJoin1.GameName = null;
+            this.ticTacToeStartOrJoin1.GameState = MMManager.GameObjects.SharedTicTacToeBoardData.GameState.Waiting;
             this.ticTacToeStartOrJoin1.Location = new System.Drawing.Point(3, 4);
             this.ticTacToeStartOrJoin1.Name = "ticTacToeStartOrJoin1";
-            this.ticTacToeStartOrJoin1.PlayerName = null;
-            this.ticTacToeStartOrJoin1.PlayerSymbol = '\0';
-            this.ticTacToeStartOrJoin1.PlayerTurn = false;
-            this.ticTacToeStartOrJoin1.PlayerWon = false;
-            this.ticTacToeStartOrJoin1.Size = new System.Drawing.Size(378, 270);
+            this.ticTacToeStartOrJoin1.Players = null;
+            this.ticTacToeStartOrJoin1.Size = new System.Drawing.Size(383, 298);
             this.ticTacToeStartOrJoin1.TabIndex = 13;
             this.ticTacToeStartOrJoin1.Load += new System.EventHandler(this.ticTacToeStartOrJoin1_Load);
             // 
