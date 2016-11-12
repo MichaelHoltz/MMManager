@@ -15,6 +15,7 @@ namespace MMManager.GameControls
         {
             InitializeComponent();
         }
+
         /// <summary>
         /// GridSize Property
         /// </summary>
@@ -25,5 +26,61 @@ namespace MMManager.GameControls
                 return Convert.ToInt32(domainUpDown1.Text);
             }
         }
+        /// <summary>
+        /// Option to Generate Bombs
+        /// </summary>
+        public bool GenerateBombs
+        {
+            get
+            {
+                object i;
+                foreach (var item in clbRandomOptions.CheckedItems)
+                {
+                    if (item.ToString() == "Bombs")
+                        return true;
+                }
+                return false;
+            }
+        }
+        public bool GenerateExtraTurns
+        {
+            get
+            {
+                foreach (var item in clbRandomOptions.CheckedItems)
+                {
+                    if (item.ToString() == "Extra Turns")
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        public bool GenerateRowColClear
+        {
+            get
+            {
+                foreach (var item in clbRandomOptions.CheckedItems)
+                {
+                    if (item.ToString() == "Row / Col Clear")
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        public bool GenerateShuffle
+        {
+            get
+            {
+                foreach (var item in clbRandomOptions.CheckedItems)
+                {
+                    if (item.ToString() == "Shuffle")
+                        return true;
+                }
+                return false;
+            }
+        }
+
+
     }
 }

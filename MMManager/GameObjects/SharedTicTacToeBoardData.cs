@@ -35,7 +35,8 @@ namespace MMManager.GameObjects
             NewGame=11,
             RefreshGameList=12,
             RemoveGame,
-            LeaveGame
+            LeaveGame,
+            SyncMap
         };
         public List<Player> Players;
 
@@ -45,7 +46,7 @@ namespace MMManager.GameObjects
         public string MessageValue { get; set; }
 
         public string MessageSender { get; set; }
-
+        public int GameSize { get; set; }
         public char[] GameBoard;
         public SharedTicTacToeBoardData()
         {

@@ -68,36 +68,33 @@ namespace MMManager.GameControls
             bColor = Color.FromKnownColor(KnownColor.Control);
             
         }
-
-        public SharedTicTacToeBoardData GenerateNewGame()
+        /// <summary>
+        /// Generate the Button Grid and game Grid
+        /// </summary>
+        /// <param name="sharedTicTacToeBoardData"></param>
+        /// <returns></returns>
+        private SharedTicTacToeBoardData GenerateGameButtons(SharedTicTacToeBoardData sharedTicTacToeBoardData)
         {
-            sharedTicTacToeBoardData = new SharedTicTacToeBoardData(); //Nothing here!
-            sharedTicTacToeBoardData.Message = SharedTicTacToeBoardData.MessageCode.NewGame;
-            sharedTicTacToeBoardData.MessageString = GameInfo.GameName;
-            //sharedTicTacToeBoard.Players.Add()
-            //Remove all Buttons
-            bgGame.Controls.Clear();
-            bgGame.Enabled = true;
-            SymbolPos = 0; // Reset to start with X or the first symbol
             maxX = Convert.ToInt32(GameInfo.GameOptions.GridSize);
             maxY = maxX; // Keep Symetry
-            sharedTicTacToeBoardData.GameBoard = new char[maxX * maxY];
             int y = 0;
             int x = 0;
             int index = 0;
-            int bombCount = 0;
-            Random r = new Random(DateTime.Now.Second);
+
 
             b = new MMManagerTTTButton[maxY, maxX];
             grid = new char[maxY, maxX];
+            sharedTicTacToeBoardData.GameBoard = new char[maxX * maxY];
+
             for (y = 0; y < maxY; y++)
             {
                 for (x = 0; x < maxX; x++)
                 {
                     b[y, x] = new MMManagerTTTButton();
                     b[y, x].Name = "B" + y + x;
-                    b[y, x].Text = '\0'.ToString(); //Clear Button
-                    grid[y, x] = '\0';//Clear Grid
+                    b[y, x].Text = '\0'.ToString();                     //Clear Button
+                    grid[y, x] = '\0';                                  //Clear 2d Grid
+                    sharedTicTacToeBoardData.GameBoard[index++] = '\0'; //Clear 1d Grid
                     b[y, x].Font = new Font("Microsoft Sans Serif", 12);
                     b[y, x].Visible = true;
                     b[y, x].Width = 40;
@@ -107,34 +104,94 @@ namespace MMManager.GameControls
                     b[y, x].Click += Button_Click;
                     b[y, x].Tag = "0";
                     bgGame.Controls.Add(b[y, x]);
-                    sharedTicTacToeBoardData.GameBoard[index++] = '\0';
+
                 }
             }
-            //IF bombs are wanted.. Set tags on the buttons.. Maybe not what I want.
-            maxBombCount = maxY - 1;
-            while (bombCount <= maxBombCount)
+            return sharedTicTacToeBoardData;
+        }
+        private SharedTicTacToeBoardData GenerateRandomOptions(SharedTicTacToeBoardData sharedTicTacToeBoardData)
+        {
+            int bombCount = 0;
+            int ExtraTurnCount = 0;
+            int RowColClearCount = 0;
+            int ShuffleCount = 0;
+            int TotalMaxEvents = Convert.ToInt32(Math.Round(Convert.ToDouble(maxX * maxY) / 2, 0)); // About Half of the Grid
+            Random r = new Random(DateTime.Now.Millisecond);
+            int y = 0;
+            int x = 0;
+            maxX = Convert.ToInt32(GameInfo.GameOptions.GridSize);
+            maxY = maxX; // Keep Symetry
+            //TODO Figure out how to weight so the total events
+            float WeightBomb = 0.6f;
+            float WeightExtraTurn = 0.1f;
+            float WeightRowColClear = 0.1f;
+            float WeitghtShuffle = 0.2f;
+
+            if (GameInfo.GameOptions.GenerateBombs)
             {
-                y = r.Next(0, maxY);
-                x = r.Next(0, maxX);
-                if (b[y, x].Tag.ToString() != "1")
-                {
-                    bombCount++;
-                    b[y, x].Tag = "1";
-                }
+                maxBombCount = TotalMaxEvents;
+            }
+            if (GameInfo.GameOptions.GenerateExtraTurns)
+            {
+                ExtraTurnCount = TotalMaxEvents;
+            }
+            if (GameInfo.GameOptions.GenerateRowColClear)
+            {
+                RowColClearCount = TotalMaxEvents;
+            }
+            if (GameInfo.GameOptions.GenerateShuffle)
+            {
+                ShuffleCount = TotalMaxEvents;
             }
 
+            //Want to have all randomb options take up 50% of the board
+            //IF bombs are wanted.. Set tags on the buttons.. Maybe not what I want.
+            if (GameInfo.GameOptions.GenerateBombs)
+            {
+                //maxBombCount = maxY - 1;
+               
+                while (bombCount <= maxBombCount)
+                {
+                    y = r.Next(0, maxY);
+                    x = r.Next(0, maxX);
+                    if (b[y, x].Tag.ToString() != "1")
+                    {
+                        bombCount++;
+                        b[y, x].Tag = "1";
+                    }
+                }
+
+            }
+
+            return sharedTicTacToeBoardData;
+        }
+        private SharedTicTacToeBoardData EncodeGameBoard(SharedTicTacToeBoardData sharedTicTacToeBoardDat)
+        {
+            maxX = Convert.ToInt32(GameInfo.GameOptions.GridSize);
+            maxY = maxX; // Keep Symetry
+            int y = 0;
+            int x = 0;
+            int index = 0;
             //Encode to single diminsion
-            for (y =0; y < maxY; y++)
+            for (y = 0; y < maxY; y++)
             {
                 for (x = 0; x < maxX; x++)
                 {
                     if (b[y, x].Tag.ToString() == "1")
                     {
-                        sharedTicTacToeBoardData.GameBoard[y*maxY+x] = '1';
+                        sharedTicTacToeBoardData.GameBoard[y * maxY + x] = '1';
                     }
                 }
             }
-
+            return sharedTicTacToeBoardData;
+        }
+        private SharedTicTacToeBoardData DecodeGameBoard(SharedTicTacToeBoardData sharedTicTacToeBoardDat)
+        {
+            maxX = Convert.ToInt32(GameInfo.GameOptions.GridSize);
+            maxY = maxX; // Keep Symetry
+            int y = 0;
+            int x = 0;
+            int index = 0;
             //Decode to two diminsions
             for (int i = 0; i < maxY * maxX; i++)
             {
@@ -146,11 +203,28 @@ namespace MMManager.GameControls
                 }
 
             }
-
-                    getCurrentTurn(); //Show Who's Turn it is
-            //JoinGame(PlayerName, 0);
             return sharedTicTacToeBoardData;
-            //_game.JoinGame(_game.PlayerName, 0);
+        }
+        public SharedTicTacToeBoardData GenerateNewGame()
+        {
+
+            sharedTicTacToeBoardData = new SharedTicTacToeBoardData(); //Nothing here!
+            sharedTicTacToeBoardData.MessageSender = GameInfo.Player.PlayerName;
+            sharedTicTacToeBoardData.Message = SharedTicTacToeBoardData.MessageCode.NewGame;
+            sharedTicTacToeBoardData.MessageString = GameInfo.GameName;
+
+            //Remove all Buttons
+            bgGame.Controls.Clear();
+            bgGame.Enabled = true;
+
+            sharedTicTacToeBoardData = GenerateGameButtons(sharedTicTacToeBoardData);
+            sharedTicTacToeBoardData = GenerateRandomOptions(sharedTicTacToeBoardData);
+            sharedTicTacToeBoardData = EncodeGameBoard(sharedTicTacToeBoardData);
+            sharedTicTacToeBoardData = DecodeGameBoard(sharedTicTacToeBoardData);
+
+            SymbolPos = 0; // Reset to start with X or the first symbol
+            getCurrentTurn(); //Show Who's Turn it is
+            return sharedTicTacToeBoardData;
         }
 
         private bool CheckWin(int y, int x, int n, ref char winLine, List<Point> winningList)
@@ -488,7 +562,17 @@ namespace MMManager.GameControls
             if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Join)
             {
                 GameInfo.GameScore.JoinGame(theSharedBoardData.MessageSender, 0);
+                theSharedBoardData.Message = SharedTicTacToeBoardData.MessageCode.SyncMap;
+                theSharedBoardData.MessageSender = GameInfo.Player.PlayerName;
+                theSharedBoardData.GameSize = GameInfo.GameOptions.GridSize;
+                theSharedBoardData.GameBoard = EncodeGameBoard(theSharedBoardData).GameBoard;
+                SendMessage(GameInfo.GameName, GameInfo.Player.PlayerName, theSharedBoardData);
                 //Need to see the BOARD NOW!!!!
+            }
+            if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.SyncMap)
+            {
+                GenerateGameButtons(theSharedBoardData);
+                //DecodeGameBoard(theSharedBoardData.GameBoard);
             }
             if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.LeaveGame)
             {
@@ -526,10 +610,10 @@ namespace MMManager.GameControls
 
                 ServiceProvider.SendTicTacToeMessage(gameName, memberName, theSharedBoardData);
             }
-            else
-            {
-                throw new NotImplementedException("No Service Provider supplied");
-            }
+            //else
+            //{
+            //    throw new NotImplementedException("No Service Provider supplied");
+            //}
         }
 
         public SharedTicTacToeBoardData ResetGame()
