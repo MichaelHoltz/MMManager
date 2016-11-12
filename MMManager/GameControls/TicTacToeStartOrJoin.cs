@@ -30,27 +30,8 @@ namespace MMManager.GameControls
             }
         }
         public string GameName { get; set; }
-       // public string PlayerName { get; set; }
-        //public char PlayerSymbol { get; set; }
-
-        //public bool PlayerTurn { get; set; }
-
-//        public bool PlayerWon { get; set; }
 
         public IGame Game { get; set; }
-        //{
-        //    get
-        //    {
-
-        //        return _game;
-        //    }
-        //    set
-        //    {
-                
-        //        _game = value;
-        //        //_Game.GameOptions = this.ticTacToeOptions1;
-        //    }
-        //}
 
         public IScore GameScore { get; set; }
 

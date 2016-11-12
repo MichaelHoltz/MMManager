@@ -36,9 +36,6 @@ namespace MMManager.GameObjects
             RefreshGameList=12,
             RemoveGame,
             LeaveGame
-                
-                
-
         };
         public List<Player> Players;
 
@@ -49,9 +46,11 @@ namespace MMManager.GameObjects
 
         public string MessageSender { get; set; }
 
+        public char[] GameBoard;
         public SharedTicTacToeBoardData()
         {
             Players = new List<Player>(); // Default to no players.
+            GameBoard = new char[0];
         }
 
     }

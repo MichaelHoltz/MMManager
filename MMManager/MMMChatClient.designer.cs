@@ -31,6 +31,7 @@ namespace MMManager
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MMMChatClient));
             this.grpMessageWindow = new System.Windows.Forms.GroupBox();
+            this.rtbMessages = new MMManager.Controls.RichTextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.txtSendMessage = new System.Windows.Forms.TextBox();
             this.grpUserCredentials = new System.Windows.Forms.GroupBox();
@@ -41,7 +42,6 @@ namespace MMManager
             this.lstUsers = new System.Windows.Forms.ListBox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.ticTacToeBoard1 = new MMManager.GameControls.TicTacToeBoard();
-            this.rtbMessages = new MMManager.Controls.RichTextBox();
             this.grpMessageWindow.SuspendLayout();
             this.grpUserCredentials.SuspendLayout();
             this.grpUserList.SuspendLayout();
@@ -59,6 +59,15 @@ namespace MMManager
             this.grpMessageWindow.TabIndex = 0;
             this.grpMessageWindow.TabStop = false;
             this.grpMessageWindow.Text = "Message window";
+            // 
+            // rtbMessages
+            // 
+            this.rtbMessages.Location = new System.Drawing.Point(9, 19);
+            this.rtbMessages.Name = "rtbMessages";
+            this.rtbMessages.ReadOnly = true;
+            this.rtbMessages.Size = new System.Drawing.Size(500, 204);
+            this.rtbMessages.TabIndex = 3;
+            this.rtbMessages.Text = "";
             // 
             // btnSend
             // 
@@ -156,28 +165,19 @@ namespace MMManager
             this.ticTacToeBoard1.TabIndex = 36;
             this.ticTacToeBoard1.Load += new System.EventHandler(this.ticTacToeBoard1_Load);
             // 
-            // rtbMessages
-            // 
-            this.rtbMessages.Location = new System.Drawing.Point(9, 19);
-            this.rtbMessages.Name = "rtbMessages";
-            this.rtbMessages.ReadOnly = true;
-            this.rtbMessages.Size = new System.Drawing.Size(500, 204);
-            this.rtbMessages.TabIndex = 3;
-            this.rtbMessages.Text = "";
-            // 
             // MMMChatClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1275, 727);
             this.Controls.Add(this.ticTacToeBoard1);
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.grpUserList);
             this.Controls.Add(this.grpUserCredentials);
             this.Controls.Add(this.grpMessageWindow);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.Name = "MMMChatClient";
             this.Text = "MMMChatClient";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MMMChatClient_FormClosing);

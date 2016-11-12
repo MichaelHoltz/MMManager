@@ -8,7 +8,7 @@ namespace MMManager.GameInterfaces
 {
     public interface IGame
     {
-        IPlayer MyPlayer { get; set; }
+      //  IPlayer MyPlayer { get; set; }
         IGameInfo GameInfo { get; set; }
         SharedTicTacToeBoardData GenerateNewGame();
         SharedTicTacToeBoardData ResetGame();

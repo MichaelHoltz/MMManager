@@ -10,7 +10,7 @@ namespace MMManager
 
     public partial class MMMChatClient : Form, IChatService, IMessageRelay
     {
-        private SharedTicTacToeBoardData theTicTacToeBoardData; //Contains all neeeded
+       // private SharedTicTacToeBoardData theTicTacToeBoardData; //Contains all neeeded
         private delegate void UserJoined(string name);
         private delegate void UserSendMessage(string name, string message);
         private delegate void UserLeft(string name);
@@ -219,53 +219,6 @@ namespace MMManager
             }
 
         }
-        #region ticTacToe
-
-
-
-        private void setButtonValue(Button b)
-        {
-            //b.Text = theTicTacToeBoard.Move(Convert.ToInt32(b.Tag), this.userName);
-            //theTicTacToeBoard.MessageValue = b.Text;
-            //if (b.Text == "B!")
-            //{
-
-            //}
-            //else
-            //{
-            //    b.Enabled = false;
-            //}
-
-        }
-
-        private void AllButtonClick(object sender, EventArgs e)
-        {
-            theTicTacToeBoardData.Message = SharedTicTacToeBoardData.MessageCode.Move;
-            theTicTacToeBoardData.MessageString = (sender as Button).Name;
-
-            setButtonValue(sender as Button);
-            //Button b = (sender as Button);
-            //b.Text = theTicTacToeBoard.Move(Convert.ToInt32(b.Tag), this.userName);
-
-            //if (b.Text == "B!")
-            //{
-
-            //}
-            //else
-            //{
-            //    b.Enabled = false;
-            //}
-            
-            channel.TicTacToeMessage(ticTacToeBoard1.GameInfo.GameName,ticTacToeBoard1.GameInfo.Player.PlayerName, theTicTacToeBoardData); // Update The other player
-            //if (theTicTacToeBoard.CheckReset())
-            //{
-            //    theTicTacToeBoard.Message = SharedTicTacToeBoard.MessageCode.Reset;
-            //    reset();
-            //    channel.TicTacToeMessage(ticTacToeBoard1.GameInfo.GameName, ticTacToeBoard1.GameInfo.Player.PlayerName, theTicTacToeBoard); // Update The other player
-            //}
-        }
-        #endregion
-
         /// <summary>
         /// Function to Initiate the Game and board.
         /// </summary>

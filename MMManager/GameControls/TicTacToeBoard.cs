@@ -59,18 +59,7 @@ namespace MMManager.GameControls
         /// </summary>
         public IMessageRelay ServiceProvider { get; set; }
 
-        public IPlayer MyPlayer
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
 
         public TicTacToeBoard()
         {
@@ -92,8 +81,10 @@ namespace MMManager.GameControls
             SymbolPos = 0; // Reset to start with X or the first symbol
             maxX = Convert.ToInt32(GameInfo.GameOptions.GridSize);
             maxY = maxX; // Keep Symetry
+            sharedTicTacToeBoardData.GameBoard = new char[maxX * maxY];
             int y = 0;
             int x = 0;
+            int index = 0;
             int bombCount = 0;
             Random r = new Random(DateTime.Now.Second);
 
@@ -116,14 +107,15 @@ namespace MMManager.GameControls
                     b[y, x].Click += Button_Click;
                     b[y, x].Tag = "0";
                     bgGame.Controls.Add(b[y, x]);
+                    sharedTicTacToeBoardData.GameBoard[index++] = '\0';
                 }
             }
             //IF bombs are wanted.. Set tags on the buttons.. Maybe not what I want.
             maxBombCount = maxY - 1;
             while (bombCount <= maxBombCount)
             {
-                y = r.Next(0, (maxY - 1));
-                x = r.Next(0, (maxX - 1));
+                y = r.Next(0, maxY);
+                x = r.Next(0, maxX);
                 if (b[y, x].Tag.ToString() != "1")
                 {
                     bombCount++;
@@ -131,8 +123,31 @@ namespace MMManager.GameControls
                 }
             }
 
+            //Encode to single diminsion
+            for (y =0; y < maxY; y++)
+            {
+                for (x = 0; x < maxX; x++)
+                {
+                    if (b[y, x].Tag.ToString() == "1")
+                    {
+                        sharedTicTacToeBoardData.GameBoard[y*maxY+x] = '1';
+                    }
+                }
+            }
 
-            getCurrentTurn(); //Show Who's Turn it is
+            //Decode to two diminsions
+            for (int i = 0; i < maxY * maxX; i++)
+            {
+                if (sharedTicTacToeBoardData.GameBoard[i] == '1')
+                {
+                    y = i / maxY;
+                    x = i % maxX;
+                    b[y, x].Text = "b";
+                }
+
+            }
+
+                    getCurrentTurn(); //Show Who's Turn it is
             //JoinGame(PlayerName, 0);
             return sharedTicTacToeBoardData;
             //_game.JoinGame(_game.PlayerName, 0);
