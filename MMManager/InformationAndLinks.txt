@@ -72,3 +72,6 @@ http://stackoverflow.com/questions/6240002/play-two-sounds-simultaneusly
 
 https://www.sounds-resource.com/mobile/pacmanbounce/sound/9430/
 http://www.codeproject.com/Articles/1896/Sprite-manipulation-in-C
+
+http://www.codeproject.com/Articles/1085446/Using-Sprites-Inside-WIndows-Forms
+https://spritesheetpacker.codeplex.com/
