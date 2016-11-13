@@ -69,3 +69,6 @@ http://stackoverflow.com/questions/16112622/2d-sprite-animations-without-using-x
 
 http://soundbible.com/
 http://stackoverflow.com/questions/6240002/play-two-sounds-simultaneusly
+
+https://www.sounds-resource.com/mobile/pacmanbounce/sound/9430/
+http://www.codeproject.com/Articles/1896/Sprite-manipulation-in-C
