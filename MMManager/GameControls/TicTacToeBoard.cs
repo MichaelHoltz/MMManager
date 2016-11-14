@@ -75,7 +75,7 @@ namespace MMManager.GameControls
         /// <returns></returns>
         private SharedTicTacToeBoardData GenerateGameButtons(SharedTicTacToeBoardData sharedTicTacToeBoardData)
         {
-            maxX = Convert.ToInt32(GameInfo.GameOptions.GridSize);
+            maxX = Convert.ToInt32(sharedTicTacToeBoardData.GameSize);
             maxY = maxX; // Keep Symetry
             int y = 0;
             int x = 0;
@@ -111,6 +111,8 @@ namespace MMManager.GameControls
         }
         private SharedTicTacToeBoardData GenerateRandomOptions(SharedTicTacToeBoardData sharedTicTacToeBoardData)
         {
+            //Must check to see if we are hosting, none of this is needed if we are hosting because the board will be populated already.
+            
             int bombCount = 0;
             int ExtraTurnCount = 0;
             int RowColClearCount = 0;
@@ -209,6 +211,7 @@ namespace MMManager.GameControls
         {
 
             sharedTicTacToeBoardData = new SharedTicTacToeBoardData(); //Nothing here!
+            sharedTicTacToeBoardData.GameSize = GameInfo.GameOptions.GridSize; // Set Grid Size to shared
             sharedTicTacToeBoardData.MessageSender = GameInfo.Player.PlayerName;
             sharedTicTacToeBoardData.Message = SharedTicTacToeBoardData.MessageCode.NewGame;
             sharedTicTacToeBoardData.MessageString = GameInfo.GameName;
@@ -528,7 +531,7 @@ namespace MMManager.GameControls
             
         }
 
-        public void ReciveMessage(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData)
+        public void ReceiveMessage(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData)
         {
             if (memberName == GameInfo.Player.PlayerName)
                 return;
@@ -559,24 +562,41 @@ namespace MMManager.GameControls
                 //theTicTacToeBoard = theSharedBoard;
                 //theTicTacToeBoard.SecondName = memberName;
             }
+            //Someone Joined
             if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Join)
             {
                 GameInfo.GameScore.JoinGame(theSharedBoardData.MessageSender, 0);
-                theSharedBoardData.Message = SharedTicTacToeBoardData.MessageCode.SyncMap;
+                theSharedBoardData.Message = SharedTicTacToeBoardData.MessageCode.SyncBoard;
+                theSharedBoardData.MessageSender = GameInfo.Player.PlayerName;
+                theSharedBoardData.GameSize = GameInfo.GameOptions.GridSize;
+                theSharedBoardData.GameBoard = EncodeGameBoard(theSharedBoardData).GameBoard;
+                SendMessage(GameInfo.GameName, GameInfo.Player.PlayerName, theSharedBoardData);
+                GameInfo.PlayersChanged();
+                //Need to see the BOARD NOW!!!!
+            }
+            if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Watch)
+            {
+                
+                GameInfo.GameScore.WatchGame(theSharedBoardData.MessageSender);
+                theSharedBoardData.Message = SharedTicTacToeBoardData.MessageCode.SyncBoard;
                 theSharedBoardData.MessageSender = GameInfo.Player.PlayerName;
                 theSharedBoardData.GameSize = GameInfo.GameOptions.GridSize;
                 theSharedBoardData.GameBoard = EncodeGameBoard(theSharedBoardData).GameBoard;
                 SendMessage(GameInfo.GameName, GameInfo.Player.PlayerName, theSharedBoardData);
                 //Need to see the BOARD NOW!!!!
             }
-            if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.SyncMap)
+            if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.SyncBoard)
             {
+                
                 GenerateGameButtons(theSharedBoardData);
+                GenerateRandomOptions(theSharedBoardData);  // Need to see if we are hosting or not hosting.
                 //DecodeGameBoard(theSharedBoardData.GameBoard);
             }
             if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.LeaveGame)
             {
                 GameInfo.GameScore.LeaveGame(theSharedBoardData.MessageSender);
+                GameInfo.PlayersChanged();
+                    
                 //Remove the Board now.
             }
             if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Move)

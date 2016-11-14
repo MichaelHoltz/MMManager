@@ -18,9 +18,10 @@ namespace MMManager.GameInterfaces
         void RemoveGame(string gameName);
         string GameName { get; set; }
         void StartGame(string gameName);
-        
+        void PlayersChanged();
+
         void RefreshGameList();
-        void WatchGame();
+//        void WatchGame();
 
         ControlStatus GameMode { get; set;}
         SharedTicTacToeBoardData.GameState GameState { get; set; }

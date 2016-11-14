@@ -8,7 +8,7 @@ using MMManager.GameObjects;
 
 namespace MMManager.GameControls
 {
-    public partial class TicTacToeStartOrJoin : UserControl, IGameInfo
+    public partial class TicTacToeStartOrJoin : UserControl, IGameInfo, IScore
     {
         private ControlStatus _gameMode;
         private SharedTicTacToeBoardData theSharedTicTacToBoardData;
@@ -129,13 +129,36 @@ namespace MMManager.GameControls
         {
             //This is for Just Watching the Game.. And allows there to be multiple Games on the same network
             MessageBox.Show("Not implemented yet.");
+            if (btnWatch.Text == "Watch")
+            {
+                btnJoin.Enabled = false;
+                WatchGame(Player.PlayerName);
+                theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Watch;
+                theSharedTicTacToBoardData.MessageSender = Player.PlayerName;
+                theSharedTicTacToBoardData.MessageString = lbAvailableGames.SelectedItem.ToString();
+                Game.SendMessage(lbAvailableGames.SelectedItem.ToString(), Player.PlayerName, theSharedTicTacToBoardData); // Send message to Everyone
+                btnWatch.Text = "Leave";
+                rbHost.Enabled = false;
+            }
+            else
+            {
+                btnJoin.Enabled = true;
+                LeaveGame(Player.PlayerName);
+                theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.StopWatching;
+                theSharedTicTacToBoardData.MessageSender = Player.PlayerName;
+                theSharedTicTacToBoardData.MessageString = lbAvailableGames.SelectedItem.ToString();
+                Game.SendMessage(lbAvailableGames.SelectedItem.ToString(), Player.PlayerName, theSharedTicTacToBoardData); // Send message to Everyone
+                btnWatch.Text = "Watch";
+                rbHost.Enabled = true;
+
+            }
         }
 
         private void btnJoin_Click(object sender, EventArgs e)
         {
-            if (btnJoin.Text == "Join")
+            if (btnJoin.Text == "Join") //Join
             {
-
+                btnWatch.Enabled = false;
                 JoinGame(Player.PlayerName, 0);
                 theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Join;
                 theSharedTicTacToBoardData.MessageSender = Player.PlayerName;
@@ -144,8 +167,9 @@ namespace MMManager.GameControls
                 btnJoin.Text = "Leave";
                 rbHost.Enabled = false;
             }
-            else
+            else // Leave
             {
+                btnWatch.Enabled = true;
                 LeaveGame(Player.PlayerName);
                 theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.LeaveGame;
                 theSharedTicTacToBoardData.MessageSender = Player.PlayerName;
@@ -200,15 +224,15 @@ namespace MMManager.GameControls
                 theSharedTicTacToBoardData = GenerateNewGame(); // Get a blank board after generating the game.
                 AddGame(GameName);
                 JoinGame(Player.PlayerName, 0);
-                btnStartGame.Enabled = true; // Allow the game to be started.. want to wait for other players usually.
+                //btnStartGame.Enabled = true; // Allow the game to be started.. want to wait for other players usually.
                 rbJoinGame.Enabled = false;
                 Game.SendMessage(GameName, Player.PlayerName, theSharedTicTacToBoardData); // Send message to Everyone
 
             }
-            else
+            else // Remove Game
             {
                 btnCreateRemove.Text = "Create Game";
-                btnStartGame.Enabled = false; // Can't start a game if there isn't one.
+                //btnStartGame.Enabled = false; // Can't start a game if there isn't one.
                 LeaveGame(Player.PlayerName);
                 GameScore.ClearAllPlayers();
                 RemoveGame(GameName);
@@ -248,9 +272,13 @@ namespace MMManager.GameControls
         {
 
         }
-  
 
 
+        public void PlayersChanged()
+        {
+            //Players is null!!
+                btnStartGame.Enabled = (Players.Count > 1 && btnCreateRemove.Text == "Remove");
+        }
         public void StartGame(string gameName)
         {
             //this.lbAvailableGames.Items.Add(gameName);
@@ -278,10 +306,7 @@ namespace MMManager.GameControls
             throw new NotImplementedException();
         }
 
-        public void WatchGame()
-        {
-            throw new NotImplementedException();
-        }
+
         public SharedTicTacToeBoardData GenerateNewGame()
         {
             //Game.
@@ -357,6 +382,14 @@ namespace MMManager.GameControls
             GameMode = ControlStatus.Joined;
         }
 
+        public void WatchGame(string playerName)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void ClearAllPlayers()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

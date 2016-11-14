@@ -10,9 +10,9 @@ namespace MMManager.GameInterfaces
     {
       //  IPlayer MyPlayer { get; set; }
         IGameInfo GameInfo { get; set; }
-        SharedTicTacToeBoardData GenerateNewGame();
-        SharedTicTacToeBoardData ResetGame();
-        void ReciveMessage(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData);
+        SharedTicTacToeBoardData GenerateNewGame(); //Host Only
+        SharedTicTacToeBoardData ResetGame();   //Members and Host
+        void ReceiveMessage(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData);
         void SendMessage(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData);
         IMessageRelay ServiceProvider { get; set; }
         

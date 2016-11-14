@@ -42,6 +42,26 @@ namespace MMManager.GameControls
             //return result;
             return;
         }
+        /// <summary>
+        /// Adds a Person as a watcher.
+        /// </summary>
+        /// <param name="playerName"></param>
+        public void WatchGame(string playerName)
+        {
+            try
+            {
+                PlayerScores.Add(playerName, 0);
+                dataGridView1.DataSource = PlayerScores.ToList();
+                // dataGridView1.Refresh();
+            }
+            catch
+            {
+                MessageBox.Show(playerName + " Already Taken");
+            }
+            //return result;
+            return;
+
+        }
         public void LeaveGame(string playerName)
         {
             PlayerScores.Remove(playerName);

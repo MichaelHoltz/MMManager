@@ -144,7 +144,7 @@ namespace MMManager
         private void MMMChatClient_TicTacToeMessageSent(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData)
         {
             propertyGrid1.SelectedObject = theSharedBoardData; // For Debugging Stuff.. will be removed.
-            ticTacToeBoard1.ReciveMessage(gameName, memberName, theSharedBoardData);
+            ticTacToeBoard1.ReceiveMessage(gameName, memberName, theSharedBoardData);
         }
         #region IChatService Members
 

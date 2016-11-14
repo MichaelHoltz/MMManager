@@ -8,6 +8,7 @@ namespace MMManager.GameInterfaces
     public interface IScore
     {
         void JoinGame(String playerName, int startingScore);
+        void WatchGame(String playerName);
         void LeaveGame(String playerName);
         void UpdateScore(String playerName, int currentScore);
         int GetScore(String playerName);

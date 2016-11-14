@@ -34,9 +34,11 @@ namespace MMManager.GameObjects
             Reset=10,
             NewGame=11,
             RefreshGameList=12,
-            RemoveGame,
-            LeaveGame,
-            SyncMap
+            RemoveGame=13,
+            LeaveGame=14,
+            StopWatching=15,
+            SyncBoard=16
+
         };
         public List<Player> Players;
 
@@ -62,6 +64,7 @@ namespace MMManager.GameObjects
         public Char PlayerSymbol { get; set; }
         public bool PlayerTurn { get; set; }
         public bool PlayerWon { get; set; }
+        
     }
 
 }
