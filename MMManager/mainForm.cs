@@ -251,9 +251,13 @@ namespace MMManager
 
         private void button2_Click(object sender, EventArgs e)
         {
+            var p1 = new System.Windows.Media.MediaPlayer();
+            p1.MediaEnded += P1_MediaEnded;
+
             for (int i = 0; i < 5; i++)
             {
-                var p1 = new System.Windows.Media.MediaPlayer();
+                p1 = new System.Windows.Media.MediaPlayer();
+                p1.MediaEnded += P1_MediaEnded;
                 p1.Open(new System.Uri(@"C:\windows\media\tada.wav"));
                 p1.Play();
 
@@ -264,6 +268,12 @@ namespace MMManager
                 p2.Open(new System.Uri(@"C:\windows\media\tada.wav"));
                 p2.Play();
             }
+        }
+
+        private void P1_MediaEnded(object sender, EventArgs e)
+        {
+            (sender as System.Windows.Media.MediaPlayer).Position = TimeSpan.Zero;
+            (sender as System.Windows.Media.MediaPlayer).Play();
         }
     }
 }

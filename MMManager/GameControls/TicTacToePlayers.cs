@@ -1,14 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using MMManager.GameInterfaces;
+using MMManager.GameObjects;
 namespace MMManager.GameControls
 {
-    public partial class TicTacToePlayers : UserControl, IPlayer, IScore
+    public partial class TicTacToePlayers : UserControl, IPlayers, IScore
     {
+
         public TicTacToePlayers()
         {
             InitializeComponent();
         }
+        //*********************************************************************************
+        #region IPlayer interface
+        //*********************************************************************************
         public string PlayerName
         { 
             get
@@ -59,11 +65,51 @@ namespace MMManager.GameControls
                 ticTacToePlayer1.PlayerWon = value;
             }
         }
+        //*********************************************************************************
+        #endregion
+        //*********************************************************************************
 
         public IScore ScoreBoard { get; set; }
+        //*********************************************************************************
+        #region IPlayers Interface
+        //*********************************************************************************
+        public List<PlayerClass> Players { get; set; }
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
+
+        public PlayerClass Player { get; set; }
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
+
+        //*********************************************************************************
+        #endregion
+        //*********************************************************************************
+
+        //*********************************************************************************
+        #region IScore Interface
+        //*********************************************************************************
         public void JoinGame(string playerName, int startingScore)
         {
+            
+            //Players.Add(playerName);
             ScoreBoard.JoinGame(playerName, 0);
             
         }
@@ -82,17 +128,6 @@ namespace MMManager.GameControls
         {
             return ScoreBoard.GetScore(playerName);
         }
-
-        private void ticTacToePlayer1_Load(object sender, EventArgs e)
-        {
-            ScoreBoard = ticTacToeScore1;
-        }
-
-        private void TicTacToePlayers_Load(object sender, EventArgs e)
-        {
-            ScoreBoard = ticTacToeScore1;
-        }
-
         public void ClearAllPlayers()
         {
             ScoreBoard.ClearAllPlayers();
@@ -102,6 +137,21 @@ namespace MMManager.GameControls
         public void WatchGame(string playerName)
         {
             ScoreBoard.WatchGame(playerName);
+        }
+
+        //*********************************************************************************
+        #endregion IScore
+        //*********************************************************************************
+
+
+
+
+
+        private void TicTacToePlayers_Load(object sender, EventArgs e)
+        {
+            ScoreBoard = ticTacToeScore1;
+            Player = ticTacToePlayer1.Player;
+            Players = new List<PlayerClass>();
         }
     }
 }

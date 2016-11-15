@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MMManager.GameInterfaces;
+using MMManager.GameObjects;
 namespace MMManager.GameControls
 {
     [Serializable]
@@ -17,8 +18,9 @@ namespace MMManager.GameControls
         public TicTacToePlayer()
         {
             InitializeComponent();
+            player = new PlayerClass();
         }
-
+        private PlayerClass player;
         public string PlayerName
         {
             get
@@ -28,6 +30,7 @@ namespace MMManager.GameControls
 
             set
             {
+                player.PlayerName = value;
                 lblName.Text = value;
             }
         }
@@ -54,6 +57,7 @@ namespace MMManager.GameControls
 
             set
             {
+                player.PlayerTurn = value;
                 playerTurn = value;
                 if (value)
                     lblState.Text = "Your Turn";
@@ -71,6 +75,7 @@ namespace MMManager.GameControls
 
             set
             {
+                player.PlayerWon = value;
                 playerWon = value;
                 if (value)
                     lblState.Text = "You Won!";
@@ -81,5 +86,21 @@ namespace MMManager.GameControls
         //
         public IScore ScoreBoard { get; set; }
 
+        public PlayerClass Player
+        {
+            get
+            {
+                return player;
+            }
+
+            set
+            {
+                player = value;
+                PlayerName = player.PlayerName;
+                PlayerSymbol = player.PlayerSymbol;
+                PlayerTurn = player.PlayerTurn;
+                PlayerWon = player.PlayerWon;
+            }
+        }
     }
 }

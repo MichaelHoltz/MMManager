@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 
 namespace MMManager.GameInterfaces
 {
     /// <summary>
     /// Player Interface that has a score
+    /// Copy of class Player.. need to fix
     /// </summary>
     public interface IPlayer
     {

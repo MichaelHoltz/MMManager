@@ -73,6 +73,7 @@
             this.ticTacToeStartOrJoin1.GameState = MMManager.GameObjects.SharedTicTacToeBoardData.GameState.Waiting;
             this.ticTacToeStartOrJoin1.Location = new System.Drawing.Point(3, 4);
             this.ticTacToeStartOrJoin1.Name = "ticTacToeStartOrJoin1";
+            this.ticTacToeStartOrJoin1.Player = null;
             this.ticTacToeStartOrJoin1.Players = null;
             this.ticTacToeStartOrJoin1.Size = new System.Drawing.Size(383, 298);
             this.ticTacToeStartOrJoin1.TabIndex = 13;

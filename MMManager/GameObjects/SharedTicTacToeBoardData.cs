@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MMManager.GameInterfaces;
+using MMManager.GameObjects;
 namespace MMManager.GameObjects
 {
     /// <summary>
@@ -40,7 +41,7 @@ namespace MMManager.GameObjects
             SyncBoard=16
 
         };
-        public List<Player> Players;
+        public List<PlayerClass> Players;
 
         public GameState State { get; set; }
         public MessageCode Message { get; set; }
@@ -52,19 +53,11 @@ namespace MMManager.GameObjects
         public char[] GameBoard;
         public SharedTicTacToeBoardData()
         {
-            Players = new List<Player>(); // Default to no players.
+            Players = new List<PlayerClass>(); // Default to no players.
             GameBoard = new char[0];
         }
 
     }
-    [Serializable]
-    public class Player
-    {
-        public String PlayerName { get; set; }
-        public Char PlayerSymbol { get; set; }
-        public bool PlayerTurn { get; set; }
-        public bool PlayerWon { get; set; }
-        
-    }
+
 
 }

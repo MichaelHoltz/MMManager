@@ -143,7 +143,9 @@
     <Compile Include="GameInterfaces\IGameInfo.cs" />
     <Compile Include="GameInterfaces\IGameOptions.cs" />
     <Compile Include="GameInterfaces\IPlayer.cs" />
+    <Compile Include="GameInterfaces\IPlayers.cs" />
     <Compile Include="GameInterfaces\IScore.cs" />
+    <Compile Include="GameObjects\Player.cs" />
     <Compile Include="IChat.cs" />
     <Compile Include="IChatChannel.cs" />
     <Compile Include="IChatService.cs" />

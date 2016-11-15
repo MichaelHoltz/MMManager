@@ -10,8 +10,8 @@ namespace MMManager.GameInterfaces
     {
         IGame Game { get; set; } 
         IGameOptions GameOptions { get; set; }
-        List<IPlayer> Players { get; set; }
-        IPlayer Player { get; set; }
+        List<PlayerClass> Players { get; set; }
+        PlayerClass Player { get; set; }
         IScore GameScore { get; set; }
         void GameOver(string results);
         void AddGame(string gameName);
@@ -21,7 +21,7 @@ namespace MMManager.GameInterfaces
         void PlayersChanged();
 
         void RefreshGameList();
-//        void WatchGame();
+
 
         ControlStatus GameMode { get; set;}
         SharedTicTacToeBoardData.GameState GameState { get; set; }

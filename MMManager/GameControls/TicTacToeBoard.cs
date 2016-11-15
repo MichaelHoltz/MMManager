@@ -525,6 +525,7 @@ namespace MMManager.GameControls
         {
 
             GameInfo.Game = this; //Set the Child control to see parent.
+            GameInfo.Player = new PlayerClass();
             GameInfo.Player.PlayerName = PlayerName;
            // GameInfo.Player = new ticTacToeStartOrJoin1.Player()
             //_game = this;
@@ -566,11 +567,14 @@ namespace MMManager.GameControls
             if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Join)
             {
                 GameInfo.GameScore.JoinGame(theSharedBoardData.MessageSender, 0);
+                GameInfo.Players.Add(GameInfo.Player);
                 theSharedBoardData.Message = SharedTicTacToeBoardData.MessageCode.SyncBoard;
                 theSharedBoardData.MessageSender = GameInfo.Player.PlayerName;
                 theSharedBoardData.GameSize = GameInfo.GameOptions.GridSize;
                 theSharedBoardData.GameBoard = EncodeGameBoard(theSharedBoardData).GameBoard;
+
                 SendMessage(GameInfo.GameName, GameInfo.Player.PlayerName, theSharedBoardData);
+
                 GameInfo.PlayersChanged();
                 //Need to see the BOARD NOW!!!!
             }

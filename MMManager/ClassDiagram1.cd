@@ -1,42 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="MMManager.Form1" Collapsed="true">
-    <Position X="7.75" Y="0.5" Width="1.5" />
+    <Position X="4.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAABDAAAAAQAACAAAADBAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAABDAAAAAQAACAAAADBAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.frmModsSelect" Collapsed="true">
-    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Position X="6.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAABACAAAAAAAACAAAACAAAAAQAAAQAAAAEAgAA=</HashCode>
       <FileName>frmModsSelect.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.frmTesting" Collapsed="true">
-    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAABAAAACAQAACAAAYAAAAAGAAAABAAAA=</HashCode>
       <FileName>frmTesting.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.mainForm" Collapsed="true">
-    <Position X="13" Y="0.5" Width="1.5" />
+    <Position X="10" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>DIAEMAE1ACAACBSQCMSAjoASARCMAyIQGHhlAJAwBAg=</HashCode>
+      <HashCode>DIAEMAE1ACAACBSQCMSAjoASARCcAyIQGHhlAJAwBAg=</HashCode>
       <FileName>mainForm.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.DirectoryCopyEventArgs" Collapsed="true">
-    <Position X="6" Y="0.5" Width="1.5" />
+    <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>MMManagerFileCompare.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.MMManagerFileCompare" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="5.5" Y="1.5" Width="2" />
+    <Position X="3" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAAAAEAAAAAIAABAgAAAAAgAA=</HashCode>
       <FileName>MMManagerFileCompare.cs</FileName>
@@ -44,217 +44,210 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MMManager.MMManagerTTTButton" Collapsed="true">
-    <Position X="7.75" Y="1.5" Width="1.5" />
+    <Position X="4.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAACAAAAAAEACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MMManagerTTTButton.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.MMMApplicationSettings" Collapsed="true">
-    <Position X="9.5" Y="1.5" Width="1.5" />
+    <Position X="6.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAACAAAAAAAAAIAgAAAAAAAAAAAAAAAkARAAACAAAAA=</HashCode>
       <FileName>MMMApplicationSettings.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.MMMChatClient" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="11.25" Y="1.5" Width="1.5" />
+    <Position X="8.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>kAEAAFKWICQhJQwWACjA0QAShIFAOgAYQAAgCIFEIAA=</HashCode>
+      <HashCode>AAEAAFISIDAhJAwWACjA0QASBAEAWgAQAAAACAFAAAA=</HashCode>
       <FileName>MMMChatClient.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MMManager.MMMForgeInfo" Collapsed="true">
-    <Position X="13" Y="1.5" Width="1.5" />
+    <Position X="10" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MMMForgeInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.MMMInstance" Collapsed="true">
-    <Position X="6" Y="2.5" Width="1.5" />
+    <Position X="3" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAABAAAAAAgAAAIAAAAQAAAABAAAAAAAAAA=</HashCode>
       <FileName>MMMInstance.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.MMMlauncherProfiles" Collapsed="true">
-    <Position X="7.75" Y="2.5" Width="1.5" />
+    <Position X="4.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAACAAAABAAAAAAA=</HashCode>
       <FileName>MMMlauncherProfiles.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.MMMMineCraftInfo" Collapsed="true">
-    <Position X="9.5" Y="2.5" Width="1.5" />
+    <Position X="6.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MMMMineCraftInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.MMMPeer" Collapsed="true">
-    <Position X="11.25" Y="2.5" Width="1.5" />
+    <Position X="8.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAQQAAAAAAgAA=</HashCode>
       <FileName>MMMPeer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.MMMProfile" Collapsed="true">
-    <Position X="13" Y="2.5" Width="1.5" />
+    <Position X="10" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEggAAAAAAAAAAAAA=</HashCode>
       <FileName>MMMProfile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.MMMUserCache" Collapsed="true">
-    <Position X="6" Y="3.5" Width="1.5" />
+    <Position X="3" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAABAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MMMUserCache.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.Program" Collapsed="true">
-    <Position X="7.75" Y="3.5" Width="1.5" />
+    <Position X="4.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.Controls.RichTextBox" Collapsed="true">
-    <Position X="11.25" Y="3.5" Width="1.5" />
+    <Position X="8.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Controls\RichTextBox.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.GameControls.TicTacToeBoard" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="6" Y="4.5" Width="1.5" />
+    <Position X="3" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QgUAAUAAICoAAVAAgIGBAAGiAABoMIACAQCggDAAAAI=</HashCode>
+      <HashCode>AoUAAUAAICoAB1EAgKGBQAGCACBoIYACAQCggDAAAAI=</HashCode>
       <FileName>GameControls\TicTacToeBoard.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MMManager.GameControls.TicTacToeOptions" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7.75" Y="4.5" Width="1.5" />
+    <Position X="4.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAIBACAAAAAAAACAAAACAQAIAAAAAAAAgAIAAAA=</HashCode>
+      <HashCode>AAAAAAIBACAACAAAAACAIACCAQAIAAAEAAAAgAIAAAA=</HashCode>
       <FileName>GameControls\TicTacToeOptions.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MMManager.GameControls.TicTacToePlayers" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="9.5" Y="4.5" Width="1.5" />
+    <Position X="6.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAEAAAAAACAABAAAAgCAAAAiIAAAMAAAAAAAkAAgAAA=</HashCode>
+      <HashCode>QAUAAAAAACAABAAAAgCAAAAiAgCAEAgAAQgAkAAgAAA=</HashCode>
       <FileName>GameControls\TicTacToePlayers.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MMManager.GameControls.TicTacToeScore" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="11.25" Y="4.5" Width="1.5" />
+    <Position X="8.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QIAAAAAAACAAAAQAAACAAAAiAAgAEAAAAAAggAAAAIA=</HashCode>
+      <HashCode>QIQAAAAAACAAAAQAAACAAAAiAAgAEAAAAAgggAAAAIA=</HashCode>
       <FileName>GameControls\TicTacToeScore.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MMManager.GameControls.TicTacToeStartOrJoin" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="13" Y="4.5" Width="1.5" />
+    <Position X="10" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAEUgIgAAKIQLAAABgiJJAAiIE2AEAEAhnggkQEgAAA=</HashCode>
+      <HashCode>QAUUgIAAELIQLAAAJACJIBAiIE2gEFEAgngggQEgIAA=</HashCode>
       <FileName>GameControls\TicTacToeStartOrJoin.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="MMManager.Properties.Resources" Collapsed="true">
-    <Position X="9.5" Y="3.5" Width="1.5" />
+    <Position X="6.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="MMManager.Properties.Settings" Collapsed="true">
-    <Position X="13" Y="3.5" Width="1.5" />
+    <Position X="10" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEAAAAIAAAAAABAAAAAAAAAAAACAA=</HashCode>
       <FileName>Settings.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="MMManager.DirectoryCopyData" Collapsed="true">
-    <Position X="6" Y="5.75" Width="1.5" />
+    <Position X="3" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAACAAAAAAgAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
       <FileName>MMManagerFileCompare.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Interface Name="MMManager.IChat" Collapsed="true">
-    <Position X="0.5" Y="4.25" Width="1.5" />
+    <Position X="3" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQgAAAAAABAAAAEAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>IChat.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="MMManager.IChatChannel" Collapsed="true">
-    <Position X="3.5" Y="1.75" Width="1.5" />
+    <Position X="0.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IChatChannel.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="MMManager.IChatService" Collapsed="true">
-    <Position X="3.5" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAgAACAAAQAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IChatService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="MMManager.GameInterfaces.IGame" Collapsed="true">
-    <Position X="2.25" Y="4.25" Width="1.5" />
+    <Position X="4.75" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAEAAAAAIAAAAAEAACAAAAAAACAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>GameInterfaces\IGame.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="MMManager.GameInterfaces.IGameInfo" Collapsed="true">
-    <Position X="0.5" Y="3.25" Width="1.5" />
+    <Position X="6.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAIAAAAAAAAAIAAAgAAwAAAAAAmggEAAAAAA=</HashCode>
+      <HashCode>AAAAgAAAEIAABAAAAAAIAAAgAAwgAAAAAmAgAQAAIAA=</HashCode>
       <FileName>GameInterfaces\IGameInfo.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="MMManager.GameInterfaces.IGameOptions" Collapsed="true">
-    <Position X="4" Y="4.25" Width="1.5" />
+    <Position X="8.25" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAACAAAAAAAIACAAAAAAAAEAAAAAAIAAAA=</HashCode>
       <FileName>GameInterfaces\IGameOptions.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="MMManager.GameInterfaces.IPlayer" Collapsed="true">
-    <Position X="0.5" Y="1.75" Width="1.5" />
+    <Position X="10" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAABAAAAgAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>GameInterfaces\IPlayer.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="MMManager.GameInterfaces.IScore" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="3" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAgAAAAEAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>QAQAAAAAAAAAAAAAAAAAAAAgAAAAEAAAAAgAgAAAAAA=</HashCode>
       <FileName>GameInterfaces\IScore.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="MMManager.GameInterfaces.ControlStatus" Collapsed="true">
-    <Position X="0.5" Y="5.25" Width="1.5" />
+    <Position X="3" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAABAIAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
-      <FileName>GameInterfaces\IGameInfo.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="MMManager.GameInterfaces.GameFlowStatus" Collapsed="true">
-    <Position X="2.25" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>GameInterfaces\IGameInfo.cs</FileName>
     </TypeIdentifier>
   </Enum>

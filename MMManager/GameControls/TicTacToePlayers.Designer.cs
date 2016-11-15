@@ -43,7 +43,6 @@
             this.ticTacToePlayer1.ScoreBoard = null;
             this.ticTacToePlayer1.Size = new System.Drawing.Size(181, 60);
             this.ticTacToePlayer1.TabIndex = 5;
-            this.ticTacToePlayer1.Load += new System.EventHandler(this.ticTacToePlayer1_Load);
             // 
             // ticTacToeScore1
             // 

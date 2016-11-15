@@ -35,7 +35,8 @@ namespace MMManager.GameControls
 
         public IScore GameScore { get; set; }
 
-        public IPlayer Player { get; set; }
+        public PlayerClass Player { get; set; }
+
         public ControlStatus GameMode  
         {
             get
@@ -103,7 +104,7 @@ namespace MMManager.GameControls
             }
         }
 
-        public List<IPlayer> Players { get; set; }
+        public List<PlayerClass> Players { get; set; } = new List<PlayerClass>();
 
         public SharedTicTacToeBoardData BoardData
         {
@@ -277,7 +278,7 @@ namespace MMManager.GameControls
         public void PlayersChanged()
         {
             //Players is null!!
-                btnStartGame.Enabled = (Players.Count > 1 && btnCreateRemove.Text == "Remove");
+                btnStartGame.Enabled = (Players.Count > 1 && btnCreateRemove.Text == "Remove Game");
         }
         public void StartGame(string gameName)
         {
@@ -327,27 +328,16 @@ namespace MMManager.GameControls
         }
         public void JoinGame(string playerName, int startingScore)
         {
-            //IPlayer p = new TicTacToePlayers();
-            //p.
-            //Players.Add(new IPlayer())
-            MMManager.GameObjects.Player p = new GameObjects.Player();
-            p.PlayerName = Player.PlayerName;
-            p.PlayerSymbol = Player.PlayerSymbol;
-            p.PlayerTurn = Player.PlayerTurn;
-            p.PlayerWon = Player.PlayerWon;
-            theSharedTicTacToBoardData.Players.Add(p); // Add this Player.
+            Players.Add(Player);
+            theSharedTicTacToBoardData.Players.Add(Player); // Add this Player.
             GameScore.JoinGame(playerName, startingScore);
             //throw new NotImplementedException();
         }
 
         public void LeaveGame(string playerName)
         {
-            MMManager.GameObjects.Player p = new GameObjects.Player();
-            p.PlayerName = Player.PlayerName;
-            p.PlayerSymbol = Player.PlayerSymbol;
-            p.PlayerTurn = Player.PlayerTurn;
-            p.PlayerWon = Player.PlayerWon;
-            theSharedTicTacToBoardData.Players.Remove(p); // Remove this Player.
+            Players.Remove(Player);
+            theSharedTicTacToBoardData.Players.Remove(Player); // Remove this Player.
             GameScore.LeaveGame(playerName);
             //throw new NotImplementedException();
         }
@@ -364,7 +354,8 @@ namespace MMManager.GameControls
 
         private void TicTacToeStartOrJoin_Load(object sender, EventArgs e)
         {
-            Player = this.ticTacToePlayers1;
+            Players = ticTacToePlayers1.Players; // new List<PlayerClass>();
+            Player = ticTacToePlayers1.Player;
             GameScore = this.ticTacToePlayers1.ScoreBoard;
             panel1.Left = 218;
             panel2.Left = 218;
