@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.button2 = new System.Windows.Forms.Button();
             this.btnSoloTicTacToe = new System.Windows.Forms.Button();
             this.btnChatForm = new System.Windows.Forms.Button();
             this.btnApplicationSettings = new System.Windows.Forms.Button();
@@ -67,7 +68,8 @@
             this.BtnArchive = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -95,6 +97,8 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.button4);
+            this.splitContainer2.Panel1.Controls.Add(this.button3);
             this.splitContainer2.Panel1.Controls.Add(this.button2);
             this.splitContainer2.Panel1.Controls.Add(this.btnSoloTicTacToe);
             this.splitContainer2.Panel1.Controls.Add(this.btnChatForm);
@@ -122,6 +126,16 @@
             this.splitContainer2.Size = new System.Drawing.Size(1115, 752);
             this.splitContainer2.SplitterDistance = 857;
             this.splitContainer2.TabIndex = 7;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(533, 131);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(103, 45);
+            this.button2.TabIndex = 31;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnSoloTicTacToe
             // 
@@ -467,15 +481,25 @@
             this.propertyGrid1.Size = new System.Drawing.Size(254, 752);
             this.propertyGrid1.TabIndex = 7;
             // 
-            // button2
+            // button3
             // 
-            this.button2.Location = new System.Drawing.Point(533, 131);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(103, 45);
-            this.button2.TabIndex = 31;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button3.Location = new System.Drawing.Point(538, 185);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(97, 33);
+            this.button3.TabIndex = 32;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(646, 158);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(64, 40);
+            this.button4.TabIndex = 33;
+            this.button4.Text = "stop";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // mainForm
             // 
@@ -548,6 +572,8 @@
         private System.Windows.Forms.Button btnChatForm;
         private System.Windows.Forms.Button btnSoloTicTacToe;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
     }
 }
 

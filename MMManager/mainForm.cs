@@ -15,13 +15,15 @@ namespace MMManager
         MMMApplicationSettings mas; // Application Settings
         MMMPeer mmmPeer;
         MMMlauncherProfiles mmmLauncherProfiles;
+
+        System.Windows.Media.MediaPlayer mp;
         public mainForm()
         {
             InitializeComponent();
             //Load Application Settings.
             mas = new MMMApplicationSettings();
             mas.LoadSettings();
-           
+
             try
             {
                 string json = File.ReadAllText("mmmPeer.json");
@@ -38,7 +40,7 @@ namespace MMManager
                 mmmLauncherProfiles = JsonConvert.DeserializeObject<MMMlauncherProfiles>(json);
                 foreach (var item in mmmLauncherProfiles.Profiles)
                 {
-                    
+
                     cbMinecraftProfiles.Items.Add((item.Value as MMMProfile).name);
                     if (mmmLauncherProfiles.selectedProfile == (item.Value as MMMProfile).name)
                     {
@@ -47,7 +49,7 @@ namespace MMManager
                         label2.Text = (item.Value as MMMProfile).javaArgs;
                     }
                 }
-                
+
 
             }
             catch
@@ -101,7 +103,7 @@ namespace MMManager
         }
 
 
- 
+
 
         private void BtnArchive_Click(object sender, EventArgs e)
         {
@@ -139,7 +141,7 @@ namespace MMManager
 
 
 
- 
+
 
         private void tbPeerName_TextChanged(object sender, EventArgs e)
         {
@@ -156,7 +158,7 @@ namespace MMManager
             //Find the Selected Instance
             //Going to have an error here the first time!!!
             MMMInstance mmmi = mmmPeer.Instances[cbInstanceName.Text];
-            
+
             if (mmmi.InstancePath == null)
                 mmmi.InstancePath = Properties.Settings.Default["UserAppData"].ToString() + Properties.Settings.Default["DefaultMCRoot"].ToString();
             String path = mmmi.InstancePath;
@@ -174,10 +176,10 @@ namespace MMManager
             foreach (var item in mmmLauncherProfiles.Profiles)
             {
 
-                
+
                 if (cbMinecraftProfiles.Text == (item.Value as MMMProfile).name)
                 {
-                   // cbMinecraftProfiles.Text = mmmLauncherProfiles.selectedProfile;
+                    // cbMinecraftProfiles.Text = mmmLauncherProfiles.selectedProfile;
                     label1.Text = (item.Value as MMMProfile).lastVersionId;
                     label2.Text = (item.Value as MMMProfile).javaArgs;
                 }
@@ -196,7 +198,7 @@ namespace MMManager
         private void button1_Click(object sender, EventArgs e)
         {
             button1.Text = MMManagerFileCompare.maxThreadCount.ToString();
-            
+
         }
         delegate void SetTextCallback(string text);
         private void SetText(string text)
@@ -208,7 +210,7 @@ namespace MMManager
             {
                 SetTextCallback d = new SetTextCallback(SetText);
                 this.Invoke(d, new object[] { text });
-                
+
             }
             else
             {
@@ -232,8 +234,8 @@ namespace MMManager
 
         private void button3_Click(object sender, EventArgs e)
         {
-           // MMMp2pManager c = new MMMp2pManager();
-            
+            // MMMp2pManager c = new MMMp2pManager();
+
         }
 
         private void btnSoloTicTacToe_Click(object sender, EventArgs e)
@@ -251,29 +253,52 @@ namespace MMManager
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var p1 = new System.Windows.Media.MediaPlayer();
-            p1.MediaEnded += P1_MediaEnded;
+            mp = new System.Windows.Media.MediaPlayer();
+            mp.MediaEnded += P1_MediaEnded;
+            mp.Open(new System.Uri(@"C:\Projects\MMManager\MMManager\Sounds\GameStartMario.wav"));
+            mp.Play();
+            //var p1 = new System.Windows.Media.MediaPlayer();
+            //p1.MediaEnded += P1_MediaEnded;
 
-            for (int i = 0; i < 5; i++)
-            {
-                p1 = new System.Windows.Media.MediaPlayer();
-                p1.MediaEnded += P1_MediaEnded;
-                p1.Open(new System.Uri(@"C:\windows\media\tada.wav"));
-                p1.Play();
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    p1 = new System.Windows.Media.MediaPlayer();
+            //    p1.MediaEnded += P1_MediaEnded;
+            //    p1.Open(new System.Uri(@"C:\Projects\MMManager\MMManager\Sounds\PacMan_Movement #003032.mp3"));
+            //    p1.Play();
 
-                // this sleep is here just so you can distinguish the two sounds playing simultaneously
-                System.Threading.Thread.Sleep(500);
+            //    // this sleep is here just so you can distinguish the two sounds playing simultaneously
+            //    System.Threading.Thread.Sleep(500);
 
-                var p2 = new System.Windows.Media.MediaPlayer();
-                p2.Open(new System.Uri(@"C:\windows\media\tada.wav"));
-                p2.Play();
-            }
+            //    var p2 = new System.Windows.Media.MediaPlayer();
+            //    p2.Open(new System.Uri(@"C:\windows\media\tada.wav"));
+            //    p2.Play();
+            //}
         }
 
         private void P1_MediaEnded(object sender, EventArgs e)
         {
             (sender as System.Windows.Media.MediaPlayer).Position = TimeSpan.Zero;
             (sender as System.Windows.Media.MediaPlayer).Play();
+        }
+
+        private void P2_MediaEnded(object sender, EventArgs e)
+        {
+            (sender as System.Windows.Media.MediaPlayer).Position = TimeSpan.Zero;
+            (sender as System.Windows.Media.MediaPlayer).Play();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            mp = new System.Windows.Media.MediaPlayer();
+            mp.MediaEnded += P2_MediaEnded;
+            mp.Open(new System.Uri(@"C:\Projects\MMManager\MMManager\Sounds\GameWaitingMusic.wav"));
+            mp.Play();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            mp.Stop();
         }
     }
 }
