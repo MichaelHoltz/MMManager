@@ -18,9 +18,9 @@ namespace MMManager.GameControls
         public TicTacToePlayer()
         {
             InitializeComponent();
-            player = new PlayerClass();
+           // player = new PlayerClass();
         }
-        private PlayerClass player;
+        private PlayerClass player = new PlayerClass();
         public string PlayerName
         {
             get
@@ -101,6 +101,11 @@ namespace MMManager.GameControls
                 PlayerTurn = player.PlayerTurn;
                 PlayerWon = player.PlayerWon;
             }
+        }
+
+        private void TicTacToePlayer_Load(object sender, EventArgs e)
+        {
+            player = new PlayerClass();
         }
     }
 }

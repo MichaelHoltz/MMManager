@@ -32,6 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.button4 = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnSoloTicTacToe = new System.Windows.Forms.Button();
             this.btnChatForm = new System.Windows.Forms.Button();
@@ -68,8 +71,7 @@
             this.BtnArchive = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -126,6 +128,44 @@
             this.splitContainer2.Size = new System.Drawing.Size(1115, 752);
             this.splitContainer2.SplitterDistance = 857;
             this.splitContainer2.TabIndex = 7;
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.White;
+            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button4.ImageIndex = 0;
+            this.button4.ImageList = this.imageList1;
+            this.button4.Location = new System.Drawing.Point(646, 158);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(140, 104);
+            this.button4.TabIndex = 33;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "BombSprite1");
+            this.imageList1.Images.SetKeyName(1, "BombSprite2");
+            this.imageList1.Images.SetKeyName(2, "BombSprite3");
+            this.imageList1.Images.SetKeyName(3, "BombSprite4");
+            this.imageList1.Images.SetKeyName(4, "BombSprite5");
+            this.imageList1.Images.SetKeyName(5, "BombSprite6");
+            this.imageList1.Images.SetKeyName(6, "BombSprite7");
+            this.imageList1.Images.SetKeyName(7, "BombSprite8");
+            this.imageList1.Images.SetKeyName(8, "BombSprite9");
+            this.imageList1.Images.SetKeyName(9, "BombSprite10");
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(538, 185);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(97, 33);
+            this.button3.TabIndex = 32;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // button2
             // 
@@ -481,25 +521,10 @@
             this.propertyGrid1.Size = new System.Drawing.Size(254, 752);
             this.propertyGrid1.TabIndex = 7;
             // 
-            // button3
+            // timer1
             // 
-            this.button3.Location = new System.Drawing.Point(538, 185);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(97, 33);
-            this.button3.TabIndex = 32;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(646, 158);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(64, 40);
-            this.button4.TabIndex = 33;
-            this.button4.Text = "stop";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.timer1.Interval = 50;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // mainForm
             // 
@@ -574,6 +599,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

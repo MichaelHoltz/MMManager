@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TicTacToeBoard));
             this.label1 = new System.Windows.Forms.Label();
             this.bgGame = new System.Windows.Forms.GroupBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
@@ -73,8 +74,8 @@
             this.ticTacToeStartOrJoin1.GameState = MMManager.GameObjects.SharedTicTacToeBoardData.GameState.Waiting;
             this.ticTacToeStartOrJoin1.Location = new System.Drawing.Point(3, 4);
             this.ticTacToeStartOrJoin1.Name = "ticTacToeStartOrJoin1";
-            this.ticTacToeStartOrJoin1.Player = null;
-            this.ticTacToeStartOrJoin1.Players = null;
+            this.ticTacToeStartOrJoin1.Player = ((MMManager.GameObjects.PlayerClass)(resources.GetObject("ticTacToeStartOrJoin1.Player")));
+            this.ticTacToeStartOrJoin1.Players = ((System.Collections.Generic.List<MMManager.GameObjects.PlayerClass>)(resources.GetObject("ticTacToeStartOrJoin1.Players")));
             this.ticTacToeStartOrJoin1.Size = new System.Drawing.Size(383, 298);
             this.ticTacToeStartOrJoin1.TabIndex = 13;
             this.ticTacToeStartOrJoin1.Load += new System.EventHandler(this.ticTacToeStartOrJoin1_Load);

@@ -298,7 +298,22 @@ namespace MMManager
 
         private void button4_Click(object sender, EventArgs e)
         {
-            mp.Stop();
+            if(mp!=null)
+                mp.Stop();
+            button4.ImageIndex = 0;
+            timer1.Interval = 50;
+            timer1.Enabled = true;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (button4.ImageIndex < 9)
+            {
+                button4.ImageIndex++;
+                timer1.Interval -= 5;
+            }
+            else
+                timer1.Enabled = false;
         }
     }
 }

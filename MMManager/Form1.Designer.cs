@@ -32,6 +32,7 @@
             this.tbUserName = new System.Windows.Forms.TextBox();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.ticTacToeBoard1 = new MMManager.GameControls.TicTacToeBoard();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbUserName
@@ -61,7 +62,16 @@
             this.ticTacToeBoard1.ServiceProvider = null;
             this.ticTacToeBoard1.Size = new System.Drawing.Size(389, 461);
             this.ticTacToeBoard1.TabIndex = 15;
-            this.ticTacToeBoard1.Load += new System.EventHandler(this.ticTacToeBoard1_Load_1);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(419, 395);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(38, 32);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // Form1
             // 
@@ -69,6 +79,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(507, 696);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.ticTacToeBoard1);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.tbUserName);
@@ -84,6 +95,7 @@
         private System.Windows.Forms.TextBox tbUserName;
         private System.Windows.Forms.Button btnUpdate;
         private GameControls.TicTacToeBoard ticTacToeBoard1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

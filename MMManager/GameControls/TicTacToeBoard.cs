@@ -38,6 +38,7 @@ namespace MMManager.GameControls
             set
             {
                 playerName = value;
+                GameInfo.Player = new PlayerClass() { PlayerName = playerName, PlayerSymbol = '?', PlayerTurn = false, PlayerWon = false };
             }
         }
 
@@ -84,7 +85,8 @@ namespace MMManager.GameControls
 
             b = new MMManagerTTTButton[maxY, maxX];
             grid = new char[maxY, maxX];
-            sharedTicTacToeBoardData.GameBoard = new char[maxX * maxY];
+            if(GameInfo.GameMode == ControlStatus.Hosting)
+                sharedTicTacToeBoardData.GameBoard = new char[maxX * maxY];
 
             for (y = 0; y < maxY; y++)
             {
@@ -94,7 +96,8 @@ namespace MMManager.GameControls
                     b[y, x].Name = "B" + y + x;
                     b[y, x].Text = '\0'.ToString();                     //Clear Button
                     grid[y, x] = '\0';                                  //Clear 2d Grid
-                    sharedTicTacToeBoardData.GameBoard[index++] = '\0'; //Clear 1d Grid
+                    if (GameInfo.GameMode == ControlStatus.Hosting)
+                        sharedTicTacToeBoardData.GameBoard[index++] = '\0'; //Clear 1d Grid
                     b[y, x].Font = new Font("Microsoft Sans Serif", 12);
                     b[y, x].Visible = true;
                     b[y, x].Width = 40;
@@ -167,7 +170,7 @@ namespace MMManager.GameControls
 
             return sharedTicTacToeBoardData;
         }
-        private SharedTicTacToeBoardData EncodeGameBoard(SharedTicTacToeBoardData sharedTicTacToeBoardDat)
+        private SharedTicTacToeBoardData EncodeGameBoard(SharedTicTacToeBoardData sharedTicTacToeBoardData)
         {
             maxX = Convert.ToInt32(GameInfo.GameOptions.GridSize);
             maxY = maxX; // Keep Symetry
@@ -187,13 +190,12 @@ namespace MMManager.GameControls
             }
             return sharedTicTacToeBoardData;
         }
-        private SharedTicTacToeBoardData DecodeGameBoard(SharedTicTacToeBoardData sharedTicTacToeBoardDat)
+        private SharedTicTacToeBoardData DecodeGameBoard(SharedTicTacToeBoardData sharedTicTacToeBoardData)
         {
             maxX = Convert.ToInt32(GameInfo.GameOptions.GridSize);
             maxY = maxX; // Keep Symetry
             int y = 0;
             int x = 0;
-            int index = 0;
             //Decode to two diminsions
             for (int i = 0; i < maxY * maxX; i++)
             {
@@ -229,7 +231,12 @@ namespace MMManager.GameControls
             getCurrentTurn(); //Show Who's Turn it is
             return sharedTicTacToeBoardData;
         }
-
+        public SharedTicTacToeBoardData ResetGame()
+        {
+            //Need to Clear something!!!
+            return sharedTicTacToeBoardData;
+            //Clear the Board and do the same logic as Generating the Game.. 
+        }
         private bool CheckWin(int y, int x, int n, ref char winLine, List<Point> winningList)
         {
             bool win = true;
@@ -378,6 +385,30 @@ namespace MMManager.GameControls
             }
 
         }
+        private char getCurrentSymbol()
+        {
+            char currentSymbol = '\0';
+            if (SymbolPos + 1 > symbols.Count())
+                SymbolPos = 0;
+
+            currentSymbol = symbols[SymbolPos++]; // Go to next Symbol
+            label1.Text = "It's " + currentSymbol.ToString() + "'s Turn";
+            return currentSymbol;
+        }
+        /// <summary>
+        /// Function to get the next person's turn by symbol
+        /// </summary>
+        /// <returns></returns>
+        private char getCurrentTurn()
+        {
+            char currentTurn = '\0';
+            if (TurnPos + 1 > symbols.Count())
+                TurnPos = 0;
+
+            currentTurn = symbols[TurnPos++]; // Go to next Symbol
+            label1.Text = "It's " + currentTurn.ToString() + "'s Turn";
+            return currentTurn;
+        }
         /// <summary>
         /// Function to Set all buttons to Enable or Disable (Mostly Disable)
         /// </summary>
@@ -409,30 +440,7 @@ namespace MMManager.GameControls
                 }
             }
         }
-        private char getCurrentSymbol()
-        {
-            char currentSymbol = '\0';
-            if (SymbolPos + 1 > symbols.Count())
-                SymbolPos = 0;
 
-            currentSymbol = symbols[SymbolPos++]; // Go to next Symbol
-            label1.Text = "It's " + currentSymbol.ToString() + "'s Turn";
-            return currentSymbol;
-        }
-        /// <summary>
-        /// Function to get the next person's turn by symbol
-        /// </summary>
-        /// <returns></returns>
-        private char getCurrentTurn()
-        {
-            char currentTurn = '\0';
-            if (TurnPos + 1 > symbols.Count())
-                TurnPos = 0;
-
-            currentTurn = symbols[TurnPos++]; // Go to next Symbol
-            label1.Text = "It's " + currentTurn.ToString() + "'s Turn";
-            return currentTurn;
-        }
         /// <summary>
         /// All game buttons Event Handler
         /// </summary>
@@ -488,48 +496,24 @@ namespace MMManager.GameControls
   
         private void ticTacToeStartOrJoin1_Load(object sender, EventArgs e)
         {
-            
+            GameInfo.Players = ticTacToeStartOrJoin1.Players;
+            GameInfo.Player = ticTacToeStartOrJoin1.Player;
+            GameInfo.GameScore = ticTacToeStartOrJoin1.GameScore;
           //  _gameInfo = this.ticTacToeStartOrJoin1;
           //  _gameInfo.Game = this;
         }
-
-
-
-
-
-        //public void JoinGame(string playerName, int startingScore)
-        //{
-        //    GameInfo.JoinGame(playerName, startingScore);
-        //    //_game.JoinGame(playerName, startingScore);
-        //}
-
-        //public void LeaveGame(string playerName)
-        //{
-        //    GameInfo.LeaveGame(playerName);
-
-        //}
-
-        //public void UpdateScore(string playerName, int currentScore)
-        //{
-        //    GameInfo.UpdateScore(playerName, currentScore);
-        //}
-
-        public int GetScore(string playerName)
-        {
-            throw new NotImplementedException();
-        }
-
 
 
         private void TicTacToeBoard_Load(object sender, EventArgs e)
         {
 
             GameInfo.Game = this; //Set the Child control to see parent.
-            GameInfo.Player = new PlayerClass();
+            GameInfo.Players = ticTacToeStartOrJoin1.Players;
+            GameInfo.Player = ticTacToeStartOrJoin1.Player;
+            GameInfo.GameScore = ticTacToeStartOrJoin1.GameScore;
+            //GameInfo.Player 
             GameInfo.Player.PlayerName = PlayerName;
-           // GameInfo.Player = new ticTacToeStartOrJoin1.Player()
-            //_game = this;
-            
+           
         }
 
         public void ReceiveMessage(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData)
@@ -555,13 +539,11 @@ namespace MMManager.GameControls
             //Message REceived to start TickTack Toe
             if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Start)
             {
+                //Update the Score View and set all scores to zero.
                 foreach (var item in GameInfo.Players)
                 {
                     GameInfo.GameScore.UpdateScore(item.PlayerName, 0);
                 }
-                //btnStartTicTacToe.Text = "Accept";
-                //theTicTacToeBoard = theSharedBoard;
-                //theTicTacToeBoard.SecondName = memberName;
             }
             //Someone Joined
             if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Join)
@@ -571,7 +553,7 @@ namespace MMManager.GameControls
                 theSharedBoardData.Message = SharedTicTacToeBoardData.MessageCode.SyncBoard;
                 theSharedBoardData.MessageSender = GameInfo.Player.PlayerName;
                 theSharedBoardData.GameSize = GameInfo.GameOptions.GridSize;
-                theSharedBoardData.GameBoard = EncodeGameBoard(theSharedBoardData).GameBoard;
+                theSharedBoardData.GameBoard = DecodeGameBoard(theSharedBoardData).GameBoard;
 
                 SendMessage(GameInfo.GameName, GameInfo.Player.PlayerName, theSharedBoardData);
 
@@ -593,8 +575,8 @@ namespace MMManager.GameControls
             {
                 
                 GenerateGameButtons(theSharedBoardData);
-                GenerateRandomOptions(theSharedBoardData);  // Need to see if we are hosting or not hosting.
-                //DecodeGameBoard(theSharedBoardData.GameBoard);
+               // GenerateRandomOptions(theSharedBoardData);  // Need to see if we are hosting or not hosting.
+                DecodeGameBoard(theSharedBoardData);
             }
             if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.LeaveGame)
             {
@@ -640,11 +622,6 @@ namespace MMManager.GameControls
             //}
         }
 
-        public SharedTicTacToeBoardData ResetGame()
-        {
-            //Need to Clear something!!!
-            return sharedTicTacToeBoardData;
-            //Clear the Board and do the same logic as Generating the Game.. 
-        }
+
     }
 }

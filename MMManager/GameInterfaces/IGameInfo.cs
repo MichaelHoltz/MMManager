@@ -22,7 +22,6 @@ namespace MMManager.GameInterfaces
 
         void RefreshGameList();
 
-
         ControlStatus GameMode { get; set;}
         SharedTicTacToeBoardData.GameState GameState { get; set; }
         SharedTicTacToeBoardData BoardData { get; set; }

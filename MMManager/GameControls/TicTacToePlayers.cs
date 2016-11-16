@@ -151,6 +151,7 @@ namespace MMManager.GameControls
         {
             ScoreBoard = ticTacToeScore1;
             Player = ticTacToePlayer1.Player;
+            Player.PlayerName = "Disconnected";
             Players = new List<PlayerClass>();
         }
     }

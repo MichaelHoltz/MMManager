@@ -93,6 +93,7 @@
             this.Controls.Add(this.lblNameLabel);
             this.Name = "TicTacToePlayer";
             this.Size = new System.Drawing.Size(167, 59);
+            this.Load += new System.EventHandler(this.TicTacToePlayer_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -40,6 +40,7 @@ namespace MMManager
             {
                 txtUserName.Text = userName;
                 ticTacToeBoard1.PlayerName = userName;
+                //ticTacToeBoard1.GameInfo.Player = new PlayerClass() { PlayerName = userName, PlayerSymbol = '?', PlayerTurn = false, PlayerWon = false };
                 //Need Computer or Game Name so we can filter
             }
         }

@@ -261,6 +261,10 @@ namespace MMManager.GameControls
                 theSharedTicTacToBoardData.MessageSender = Player.PlayerName;
                 theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Start;
                 theSharedTicTacToBoardData.MessageString = GameName;
+                foreach (var item in Players)
+                {
+                    GameScore.UpdateScore(item.PlayerName, 0);
+                }
                 Game.SendMessage(GameName, Player.PlayerName, theSharedTicTacToBoardData); // Send message to Everyone
             }
             //Should have Play Again?
@@ -354,8 +358,8 @@ namespace MMManager.GameControls
 
         private void TicTacToeStartOrJoin_Load(object sender, EventArgs e)
         {
-            Players = ticTacToePlayers1.Players; // new List<PlayerClass>();
-            Player = ticTacToePlayers1.Player;
+            //Players = ticTacToePlayers1.Players; // new List<PlayerClass>();
+            //Player = ticTacToePlayers1.Player;
             GameScore = this.ticTacToePlayers1.ScoreBoard;
             panel1.Left = 218;
             panel2.Left = 218;
@@ -381,6 +385,12 @@ namespace MMManager.GameControls
         public void ClearAllPlayers()
         {
             throw new NotImplementedException();
+        }
+
+        private void ticTacToePlayers1_Load(object sender, EventArgs e)
+        {
+            Players = ticTacToePlayers1.Players;
+            Player = ticTacToePlayers1.Player;
         }
     }
 }
