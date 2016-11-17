@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TicTacToeStartOrJoin));
+            MMManager.GameObjects.PlayerClass playerClass1 = new MMManager.GameObjects.PlayerClass();
             this.lbAvailableGames = new System.Windows.Forms.ListBox();
             this.lblAvailableGames = new System.Windows.Forms.Label();
             this.btnJoin = new System.Windows.Forms.Button();
@@ -176,22 +176,25 @@
             this.ticTacToePlayers1.AutoSize = true;
             this.ticTacToePlayers1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ticTacToePlayers1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ticTacToePlayers1.Location = new System.Drawing.Point(8, 44);
+            this.ticTacToePlayers1.Location = new System.Drawing.Point(8, 25);
             this.ticTacToePlayers1.Name = "ticTacToePlayers1";
-            this.ticTacToePlayers1.Player = ((MMManager.GameObjects.PlayerClass)(resources.GetObject("ticTacToePlayers1.Player")));
+            playerClass1.PlayerName = "MyName";
+            playerClass1.PlayerScore = 0;
+            playerClass1.PlayerStatus = "Unknown";
+            playerClass1.PlayerSymbol = 'M';
+            this.ticTacToePlayers1.Player = playerClass1;
             this.ticTacToePlayers1.PlayerName = "MyName";
-            this.ticTacToePlayers1.Players = ((System.Collections.Generic.List<MMManager.GameObjects.PlayerClass>)(resources.GetObject("ticTacToePlayers1.Players")));
+            this.ticTacToePlayers1.PlayerScore = 0;
+            this.ticTacToePlayers1.PlayerStatus = "Unknown";
             this.ticTacToePlayers1.PlayerSymbol = 'M';
-            this.ticTacToePlayers1.PlayerTurn = false;
-            this.ticTacToePlayers1.PlayerWon = false;
-            this.ticTacToePlayers1.Size = new System.Drawing.Size(189, 218);
+            this.ticTacToePlayers1.Size = new System.Drawing.Size(192, 237);
             this.ticTacToePlayers1.TabIndex = 10;
             this.ticTacToePlayers1.Load += new System.EventHandler(this.ticTacToePlayers1_Load);
             // 
             // lblGameStatus
             // 
             this.lblGameStatus.AutoSize = true;
-            this.lblGameStatus.Location = new System.Drawing.Point(10, 18);
+            this.lblGameStatus.Location = new System.Drawing.Point(5, 4);
             this.lblGameStatus.Name = "lblGameStatus";
             this.lblGameStatus.Size = new System.Drawing.Size(68, 13);
             this.lblGameStatus.TabIndex = 9;

@@ -38,7 +38,7 @@ namespace MMManager.GameControls
             set
             {
                 playerName = value;
-                GameInfo.Player = new PlayerClass() { PlayerName = playerName, PlayerSymbol = '?', PlayerTurn = false, PlayerWon = false };
+                //GameInfo.Player = new PlayerClass() { PlayerName = playerName, PlayerSymbol = '?' };
             }
         }
 
@@ -214,7 +214,7 @@ namespace MMManager.GameControls
 
             sharedTicTacToeBoardData = new SharedTicTacToeBoardData(); //Nothing here!
             sharedTicTacToeBoardData.GameSize = GameInfo.GameOptions.GridSize; // Set Grid Size to shared
-            sharedTicTacToeBoardData.MessageSender = GameInfo.Player.PlayerName;
+            sharedTicTacToeBoardData.MessageSender = GameInfo.Player;
             sharedTicTacToeBoardData.Message = SharedTicTacToeBoardData.MessageCode.NewGame;
             sharedTicTacToeBoardData.MessageString = GameInfo.GameName;
 
@@ -385,7 +385,7 @@ namespace MMManager.GameControls
             }
 
         }
-        private char getCurrentSymbol()
+        public char GetCurrentSymbol()
         {
             char currentSymbol = '\0';
             if (SymbolPos + 1 > symbols.Count())
@@ -449,7 +449,7 @@ namespace MMManager.GameControls
         private void Button_Click(object sender, EventArgs e)
         {
             theButton = (sender as MMManagerTTTButton);
-            string s = getCurrentSymbol().ToString(); // Use the Current Symbol
+            string s = GetCurrentSymbol().ToString(); // Use the Current Symbol
             getCurrentTurn(); //Show Who's Turn it is
             if (theButton.Tag.ToString() != "1") // Normal Move
             {
@@ -496,11 +496,11 @@ namespace MMManager.GameControls
   
         private void ticTacToeStartOrJoin1_Load(object sender, EventArgs e)
         {
-            GameInfo.Players = ticTacToeStartOrJoin1.Players;
-            GameInfo.Player = ticTacToeStartOrJoin1.Player;
-            GameInfo.GameScore = ticTacToeStartOrJoin1.GameScore;
-          //  _gameInfo = this.ticTacToeStartOrJoin1;
-          //  _gameInfo.Game = this;
+          // // GameInfo.Players = ticTacToeStartOrJoin1.Players;
+          //  GameInfo.Player = ticTacToeStartOrJoin1.Player;
+          //  GameInfo.GameScore = ticTacToeStartOrJoin1.GameScore;
+          ////  _gameInfo = this.ticTacToeStartOrJoin1;
+          ////  _gameInfo.Game = this;
         }
 
 
@@ -508,17 +508,14 @@ namespace MMManager.GameControls
         {
 
             GameInfo.Game = this; //Set the Child control to see parent.
-            GameInfo.Players = ticTacToeStartOrJoin1.Players;
             GameInfo.Player = ticTacToeStartOrJoin1.Player;
             GameInfo.GameScore = ticTacToeStartOrJoin1.GameScore;
-            //GameInfo.Player 
-            GameInfo.Player.PlayerName = PlayerName;
            
         }
 
-        public void ReceiveMessage(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData)
+        public void ReceiveMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData theSharedBoardData)
         {
-            if (memberName == GameInfo.Player.PlayerName)
+            if (player.PlayerName == GameInfo.Player.PlayerName)
                 return;
             GameInfo.BoardData = theSharedBoardData;
             //A new Game has been published
@@ -542,20 +539,20 @@ namespace MMManager.GameControls
                 //Update the Score View and set all scores to zero.
                 foreach (var item in GameInfo.Players)
                 {
-                    GameInfo.GameScore.UpdateScore(item.PlayerName, 0);
+                    GameInfo.GameScore.UpdateScore(item, 0);
                 }
             }
             //Someone Joined
             if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Join)
             {
-                GameInfo.GameScore.JoinGame(theSharedBoardData.MessageSender, 0);
+                GameInfo.GameScore.JoinGame(theSharedBoardData.MessageSender);
                 GameInfo.Players.Add(GameInfo.Player);
                 theSharedBoardData.Message = SharedTicTacToeBoardData.MessageCode.SyncBoard;
-                theSharedBoardData.MessageSender = GameInfo.Player.PlayerName;
+                theSharedBoardData.MessageSender = GameInfo.Player;
                 theSharedBoardData.GameSize = GameInfo.GameOptions.GridSize;
                 theSharedBoardData.GameBoard = DecodeGameBoard(theSharedBoardData).GameBoard;
 
-                SendMessage(GameInfo.GameName, GameInfo.Player.PlayerName, theSharedBoardData);
+                SendMessage(GameInfo.GameName, GameInfo.Player, theSharedBoardData);
 
                 GameInfo.PlayersChanged();
                 //Need to see the BOARD NOW!!!!
@@ -565,10 +562,10 @@ namespace MMManager.GameControls
                 
                 GameInfo.GameScore.WatchGame(theSharedBoardData.MessageSender);
                 theSharedBoardData.Message = SharedTicTacToeBoardData.MessageCode.SyncBoard;
-                theSharedBoardData.MessageSender = GameInfo.Player.PlayerName;
+                theSharedBoardData.MessageSender = GameInfo.Player;
                 theSharedBoardData.GameSize = GameInfo.GameOptions.GridSize;
                 theSharedBoardData.GameBoard = EncodeGameBoard(theSharedBoardData).GameBoard;
-                SendMessage(GameInfo.GameName, GameInfo.Player.PlayerName, theSharedBoardData);
+                SendMessage(GameInfo.GameName, GameInfo.Player, theSharedBoardData);
                 //Need to see the BOARD NOW!!!!
             }
             if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.SyncBoard)
@@ -609,12 +606,12 @@ namespace MMManager.GameControls
             }
         }
 
-        public void SendMessage(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData)
+        public void SendMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData theSharedBoardData)
         {
             if (ServiceProvider != null)
             {
 
-                ServiceProvider.SendTicTacToeMessage(gameName, memberName, theSharedBoardData);
+                ServiceProvider.SendTicTacToeMessage(gameName, player, theSharedBoardData);
             }
             //else
             //{

@@ -38,9 +38,6 @@
             this.ticTacToePlayer1.Name = "ticTacToePlayer1";
             this.ticTacToePlayer1.PlayerName = "MyName";
             this.ticTacToePlayer1.PlayerSymbol = 'M';
-            this.ticTacToePlayer1.PlayerTurn = false;
-            this.ticTacToePlayer1.PlayerWon = false;
-            this.ticTacToePlayer1.ScoreBoard = null;
             this.ticTacToePlayer1.Size = new System.Drawing.Size(181, 60);
             this.ticTacToePlayer1.TabIndex = 5;
             // 

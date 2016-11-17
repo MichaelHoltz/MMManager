@@ -11,7 +11,14 @@ namespace MMManager.GameControls
         public TicTacToePlayers()
         {
             InitializeComponent();
+            Players = new List<PlayerClass>(); // Must create here as it is read only
+            
         }
+        private void TicTacToePlayers_Load(object sender, EventArgs e)
+        {
+            ScoreBoard = ticTacToeScore1;
+        }
+
         //*********************************************************************************
         #region IPlayer interface
         //*********************************************************************************
@@ -25,6 +32,7 @@ namespace MMManager.GameControls
             set
             {
                 ticTacToePlayer1.PlayerName = value;
+                ticTacToeScore1.PlayerName = value;
             }
         }
 
@@ -38,31 +46,34 @@ namespace MMManager.GameControls
             set
             {
                 ticTacToePlayer1.PlayerSymbol = value;
+                ticTacToeScore1.PlayerSymbol = value;
             }
         }
-        public bool PlayerTurn
+
+        public int PlayerScore
         {
             get
             {
-                return ticTacToePlayer1.PlayerTurn;
+                return ticTacToePlayer1.PlayerScore;
             }
 
             set
             {
-                ticTacToePlayer1.PlayerTurn = value;
+                ticTacToePlayer1.PlayerScore = value;
+                ticTacToeScore1.PlayerScore = value;
             }
         }
 
-        public bool PlayerWon 
+        public string PlayerStatus
         {
             get
             {
-                return ticTacToePlayer1.PlayerWon;
+                return ticTacToePlayer1.PlayerStatus;
             }
-
             set
             {
-                ticTacToePlayer1.PlayerWon = value;
+                ticTacToePlayer1.PlayerStatus = value;
+                ticTacToeScore1.PlayerStatus = value;
             }
         }
         //*********************************************************************************
@@ -73,32 +84,49 @@ namespace MMManager.GameControls
         //*********************************************************************************
         #region IPlayers Interface
         //*********************************************************************************
-        public List<PlayerClass> Players { get; set; }
-        //{
-        //    get
-        //    {
-        //        throw new NotImplementedException();
-        //    }
+        public List<PlayerClass> Players { get;  }
 
-        //    set
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
+        public PlayerClass Player
+        {
+            get
+            {
+                return this;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    PlayerName = value.PlayerName;
+                    PlayerSymbol = value.PlayerSymbol;
+                    PlayerStatus = value.PlayerStatus;
+                }
+                
+                
+            }
+                
+        }
 
-        public PlayerClass Player { get; set; }
-        //{
-        //    get
-        //    {
-        //        throw new NotImplementedException();
-        //    }
 
-        //    set
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
 
+        public void JoinGame(IPlayer player)
+        {
+            Players.Add((PlayerClass)player);
+            ScoreBoard.JoinGame(player);
+        }
+        public void WatchGame(IPlayer player)
+        {
+            Players.Add((PlayerClass)player);
+            ScoreBoard.WatchGame(player);
+        }
+        public void LeaveGame(IPlayer player)
+        {
+            if (Players.Find(x => x.PlayerName == player.PlayerName) != null)
+            {
+                Players.Remove(Players.Find(x => x.PlayerName == player.PlayerName));
+            }
+            //Players.Remove((PlayerClass)player);
+            ScoreBoard.LeaveGame(player);
+        }
         //*********************************************************************************
         #endregion
         //*********************************************************************************
@@ -106,27 +134,16 @@ namespace MMManager.GameControls
         //*********************************************************************************
         #region IScore Interface
         //*********************************************************************************
-        public void JoinGame(string playerName, int startingScore)
+
+
+        public void UpdateScore(IPlayer player, int currentScore)
         {
-            
-            //Players.Add(playerName);
-            ScoreBoard.JoinGame(playerName, 0);
-            
+            ScoreBoard.UpdateScore(player, currentScore);
         }
 
-        public void LeaveGame(string playerName)
+        public int GetScore(IPlayer player)
         {
-            ScoreBoard.LeaveGame(playerName);
-        }
-
-        public void UpdateScore(string playerName, int currentScore)
-        {
-            ScoreBoard.UpdateScore(playerName, currentScore);
-        }
-
-        public int GetScore(string playerName)
-        {
-            return ScoreBoard.GetScore(playerName);
+            return ScoreBoard.GetScore(player);
         }
         public void ClearAllPlayers()
         {
@@ -134,25 +151,33 @@ namespace MMManager.GameControls
 
         }
 
-        public void WatchGame(string playerName)
-        {
-            ScoreBoard.WatchGame(playerName);
-        }
+
 
         //*********************************************************************************
         #endregion IScore
         //*********************************************************************************
 
-
-
-
-
-        private void TicTacToePlayers_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Creates a snapshot Copy of this IPlayer to PlayerClass - Does not update this control if changed
+        /// </summary>
+        /// <param name="v"></param>
+        public static implicit operator PlayerClass(TicTacToePlayers v)
         {
-            ScoreBoard = ticTacToeScore1;
-            Player = ticTacToePlayer1.Player;
-            Player.PlayerName = "Disconnected";
-            Players = new List<PlayerClass>();
+            return new PlayerClass() { PlayerName = v.PlayerName,  PlayerSymbol = v.PlayerSymbol, PlayerScore=v.PlayerScore, PlayerStatus = v.PlayerStatus };
+
         }
+
+        /// <summary>
+        /// Creates a snapshot Copy of this IPlayer to PlayerClass - Does not update this control if changed
+        /// </summary>
+        /// <param name="v"></param>
+        public static implicit operator List<PlayerClass>(TicTacToePlayers v)
+        {
+            List<PlayerClass> allPlayers = new List<PlayerClass>();
+            allPlayers = v.Players;
+            return allPlayers;
+
+        }
+
     }
 }

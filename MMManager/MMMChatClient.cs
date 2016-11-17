@@ -14,7 +14,7 @@ namespace MMManager
         private delegate void UserJoined(string name);
         private delegate void UserSendMessage(string name, string message);
         private delegate void UserLeft(string name);
-        public delegate void UserTicTacToeMessage(string gameName, string memberName, SharedTicTacToeBoardData theBoard);
+        public delegate void UserTicTacToeMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData theBoard);
 
         private static event UserJoined NewJoin;
         private static event UserSendMessage MessageSent;
@@ -39,8 +39,8 @@ namespace MMManager
             if (userName != null)
             {
                 txtUserName.Text = userName;
-                ticTacToeBoard1.PlayerName = userName;
-                //ticTacToeBoard1.GameInfo.Player = new PlayerClass() { PlayerName = userName, PlayerSymbol = '?', PlayerTurn = false, PlayerWon = false };
+                PlayerClass p = new PlayerClass() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = '\0' };
+                ticTacToeBoard1.GameInfo.Player = p;
                 //Need Computer or Game Name so we can filter
             }
         }
@@ -57,8 +57,10 @@ namespace MMManager
                     TicTacToeMessageSent += new UserTicTacToeMessage(MMMChatClient_TicTacToeMessageSent);
                     channel = null;
                     this.userName = txtUserName.Text.Trim();
-                    ticTacToeBoard1.GameInfo.Player.PlayerName = this.userName; // Assign Player Name when Logging in.
-                    ticTacToeBoard1.GameInfo.GameName = this.userName + "'s Game"; // Default to something.. but will be overwritten in GameInfo if needed.
+                    //ticTacToeBoard1.GameInfo.Player.PlayerName = this.userName; // Assign Player Name when Logging in.
+                    //ticTacToeBoard1.GameInfo.GameName = this.userName + "'s Game"; // Default to something.. but will be overwritten in GameInfo if needed.
+                    PlayerClass p = new PlayerClass() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = '\0' };
+                    ticTacToeBoard1.GameInfo.Player = p;
                     InstanceContext context = new InstanceContext(new MMMChatClient(txtUserName.Text.Trim()));
                     //InstanceContext context = new InstanceContext(this);
                     factory =  new DuplexChannelFactory<IChatChannel>(context, "ChatEndPoint");
@@ -142,10 +144,10 @@ namespace MMManager
         /// </summary>
         /// <param name="name">The User Name</param>
         /// <param name="theBoard">The Current Board</param>
-        private void MMMChatClient_TicTacToeMessageSent(string gameName, string memberName, SharedTicTacToeBoardData theSharedBoardData)
+        private void MMMChatClient_TicTacToeMessageSent(string gameName, PlayerClass player, SharedTicTacToeBoardData theSharedBoardData)
         {
             propertyGrid1.SelectedObject = theSharedBoardData; // For Debugging Stuff.. will be removed.
-            ticTacToeBoard1.ReceiveMessage(gameName, memberName, theSharedBoardData);
+            ticTacToeBoard1.ReceiveMessage(gameName, player, theSharedBoardData);
         }
         #region IChatService Members
 
@@ -173,11 +175,11 @@ namespace MMManager
             }
         }
   
-        public void TicTacToeMessage(string gameName, string memberName, SharedTicTacToeBoardData generatedBoardData)
+        public void TicTacToeMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData generatedBoardData)
         {
             if (TicTacToeMessageSent != null)
             {
-                TicTacToeMessageSent(gameName, memberName, generatedBoardData);
+                TicTacToeMessageSent(gameName, player, generatedBoardData);
             }
         }
 
@@ -273,9 +275,9 @@ namespace MMManager
             //ticTacToeBoard1.ServiceProvider = this.channel; // Set this form to be the service provider for the game.
         }
 
-        public void SendTicTacToeMessage(string gameName, string memberName, SharedTicTacToeBoardData generatedBoardData)
+        public void SendTicTacToeMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData generatedBoardData)
         {
-            channel.TicTacToeMessage(gameName,memberName, generatedBoardData); // Send messages using the proper channel
+            channel.TicTacToeMessage(gameName,player, generatedBoardData); // Send messages using the proper channel
         }
 
         private void ticTacToeBoard1_Load(object sender, EventArgs e)

@@ -2,9 +2,12 @@
 using MMManager.GameObjects;
 namespace MMManager.GameInterfaces
 {
-    public interface IPlayers
+    public interface IPlayers:IPlayer
     {
-        List<PlayerClass> Players { get; set; }
+        List<PlayerClass> Players { get; }
         PlayerClass Player { get; set; }
+        void JoinGame(IPlayer player);
+        void WatchGame(IPlayer player);
+        void LeaveGame(IPlayer player);
     }
 }

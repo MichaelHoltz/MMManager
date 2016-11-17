@@ -17,6 +17,6 @@ namespace MMManager
         void InitializeMesh();
 
         [OperationContract(IsOneWay = true)]
-        void TicTacToeMessage(string gameName, string memberName, SharedTicTacToeBoardData generatedBoardData);
+        void TicTacToeMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData generatedBoardData);
     }
 }

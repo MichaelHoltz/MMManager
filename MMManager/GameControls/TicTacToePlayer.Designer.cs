@@ -32,7 +32,7 @@
             this.lblName = new System.Windows.Forms.Label();
             this.lblSymbolLabel = new System.Windows.Forms.Label();
             this.lblSymbol = new System.Windows.Forms.Label();
-            this.lblState = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblNameLabel
@@ -50,9 +50,9 @@
             this.lblName.AutoSize = true;
             this.lblName.Location = new System.Drawing.Point(5, 19);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(49, 13);
+            this.lblName.Size = new System.Drawing.Size(50, 13);
             this.lblName.TabIndex = 1;
-            this.lblName.Text = "MyName";
+            this.lblName.Text = "MyPlayer";
             // 
             // lblSymbolLabel
             // 
@@ -69,31 +69,33 @@
             this.lblSymbol.AutoSize = true;
             this.lblSymbol.Location = new System.Drawing.Point(106, 19);
             this.lblSymbol.Name = "lblSymbol";
-            this.lblSymbol.Size = new System.Drawing.Size(55, 13);
+            this.lblSymbol.Size = new System.Drawing.Size(16, 13);
             this.lblSymbol.TabIndex = 3;
-            this.lblSymbol.Text = "MySymbol";
+            this.lblSymbol.Text = "M";
             // 
-            // lblState
+            // lblStatus
             // 
-            this.lblState.AutoSize = true;
-            this.lblState.Location = new System.Drawing.Point(5, 41);
-            this.lblState.Name = "lblState";
-            this.lblState.Size = new System.Drawing.Size(32, 13);
-            this.lblState.TabIndex = 4;
-            this.lblState.Text = "State";
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(5, 41);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(53, 13);
+            this.lblStatus.TabIndex = 4;
+            this.lblStatus.Text = "Unknown";
             // 
             // TicTacToePlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lblState);
+            this.AutoSize = true;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblSymbol);
             this.Controls.Add(this.lblSymbolLabel);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.lblNameLabel);
+            this.DoubleBuffered = true;
             this.Name = "TicTacToePlayer";
-            this.Size = new System.Drawing.Size(167, 59);
-            this.Load += new System.EventHandler(this.TicTacToePlayer_Load);
+            this.Size = new System.Drawing.Size(165, 57);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -105,6 +107,6 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblSymbolLabel;
         private System.Windows.Forms.Label lblSymbol;
-        private System.Windows.Forms.Label lblState;
+        private System.Windows.Forms.Label lblStatus;
     }
 }

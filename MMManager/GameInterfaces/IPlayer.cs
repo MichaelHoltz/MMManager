@@ -1,5 +1,5 @@
 ﻿using System;
-
+using MMManager.GameObjects;
 
 namespace MMManager.GameInterfaces
 {
@@ -11,8 +11,8 @@ namespace MMManager.GameInterfaces
     {
         String PlayerName { get; set; }
         Char PlayerSymbol { get; set; }
-        bool PlayerTurn { get; set; }
-        bool PlayerWon { get; set; }
-       // IScore ScoreBoard { get; set; }
+        int PlayerScore { get; set; }
+        String PlayerStatus { get; set; }
+        
     }
 }

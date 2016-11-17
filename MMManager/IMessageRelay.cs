@@ -10,6 +10,6 @@ namespace MMManager
     /// </summary>
     public interface IMessageRelay
     {
-        void SendTicTacToeMessage(string gameName, string memberName, SharedTicTacToeBoardData generatedBoardData);
+        void SendTicTacToeMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData generatedBoardData);
     }
 }

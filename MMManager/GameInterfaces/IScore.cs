@@ -5,14 +5,10 @@ using System.Text;
 
 namespace MMManager.GameInterfaces
 {
-    public interface IScore
+    public interface IScore:IPlayers
     {
-
-        void JoinGame(String playerName, int startingScore);
-        void WatchGame(String playerName);
-        void LeaveGame(String playerName);
-        void UpdateScore(String playerName, int currentScore);
-        int GetScore(String playerName);
+        void UpdateScore(IPlayer player, int currentScore);
+        int GetScore(IPlayer player);
         void ClearAllPlayers();
     }
 }
