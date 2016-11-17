@@ -95,9 +95,18 @@ namespace MMManager.GameControls
                     b[y, x] = new MMManagerTTTButton();
                     b[y, x].Name = "B" + y + x;
                     b[y, x].Text = '\0'.ToString();                     //Clear Button
-                    grid[y, x] = '\0';                                  //Clear 2d Grid
+                    
                     if (GameInfo.GameMode == ControlStatus.Hosting)
+                    {
                         sharedTicTacToeBoardData.GameBoard[index++] = '\0'; //Clear 1d Grid
+                        grid[y, x] = '\0';                                  //Clear 2d Grid
+                        b[y, x].Tag = "0";
+                    }
+                    else
+                    {
+                        grid[y, x] = sharedTicTacToeBoardData.GameBoard[index]; //Set the 2d Grid
+                        b[y, x].Tag = sharedTicTacToeBoardData.GameBoard[index++]; // Set tag from shared Board.
+                    }
                     b[y, x].Font = new Font("Microsoft Sans Serif", 12);
                     b[y, x].Visible = true;
                     b[y, x].Width = 40;
@@ -105,11 +114,12 @@ namespace MMManager.GameControls
                     b[y, x].Left = (x * 40) + 10;
                     b[y, x].Top = (y * 40) + 20;
                     b[y, x].Click += Button_Click;
-                    b[y, x].Tag = "0";
+                    
                     bgGame.Controls.Add(b[y, x]);
 
                 }
             }
+            AllButtonsAllowClick(false); //No Click for Anyone
             return sharedTicTacToeBoardData;
         }
         private SharedTicTacToeBoardData GenerateRandomOptions(SharedTicTacToeBoardData sharedTicTacToeBoardData)
@@ -199,11 +209,20 @@ namespace MMManager.GameControls
             //Decode to two diminsions
             for (int i = 0; i < maxY * maxX; i++)
             {
+                //Check for Bombs
                 if (sharedTicTacToeBoardData.GameBoard[i] == '1')
                 {
                     y = i / maxY;
                     x = i % maxX;
-                    b[y, x].Text = "b";
+                    b[y, x].Text = "b"; // Display's the Bombs
+                    b[y, x].Tag = "1";
+                }
+                else
+                {
+                    y = i / maxY;
+                    x = i % maxX;
+                    b[y, x].Text = " ";
+
                 }
 
             }
@@ -429,7 +448,7 @@ namespace MMManager.GameControls
         /// Function to Allow and Disallow Button Clicking while something happens.
         /// </summary>
         /// <param name="allow"></param>
-        private void AllButtonsAllowClick(Boolean allow)
+        public void AllButtonsAllowClick(Boolean allow)
         {
             for (int y = 0; y < maxY; y++)
             {
@@ -451,6 +470,7 @@ namespace MMManager.GameControls
             theButton = (sender as MMManagerTTTButton);
             string s = GetCurrentSymbol().ToString(); // Use the Current Symbol
             getCurrentTurn(); //Show Who's Turn it is
+            //Check for Bombs 
             if (theButton.Tag.ToString() != "1") // Normal Move
             {
                 theButton.Text = s;
@@ -540,13 +560,15 @@ namespace MMManager.GameControls
                 foreach (var item in GameInfo.Players)
                 {
                     GameInfo.GameScore.UpdateScore(item, 0);
+                    GameInfo.StartGame("test");
                 }
+                //Need to Shrink Pannel 2 for the Players 
             }
             //Someone Joined
             if (theSharedBoardData.Message == SharedTicTacToeBoardData.MessageCode.Join)
             {
                 GameInfo.GameScore.JoinGame(theSharedBoardData.MessageSender);
-                GameInfo.Players.Add(GameInfo.Player);
+                GameInfo.Players.Add(theSharedBoardData.MessageSender); // Add the Person who Joined
                 theSharedBoardData.Message = SharedTicTacToeBoardData.MessageCode.SyncBoard;
                 theSharedBoardData.MessageSender = GameInfo.Player;
                 theSharedBoardData.GameSize = GameInfo.GameOptions.GridSize;

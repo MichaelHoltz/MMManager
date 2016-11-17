@@ -12,6 +12,7 @@ namespace MMManager.GameInterfaces
         IGameInfo GameInfo { get; set; }
         SharedTicTacToeBoardData GenerateNewGame(); //Host Only
         char GetCurrentSymbol();
+        void AllButtonsAllowClick(Boolean allow);
         SharedTicTacToeBoardData ResetGame();   //Members and Host
         void ReceiveMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData theSharedBoardData);
         void SendMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData theSharedBoardData);

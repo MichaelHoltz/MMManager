@@ -16,7 +16,7 @@ namespace MMManager.GameControls
         public TicTacToeStartOrJoin()
         {
             InitializeComponent();
-            Players = new List<PlayerClass>();
+           // Players = new List<PlayerClass>();
             theSharedTicTacToBoardData = new SharedTicTacToeBoardData(); // Empty Board.
         }
 
@@ -48,7 +48,13 @@ namespace MMManager.GameControls
                 ticTacToePlayers1.Player = value;
             }
         }
-        public List<PlayerClass> Players { get; } // = new List<PlayerClass>();
+        public List<PlayerClass> Players
+        {
+            get
+            {
+                return ticTacToePlayers1.Players;
+            }
+        }
         public ControlStatus GameMode  
         {
             get
@@ -288,8 +294,9 @@ namespace MMManager.GameControls
                 btnCreateRemove.Text = "Remove Game";
                 GameName = Player.PlayerName + "'s Game";  //Should allow modification eventually
                 theSharedTicTacToBoardData = GenerateNewGame(); // Get a blank board after generating the game.
-                ticTacToePlayers1.PlayerSymbol = Game.GetCurrentSymbol();
-                theSharedTicTacToBoardData.NextSymbol = Game.GetCurrentSymbol();
+                
+                ticTacToePlayers1.PlayerSymbol = Game.GetCurrentSymbol();       //Attempt to Assign Symbols Automatically
+                theSharedTicTacToBoardData.NextSymbol = Game.GetCurrentSymbol();    //Works for Two Player only
                 ticTacToePlayers1.PlayerStatus = "Created Game";
                 AddGame(GameName);
                 JoinGame(Player);
@@ -325,14 +332,16 @@ namespace MMManager.GameControls
                 panel2.Visible = false;
                 btnCreateRemove.Enabled = false;
                 btnStartGame.Enabled = false;
-                //btnStartGame.Text = "Playing Game";
                 theSharedTicTacToBoardData.MessageSender = Player;
-                theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Start;
+                theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Start; //Set Message to Start the game
                 theSharedTicTacToBoardData.MessageString = GameName;
                 foreach (var item in Players)
                 {
                     GameScore.UpdateScore(item, 0);
                 }
+                //Who's Turn is it?
+                //Unlock the Buttons When?
+                Game.AllButtonsAllowClick(true); //The Host can click
                 Game.SendMessage(GameName, Player, theSharedTicTacToBoardData); // Send message to Everyone
             }
             //Should have Play Again?
@@ -351,11 +360,17 @@ namespace MMManager.GameControls
         {
             //Players is null!!
                 btnStartGame.Enabled = (Players.Count > 1 && btnCreateRemove.Text == "Remove Game");
+            
         }
+        /// <summary>
+        /// Function Called when the Host has started the game.
+        /// </summary>
+        /// <param name="gameName"></param>
         public void StartGame(string gameName)
         {
-            //this.lbAvailableGames.Items.Add(gameName);
-
+            //gameName is ignored but could be used
+            panel1.Visible = false;
+            panel2.Visible = false;
         }
         public void AddGame(string gameName)
         {
