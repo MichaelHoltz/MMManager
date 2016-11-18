@@ -38,7 +38,8 @@ namespace MMManager.GameObjects
             RemoveGame=13,
             LeaveGame=14,
             StopWatching=15,
-            SyncBoard=16
+            SyncBoard=16,
+            GameOver = 17
 
         };
         public List<PlayerClass> Players;

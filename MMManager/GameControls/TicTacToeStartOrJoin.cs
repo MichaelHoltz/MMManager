@@ -48,12 +48,21 @@ namespace MMManager.GameControls
                 ticTacToePlayers1.Player = value;
             }
         }
-        public List<PlayerClass> Players
+        List<PlayerClass> IPlayers.Players
         {
             get
             {
                 return ticTacToePlayers1.Players;
             }
+        }
+        public IPlayers Players
+        {
+            get
+            {
+                return ticTacToePlayers1;
+            }
+            
+
         }
         public ControlStatus GameMode  
         {
@@ -109,6 +118,7 @@ namespace MMManager.GameControls
                         {
                             panel2.Visible = false;
                             panel1.Visible = true;
+                            //Buttons Need to be managed.
                         }
                         if(GameMode == ControlStatus.Joined || GameMode==ControlStatus.Watching)
                         {
@@ -335,7 +345,7 @@ namespace MMManager.GameControls
                 theSharedTicTacToBoardData.MessageSender = Player;
                 theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Start; //Set Message to Start the game
                 theSharedTicTacToBoardData.MessageString = GameName;
-                foreach (var item in Players)
+                foreach (var item in Players.Players)
                 {
                     GameScore.UpdateScore(item, 0);
                 }
@@ -359,7 +369,7 @@ namespace MMManager.GameControls
         public void PlayersChanged()
         {
             //Players is null!!
-                btnStartGame.Enabled = (Players.Count > 1 && btnCreateRemove.Text == "Remove Game");
+                btnStartGame.Enabled = (Players.Players.Count > 1 && btnCreateRemove.Text == "Remove Game");
             
         }
         /// <summary>
@@ -403,8 +413,14 @@ namespace MMManager.GameControls
 
         public void GameOver(string results)
         {
+            //Need to Know who won.
             //Need to Check if Hosting, Joined, or Watching.
             GameState = SharedTicTacToeBoardData.GameState.GameOver;
+            Game.AllButtonsEnable(false);
+            theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.GameOver;
+            theSharedTicTacToBoardData.MessageSender = Player; // Me
+            theSharedTicTacToBoardData.State = SharedTicTacToeBoardData.GameState.GameOver;
+            Game.SendMessage(GameName, Player, theSharedTicTacToBoardData);
             if (btnStartGame.Text == "Playing Game")
             {
                 btnCreateRemove.Enabled = true;

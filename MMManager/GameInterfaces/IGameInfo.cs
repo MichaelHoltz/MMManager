@@ -10,7 +10,8 @@ namespace MMManager.GameInterfaces
     {
         IGame Game { get; set; } 
         IGameOptions GameOptions { get; set; }
-        List<PlayerClass> Players { get;  }
+        //List<PlayerClass> Players { get;  }
+        IPlayers Players { get; }
         PlayerClass Player { get; set; }
         IScore GameScore { get; set; }
         void GameOver(string results);

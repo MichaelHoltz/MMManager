@@ -13,6 +13,7 @@ namespace MMManager.GameInterfaces
         SharedTicTacToeBoardData GenerateNewGame(); //Host Only
         char GetCurrentSymbol();
         void AllButtonsAllowClick(Boolean allow);
+        void AllButtonsEnable(Boolean enable);
         SharedTicTacToeBoardData ResetGame();   //Members and Host
         void ReceiveMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData theSharedBoardData);
         void SendMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData theSharedBoardData);
