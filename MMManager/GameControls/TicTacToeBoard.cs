@@ -455,7 +455,7 @@ namespace MMManager.GameControls
                 for (int x = 0; x < maxX; x++)
                 {
 
-                    b[y, x].allowClick = allow;
+                   // b[y, x].allowClick = allow;
                 }
             }
         }
