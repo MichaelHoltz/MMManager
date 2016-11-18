@@ -90,7 +90,6 @@
             this.ticTacToeBoard1.AutoSize = true;
             this.ticTacToeBoard1.Location = new System.Drawing.Point(291, 22);
             this.ticTacToeBoard1.Name = "ticTacToeBoard1";
-            this.ticTacToeBoard1.PlayerName = null;
             this.ticTacToeBoard1.ServiceProvider = null;
             this.ticTacToeBoard1.Size = new System.Drawing.Size(389, 461);
             this.ticTacToeBoard1.TabIndex = 24;

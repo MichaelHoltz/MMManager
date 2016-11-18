@@ -14,7 +14,7 @@ namespace MMManager.GameInterfaces
         char GetCurrentSymbol();
         void AllButtonsAllowClick(Boolean allow);
         void AllButtonsEnable(Boolean enable);
-        SharedTicTacToeBoardData ResetGame();   //Members and Host
+        SharedTicTacToeBoardData ResetGame(SharedTicTacToeBoardData theSharedBoardData);   //Members and Host
         void ReceiveMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData theSharedBoardData);
         void SendMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData theSharedBoardData);
         IMessageRelay ServiceProvider { get; set; }

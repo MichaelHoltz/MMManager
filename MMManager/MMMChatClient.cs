@@ -51,6 +51,8 @@ namespace MMManager
             {
                 try
                 {
+                    btnLogin.Enabled = false;
+                    btnLogin.Text = "Connecting..";
                     NewJoin += new UserJoined(MMMChatClient_NewJoin);
                     MessageSent += new UserSendMessage(MMMChatClient_MessageSent);
                     RemoveUser += new UserLeft(MMMChatClient_RemoveUser);
@@ -70,6 +72,9 @@ namespace MMManager
                     status.Offline += new EventHandler(Offline);
                     status.Online += new EventHandler(Online);                    
                     channel.Open();                    
+
+
+                    //All below should be in Online Event handler
                     //channel.Join(this.userName);
                     grpMessageWindow.Enabled = true;
                     grpUserList.Enabled = true;
@@ -78,7 +83,6 @@ namespace MMManager
                     //gbTicTacToe.Enabled = true; //Enable TicTacToe                    
                     channel.InitializeMesh(); //Doesn't do anything..
                     this.AcceptButton = btnSend;
-                    //rtbMessages.PrependText("\r\n*****************************WELCOME to the Chat Application*****************************");
                     rtbMessages.AppendColorText("*****************************WELCOME to the Chat Application*****************************\r\n", Color.Green);
                     txtSendMessage.Select();
                     txtSendMessage.Focus();
@@ -128,13 +132,15 @@ namespace MMManager
         }
 
         void Online(object sender, EventArgs e)
-        { 
+        {
+            btnLogin.Text = "Online";
             rtbMessages.AppendColorText("\r\nOnline: " + this.userName + "\r\n", Color.Green);
             //Enable TicTacToe    
         }
 
         void Offline(object sender, EventArgs e)
         {
+            btnLogin.Text = "Offline";
             rtbMessages.AppendColorText("\r\nOffline: " + this.userName + "\r\n", Color.Green);
         }
 

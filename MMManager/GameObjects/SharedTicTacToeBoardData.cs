@@ -43,7 +43,7 @@ namespace MMManager.GameObjects
 
         };
         public List<PlayerClass> Players;
-        
+        public string GameName { get; set; } // Filter so multiple Games can co-exist.
         public GameState State { get; set; }
         public MessageCode Message { get; set; }
         public string MessageString { get; set; }
