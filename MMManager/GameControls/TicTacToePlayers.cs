@@ -80,7 +80,16 @@ namespace MMManager.GameControls
         #endregion
         //*********************************************************************************
 
-        public IScore ScoreBoard { get; set; }
+        public IScore ScoreBoard {
+            get
+            {
+                return ticTacToeScore1;
+            }
+            set
+            {
+                ticTacToeScore1 = (TicTacToeScore)value;
+            }
+        }
         //*********************************************************************************
         #region IPlayers Interface
         //*********************************************************************************

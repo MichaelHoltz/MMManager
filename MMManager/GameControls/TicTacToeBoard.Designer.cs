@@ -40,7 +40,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Location = new System.Drawing.Point(0, 533);
+            this.label1.Location = new System.Drawing.Point(0, 448);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 12;
@@ -69,7 +69,7 @@
             this.ticTacToeStartOrJoin1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ticTacToeStartOrJoin1.BoardData = null;
             this.ticTacToeStartOrJoin1.Game = null;
-            this.ticTacToeStartOrJoin1.GameMode = MMManager.GameInterfaces.ControlStatus.Hosting;
+            this.ticTacToeStartOrJoin1.GameMode = MMManager.GameInterfaces.ControlStatus.Unknown;
             this.ticTacToeStartOrJoin1.GameName = null;
             this.ticTacToeStartOrJoin1.GameState = MMManager.GameObjects.SharedTicTacToeBoardData.GameState.Waiting;
             this.ticTacToeStartOrJoin1.Location = new System.Drawing.Point(3, 4);
@@ -83,7 +83,7 @@
             this.ticTacToeStartOrJoin1.PlayerScore = 0;
             this.ticTacToeStartOrJoin1.PlayerStatus = "Unknown";
             this.ticTacToeStartOrJoin1.PlayerSymbol = 'M';
-            this.ticTacToeStartOrJoin1.Size = new System.Drawing.Size(383, 298);
+            this.ticTacToeStartOrJoin1.Size = new System.Drawing.Size(215, 298);
             this.ticTacToeStartOrJoin1.TabIndex = 13;
             this.ticTacToeStartOrJoin1.Load += new System.EventHandler(this.ticTacToeStartOrJoin1_Load);
             // 
@@ -92,12 +92,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.ticTacToeStartOrJoin1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.bgGame);
             this.DoubleBuffered = true;
             this.Name = "TicTacToeBoard";
-            this.Size = new System.Drawing.Size(396, 546);
+            this.Size = new System.Drawing.Size(221, 461);
             this.Load += new System.EventHandler(this.TicTacToeBoard_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

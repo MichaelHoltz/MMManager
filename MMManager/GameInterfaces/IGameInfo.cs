@@ -6,7 +6,7 @@ using MMManager.GameInterfaces;
 using MMManager.GameObjects;
 namespace MMManager.GameInterfaces
 {
-    public interface IGameInfo
+    public interface IGameInfo:IScore
     {
         IGame Game { get; set; } 
         IGameOptions GameOptions { get; set; }
@@ -30,8 +30,9 @@ namespace MMManager.GameInterfaces
 
     public enum ControlStatus
     {
-        Hosting=0,
-        Joined=1,
-        Watching=2
+        Unknown=0,
+        Hosting=1,
+        Joined=2,
+        Watching=3
     }
 }

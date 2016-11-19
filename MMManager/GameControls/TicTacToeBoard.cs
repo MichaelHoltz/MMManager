@@ -14,11 +14,12 @@ namespace MMManager.GameControls
     {
         private SharedTicTacToeBoardData _stttbd; //Contains all neeeded
         private MMManagerTTTButton theButton; //Shared Button Object
-        private String[] letters = new String[5] { "J", "K", "M", "L", "N" };
-        
+       // private String[] letters = new String[5] { "J", "K", "M", "L", "N" };
+        private String[] letters = new String[3] {"M", "N", "\0" };
+
         //Control of Player Count
-        private const int PCOUNT = 2;
-        private char[] symbols = new char[PCOUNT] { 'X', 'O' };
+        private const int PCOUNT = 3;
+        private char[] symbols = new char[PCOUNT] { 'M', 'N', 'B' };
 
         private int SymbolPos = 0;
         private int TurnPos = 0;
@@ -30,8 +31,7 @@ namespace MMManager.GameControls
         private char[,] grid;
         MMManagerTTTButton[,] b;
         private Color bColor;
-        private string playerName;
-
+        private Boolean myTurn = true; // Default to my Turn.
         public IGameInfo GameInfo
         {
             get
@@ -83,11 +83,11 @@ namespace MMManager.GameControls
                             bgGame.Controls.Remove(b[y, x]);
                         }
                     }
-                    sharedTicTacToeBoardData.GameBoard[index++] = '\0'; //Clear 1d Grid
-                    if (grid != null)
-                    {
-                        grid[y, x] = '\0';
-                    }
+                    //sharedTicTacToeBoardData.GameBoard[index++] = '\0'; //Clear 1d Grid
+                    //if (grid != null)
+                    //{
+                    //    grid[y, x] = '\0';
+                    //}
                 }
             }
             return sharedTicTacToeBoardData;
@@ -216,7 +216,7 @@ namespace MMManager.GameControls
             {
                 for (x = 0; x < maxX; x++)
                 {
-                    if (b[y, x].Tag.ToString() == "1")
+                    if (b[y, x].Tag.ToString() == "1") // Using the Button Tag
                     {
                         sharedTicTacToeBoardData.GameBoard[y * maxY + x] = '1';
                     }
@@ -224,6 +224,11 @@ namespace MMManager.GameControls
             }
             return sharedTicTacToeBoardData;
         }
+        /// <summary>
+        /// Go from One Dimensional Array to 2.
+        /// </summary>
+        /// <param name="sharedTicTacToeBoardData"></param>
+        /// <returns></returns>
         private SharedTicTacToeBoardData DecodeGameBoard(SharedTicTacToeBoardData sharedTicTacToeBoardData)
         {
             maxX = Convert.ToInt32(GameInfo.GameOptions.GridSize);
@@ -238,15 +243,18 @@ namespace MMManager.GameControls
                 {
                     y = i / maxY;
                     x = i % maxX;
-                    b[y, x].Text = "b"; // Display's the Bombs For Debugging 
+                    b[y, x].Text = "\0";
+                  //  b[y, x].Text = "b"; // Display's the Bombs For Debugging 
                     b[y, x].Tag = "1";
+                    grid[y, x] = '1'; // Put it in the local Grid
                 }
                 else
                 {
                     y = i / maxY;
                     x = i % maxX;
-                    b[y, x].Text = " ";
-
+                    b[y, x].Text = "\0";
+                    b[y, x].Tag = "\0";
+                    grid[y, x] = '\0'; //Put it in the local Grid
                 }
 
             }
@@ -286,9 +294,9 @@ namespace MMManager.GameControls
             bool win = true;
             Point p = new Point(x, y);
             winningList.Add(p);
-            if (n == 0)
+            if (n == 0) // Set first Symbol in the line
                 winLine = grid[y, x];
-            winLine &= grid[y, x];
+            //winLine &= grid[y, x]; // Anding them together. but that is limiting.
             if (winLine != grid[y, x] || winLine == '\0')
             {
                 win = false;
@@ -428,8 +436,14 @@ namespace MMManager.GameControls
             }
 
         }
+
+        /// <summary>
+        /// Figure Out who's turn it is
+        /// </summary>
+        /// <returns></returns>
         public char GetCurrentSymbol()
         {
+
             char currentSymbol = '\0';
             if (SymbolPos + 1 > symbols.Count())
                 SymbolPos = 0;
@@ -492,8 +506,8 @@ namespace MMManager.GameControls
         private void Button_Click(object sender, EventArgs e)
         {
             theButton = (sender as MMManagerTTTButton);
-            string s = GetCurrentSymbol().ToString(); // Use the Current Symbol
-            getCurrentTurn(); //Show Who's Turn it is
+            string s = GameInfo.PlayerSymbol.ToString(); //  GetCurrentSymbol().ToString(); // Use the Current Symbol
+            //Show Who's Turn it is
 
             _stttbd.MessageSender = GameInfo.Player;
             _stttbd.Message = SharedTicTacToeBoardData.MessageCode.Move;
@@ -501,12 +515,15 @@ namespace MMManager.GameControls
             _stttbd.MessageString = s.ToString(); 
             SendMessage(GameInfo.GameName, GameInfo.Player, _stttbd);
             DoButtonClick(theButton, s);
-            //Need some way to identify this button.. Name = BYX
-            //Check for Bombs 
 
         }
         private void DoButtonClick(MMManagerTTTButton theButtonClicked, string s)
         {
+            char currentSymbol = getCurrentTurn();
+            if (GameInfo.Player.PlayerSymbol == currentSymbol)
+                myTurn = true;
+            else
+                myTurn = false;
             theButton = theButtonClicked; // set for timer
             if (theButton.Tag.ToString() != "1") // Normal Move
             {
@@ -526,26 +543,32 @@ namespace MMManager.GameControls
         private void timer2_Tick(object sender, EventArgs e)
         {
             string currentDir = System.IO.Directory.GetCurrentDirectory();
+            SoundPlayer simpleSound = new SoundPlayer(currentDir + @"\Sounds\Bomb_Exploding.wav");
             if (letterPos == 0)
             {
                 theButton.Font = new Font("Wingdings", 20);
                 
-                SoundPlayer simpleSound = new SoundPlayer(currentDir +@"\Sounds\Incoming_Suspense.wav");
                 simpleSound.Play();
 
             }
             theButton.Text = letters[letterPos++];
-            if (letterPos > 4)
+            if (letterPos > 2) // Max
             {
-                SoundPlayer simpleSound = new SoundPlayer(currentDir + @"\Sounds\Bomb_Exploding.wav");
-                simpleSound.Play();
-                letterPos = 0;
+                letterPos = 0; // Reset for next time
                 timer2.Enabled = false;
-                // theButton.Font = new Font("Microsoft Sans Serif", 12);
-                AllButtonsAllowClick(true);
-                //theButton.customEnable = true; // Allow this button to be clicked
-                //customDisable = false;
-                //groupBox1.Enabled = true;
+                theButton.Font = new Font("Microsoft Sans Serif", 12);
+                simpleSound.Stop();
+                theButton.Text = "\0";
+                //ONly If it's their Turn
+                //if (myTurn)
+                {
+                    AllButtonsAllowClick(true);
+                }
+                //else
+                //{
+                //    AllButtonsAllowClick(false);
+                //}
+
             }
 
         }
@@ -581,11 +604,15 @@ namespace MMManager.GameControls
             {
                 if (GameInfo.GameMode == ControlStatus.Hosting)
                 {
-                    tsbd = _stttbd; // Set to what is being Hosted
-                    tsbd.MessageSender = GameInfo.Player;
-                    tsbd.Message = SharedTicTacToeBoardData.MessageCode.NewGame;
-                    tsbd.MessageString = GameInfo.GameName;
-                    SendMessage(GameInfo.GameName, GameInfo.Player, tsbd); // Send message to Everyone
+                    //Must have a game Generated for this to make sense.
+                    if (_stttbd != null)
+                    {
+                        tsbd = _stttbd; // Set to what is being Hosted
+                        tsbd.MessageSender = GameInfo.Player;
+                        tsbd.Message = SharedTicTacToeBoardData.MessageCode.NewGame;
+                        tsbd.MessageString = GameInfo.GameName;
+                        SendMessage(GameInfo.GameName, GameInfo.Player, tsbd); // Send message to Everyone
+                    }
                 }
             }
             //A new Game has been published
@@ -602,7 +629,13 @@ namespace MMManager.GameControls
             {
                 //Want to return to filter messages
                 //Debugging Message Only
-                MessageBox.Show("\"" + tsbd.GameName + "\" doesn't equal \"" + GameInfo.GameName + "\" - Message=" + tsbd.Message.ToString());
+                if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.RefreshGameList || tsbd.Message == SharedTicTacToeBoardData.MessageCode.NewGame)
+                {
+                }
+                else
+                {
+                    MessageBox.Show("\"" + tsbd.GameName + "\" doesn't equal \"" + GameInfo.GameName + "\" - Message=" + tsbd.Message.ToString());
+                }
                 return; // Get out
             }
 
@@ -612,7 +645,8 @@ namespace MMManager.GameControls
                 GameInfo.GameState = SharedTicTacToeBoardData.GameState.Waiting;
                 tsbd.Players.Clear();
                 GameInfo.RemoveGame(tsbd.MessageString);
-                GameInfo.GameScore.ClearAllPlayers();
+                GameInfo.ClearAllPlayers();
+                //GameInfo.GameScore.ClearAllPlayers();
                 ResetGame(tsbd);
                 //GameInfo.GameScore.LeaveGame()
 
@@ -620,17 +654,20 @@ namespace MMManager.GameControls
             //Message Received to start TicTacToe
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.Start)
             {
-                ResetGame(tsbd);
+                
                 _stttbd = tsbd; // Sync with what the Host Sent
                 GameInfo.BoardData = tsbd;
                 if (GameInfo.GameMode != ControlStatus.Hosting)
                 {
+                    ResetGame(tsbd);
                     GenerateGameButtons(tsbd); // The board is alread Decoded.
                 }
+                AllButtonsAllowClick(true); //ALLOW anyone to click for now
                 //Update the Score View and set all scores to zero.
                 foreach (var item in GameInfo.Players.Players)
                 {
-                    GameInfo.GameScore.UpdateScore(item, 0);
+                    GameInfo.UpdateScore(item, 0);
+                    //GameInfo.GameScore.UpdateScore(item, 0);
                 }
                 //GameInfo.BoardData = theSharedBoardData;
                 GameInfo.StartGame(GameInfo.GameName);
@@ -638,7 +675,8 @@ namespace MMManager.GameControls
             //Someone Joined
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.Join)
             {
-                GameInfo.Players.JoinGame(tsbd.MessageSender); ;
+                GameInfo.JoinGame(tsbd.MessageSender);
+               // GameInfo.Players.JoinGame(tsbd.MessageSender); 
                 tsbd.Message = SharedTicTacToeBoardData.MessageCode.SyncBoard;
                 tsbd.MessageSender = GameInfo.Player;
                 tsbd.GameSize = GameInfo.GameOptions.GridSize;
@@ -648,7 +686,8 @@ namespace MMManager.GameControls
             //Watch Only mode
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.Watch)
             {
-                GameInfo.Players.WatchGame(tsbd.MessageSender);
+                GameInfo.WatchGame(tsbd.MessageSender);
+                //GameInfo.Players.WatchGame(tsbd.MessageSender);
                 tsbd.Message = SharedTicTacToeBoardData.MessageCode.SyncBoard;
                 tsbd.MessageSender = GameInfo.Player;
                 tsbd.GameSize = GameInfo.GameOptions.GridSize;
@@ -662,12 +701,15 @@ namespace MMManager.GameControls
                 //Only need to sync the board if not hosting
                 if (GameInfo.GameMode != ControlStatus.Hosting)
                 {
+                    _stttbd = tsbd; // Sync local with what the Host Sent
+                    ResetGame(tsbd);
                     GenerateGameButtons(tsbd); // The board is alread Decoded.
                 }
             }
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.LeaveGame)
             {
-                GameInfo.Players.LeaveGame(tsbd.MessageSender);
+                GameInfo.LeaveGame(tsbd.MessageSender);
+                //GameInfo.Players.LeaveGame(tsbd.MessageSender);
                 GameInfo.PlayersChanged(); // Only allow the Start Button if more than 1 player
                 //TODO Remove the Board now.
             }

@@ -8,7 +8,7 @@ using MMManager.GameObjects;
 
 namespace MMManager.GameControls
 {
-    public partial class TicTacToeStartOrJoin : UserControl, IGameInfo, IScore
+    public partial class TicTacToeStartOrJoin : UserControl, IGameInfo
     {
         private ControlStatus _gameMode;
         private SharedTicTacToeBoardData theSharedTicTacToBoardData;
@@ -35,7 +35,18 @@ namespace MMManager.GameControls
 
         public IGame Game { get; set; }
 
-        public IScore GameScore { get; set; }
+        public IScore GameScore
+        {
+            get
+            {
+                return ticTacToePlayers1.ScoreBoard;
+            }
+            set
+            {
+                ticTacToePlayers1.ScoreBoard = value;
+            }
+
+        }
 
         public PlayerClass Player {
 
@@ -76,6 +87,10 @@ namespace MMManager.GameControls
                 _gameMode = value;
                 switch (_gameMode)
                 {
+                    case ControlStatus.Unknown:
+                        panel1.Visible = false;
+                        panel2.Visible = false;
+                        break;
                     case ControlStatus.Hosting:
                         panel2.Visible = false;
                         panel1.Visible = true;
@@ -256,7 +271,7 @@ namespace MMManager.GameControls
             if (btnJoin.Text == "Join") //Join
             {
                 btnWatch.Enabled = false;
-                ticTacToePlayers1.PlayerSymbol = theSharedTicTacToBoardData.NextSymbol; // Need to Get this from the Host.
+                ticTacToePlayers1.PlayerSymbol =  theSharedTicTacToBoardData.NextSymbol; // Need to Get this from the Host.
                 ticTacToePlayers1.PlayerStatus = "Joined Game";
                 JoinGame(Player);
                 theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Join;
@@ -357,20 +372,6 @@ namespace MMManager.GameControls
 
         private void btnStartGame_Click(object sender, EventArgs e)
         {
-            //if (btnStartGame.Text == "Start Game")
-            //{
-            //    GameState = SharedTicTacToeBoardData.GameState.Playing;
-            //    theSharedTicTacToBoardData.MessageSender = Player;
-            //    theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Start; //Set Message to Start the game
-            //    theSharedTicTacToBoardData.MessageString = GameName;
-            //    foreach (var item in Players.Players)
-            //    {
-            //        GameScore.UpdateScore(item, 0);
-            //    }
-            //    //Who's Turn is it?
-            //    Game.AllButtonsAllowClick(true); //The Host can click
-            //    Game.SendMessage(GameName, Player, theSharedTicTacToBoardData); // Send message to Everyone
-            //}
             GameState = SharedTicTacToeBoardData.GameState.Playing; // Manage Buttons and Panels
             if (btnStartGame.Text == "Start New Game") // Generate New Board with same settings
             {
@@ -387,6 +388,7 @@ namespace MMManager.GameControls
             theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Start; //Set Message to Start the game
             theSharedTicTacToBoardData.MessageString = GameName;
             //Who's Turn is it?
+            
             Game.AllButtonsAllowClick(true); //The Host can click
             Game.SendMessage(GameName, Player, theSharedTicTacToBoardData); // Send message to Everyone
         }
@@ -419,7 +421,11 @@ namespace MMManager.GameControls
             {
                 lbAvailableGames.Items.Remove("No Games Found");
             }
-            lbAvailableGames.Items.Add(gameName);
+            //Only add if it's not already on the list.
+            if (!lbAvailableGames.Items.Contains(gameName))
+            {
+                lbAvailableGames.Items.Add(gameName);
+            }
         }
         public void RemoveGame(string gameName)
         {
@@ -488,7 +494,8 @@ namespace MMManager.GameControls
         public void UpdateScore(IPlayer player, int currentScore)
         {
             ticTacToePlayers1.UpdateScore(player, currentScore);
-            GameScore.UpdateScore(player, currentScore);
+            theSharedTicTacToBoardData.Players = ticTacToePlayers1.Players; // Update Score by replacing Players completly..
+            //GameScore.UpdateScore(player, currentScore);
         }
 
         public int GetScore(IPlayer player)

@@ -37,13 +37,13 @@
             this.btnCreateRemove = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ticTacToeOptions1 = new MMManager.GameControls.TicTacToeOptions();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.ticTacToePlayers1 = new MMManager.GameControls.TicTacToePlayers();
             this.lblGameStatus = new System.Windows.Forms.Label();
             this.rbHost = new System.Windows.Forms.RadioButton();
             this.rbJoinGame = new System.Windows.Forms.RadioButton();
+            this.ticTacToePlayers1 = new MMManager.GameControls.TicTacToePlayers();
+            this.ticTacToeOptions1 = new MMManager.GameControls.TicTacToeOptions();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -137,16 +137,6 @@
             this.panel1.TabIndex = 10;
             this.panel1.Visible = false;
             // 
-            // ticTacToeOptions1
-            // 
-            this.ticTacToeOptions1.AutoSize = true;
-            this.ticTacToeOptions1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ticTacToeOptions1.Location = new System.Drawing.Point(0, -1);
-            this.ticTacToeOptions1.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
-            this.ticTacToeOptions1.Name = "ticTacToeOptions1";
-            this.ticTacToeOptions1.Size = new System.Drawing.Size(160, 209);
-            this.ticTacToeOptions1.TabIndex = 1;
-            // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -171,6 +161,37 @@
             this.panel3.Size = new System.Drawing.Size(207, 270);
             this.panel3.TabIndex = 12;
             // 
+            // lblGameStatus
+            // 
+            this.lblGameStatus.AutoSize = true;
+            this.lblGameStatus.Location = new System.Drawing.Point(5, 4);
+            this.lblGameStatus.Name = "lblGameStatus";
+            this.lblGameStatus.Size = new System.Drawing.Size(68, 13);
+            this.lblGameStatus.TabIndex = 9;
+            this.lblGameStatus.Text = "Game Status";
+            // 
+            // rbHost
+            // 
+            this.rbHost.AutoSize = true;
+            this.rbHost.Location = new System.Drawing.Point(5, 0);
+            this.rbHost.Name = "rbHost";
+            this.rbHost.Size = new System.Drawing.Size(103, 17);
+            this.rbHost.TabIndex = 13;
+            this.rbHost.Text = "Host New Game";
+            this.rbHost.UseVisualStyleBackColor = true;
+            this.rbHost.CheckedChanged += new System.EventHandler(this.rbHost_CheckedChanged);
+            // 
+            // rbJoinGame
+            // 
+            this.rbJoinGame.AutoSize = true;
+            this.rbJoinGame.Location = new System.Drawing.Point(114, -1);
+            this.rbJoinGame.Name = "rbJoinGame";
+            this.rbJoinGame.Size = new System.Drawing.Size(84, 17);
+            this.rbJoinGame.TabIndex = 14;
+            this.rbJoinGame.Text = "Join a Game";
+            this.rbJoinGame.UseVisualStyleBackColor = true;
+            this.rbJoinGame.CheckedChanged += new System.EventHandler(this.rbJoinGame_CheckedChanged);
+            // 
             // ticTacToePlayers1
             // 
             this.ticTacToePlayers1.AutoSize = true;
@@ -191,38 +212,15 @@
             this.ticTacToePlayers1.TabIndex = 10;
             this.ticTacToePlayers1.Load += new System.EventHandler(this.ticTacToePlayers1_Load);
             // 
-            // lblGameStatus
+            // ticTacToeOptions1
             // 
-            this.lblGameStatus.AutoSize = true;
-            this.lblGameStatus.Location = new System.Drawing.Point(5, 4);
-            this.lblGameStatus.Name = "lblGameStatus";
-            this.lblGameStatus.Size = new System.Drawing.Size(68, 13);
-            this.lblGameStatus.TabIndex = 9;
-            this.lblGameStatus.Text = "Game Status";
-            // 
-            // rbHost
-            // 
-            this.rbHost.AutoSize = true;
-            this.rbHost.Checked = true;
-            this.rbHost.Location = new System.Drawing.Point(5, 0);
-            this.rbHost.Name = "rbHost";
-            this.rbHost.Size = new System.Drawing.Size(103, 17);
-            this.rbHost.TabIndex = 13;
-            this.rbHost.TabStop = true;
-            this.rbHost.Text = "Host New Game";
-            this.rbHost.UseVisualStyleBackColor = true;
-            this.rbHost.CheckedChanged += new System.EventHandler(this.rbHost_CheckedChanged);
-            // 
-            // rbJoinGame
-            // 
-            this.rbJoinGame.AutoSize = true;
-            this.rbJoinGame.Location = new System.Drawing.Point(114, -1);
-            this.rbJoinGame.Name = "rbJoinGame";
-            this.rbJoinGame.Size = new System.Drawing.Size(84, 17);
-            this.rbJoinGame.TabIndex = 14;
-            this.rbJoinGame.Text = "Join a Game";
-            this.rbJoinGame.UseVisualStyleBackColor = true;
-            this.rbJoinGame.CheckedChanged += new System.EventHandler(this.rbJoinGame_CheckedChanged);
+            this.ticTacToeOptions1.AutoSize = true;
+            this.ticTacToeOptions1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ticTacToeOptions1.Location = new System.Drawing.Point(0, -1);
+            this.ticTacToeOptions1.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.ticTacToeOptions1.Name = "ticTacToeOptions1";
+            this.ticTacToeOptions1.Size = new System.Drawing.Size(160, 209);
+            this.ticTacToeOptions1.TabIndex = 1;
             // 
             // TicTacToeStartOrJoin
             // 
