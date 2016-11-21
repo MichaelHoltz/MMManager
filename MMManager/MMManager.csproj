@@ -180,6 +180,7 @@
     <Compile Include="PersistanceObjects\MMMPeer.cs" />
     <Compile Include="PersistanceObjects\MMMProfile.cs" />
     <Compile Include="PersistanceObjects\MMMUserCache.cs" />
+    <Compile Include="PersistanceObjects\TTTProfile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />

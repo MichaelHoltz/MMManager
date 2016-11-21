@@ -21,9 +21,9 @@ namespace MMManager
             InitializeComponent();
             //Load Application Settings.
             mas = new MMMApplicationSettings();
-            mas.LoadSettings(); // Loads the settings from file cleanly
+            mas = mas.LoadSettings(); // Loads the settings from file cleanly
             mmmPeer = new MMMPeer();
-            mmmPeer.LoadSettings();
+            mmmPeer = mmmPeer.LoadSettings();
             try
             {
                 string json = File.ReadAllText(mas.UserAppData + mas.DefaultMCRoot + "\\launcher_profiles.json");

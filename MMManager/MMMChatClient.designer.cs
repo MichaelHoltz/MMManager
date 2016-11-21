@@ -29,6 +29,7 @@ namespace MMManager
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MMMChatClient));
             this.grpMessageWindow = new System.Windows.Forms.GroupBox();
             this.rtbMessages = new MMManager.Controls.RichTextBox();
@@ -56,7 +57,7 @@ namespace MMManager
             this.grpMessageWindow.Controls.Add(this.btnSend);
             this.grpMessageWindow.Controls.Add(this.txtSendMessage);
             this.grpMessageWindow.Enabled = false;
-            this.grpMessageWindow.Location = new System.Drawing.Point(264, 94);
+            this.grpMessageWindow.Location = new System.Drawing.Point(590, 20);
             this.grpMessageWindow.Name = "grpMessageWindow";
             this.grpMessageWindow.Size = new System.Drawing.Size(516, 296);
             this.grpMessageWindow.TabIndex = 0;
@@ -134,7 +135,7 @@ namespace MMManager
             // 
             this.grpUserList.Controls.Add(this.lstUsers);
             this.grpUserList.Enabled = false;
-            this.grpUserList.Location = new System.Drawing.Point(786, 94);
+            this.grpUserList.Location = new System.Drawing.Point(1112, 20);
             this.grpUserList.Name = "grpUserList";
             this.grpUserList.Size = new System.Drawing.Size(138, 296);
             this.grpUserList.TabIndex = 2;
@@ -151,7 +152,7 @@ namespace MMManager
             // 
             // propertyGrid1
             // 
-            this.propertyGrid1.Location = new System.Drawing.Point(930, 113);
+            this.propertyGrid1.Location = new System.Drawing.Point(596, 338);
             this.propertyGrid1.Name = "propertyGrid1";
             this.propertyGrid1.Size = new System.Drawing.Size(366, 306);
             this.propertyGrid1.TabIndex = 35;
@@ -191,7 +192,7 @@ namespace MMManager
             // lblDebug
             // 
             this.lblDebug.AutoSize = true;
-            this.lblDebug.Location = new System.Drawing.Point(930, 94);
+            this.lblDebug.Location = new System.Drawing.Point(596, 319);
             this.lblDebug.Name = "lblDebug";
             this.lblDebug.Size = new System.Drawing.Size(100, 13);
             this.lblDebug.TabIndex = 40;

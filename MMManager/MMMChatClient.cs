@@ -4,12 +4,14 @@ using System.ServiceModel;
 using System.Drawing;
 using MMManager.GameObjects;
 using MMManager.CommInterfaces;
+using MMManager.PersistanceObjects;
 namespace MMManager
 {
 
     public partial class MMMChatClient : Form, IChatService, IMessageRelay
     {
-
+        private int instanceNumber; // The instance number of this application.
+        private TTTProfile tttProfile = new TTTProfile();
        // private SharedTicTacToeBoardData theTicTacToeBoardData; //Contains all neeeded
         private delegate void UserJoined(string name);
         private delegate void UserSendMessage(string name, string message);
@@ -32,7 +34,10 @@ namespace MMManager
             this.AcceptButton = btnLogin;
 
         }
-
+        public MMMChatClient(int InstanceNumber):this()
+        {
+            instanceNumber = InstanceNumber;// Assign the instance number
+        }
         public MMMChatClient(string userName):this()
         {
             this.userName = userName;
@@ -208,6 +213,7 @@ namespace MMManager
         {
             try
             {
+                tttProfile.SaveSettings(instanceNumber); // Save Profile Settings.
                 NewJoin = null;
                 MessageSent = null;
                 RemoveUser = null;
@@ -222,6 +228,7 @@ namespace MMManager
                 {
                     factory.Close();
                 }
+                
             }
             catch (Exception ex)
             {
@@ -272,6 +279,7 @@ namespace MMManager
             if (txtUserName.Text.Trim().Length > 0)
             {
                 this.userName = txtUserName.Text.Trim();
+                tttProfile.UserName = this.userName;
             }
         }
 
@@ -280,7 +288,9 @@ namespace MMManager
             string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             this.Text += String.Format("  Ver. {0}", version);
             btnSymbolChoice.ImageList = ticTacToeBoard1.ButtonImageList;
-            btnSymbolChoice.ImageIndex = 0; // Default to zero but could be loaded from previously saved.
+            tttProfile = tttProfile.LoadSettings(instanceNumber); // Load Saved Settings or default
+            txtUserName.Text = tttProfile.UserName; //Assign UserName
+            btnSymbolChoice.ImageIndex = tttProfile.Symbol; //Assign Symbol.
         }
 
         public void SendTicTacToeMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData generatedBoardData)
@@ -298,7 +308,7 @@ namespace MMManager
             frmSymbolSelector fs = new frmSymbolSelector();
             fs.ShowDialog();
             btnSymbolChoice.ImageIndex = fs.ImageSelected();
-
+            tttProfile.Symbol = btnSymbolChoice.ImageIndex; // Save for Profile
         }
     }
 }
