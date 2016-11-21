@@ -10,7 +10,7 @@ namespace MMManager.GameInterfaces
     public interface IPlayer
     {
         String PlayerName { get; set; }
-        Char PlayerSymbol { get; set; }
+        int PlayerSymbol { get; set; }
         int PlayerScore { get; set; }
         String PlayerStatus { get; set; }
         

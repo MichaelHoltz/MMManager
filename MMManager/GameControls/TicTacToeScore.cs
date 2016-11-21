@@ -21,7 +21,7 @@ namespace MMManager.GameControls
 
         public string PlayerName { get; set; }
 
-        public char PlayerSymbol { get; set; }
+        public int PlayerSymbol { get; set; }
         public int PlayerScore { get; set; }
         public string PlayerStatus { get; set; }
 

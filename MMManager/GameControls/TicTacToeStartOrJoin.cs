@@ -185,7 +185,7 @@ namespace MMManager.GameControls
             }
         }
 
-        public char PlayerSymbol
+        public int PlayerSymbol
         {
             get
             {
@@ -271,7 +271,7 @@ namespace MMManager.GameControls
             if (btnJoin.Text == "Join") //Join
             {
                 btnWatch.Enabled = false;
-                ticTacToePlayers1.PlayerSymbol =  theSharedTicTacToBoardData.NextSymbol; // Need to Get this from the Host.
+                //ticTacToePlayers1.PlayerSymbol =  theSharedTicTacToBoardData.NextSymbol; // Need to Get this from the Host.
                 ticTacToePlayers1.PlayerStatus = "Joined Game";
                 JoinGame(Player);
                 theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Join;
@@ -341,11 +341,12 @@ namespace MMManager.GameControls
                 GameName = Player.PlayerName + "'s Game";      // Must Be Set Before GeneratingNewGame Should allow modification eventually 
                 theSharedTicTacToBoardData = GenerateNewGame(); // Get a blank board after generating the game.
 
-                ticTacToePlayers1.PlayerSymbol = Game.GetCurrentSymbol();       //Attempt to Assign Symbols Automatically
-                theSharedTicTacToBoardData.NextSymbol = Game.GetCurrentSymbol();    //Works for Two Player only
+//                ticTacToePlayers1.PlayerSymbol = Game.GetCurrentSymbol();       //Attempt to Assign Symbols Automatically
+//                theSharedTicTacToBoardData.NextSymbol = Game.GetCurrentSymbol();    //Works for Two Player only
                 ticTacToePlayers1.PlayerStatus = "Created Game";
                 AddGame(GameName);
                 JoinGame(Player);
+                
                 rbJoinGame.Enabled = false;
                 Game.SendMessage(GameName, Player, theSharedTicTacToBoardData); // Send message to Everyone
 

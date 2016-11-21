@@ -29,9 +29,9 @@ namespace MMManager
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MMMChatClient));
             this.grpMessageWindow = new System.Windows.Forms.GroupBox();
-            this.rtbMessages = new MMManager.Controls.RichTextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.txtSendMessage = new System.Windows.Forms.TextBox();
             this.grpUserCredentials = new System.Windows.Forms.GroupBox();
@@ -41,7 +41,10 @@ namespace MMManager
             this.grpUserList = new System.Windows.Forms.GroupBox();
             this.lstUsers = new System.Windows.Forms.ListBox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.lblMySymbol = new System.Windows.Forms.Label();
+            this.btnSymbolChoice = new MMManager.MMManagerTTTButton();
             this.ticTacToeBoard1 = new MMManager.GameControls.TicTacToeBoard();
+            this.rtbMessages = new MMManager.Controls.RichTextBox();
             this.grpMessageWindow.SuspendLayout();
             this.grpUserCredentials.SuspendLayout();
             this.grpUserList.SuspendLayout();
@@ -59,15 +62,6 @@ namespace MMManager
             this.grpMessageWindow.TabIndex = 0;
             this.grpMessageWindow.TabStop = false;
             this.grpMessageWindow.Text = "Message window";
-            // 
-            // rtbMessages
-            // 
-            this.rtbMessages.Location = new System.Drawing.Point(9, 19);
-            this.rtbMessages.Name = "rtbMessages";
-            this.rtbMessages.ReadOnly = true;
-            this.rtbMessages.Size = new System.Drawing.Size(500, 204);
-            this.rtbMessages.TabIndex = 3;
-            this.rtbMessages.Text = "";
             // 
             // btnSend
             // 
@@ -92,7 +86,7 @@ namespace MMManager
             this.grpUserCredentials.Controls.Add(this.btnLogin);
             this.grpUserCredentials.Controls.Add(this.txtUserName);
             this.grpUserCredentials.Controls.Add(this.lblLoginName);
-            this.grpUserCredentials.Location = new System.Drawing.Point(12, 25);
+            this.grpUserCredentials.Location = new System.Drawing.Point(183, 30);
             this.grpUserCredentials.Name = "grpUserCredentials";
             this.grpUserCredentials.Size = new System.Drawing.Size(339, 40);
             this.grpUserCredentials.TabIndex = 1;
@@ -154,15 +148,45 @@ namespace MMManager
             this.propertyGrid1.TabIndex = 35;
             this.propertyGrid1.ToolbarVisible = false;
             // 
+            // lblMySymbol
+            // 
+            this.lblMySymbol.AutoSize = true;
+            this.lblMySymbol.Location = new System.Drawing.Point(19, 35);
+            this.lblMySymbol.Name = "lblMySymbol";
+            this.lblMySymbol.Size = new System.Drawing.Size(58, 13);
+            this.lblMySymbol.TabIndex = 39;
+            this.lblMySymbol.Text = "My Symbol";
+            // 
+            // btnSymbolChoice
+            // 
+            this.btnSymbolChoice.allowClick = true;
+            this.btnSymbolChoice.customEnable = true;
+            this.btnSymbolChoice.Location = new System.Drawing.Point(83, 20);
+            this.btnSymbolChoice.Name = "btnSymbolChoice";
+            this.btnSymbolChoice.Size = new System.Drawing.Size(50, 50);
+            this.btnSymbolChoice.TabIndex = 38;
+            this.btnSymbolChoice.UseVisualStyleBackColor = true;
+            this.btnSymbolChoice.Click += new System.EventHandler(this.btnSymbolChoice_Click);
+            // 
             // ticTacToeBoard1
             // 
             this.ticTacToeBoard1.AutoSize = true;
+            this.ticTacToeBoard1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ticTacToeBoard1.Location = new System.Drawing.Point(693, 71);
             this.ticTacToeBoard1.Name = "ticTacToeBoard1";
             this.ticTacToeBoard1.ServiceProvider = null;
-            this.ticTacToeBoard1.Size = new System.Drawing.Size(456, 492);
+            this.ticTacToeBoard1.Size = new System.Drawing.Size(221, 461);
             this.ticTacToeBoard1.TabIndex = 36;
             this.ticTacToeBoard1.Load += new System.EventHandler(this.ticTacToeBoard1_Load);
+            // 
+            // rtbMessages
+            // 
+            this.rtbMessages.Location = new System.Drawing.Point(9, 19);
+            this.rtbMessages.Name = "rtbMessages";
+            this.rtbMessages.ReadOnly = true;
+            this.rtbMessages.Size = new System.Drawing.Size(500, 204);
+            this.rtbMessages.TabIndex = 3;
+            this.rtbMessages.Text = "";
             // 
             // MMMChatClient
             // 
@@ -170,6 +194,8 @@ namespace MMManager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1275, 727);
+            this.Controls.Add(this.lblMySymbol);
+            this.Controls.Add(this.btnSymbolChoice);
             this.Controls.Add(this.ticTacToeBoard1);
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.grpUserList);
@@ -205,6 +231,8 @@ namespace MMManager
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private Controls.RichTextBox rtbMessages;
         private GameControls.TicTacToeBoard ticTacToeBoard1;
+        private MMManagerTTTButton btnSymbolChoice;
+        private System.Windows.Forms.Label lblMySymbol;
     }
 }
 

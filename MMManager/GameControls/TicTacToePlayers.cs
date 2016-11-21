@@ -36,7 +36,7 @@ namespace MMManager.GameControls
             }
         }
 
-        public char PlayerSymbol
+        public int PlayerSymbol
         {
             get
             {

@@ -97,6 +97,12 @@
     <Compile Include="frmModsSelect.Designer.cs">
       <DependentUpon>frmModsSelect.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSymbolSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSymbolSelector.Designer.cs">
+      <DependentUpon>frmSymbolSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTesting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +190,9 @@
     <EmbeddedResource Include="frmModsSelect.resx">
       <DependentUpon>frmModsSelect.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSymbolSelector.resx">
+      <DependentUpon>frmSymbolSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTesting.resx">
       <DependentUpon>frmTesting.cs</DependentUpon>
     </EmbeddedResource>
@@ -207,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MMManagerTTTButton.resx">
+      <DependentUpon>MMManagerTTTButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MMMChatClient.resx">
       <DependentUpon>MMMChatClient.cs</DependentUpon>

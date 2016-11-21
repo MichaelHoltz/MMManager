@@ -31,8 +31,10 @@
             this.lblNameLabel = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.lblSymbolLabel = new System.Windows.Forms.Label();
-            this.lblSymbol = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.pbSymbol = new System.Windows.Forms.PictureBox();
+            this.lblSymbol = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSymbol)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNameLabel
@@ -64,23 +66,31 @@
             this.lblSymbolLabel.TabIndex = 2;
             this.lblSymbolLabel.Text = "Symbol";
             // 
-            // lblSymbol
-            // 
-            this.lblSymbol.AutoSize = true;
-            this.lblSymbol.Location = new System.Drawing.Point(106, 19);
-            this.lblSymbol.Name = "lblSymbol";
-            this.lblSymbol.Size = new System.Drawing.Size(16, 13);
-            this.lblSymbol.TabIndex = 3;
-            this.lblSymbol.Text = "M";
-            // 
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(5, 41);
+            this.lblStatus.Location = new System.Drawing.Point(5, 75);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(53, 13);
             this.lblStatus.TabIndex = 4;
             this.lblStatus.Text = "Unknown";
+            // 
+            // pbSymbol
+            // 
+            this.pbSymbol.Location = new System.Drawing.Point(109, 19);
+            this.pbSymbol.Name = "pbSymbol";
+            this.pbSymbol.Size = new System.Drawing.Size(50, 50);
+            this.pbSymbol.TabIndex = 5;
+            this.pbSymbol.TabStop = false;
+            // 
+            // lblSymbol
+            // 
+            this.lblSymbol.AutoSize = true;
+            this.lblSymbol.Location = new System.Drawing.Point(98, 45);
+            this.lblSymbol.Name = "lblSymbol";
+            this.lblSymbol.Size = new System.Drawing.Size(55, 13);
+            this.lblSymbol.TabIndex = 6;
+            this.lblSymbol.Text = "MySymbol";
             // 
             // TicTacToePlayer
             // 
@@ -88,14 +98,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblSymbol);
+            this.Controls.Add(this.pbSymbol);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblSymbolLabel);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.lblNameLabel);
             this.DoubleBuffered = true;
             this.Name = "TicTacToePlayer";
-            this.Size = new System.Drawing.Size(165, 57);
+            this.Size = new System.Drawing.Size(165, 88);
+            ((System.ComponentModel.ISupportInitialize)(this.pbSymbol)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -106,7 +118,8 @@
         private System.Windows.Forms.Label lblNameLabel;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblSymbolLabel;
-        private System.Windows.Forms.Label lblSymbol;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.PictureBox pbSymbol;
+        private System.Windows.Forms.Label lblSymbol;
     }
 }

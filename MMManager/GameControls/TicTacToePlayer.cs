@@ -31,14 +31,15 @@ namespace MMManager.GameControls
                 lblName.Text = value;
             }
         }
-        public char PlayerSymbol
+        public int PlayerSymbol
         {
             get
             {
-                if (lblSymbol.Text.Length > 0)
-                    return lblSymbol.Text.ToCharArray()[0];
+                if (
+                    lblSymbol.Text.Length > 0)
+                    return Convert.ToInt32(lblSymbol.Text); //.ToCharArray()[0];
                 else
-                    return '\0';
+                    return 0;
             }
 
             set

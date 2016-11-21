@@ -18,8 +18,8 @@ namespace MMManager.GameControls
         private String[] letters = new String[3] {"M", "N", "\0" };
 
         //Control of Player Count
-        private const int PCOUNT = 3;
-        private char[] symbols = new char[PCOUNT] { 'M', 'N', 'B' };
+        //private int PCOUNT = 0; // Count of players.
+        //private char[] symbols = new char[PCOUNT] { 'M', 'N', 'B' };
 
         private int SymbolPos = 0;
         private int TurnPos = 0;
@@ -28,7 +28,7 @@ namespace MMManager.GameControls
         int maxY = 4;
         int maxX = 4;
         int maxBombCount = 2;
-        private char[,] grid;
+        private int[,] grid;
         MMManagerTTTButton[,] b;
         private Color bColor;
         private Boolean myTurn = true; // Default to my Turn.
@@ -51,7 +51,18 @@ namespace MMManager.GameControls
         /// </summary>
         public IMessageRelay ServiceProvider { get; set; }
 
+        public ImageList ButtonImageList
+        {
+            get
+            {
+                return _ButtonImageList;
+            }
 
+            set
+            {
+                _ButtonImageList = value;
+            }
+        }
 
         public TicTacToeBoard()
         {
@@ -109,9 +120,9 @@ namespace MMManager.GameControls
 
             
             b = new MMManagerTTTButton[maxY, maxX]; //2d array of buttons.
-            grid = new char[maxY, maxX];
+            grid = new int[maxY, maxX];
             if(GameInfo.GameMode == ControlStatus.Hosting)
-                sharedTicTacToeBoardData.GameBoard = new char[maxX * maxY];
+                sharedTicTacToeBoardData.GameBoard = new int[maxX * maxY];
 
             for (y = 0; y < maxY; y++)
             {
@@ -119,12 +130,12 @@ namespace MMManager.GameControls
                 {
                     b[y, x] = new MMManagerTTTButton();
                     b[y, x].Name = "B" + y + x;
-                    b[y, x].Text = '\0'.ToString();                     //Clear Button
-                    
+                    b[y, x].Text = String.Empty;                     //Clear Button
+                    b[y, x].ImageIndex = 0;                         //Clear Images
                     if (GameInfo.GameMode == ControlStatus.Hosting)
                     {
-                        sharedTicTacToeBoardData.GameBoard[index++] = '\0'; //Clear 1d Grid
-                        grid[y, x] = '\0';                                  //Clear 2d Grid
+                        sharedTicTacToeBoardData.GameBoard[index++] = 0; //Clear 1d Grid
+                        grid[y, x] = 0;                                  //Clear 2d Grid
                         b[y, x].Tag = "0";
                     }
                     else
@@ -134,12 +145,12 @@ namespace MMManager.GameControls
                     }
                     b[y, x].Font = new Font("Microsoft Sans Serif", 12);
                     b[y, x].Visible = true;
-                    b[y, x].Width = 40;
-                    b[y, x].Height = 40;
-                    b[y, x].Left = (x * 40) + 10;
-                    b[y, x].Top = (y * 40) + 20;
+                    b[y, x].Width = 50;
+                    b[y, x].Height = 50;
+                    b[y, x].Left = (x * 50) + 10;
+                    b[y, x].Top = (y * 50) + 20;
                     b[y, x].Click += Button_Click;
-                    
+                    b[y, x].ImageList = ButtonImageList;
                     bgGame.Controls.Add(b[y, x]);
 
                 }
@@ -218,8 +229,9 @@ namespace MMManager.GameControls
                 {
                     if (b[y, x].Tag.ToString() == "1") // Using the Button Tag
                     {
-                        sharedTicTacToeBoardData.GameBoard[y * maxY + x] = '1';
+                        sharedTicTacToeBoardData.GameBoard[y * maxY + x] = 1;
                     }
+                    //What about moves?
                 }
             }
             return sharedTicTacToeBoardData;
@@ -239,22 +251,24 @@ namespace MMManager.GameControls
             for (int i = 0; i < maxY * maxX; i++)
             {
                 //Check for Bombs
-                if (sharedTicTacToeBoardData.GameBoard[i] == '1')
+                if (sharedTicTacToeBoardData.GameBoard[i] == 1)
                 {
                     y = i / maxY;
                     x = i % maxX;
-                    b[y, x].Text = "\0";
+                    b[y, x].Text = string.Empty;
+                    b[y, x].ImageIndex = 0;
                   //  b[y, x].Text = "b"; // Display's the Bombs For Debugging 
                     b[y, x].Tag = "1";
-                    grid[y, x] = '1'; // Put it in the local Grid
+                    grid[y, x] = 1; // Put it in the local Grid
                 }
                 else
                 {
                     y = i / maxY;
                     x = i % maxX;
-                    b[y, x].Text = "\0";
-                    b[y, x].Tag = "\0";
-                    grid[y, x] = '\0'; //Put it in the local Grid
+                    b[y, x].Text = string.Empty;
+                    b[y, x].ImageIndex = 0;
+                    b[y, x].Tag = "0";
+                    grid[y, x] = 0; //Put it in the local Grid
                 }
 
             }
@@ -262,8 +276,10 @@ namespace MMManager.GameControls
         }
         public SharedTicTacToeBoardData GenerateNewGame()
         {
-
-            _stttbd = new SharedTicTacToeBoardData(); //Nothing here!
+            if (_stttbd == null)
+            {
+                _stttbd = new SharedTicTacToeBoardData(); //Nothing here! - There will be no players here
+            }
             _stttbd.GameSize = GameInfo.GameOptions.GridSize; // Set Grid Size to shared
             _stttbd.MessageSender = GameInfo.Player;
             _stttbd.Message = SharedTicTacToeBoardData.MessageCode.NewGame;
@@ -279,8 +295,11 @@ namespace MMManager.GameControls
             _stttbd = EncodeGameBoard(_stttbd);
             _stttbd = DecodeGameBoard(_stttbd);
 
-            SymbolPos = 0; // Reset to start with X or the first symbol
-            getCurrentTurn(); //Show Who's Turn it is
+//            _stttbd.Players.Add(GameInfo.Player); // Add the Host to the list of players when Generating a New Game
+//            SymbolPos = 0; // Reset to start with X or the first symbol
+
+
+//            getCurrentTurn(); //Show Who's Turn it is
             return _stttbd;
         }
         public SharedTicTacToeBoardData ResetGame(SharedTicTacToeBoardData sharedTicTacToeBoardData)
@@ -289,7 +308,7 @@ namespace MMManager.GameControls
             return RemoveGameButtons(sharedTicTacToeBoardData);
 
         }
-        private bool CheckWin(int y, int x, int n, ref char winLine, List<Point> winningList)
+        private bool CheckWin(int y, int x, int n, ref int winLine, List<Point> winningList)
         {
             bool win = true;
             Point p = new Point(x, y);
@@ -297,7 +316,7 @@ namespace MMManager.GameControls
             if (n == 0) // Set first Symbol in the line
                 winLine = grid[y, x];
             //winLine &= grid[y, x]; // Anding them together. but that is limiting.
-            if (winLine != grid[y, x] || winLine == '\0')
+            if (winLine != grid[y, x] || winLine == 0)
             {
                 win = false;
                 //break;
@@ -312,7 +331,7 @@ namespace MMManager.GameControls
             Point p;
             List<Point> winningList = new List<Point>();
 
-            char winLine = '\0'; //Null
+            int winLine = 0; //Null
             bool win = true;
             #region Load Grid - Can be done dynamically
             TotalNumMoves = 0; //Rest for counting again
@@ -324,10 +343,11 @@ namespace MMManager.GameControls
                     //This is a reset
                     btn.BackColor = bColor; 
                     btn.UseVisualStyleBackColor = true;
-                    grid[y, x] = btn.Text.ToCharArray(0, 1)[0];
-                    for (int i = 0; i < PCOUNT; i++)
+                    //grid[y, x] = btn.Text.ToCharArray(0, 1)[0];
+                    grid[y, x] = btn.ImageIndex; //.Text.ToCharArray(0, 1)[0];
+                    for (int i = 0; i < _stttbd.Players.Count; i++) // Was PCOUNT
                     {
-                        if (grid[y, x] == symbols[i])
+                        if (grid[y, x] == _stttbd.Players[i].PlayerSymbol) // was symbols[i]
                         {
                             TotalNumMoves++;
                         }
@@ -441,30 +461,20 @@ namespace MMManager.GameControls
         /// Figure Out who's turn it is
         /// </summary>
         /// <returns></returns>
-        public char GetCurrentSymbol()
+        public int GetCurrentSymbol()
         {
-
-            char currentSymbol = '\0';
-            if (SymbolPos + 1 > symbols.Count())
-                SymbolPos = 0;
-
-            currentSymbol = symbols[SymbolPos++]; // Go to next Symbol
-            label1.Text = "It's " + currentSymbol.ToString() + "'s Turn";
-            return currentSymbol;
+            //need a shared index so that the players can take turns
+            label1.Text = "It's " + _stttbd.Players[0].PlayerName + "'s Turn";
+            return _stttbd.Players[0].PlayerSymbol;
         }
         /// <summary>
         /// Function to get the next person's turn by symbol
         /// </summary>
         /// <returns></returns>
-        private char getCurrentTurn()
+        private int getCurrentTurn()
         {
-            char currentTurn = '\0';
-            if (TurnPos + 1 > symbols.Count())
-                TurnPos = 0;
-
-            currentTurn = symbols[TurnPos++]; // Go to next Symbol
-            label1.Text = "It's " + currentTurn.ToString() + "'s Turn";
-            return currentTurn;
+            label1.Text = "It's " + _stttbd.Players[0].PlayerName + "'s Turn";
+            return _stttbd.Players[0].PlayerSymbol;
         }
         /// <summary>
         /// Function to Set all buttons to Enable or Disable (Mostly Disable)
@@ -506,7 +516,7 @@ namespace MMManager.GameControls
         private void Button_Click(object sender, EventArgs e)
         {
             theButton = (sender as MMManagerTTTButton);
-            string s = GameInfo.PlayerSymbol.ToString(); //  GetCurrentSymbol().ToString(); // Use the Current Symbol
+            int s = GameInfo.PlayerSymbol; //  GetCurrentSymbol().ToString(); // Use the Current Symbol
             //Show Who's Turn it is
 
             _stttbd.MessageSender = GameInfo.Player;
@@ -517,17 +527,18 @@ namespace MMManager.GameControls
             DoButtonClick(theButton, s);
 
         }
-        private void DoButtonClick(MMManagerTTTButton theButtonClicked, string s)
+        private void DoButtonClick(MMManagerTTTButton theButtonClicked, int s)
         {
-            char currentSymbol = getCurrentTurn();
+            int currentSymbol = getCurrentTurn();
             if (GameInfo.Player.PlayerSymbol == currentSymbol)
-                myTurn = true;
+                myTurn = true; // What if there is a +x?
             else
                 myTurn = false;
             theButton = theButtonClicked; // set for timer
             if (theButton.Tag.ToString() != "1") // Normal Move
             {
-                theButton.Text = s;
+                //theButton.Text = s;
+                theButton.ImageIndex = s;
                 theButton.Font = new Font("Microsoft Sans Serif", 12);
                 theButton.customEnable = false; //This button is taken - No more clicks
                 CheckForWinOrDraw();
@@ -558,7 +569,8 @@ namespace MMManager.GameControls
                 timer2.Enabled = false;
                 theButton.Font = new Font("Microsoft Sans Serif", 12);
                 simpleSound.Stop();
-                theButton.Text = "\0";
+                theButton.Text = string.Empty;
+                theButton.ImageIndex = 0;
                 //ONly If it's their Turn
                 //if (myTurn)
                 {
@@ -718,7 +730,7 @@ namespace MMManager.GameControls
                 
                 IPlayer p = tsbd.MessageSender;
                 string btnName = tsbd.MessageValue;
-                string symbol = tsbd.MessageString;
+                int symbol = Convert.ToInt32(tsbd.MessageString);
                 //Do Everything that happens when Clicking a button except resending the Move.
                 //Button b = null;
                 foreach (Control item in bgGame.Controls)

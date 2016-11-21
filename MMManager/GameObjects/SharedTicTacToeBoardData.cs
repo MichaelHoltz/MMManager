@@ -49,16 +49,16 @@ namespace MMManager.GameObjects
         public string MessageString { get; set; }
         public string MessageValue { get; set; }
         public PlayerClass MessageSender { get; set; }
-        public char NextSymbol { get; set; }
+        public int NextSymbol { get; set; }
         public int GameSize { get; set; }
-        public char[] GameBoard;
+        public int[] GameBoard;
         /// <summary>
         /// Default Constructor
         /// </summary>
         public SharedTicTacToeBoardData()
         {
             Players = new List<PlayerClass>(); // Default to no players.
-            GameBoard = new char[0];
+            GameBoard = new int[0];
         }
 
     }

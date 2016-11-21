@@ -5,6 +5,8 @@ namespace MMManager
 {
     class MMManagerTTTButton :Button
     {
+        private System.ComponentModel.IContainer components;
+
         public Boolean customEnable { get; set; } = true;
         public Boolean allowClick { get; set; } = true;
         protected override void OnClick(EventArgs e)
@@ -20,6 +22,13 @@ namespace MMManager
                 simpleSound.Play();
 
             }
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            this.ResumeLayout(false);
+
         }
     }
 }

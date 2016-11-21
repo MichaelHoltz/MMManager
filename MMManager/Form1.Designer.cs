@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tbUserName = new System.Windows.Forms.TextBox();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -35,6 +36,8 @@
             this.btnTestFill = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.ticTacToeBoard1 = new MMManager.GameControls.TicTacToeBoard();
+            this.button3 = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // tbUserName
@@ -88,11 +91,30 @@
             // ticTacToeBoard1
             // 
             this.ticTacToeBoard1.AutoSize = true;
+            this.ticTacToeBoard1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ticTacToeBoard1.Location = new System.Drawing.Point(291, 22);
             this.ticTacToeBoard1.Name = "ticTacToeBoard1";
             this.ticTacToeBoard1.ServiceProvider = null;
-            this.ticTacToeBoard1.Size = new System.Drawing.Size(389, 461);
+            this.ticTacToeBoard1.Size = new System.Drawing.Size(221, 461);
             this.ticTacToeBoard1.TabIndex = 24;
+            // 
+            // button3
+            // 
+            this.button3.ImageIndex = 0;
+            this.button3.ImageList = this.imageList1;
+            this.button3.Location = new System.Drawing.Point(700, 269);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 34);
+            this.button3.TabIndex = 25;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "messageboxerror.ico");
+            this.imageList1.Images.SetKeyName(1, "ModifiedTelespace.ico");
+            this.imageList1.Images.SetKeyName(2, "StatusDoNotDisturb.ico");
             // 
             // Form1
             // 
@@ -100,6 +122,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1025, 696);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.ticTacToeBoard1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnTestFill);
@@ -121,6 +144,8 @@
         private System.Windows.Forms.Button btnTestFill;
         private System.Windows.Forms.Button button2;
         private GameControls.TicTacToeBoard ticTacToeBoard1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
 

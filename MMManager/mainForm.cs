@@ -292,7 +292,9 @@ namespace MMManager
         {
             mp = new System.Windows.Media.MediaPlayer();
             mp.MediaEnded += P2_MediaEnded;
-            mp.Open(new System.Uri(@"C:\Projects\MMManager\MMManager\Sounds\GameWaitingMusic.wav"));
+            //mp.Open(new System.Uri(@"C:\Projects\MMManager\MMManager\Sounds\GameWaitingMusic.wav"));
+            mp.Open(new System.Uri(@"C:\Projects\MMManager\MMManager\Sounds\KoRn vs. Dem Franchize Boyz - Coming Undone Wit It.wav"));
+            
             mp.Play();
         }
 
@@ -315,5 +317,6 @@ namespace MMManager
             else
                 timer1.Enabled = false;
         }
+
     }
 }

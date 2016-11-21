@@ -39,7 +39,7 @@ namespace MMManager
             if (userName != null)
             {
                 txtUserName.Text = userName;
-                PlayerClass p = new PlayerClass() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = '\0' };
+                PlayerClass p = new PlayerClass() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = btnSymbolChoice.ImageIndex };
                 ticTacToeBoard1.GameInfo.Player = p;
                 //Need Computer or Game Name so we can filter
             }
@@ -61,7 +61,8 @@ namespace MMManager
                     this.userName = txtUserName.Text.Trim();
                     //ticTacToeBoard1.GameInfo.Player.PlayerName = this.userName; // Assign Player Name when Logging in.
                     //ticTacToeBoard1.GameInfo.GameName = this.userName + "'s Game"; // Default to something.. but will be overwritten in GameInfo if needed.
-                    PlayerClass p = new PlayerClass() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = '\0' };
+                    
+                    PlayerClass p = new PlayerClass() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = btnSymbolChoice.ImageIndex };
                     ticTacToeBoard1.GameInfo.Player = p;
                     InstanceContext context = new InstanceContext(new MMMChatClient(txtUserName.Text.Trim()));
                     //InstanceContext context = new InstanceContext(this);
@@ -278,7 +279,8 @@ namespace MMManager
         {
             string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             this.Text += String.Format("  Ver. {0}", version);
-            //ticTacToeBoard1.ServiceProvider = this.channel; // Set this form to be the service provider for the game.
+            btnSymbolChoice.ImageList = ticTacToeBoard1.ButtonImageList;
+            btnSymbolChoice.ImageIndex = 0; // Default to zero but could be loaded from previously saved.
         }
 
         public void SendTicTacToeMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData generatedBoardData)
@@ -288,6 +290,14 @@ namespace MMManager
 
         private void ticTacToeBoard1_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnSymbolChoice_Click(object sender, EventArgs e)
+        {
+            frmSymbolSelector fs = new frmSymbolSelector();
+            fs.ShowDialog();
+            btnSymbolChoice.ImageIndex = fs.ImageSelected();
 
         }
     }
