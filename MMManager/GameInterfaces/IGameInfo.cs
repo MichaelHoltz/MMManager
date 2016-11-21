@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MMManager.GameInterfaces;
-using MMManager.GameObjects;
+﻿using MMManager.GameObjects;
 namespace MMManager.GameInterfaces
 {
     public interface IGameInfo:IScore

@@ -29,9 +29,9 @@ namespace MMManager
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MMMChatClient));
             this.grpMessageWindow = new System.Windows.Forms.GroupBox();
+            this.rtbMessages = new MMManager.Controls.RichTextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.txtSendMessage = new System.Windows.Forms.TextBox();
             this.grpUserCredentials = new System.Windows.Forms.GroupBox();
@@ -44,7 +44,7 @@ namespace MMManager
             this.lblMySymbol = new System.Windows.Forms.Label();
             this.btnSymbolChoice = new MMManager.MMManagerTTTButton();
             this.ticTacToeBoard1 = new MMManager.GameControls.TicTacToeBoard();
-            this.rtbMessages = new MMManager.Controls.RichTextBox();
+            this.lblDebug = new System.Windows.Forms.Label();
             this.grpMessageWindow.SuspendLayout();
             this.grpUserCredentials.SuspendLayout();
             this.grpUserList.SuspendLayout();
@@ -56,12 +56,21 @@ namespace MMManager
             this.grpMessageWindow.Controls.Add(this.btnSend);
             this.grpMessageWindow.Controls.Add(this.txtSendMessage);
             this.grpMessageWindow.Enabled = false;
-            this.grpMessageWindow.Location = new System.Drawing.Point(12, 71);
+            this.grpMessageWindow.Location = new System.Drawing.Point(264, 94);
             this.grpMessageWindow.Name = "grpMessageWindow";
             this.grpMessageWindow.Size = new System.Drawing.Size(516, 296);
             this.grpMessageWindow.TabIndex = 0;
             this.grpMessageWindow.TabStop = false;
             this.grpMessageWindow.Text = "Message window";
+            // 
+            // rtbMessages
+            // 
+            this.rtbMessages.Location = new System.Drawing.Point(9, 19);
+            this.rtbMessages.Name = "rtbMessages";
+            this.rtbMessages.ReadOnly = true;
+            this.rtbMessages.Size = new System.Drawing.Size(500, 204);
+            this.rtbMessages.TabIndex = 3;
+            this.rtbMessages.Text = "";
             // 
             // btnSend
             // 
@@ -86,7 +95,7 @@ namespace MMManager
             this.grpUserCredentials.Controls.Add(this.btnLogin);
             this.grpUserCredentials.Controls.Add(this.txtUserName);
             this.grpUserCredentials.Controls.Add(this.lblLoginName);
-            this.grpUserCredentials.Location = new System.Drawing.Point(183, 30);
+            this.grpUserCredentials.Location = new System.Drawing.Point(152, 20);
             this.grpUserCredentials.Name = "grpUserCredentials";
             this.grpUserCredentials.Size = new System.Drawing.Size(339, 40);
             this.grpUserCredentials.TabIndex = 1;
@@ -125,7 +134,7 @@ namespace MMManager
             // 
             this.grpUserList.Controls.Add(this.lstUsers);
             this.grpUserList.Enabled = false;
-            this.grpUserList.Location = new System.Drawing.Point(534, 71);
+            this.grpUserList.Location = new System.Drawing.Point(786, 94);
             this.grpUserList.Name = "grpUserList";
             this.grpUserList.Size = new System.Drawing.Size(138, 296);
             this.grpUserList.TabIndex = 2;
@@ -142,7 +151,7 @@ namespace MMManager
             // 
             // propertyGrid1
             // 
-            this.propertyGrid1.Location = new System.Drawing.Point(321, 386);
+            this.propertyGrid1.Location = new System.Drawing.Point(930, 113);
             this.propertyGrid1.Name = "propertyGrid1";
             this.propertyGrid1.Size = new System.Drawing.Size(366, 306);
             this.propertyGrid1.TabIndex = 35;
@@ -172,28 +181,29 @@ namespace MMManager
             // 
             this.ticTacToeBoard1.AutoSize = true;
             this.ticTacToeBoard1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ticTacToeBoard1.Location = new System.Drawing.Point(693, 71);
+            this.ticTacToeBoard1.Location = new System.Drawing.Point(22, 84);
             this.ticTacToeBoard1.Name = "ticTacToeBoard1";
             this.ticTacToeBoard1.ServiceProvider = null;
             this.ticTacToeBoard1.Size = new System.Drawing.Size(221, 461);
             this.ticTacToeBoard1.TabIndex = 36;
             this.ticTacToeBoard1.Load += new System.EventHandler(this.ticTacToeBoard1_Load);
             // 
-            // rtbMessages
+            // lblDebug
             // 
-            this.rtbMessages.Location = new System.Drawing.Point(9, 19);
-            this.rtbMessages.Name = "rtbMessages";
-            this.rtbMessages.ReadOnly = true;
-            this.rtbMessages.Size = new System.Drawing.Size(500, 204);
-            this.rtbMessages.TabIndex = 3;
-            this.rtbMessages.Text = "";
+            this.lblDebug.AutoSize = true;
+            this.lblDebug.Location = new System.Drawing.Point(930, 94);
+            this.lblDebug.Name = "lblDebug";
+            this.lblDebug.Size = new System.Drawing.Size(100, 13);
+            this.lblDebug.TabIndex = 40;
+            this.lblDebug.Text = "Message Debugger";
             // 
             // MMMChatClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1275, 727);
+            this.ClientSize = new System.Drawing.Size(1323, 727);
+            this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.lblMySymbol);
             this.Controls.Add(this.btnSymbolChoice);
             this.Controls.Add(this.ticTacToeBoard1);
@@ -233,6 +243,7 @@ namespace MMManager
         private GameControls.TicTacToeBoard ticTacToeBoard1;
         private MMManagerTTTButton btnSymbolChoice;
         private System.Windows.Forms.Label lblMySymbol;
+        private System.Windows.Forms.Label lblDebug;
     }
 }
 

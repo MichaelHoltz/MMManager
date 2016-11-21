@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MMManager.GameInterfaces;
 using MMManager.GameObjects;
-using System.Windows.Forms;
+using MMManager.CommInterfaces;
 namespace MMManager.GameInterfaces
 {
     public interface IGame

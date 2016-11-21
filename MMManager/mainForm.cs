@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using System.IO;
-using System.Threading;
+using MMManager.PersistanceObjects;
 namespace MMManager
 {
     public partial class mainForm : Form
@@ -22,18 +21,9 @@ namespace MMManager
             InitializeComponent();
             //Load Application Settings.
             mas = new MMMApplicationSettings();
-            mas.LoadSettings();
-
-            try
-            {
-                string json = File.ReadAllText("mmmPeer.json");
-                mmmPeer = JsonConvert.DeserializeObject<MMMPeer>(json);
-            }
-            catch
-            {
-                mmmPeer = new MMMPeer();
-            }
-
+            mas.LoadSettings(); // Loads the settings from file cleanly
+            mmmPeer = new MMMPeer();
+            mmmPeer.LoadSettings();
             try
             {
                 string json = File.ReadAllText(mas.UserAppData + mas.DefaultMCRoot + "\\launcher_profiles.json");
@@ -102,7 +92,12 @@ namespace MMManager
             propertyGrid1.SelectedObject = mmmPeer; //Set to Peer Object
         }
 
-
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //Automatically Save Settings
+            mas.SaveSettings();
+            mmmPeer.SaveSettings();
+        }
 
 
         private void BtnArchive_Click(object sender, EventArgs e)
@@ -244,12 +239,7 @@ namespace MMManager
             frm.Show();
         }
 
-        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            mas.SaveSettings();
-            string json = JsonConvert.SerializeObject(mmmPeer, Formatting.Indented);
-            File.WriteAllText("mmmPeer.json", json);
-        }
+
 
         private void button2_Click(object sender, EventArgs e)
         {

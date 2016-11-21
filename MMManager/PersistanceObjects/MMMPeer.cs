@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Globalization;
+using Newtonsoft.Json;
+using System.IO;
 using System.ComponentModel;
-namespace MMManager
+namespace MMManager.PersistanceObjects
 {
     /// <summary>
     /// Class containing all other Settings
@@ -34,6 +33,31 @@ namespace MMManager
             //Setup an Empty Instance to start.
             Instances = new SortedList<String, MMMInstance>(0);
             ForgeInfo = new MMMForgeInfo();
+        }
+        public MMMPeer LoadSettings()
+        {
+            MMMPeer mpeer; // Instance of this class
+            try
+            {
+                String json = File.ReadAllText("mmmPeer.json");
+                mpeer = JsonConvert.DeserializeObject<MMMPeer>(json);
+            }
+            catch
+            {
+                mpeer = new MMMPeer(); // Default to a new empty object
+            }
+
+            return mpeer;
+        }
+        /// <summary>
+        /// Save the current Properties of this Class
+        /// </summary>
+        public void SaveSettings()
+        {
+            //Save Json
+            String json = JsonConvert.SerializeObject(this, Formatting.Indented);
+            File.WriteAllText("mmmPeer.json", json);
+
         }
     }
 }

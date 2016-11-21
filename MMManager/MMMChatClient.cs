@@ -1,15 +1,15 @@
 using System;
 using System.Windows.Forms;
 using System.ServiceModel;
-using System.ServiceModel.Channels;
 using System.Drawing;
 using MMManager.GameObjects;
-using MMManager.GameInterfaces;
+using MMManager.CommInterfaces;
 namespace MMManager
 {
 
     public partial class MMMChatClient : Form, IChatService, IMessageRelay
     {
+
        // private SharedTicTacToeBoardData theTicTacToeBoardData; //Contains all neeeded
         private delegate void UserJoined(string name);
         private delegate void UserSendMessage(string name, string message);

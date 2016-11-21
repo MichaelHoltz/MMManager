@@ -1,6 +1,6 @@
 ﻿
 using System.ServiceModel;
-namespace MMManager
+namespace MMManager.CommInterfaces
 {
     #region Service Interfaces
     //this is our simple service contract

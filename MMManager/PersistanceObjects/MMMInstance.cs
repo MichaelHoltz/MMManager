@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
-namespace MMManager
+namespace MMManager.PersistanceObjects
 {
     /// <summary>
     /// Class to manage Instances of MC in time

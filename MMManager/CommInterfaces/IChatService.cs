@@ -1,7 +1,8 @@
 ﻿
 using System.ServiceModel;
 using MMManager.GameObjects;
-namespace MMManager
+namespace MMManager.CommInterfaces
+
 {
     [ServiceContract( CallbackContract = typeof(IChatService), Namespace ="MMManager")]
     public interface IChatService

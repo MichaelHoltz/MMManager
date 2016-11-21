@@ -1,5 +1,5 @@
 ﻿using System.ServiceModel;
-namespace MMManager
+namespace MMManager.CommInterfaces
 {
     #region Chat Channel Interface
     //this channel interface provides a multiple inheritence adapter for our channel factory

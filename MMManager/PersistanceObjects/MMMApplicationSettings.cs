@@ -1,7 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.IO;
-using System.Windows.Forms;
 
 namespace MMManager
 {

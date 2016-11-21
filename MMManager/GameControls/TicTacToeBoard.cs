@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Media;
 using MMManager.GameInterfaces;
 using MMManager.GameObjects;
+using MMManager.CommInterfaces;
 
 namespace MMManager.GameControls
 {

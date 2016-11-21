@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace MMManager
+namespace MMManager.PersistanceObjects
 {
     /// <summary>
     /// Class for Dealing with the Mincraft Profile Launcher

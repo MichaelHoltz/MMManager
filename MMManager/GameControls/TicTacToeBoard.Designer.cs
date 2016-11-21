@@ -132,10 +132,12 @@
             playerClass1.PlayerName = "MyName";
             playerClass1.PlayerScore = 0;
             playerClass1.PlayerStatus = "Unknown";
+            playerClass1.PlayerSymbol = '\0';
             this.ticTacToeStartOrJoin1.Player = playerClass1;
             this.ticTacToeStartOrJoin1.PlayerName = "MyName";
             this.ticTacToeStartOrJoin1.PlayerScore = 0;
             this.ticTacToeStartOrJoin1.PlayerStatus = "Unknown";
+            this.ticTacToeStartOrJoin1.PlayerSymbol = '\0';
             this.ticTacToeStartOrJoin1.Size = new System.Drawing.Size(215, 298);
             this.ticTacToeStartOrJoin1.TabIndex = 13;
             this.ticTacToeStartOrJoin1.Load += new System.EventHandler(this.ticTacToeStartOrJoin1_Load);
