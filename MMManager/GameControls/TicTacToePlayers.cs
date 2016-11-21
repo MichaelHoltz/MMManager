@@ -119,7 +119,7 @@ namespace MMManager.GameControls
 
         public void JoinGame(IPlayer player)
         {
-            Players.Add((PlayerClass)player);
+            Players.Add((PlayerClass)player); //Directly add to a list.
             ScoreBoard.JoinGame(player);
         }
         public void WatchGame(IPlayer player)

@@ -334,6 +334,7 @@ namespace MMManager.GameControls
             //Create a game - if a game has been created but hasn't been started it can be removed.
             if (btnCreateRemove.Text == "Create Game")
             {
+                GameMode = ControlStatus.Hosting;
                 btnCreateRemove.Text = "Remove Game";
 
                 GameName = Player.PlayerName + "'s Game";      // Must Be Set Before GeneratingNewGame Should allow modification eventually 
@@ -351,11 +352,14 @@ namespace MMManager.GameControls
             }
             else // Remove Game
             {
+                GameMode = ControlStatus.Unknown;
+                //ControlStatus.Unknown
                 btnCreateRemove.Text = "Create Game";
                 ticTacToePlayers1.PlayerStatus = "Removed Game";
-                //btnStartGame.Enabled = false; // Can't start a game if there isn't one.
+                btnStartGame.Enabled = false; // Can't start a game if there isn't one.
                 LeaveGame(Player);
-                GameScore.ClearAllPlayers();
+                GameScore.ClearAllPlayers(); // Clear all scores.
+                Players.Players.Clear(); // Clear all players
                 RemoveGame(GameName);
                 rbJoinGame.Enabled = true;
 
@@ -471,24 +475,47 @@ namespace MMManager.GameControls
         }
         public void JoinGame(IPlayer player)
         {
-            ticTacToePlayers1.JoinGame(player);
-            theSharedTicTacToBoardData.Players.Add(Player); // Add this Player.
+            if (ticTacToePlayers1.Players.Find(x => x.PlayerName == player.PlayerName) == null)
+            {
+                ticTacToePlayers1.JoinGame(player);
+            }
+            if (ticTacToePlayers1.ScoreBoard.Players.Find(x => x.PlayerName == player.PlayerName) == null)
+            {
+                ticTacToePlayers1.ScoreBoard.JoinGame(player); // THIS IS ALL WRONG THEY SHOULD BE JOINED ALREADY...
+            }
+            if (theSharedTicTacToBoardData.Players.Find(x => x.PlayerName == player.PlayerName) == null)
+            {
+                theSharedTicTacToBoardData.Players.Add((PlayerClass)player); // Add this Player.
+            }
+            else
+            {
+                int dummy = 1;
+            }
         }
 
         public void LeaveGame(IPlayer player)
         {
             ticTacToePlayers1.LeaveGame(player);
-            theSharedTicTacToBoardData.Players.Remove((PlayerClass)player); // Remove this Player.
+            //Seems to be removing the first player it finds .. seems wrong
+            theSharedTicTacToBoardData.Players.Remove(theSharedTicTacToBoardData.Players.Find(x => x.PlayerName == player.PlayerName)); // Remove this Player.
         }
         public void WatchGame(IPlayer player)
         {
             ticTacToePlayers1.WatchGame(player);
-            theSharedTicTacToBoardData.Players.Add((PlayerClass)player); // Remove this Player.
+            if (!theSharedTicTacToBoardData.Players.Contains(theSharedTicTacToBoardData.Players.Find(x => x.PlayerName == player.PlayerName)))
+            {
+                theSharedTicTacToBoardData.Players.Add((PlayerClass)player); // Add this Player.
+            }
+            else
+            {
+                int dummy = 1;
+            }
         }
 
         public void ClearAllPlayers()
         {
             ticTacToePlayers1.ClearAllPlayers();
+            theSharedTicTacToBoardData.Players.Clear(); // Removes all players
         }
         public void UpdateScore(IPlayer player, int currentScore)
         {

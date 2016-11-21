@@ -34,11 +34,15 @@
             // 
             // ticTacToePlayer1
             // 
-            this.ticTacToePlayer1.Location = new System.Drawing.Point(3, 3);
+            this.ticTacToePlayer1.AutoSize = true;
+            this.ticTacToePlayer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ticTacToePlayer1.Location = new System.Drawing.Point(3, 1);
             this.ticTacToePlayer1.Name = "ticTacToePlayer1";
             this.ticTacToePlayer1.PlayerName = "MyName";
+            this.ticTacToePlayer1.PlayerScore = 0;
             this.ticTacToePlayer1.PlayerSymbol = 0;
-            this.ticTacToePlayer1.Size = new System.Drawing.Size(181, 60);
+            this.ticTacToePlayer1.PlayerStatus = "Unknown";
+            this.ticTacToePlayer1.Size = new System.Drawing.Size(184, 90);
             this.ticTacToePlayer1.TabIndex = 5;
             // 
             // ticTacToeScore1
@@ -46,9 +50,14 @@
             this.ticTacToeScore1.AutoSize = true;
             this.ticTacToeScore1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ticTacToeScore1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ticTacToeScore1.Location = new System.Drawing.Point(3, 69);
+            this.ticTacToeScore1.Location = new System.Drawing.Point(3, 93);
             this.ticTacToeScore1.Name = "ticTacToeScore1";
-            this.ticTacToeScore1.Size = new System.Drawing.Size(181, 144);
+            this.ticTacToeScore1.Player = null;
+            this.ticTacToeScore1.PlayerName = null;
+            this.ticTacToeScore1.PlayerScore = 0;
+            this.ticTacToeScore1.PlayerStatus = null;
+            this.ticTacToeScore1.PlayerSymbol = 0;
+            this.ticTacToeScore1.Size = new System.Drawing.Size(184, 163);
             this.ticTacToeScore1.TabIndex = 4;
             // 
             // TicTacToePlayers
@@ -62,7 +71,7 @@
             this.Controls.Add(this.ticTacToeScore1);
             this.DoubleBuffered = true;
             this.Name = "TicTacToePlayers";
-            this.Size = new System.Drawing.Size(187, 216);
+            this.Size = new System.Drawing.Size(190, 259);
             this.Load += new System.EventHandler(this.TicTacToePlayers_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

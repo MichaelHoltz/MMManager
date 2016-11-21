@@ -110,6 +110,8 @@ namespace MMManager
             {
                 rtbMessages.AppendColorText("\r\n" + name + " left at " + DateTime.Now.ToString() + "\r\n", Color.Green);
                 lstUsers.Items.Remove(name);
+                PlayerClass p = new PlayerClass() { PlayerName = name };
+                ticTacToeBoard1.GameInfo.LeaveGame(p);
             }
             catch (Exception ex)
             {
@@ -296,6 +298,8 @@ namespace MMManager
         public void SendTicTacToeMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData generatedBoardData)
         {
             channel.TicTacToeMessage(gameName,player, generatedBoardData); // Send messages using the proper channel
+            //Log messages as debugging
+            channel.SendMessage(player.PlayerName, generatedBoardData.Message + " " + generatedBoardData.MessageString + " " + generatedBoardData.MessageValue);
         }
 
         private void ticTacToeBoard1_Load(object sender, EventArgs e)

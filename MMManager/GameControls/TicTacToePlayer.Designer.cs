@@ -90,7 +90,7 @@
             this.lblSymbol.Name = "lblSymbol";
             this.lblSymbol.Size = new System.Drawing.Size(55, 13);
             this.lblSymbol.TabIndex = 6;
-            this.lblSymbol.Text = "MySymbol";
+            this.lblSymbol.Text = "0";
             // 
             // TicTacToePlayer
             // 
