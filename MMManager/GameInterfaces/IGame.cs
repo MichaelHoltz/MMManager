@@ -15,6 +15,7 @@ namespace MMManager.GameInterfaces
         void ReceiveMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData theSharedBoardData);
         void SendMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData theSharedBoardData);
         IMessageRelay ServiceProvider { get; set; }
+        SharedTicTacToeBoardData theBoard { get; set; }
         
     }
 }

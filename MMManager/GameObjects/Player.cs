@@ -10,6 +10,9 @@ namespace MMManager.GameObjects
         public int PlayerScore { get; set; }
         public String PlayerStatus { get; set; }
 
-
+        public PlayerClass ToClass()
+        {
+            return this;
+        }
     }
 }

@@ -44,7 +44,8 @@ namespace MMManager
             if (userName != null)
             {
                 txtUserName.Text = userName;
-                PlayerClass p = new PlayerClass() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = btnSymbolChoice.ImageIndex };
+                //PlayerClass p = new PlayerClass() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = btnSymbolChoice.ImageIndex };
+                MMManager.GameControls.TicTacToePlayer p = new GameControls.TicTacToePlayer() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = btnSymbolChoice.ImageIndex };
                 ticTacToeBoard1.GameInfo.Player = p;
                 //Need Computer or Game Name so we can filter
             }
@@ -66,8 +67,9 @@ namespace MMManager
                     this.userName = txtUserName.Text.Trim();
                     //ticTacToeBoard1.GameInfo.Player.PlayerName = this.userName; // Assign Player Name when Logging in.
                     //ticTacToeBoard1.GameInfo.GameName = this.userName + "'s Game"; // Default to something.. but will be overwritten in GameInfo if needed.
-                    
-                    PlayerClass p = new PlayerClass() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = btnSymbolChoice.ImageIndex };
+
+                    //PlayerClass p = new PlayerClass() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = btnSymbolChoice.ImageIndex };
+                    MMManager.GameControls.TicTacToePlayer p = new GameControls.TicTacToePlayer() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = btnSymbolChoice.ImageIndex };
                     ticTacToeBoard1.GameInfo.Player = p;
                     InstanceContext context = new InstanceContext(new MMMChatClient(txtUserName.Text.Trim()));
                     //InstanceContext context = new InstanceContext(this);
@@ -111,7 +113,7 @@ namespace MMManager
                 rtbMessages.AppendColorText("\r\n" + name + " left at " + DateTime.Now.ToString() + "\r\n", Color.Green);
                 lstUsers.Items.Remove(name);
                 PlayerClass p = new PlayerClass() { PlayerName = name };
-                ticTacToeBoard1.GameInfo.LeaveGame(p);
+                ticTacToeBoard1.GameInfo.Players.LeaveGame(p);
             }
             catch (Exception ex)
             {

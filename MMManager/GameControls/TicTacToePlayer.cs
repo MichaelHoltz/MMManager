@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using MMManager.GameInterfaces;
 using MMManager.GameObjects;
@@ -63,16 +57,33 @@ namespace MMManager.GameControls
 
 
 
-        
+
         /// <summary>
         /// Creates a snapshot Copy of this IPlayer to PlayerClass - Does not update this control if changed
         /// </summary>
         /// <param name="v"></param>
-        public static implicit operator PlayerClass(TicTacToePlayer v)
-        {
-            return new PlayerClass() { PlayerName = v.PlayerName,  PlayerSymbol = v.PlayerSymbol, PlayerScore = v.PlayerScore, PlayerStatus = v.PlayerStatus, };
+        //public static implicit operator PlayerClass(TicTacToePlayer v)
+        //{
+        //    return new PlayerClass() { PlayerName = v.PlayerName, PlayerSymbol = v.PlayerSymbol, PlayerScore = v.PlayerScore, PlayerStatus = v.PlayerStatus, };
 
+        //}
+
+        public PlayerClass ToClass()
+        {
+            return new PlayerClass() { PlayerName = this.PlayerName, PlayerSymbol = this.PlayerSymbol, PlayerScore = this.PlayerScore, PlayerStatus = this.PlayerStatus, };
+            //throw new NotImplementedException();
         }
 
+        //public IPlayer getPlayer()
+        //{
+        //    return this;
+        //}
+
+        //public void setPlayer(ref IPlayer player)
+        //{
+        //    this.PlayerName = player.PlayerName;
+        //    this.
+        //    throw new NotImplementedException();
+        //}
     }
 }

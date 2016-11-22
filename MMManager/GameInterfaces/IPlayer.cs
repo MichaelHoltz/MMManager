@@ -8,7 +8,8 @@ namespace MMManager.GameInterfaces
     /// Copy of class Player.. need to fix
     /// </summary>
     public interface IPlayer
-    {
+        {
+        PlayerClass ToClass();
         String PlayerName { get; set; }
         int PlayerSymbol { get; set; }
         int PlayerScore { get; set; }

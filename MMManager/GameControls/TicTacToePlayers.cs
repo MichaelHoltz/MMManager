@@ -5,13 +5,13 @@ using MMManager.GameInterfaces;
 using MMManager.GameObjects;
 namespace MMManager.GameControls
 {
-    public partial class TicTacToePlayers : UserControl, IPlayers, IScore
+    public partial class TicTacToePlayers : UserControl, IPlayers
     {
 
         public TicTacToePlayers()
         {
             InitializeComponent();
-            Players = new List<PlayerClass>(); // Must create here as it is read only
+            PlayerList = new List<PlayerClass>(); // Must create here as it is read only
             
         }
         private void TicTacToePlayers_Load(object sender, EventArgs e)
@@ -22,60 +22,57 @@ namespace MMManager.GameControls
         //*********************************************************************************
         #region IPlayer interface
         //*********************************************************************************
-        public string PlayerName
-        { 
-            get
-            {
-                return ticTacToePlayer1.PlayerName;
-            }
+        //public string PlayerName
+        //{ 
+        //    get
+        //    {
+        //        return ticTacToePlayer1.PlayerName;
+        //    }
 
-            set
-            {
-                ticTacToePlayer1.PlayerName = value;
-                ticTacToeScore1.PlayerName = value;
-            }
-        }
+        //    set
+        //    {
+        //        ticTacToePlayer1.PlayerName = value;
 
-        public int PlayerSymbol
-        {
-            get
-            {
-                return ticTacToePlayer1.PlayerSymbol;
-            }
+        //    }
+        //}
 
-            set
-            {
-                ticTacToePlayer1.PlayerSymbol = value;
-                ticTacToeScore1.PlayerSymbol = value;
-            }
-        }
+        //public int PlayerSymbol
+        //{
+        //    get
+        //    {
+        //        return ticTacToePlayer1.PlayerSymbol;
+        //    }
 
-        public int PlayerScore
-        {
-            get
-            {
-                return ticTacToePlayer1.PlayerScore;
-            }
+        //    set
+        //    {
+        //        ticTacToePlayer1.PlayerSymbol = value;
+        //    }
+        //}
 
-            set
-            {
-                ticTacToePlayer1.PlayerScore = value;
-                ticTacToeScore1.PlayerScore = value;
-            }
-        }
+        //public int PlayerScore
+        //{
+        //    get
+        //    {
+        //        return ticTacToePlayer1.PlayerScore;
+        //    }
 
-        public string PlayerStatus
-        {
-            get
-            {
-                return ticTacToePlayer1.PlayerStatus;
-            }
-            set
-            {
-                ticTacToePlayer1.PlayerStatus = value;
-                ticTacToeScore1.PlayerStatus = value;
-            }
-        }
+        //    set
+        //    {
+        //        ticTacToePlayer1.PlayerScore = value;
+        //    }
+        //}
+
+        //public string PlayerStatus
+        //{
+        //    get
+        //    {
+        //        return ticTacToePlayer1.PlayerStatus;
+        //    }
+        //    set
+        //    {
+        //        ticTacToePlayer1.PlayerStatus = value;
+        //    }
+        //}
         //*********************************************************************************
         #endregion
         //*********************************************************************************
@@ -93,21 +90,24 @@ namespace MMManager.GameControls
         //*********************************************************************************
         #region IPlayers Interface
         //*********************************************************************************
-        public List<PlayerClass> Players { get;  }
+        public List<PlayerClass> PlayerList { get; set; }
 
-        public PlayerClass Player
+        public MMManager.GameControls.TicTacToePlayer Player
         {
             get
             {
-                return this;
+                return ticTacToePlayer1;
             }
             set
             {
+                
                 if (value != null)
                 {
-                    PlayerName = value.PlayerName;
-                    PlayerSymbol = value.PlayerSymbol;
-                    PlayerStatus = value.PlayerStatus;
+                    ticTacToePlayer1 = value;
+                    //ticTacToePlayer1.PlayerName = value.PlayerName;
+                    //ticTacToePlayer1.PlayerSymbol = value.PlayerSymbol;
+                    //ticTacToePlayer1.PlayerStatus = value.PlayerStatus;
+                    //ticTacToePlayer1.PlayerScore = value.PlayerScore;
                 }
                 
                 
@@ -119,22 +119,50 @@ namespace MMManager.GameControls
 
         public void JoinGame(IPlayer player)
         {
-            Players.Add((PlayerClass)player); //Directly add to a list.
-            ScoreBoard.JoinGame(player);
+            try
+            {
+                if (PlayerList.Find(x => x.PlayerName == player.PlayerName) == null)
+                {
+                    PlayerList.Add(player.ToClass());
+                }
+                else
+                {
+                    MessageBox.Show(player.PlayerName + " Already Taken");
+                }
+                ScoreBoard.RefreshData(PlayerList);
+            }
+            catch
+            {
+                MessageBox.Show(player.PlayerName + " Already Taken");
+            }
         }
         public void WatchGame(IPlayer player)
         {
-            Players.Add((PlayerClass)player);
-            ScoreBoard.WatchGame(player);
+            try
+            {
+                if (PlayerList.Find(x => x.PlayerName == player.PlayerName) == null)
+                {
+                    PlayerList.Add((PlayerClass)player);
+                }
+                else
+                {
+                    MessageBox.Show(player.PlayerName + " Already Taken");
+                }
+                ScoreBoard.RefreshData(PlayerList); 
+            }
+            catch
+            {
+                MessageBox.Show(player.PlayerName + " Already Taken");
+            }
         }
         public void LeaveGame(IPlayer player)
         {
-            if (Players.Find(x => x.PlayerName == player.PlayerName) != null)
+            var match = PlayerList.Find(x => x.PlayerName == player.PlayerName);
+            if (match != null)
             {
-                Players.Remove(Players.Find(x => x.PlayerName == player.PlayerName));
+                PlayerList.Remove(match);
             }
-            //Players.Remove((PlayerClass)player);
-            ScoreBoard.LeaveGame(player);
+            ScoreBoard.RefreshData(PlayerList);
         }
         //*********************************************************************************
         #endregion
@@ -148,6 +176,7 @@ namespace MMManager.GameControls
         public void UpdateScore(IPlayer player, int currentScore)
         {
             ScoreBoard.UpdateScore(player, currentScore);
+            //theSharedTicTacToBoardData.Players = ticTacToePlayers1.Players; // Update Score by replacing Players completly..
         }
 
         public int GetScore(IPlayer player)
@@ -156,7 +185,8 @@ namespace MMManager.GameControls
         }
         public void ClearAllPlayers()
         {
-            ScoreBoard.ClearAllPlayers();
+            PlayerList.Clear();
+            ScoreBoard.RefreshData(PlayerList);
 
         }
 
@@ -166,27 +196,27 @@ namespace MMManager.GameControls
         #endregion IScore
         //*********************************************************************************
 
-        /// <summary>
-        /// Creates a snapshot Copy of this IPlayer to PlayerClass - Does not update this control if changed
-        /// </summary>
-        /// <param name="v"></param>
-        public static implicit operator PlayerClass(TicTacToePlayers v)
-        {
-            return new PlayerClass() { PlayerName = v.PlayerName,  PlayerSymbol = v.PlayerSymbol, PlayerScore=v.PlayerScore, PlayerStatus = v.PlayerStatus };
+        ///// <summary>
+        ///// Creates a snapshot Copy of this IPlayer to PlayerClass - Does not update this control if changed
+        ///// </summary>
+        ///// <param name="v"></param>
+        //public static implicit operator PlayerClass(TicTacToePlayers v)
+        //{
+        //    return new PlayerClass() { PlayerName = v.Player.PlayerName,  PlayerSymbol = v.Player.PlayerSymbol, PlayerScore= v.Player.PlayerScore, PlayerStatus = v.Player.PlayerStatus };
 
-        }
+        //}
 
-        /// <summary>
-        /// Creates a snapshot Copy of this IPlayer to PlayerClass - Does not update this control if changed
-        /// </summary>
-        /// <param name="v"></param>
-        public static implicit operator List<PlayerClass>(TicTacToePlayers v)
-        {
-            List<PlayerClass> allPlayers = new List<PlayerClass>();
-            allPlayers = v.Players;
-            return allPlayers;
+        ///// <summary>
+        ///// Creates a snapshot Copy of this IPlayer to PlayerClass - Does not update this control if changed
+        ///// </summary>
+        ///// <param name="v"></param>
+        //public static implicit operator List<PlayerClass>(TicTacToePlayers v)
+        //{
+        //    List<PlayerClass> allPlayers = new List<PlayerClass>();
+        //    allPlayers = v.Players;
+        //    return allPlayers;
 
-        }
+        //}
 
     }
 }

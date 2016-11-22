@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using System.Collections.Generic;
+using MMManager.GameObjects;
 namespace MMManager.GameInterfaces
 {
-    public interface IScore:IPlayers
+    public interface IScore
     {
         void UpdateScore(IPlayer player, int currentScore);
         int GetScore(IPlayer player);
-        void ClearAllPlayers();
+
+        void RefreshData(List<PlayerClass> Players);
     }
 }

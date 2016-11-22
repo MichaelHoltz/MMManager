@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using MMManager.GameInterfaces;
 using MMManager.GameObjects;
-
+using MMManager.Controls;
 namespace MMManager.GameControls
 {
     public partial class TicTacToeStartOrJoin : UserControl, IGameInfo
@@ -14,7 +14,6 @@ namespace MMManager.GameControls
         public TicTacToeStartOrJoin()
         {
             InitializeComponent();
-           // Players = new List<PlayerClass>();
             theSharedTicTacToBoardData = new SharedTicTacToeBoardData(); // Empty Board.
         }
 
@@ -46,7 +45,7 @@ namespace MMManager.GameControls
 
         }
 
-        public PlayerClass Player {
+        public TicTacToePlayer Player {
 
             get
             {
@@ -57,14 +56,8 @@ namespace MMManager.GameControls
                 ticTacToePlayers1.Player = value;
             }
         }
-        List<PlayerClass> IPlayers.Players
-        {
-            get
-            {
-                return ticTacToePlayers1.Players;
-            }
-        }
-        public IPlayers Players
+
+        public TicTacToePlayers Players
         {
             get
             {
@@ -122,7 +115,7 @@ namespace MMManager.GameControls
                     case SharedTicTacToeBoardData.GameState.Waiting:
                         btnJoin.Text = "Join";
                         btnWatch.Text = "Watch";
-                        ticTacToePlayers1.PlayerStatus = "Waiting..";
+                        ticTacToePlayers1.Player.PlayerStatus = "Waiting..";
                         rbHost.Enabled = true;
                         break;
                     case SharedTicTacToeBoardData.GameState.Playing:
@@ -169,56 +162,56 @@ namespace MMManager.GameControls
             }
         }
 
-        public string PlayerName
-        {
-            get
-            {
-                return ticTacToePlayers1.PlayerName;
+        //public string PlayerName
+        //{
+        //    get
+        //    {
+        //        return ticTacToePlayers1.PlayerName;
                 
-            }
+        //    }
 
-            set
-            {
-                ticTacToePlayers1.PlayerName = value;
-            }
-        }
+        //    set
+        //    {
+        //        ticTacToePlayers1.PlayerName = value;
+        //    }
+        //}
 
-        public int PlayerSymbol
-        {
-            get
-            {
-                return ticTacToePlayers1.PlayerSymbol;
+        //public int PlayerSymbol
+        //{
+        //    get
+        //    {
+        //        return ticTacToePlayers1.PlayerSymbol;
                 
-            }
+        //    }
 
-            set
-            {
-                ticTacToePlayers1.PlayerSymbol = value;
-            }
-        }
-        public int PlayerScore
-        {
-            get
-            {
-                return ticTacToePlayers1.PlayerScore;
-            }
-            set
-            {
-                ticTacToePlayers1.PlayerScore = value;
-            }
-        }
-        public string PlayerStatus
-        {
-            get
-            {
-                return ticTacToePlayers1.PlayerStatus;
-            }
+        //    set
+        //    {
+        //        ticTacToePlayers1.PlayerSymbol = value;
+        //    }
+        //}
+        //public int PlayerScore
+        //{
+        //    get
+        //    {
+        //        return ticTacToePlayers1.PlayerScore;
+        //    }
+        //    set
+        //    {
+        //        ticTacToePlayers1.PlayerScore = value;
+        //    }
+        //}
+        //public string PlayerStatus
+        //{
+        //    get
+        //    {
+        //        return ticTacToePlayers1.PlayerStatus;
+        //    }
 
-            set
-            {
-                ticTacToePlayers1.PlayerStatus = value;
-            }
-        }
+        //    set
+        //    {
+        //        ticTacToePlayers1.PlayerStatus = value;
+        //    }
+        //}
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
@@ -228,8 +221,8 @@ namespace MMManager.GameControls
             }
 
             theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.RefreshGameList;
-            theSharedTicTacToBoardData.MessageSender = Player;
-            Game.SendMessage("Looking For Games", Player, theSharedTicTacToBoardData);
+            theSharedTicTacToBoardData.MessageSender = Player.ToClass();
+            Game.SendMessage("Looking For Games", Player.ToClass(), theSharedTicTacToBoardData);
 
             // Game.SendMessage("Looking for Games", PlayerName, )
             //SEND a message to Get Responses from Connected Players
@@ -244,9 +237,9 @@ namespace MMManager.GameControls
                 btnJoin.Enabled = false;
                 WatchGame(Player);
                 theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Watch;
-                theSharedTicTacToBoardData.MessageSender = Player;
+                theSharedTicTacToBoardData.MessageSender = Player.ToClass();
                 theSharedTicTacToBoardData.MessageString = lbAvailableGames.SelectedItem.ToString();
-                Game.SendMessage(lbAvailableGames.SelectedItem.ToString(), Player, theSharedTicTacToBoardData); // Send message to Everyone
+                Game.SendMessage(lbAvailableGames.SelectedItem.ToString(), Player.ToClass(), theSharedTicTacToBoardData); // Send message to Everyone
                 btnWatch.Text = "Leave";
                 rbHost.Enabled = false;
             }
@@ -255,9 +248,9 @@ namespace MMManager.GameControls
                 btnJoin.Enabled = true;
                 LeaveGame(Player);
                 theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.StopWatching;
-                theSharedTicTacToBoardData.MessageSender = Player;
+                theSharedTicTacToBoardData.MessageSender = Player.ToClass();
                 theSharedTicTacToBoardData.MessageString = lbAvailableGames.SelectedItem.ToString();
-                Game.SendMessage(lbAvailableGames.SelectedItem.ToString(), Player, theSharedTicTacToBoardData); // Send message to Everyone
+                Game.SendMessage(lbAvailableGames.SelectedItem.ToString(), Player.ToClass(), theSharedTicTacToBoardData); // Send message to Everyone
                 btnWatch.Text = "Watch";
                 rbHost.Enabled = true;
 
@@ -270,24 +263,24 @@ namespace MMManager.GameControls
             {
                 btnWatch.Enabled = false;
                 //ticTacToePlayers1.PlayerSymbol =  theSharedTicTacToBoardData.NextSymbol; // Need to Get this from the Host.
-                ticTacToePlayers1.PlayerStatus = "Joined Game";
+                ticTacToePlayers1.Player.PlayerStatus = "Joined Game";
                 JoinGame(Player);
                 theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Join;
-                theSharedTicTacToBoardData.MessageSender = Player;
+                theSharedTicTacToBoardData.MessageSender = Player.ToClass();
                 theSharedTicTacToBoardData.MessageString = lbAvailableGames.SelectedItem.ToString();
-                Game.SendMessage(lbAvailableGames.SelectedItem.ToString(), Player, theSharedTicTacToBoardData); // Send message to Everyone
+                Game.SendMessage(lbAvailableGames.SelectedItem.ToString(), Player.ToClass(), theSharedTicTacToBoardData); // Send message to Everyone
                 btnJoin.Text = "Leave";
                 rbHost.Enabled = false;
             }
             else // Leave
             {
                 btnWatch.Enabled = true;
-                ticTacToePlayers1.PlayerStatus = "Left Game";
+                ticTacToePlayers1.Player.PlayerStatus = "Left Game";
                 LeaveGame(Player);
                 theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.LeaveGame;
-                theSharedTicTacToBoardData.MessageSender = Player;
+                theSharedTicTacToBoardData.MessageSender = Player.ToClass();
                 theSharedTicTacToBoardData.MessageString = lbAvailableGames.SelectedItem.ToString();
-                Game.SendMessage(lbAvailableGames.SelectedItem.ToString(), Player, theSharedTicTacToBoardData); // Send message to Everyone
+                Game.SendMessage(lbAvailableGames.SelectedItem.ToString(), Player.ToClass(), theSharedTicTacToBoardData); // Send message to Everyone
                 Game.ResetGame(theSharedTicTacToBoardData); // Using as Remove Game.
                 btnJoin.Text = "Join";
                 rbHost.Enabled = true;
@@ -334,39 +327,36 @@ namespace MMManager.GameControls
             //Create a game - if a game has been created but hasn't been started it can be removed.
             if (btnCreateRemove.Text == "Create Game")
             {
-                GameMode = ControlStatus.Hosting;
+
                 btnCreateRemove.Text = "Remove Game";
 
                 GameName = Player.PlayerName + "'s Game";      // Must Be Set Before GeneratingNewGame Should allow modification eventually 
                 theSharedTicTacToBoardData = GenerateNewGame(); // Get a blank board after generating the game.
-
-//                ticTacToePlayers1.PlayerSymbol = Game.GetCurrentSymbol();       //Attempt to Assign Symbols Automatically
-//                theSharedTicTacToBoardData.NextSymbol = Game.GetCurrentSymbol();    //Works for Two Player only
-                ticTacToePlayers1.PlayerStatus = "Created Game";
+                Player.PlayerStatus = "Created Game";
                 AddGame(GameName);
                 JoinGame(Player);
                 
                 rbJoinGame.Enabled = false;
-                Game.SendMessage(GameName, Player, theSharedTicTacToBoardData); // Send message to Everyone
+                Game.SendMessage(GameName, Player.ToClass(), theSharedTicTacToBoardData); // Send message to Everyone
 
             }
             else // Remove Game
             {
-                GameMode = ControlStatus.Unknown;
                 //ControlStatus.Unknown
                 btnCreateRemove.Text = "Create Game";
-                ticTacToePlayers1.PlayerStatus = "Removed Game";
+                Player.PlayerStatus = "Removed Game";
+                //ticTacToePlayers1.Player.PlayerStatus = "Removed Game";
                 btnStartGame.Enabled = false; // Can't start a game if there isn't one.
                 LeaveGame(Player);
-                GameScore.ClearAllPlayers(); // Clear all scores.
-                Players.Players.Clear(); // Clear all players
+                Players.ClearAllPlayers(); // Clear all scores.
+                Game.theBoard.Players.Clear();
                 RemoveGame(GameName);
                 rbJoinGame.Enabled = true;
 
 
                 theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.RemoveGame;
                 theSharedTicTacToBoardData.MessageString = GameName;
-                Game.SendMessage(GameName, Player, theSharedTicTacToBoardData); // Send message to Everyone
+                Game.SendMessage(GameName, Player.ToClass(), theSharedTicTacToBoardData); // Send message to Everyone
                 Game.ResetGame(theSharedTicTacToBoardData);
 
                 //DO Housekeeping to remove the game.
@@ -382,18 +372,18 @@ namespace MMManager.GameControls
             }
             else // First game and re-set Score.
             {
-                foreach (var item in Players.Players) 
+                foreach (var item in Players.PlayerList) 
                 {
                     GameScore.UpdateScore(item, 0);
                 }
             }
-            theSharedTicTacToBoardData.MessageSender = Player;
+            theSharedTicTacToBoardData.MessageSender = Player.ToClass();
             theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Start; //Set Message to Start the game
             theSharedTicTacToBoardData.MessageString = GameName;
             //Who's Turn is it?
             
             Game.AllButtonsAllowClick(true); //The Host can click
-            Game.SendMessage(GameName, Player, theSharedTicTacToBoardData); // Send message to Everyone
+            Game.SendMessage(GameName, Player.ToClass(), theSharedTicTacToBoardData); // Send message to Everyone
         }
 
         private void lbAvailableGames_Click(object sender, EventArgs e)
@@ -405,7 +395,7 @@ namespace MMManager.GameControls
         public void PlayersChanged()
         {
             //Players is null!!
-                btnStartGame.Enabled = (Players.Players.Count > 1 && btnCreateRemove.Text == "Remove Game");
+                btnStartGame.Enabled = (Players.PlayerList.Count > 1 && btnCreateRemove.Text == "Remove Game");
             
         }
         /// <summary>
@@ -459,9 +449,9 @@ namespace MMManager.GameControls
             Game.AllButtonsEnable(false);
             //Dangerous because it seems that this is going to be re-sent even if it was already sent and just being responded to.
             theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.GameOver;
-            theSharedTicTacToBoardData.MessageSender = Player; // Me
+            theSharedTicTacToBoardData.MessageSender = Player.ToClass(); // Me
             theSharedTicTacToBoardData.State = SharedTicTacToeBoardData.GameState.GameOver;
-            Game.SendMessage(GameName, Player, theSharedTicTacToBoardData);
+            Game.SendMessage(GameName, Player.ToClass(), theSharedTicTacToBoardData);
             if (GameMode == ControlStatus.Hosting)
             {
                 if (btnStartGame.Text == "Start Game" || btnStartGame.Text == "Start Game")
@@ -475,17 +465,15 @@ namespace MMManager.GameControls
         }
         public void JoinGame(IPlayer player)
         {
-            if (ticTacToePlayers1.Players.Find(x => x.PlayerName == player.PlayerName) == null)
-            {
-                ticTacToePlayers1.JoinGame(player);
-            }
-            if (ticTacToePlayers1.ScoreBoard.Players.Find(x => x.PlayerName == player.PlayerName) == null)
-            {
-                ticTacToePlayers1.ScoreBoard.JoinGame(player); // THIS IS ALL WRONG THEY SHOULD BE JOINED ALREADY...
-            }
+            Players.JoinGame(player);
+            //if (Players.PlayerList.Find(x => x.PlayerName == player.PlayerName) == null)
+            //{
+
+            //    Players.JoinGame(player);
+            //}
             if (theSharedTicTacToBoardData.Players.Find(x => x.PlayerName == player.PlayerName) == null)
             {
-                theSharedTicTacToBoardData.Players.Add((PlayerClass)player); // Add this Player.
+                theSharedTicTacToBoardData.Players.Add(player.ToClass()); // Add this Player.
             }
             else
             {
@@ -504,7 +492,7 @@ namespace MMManager.GameControls
             ticTacToePlayers1.WatchGame(player);
             if (!theSharedTicTacToBoardData.Players.Contains(theSharedTicTacToBoardData.Players.Find(x => x.PlayerName == player.PlayerName)))
             {
-                theSharedTicTacToBoardData.Players.Add((PlayerClass)player); // Add this Player.
+                theSharedTicTacToBoardData.Players.Add(player.ToClass()); // Add this Player.
             }
             else
             {
@@ -520,7 +508,8 @@ namespace MMManager.GameControls
         public void UpdateScore(IPlayer player, int currentScore)
         {
             ticTacToePlayers1.UpdateScore(player, currentScore);
-            theSharedTicTacToBoardData.Players = ticTacToePlayers1.Players; // Update Score by replacing Players completly..
+
+            theSharedTicTacToBoardData.Players = ticTacToePlayers1.PlayerList; // Update Score by replacing Players completly..
             //GameScore.UpdateScore(player, currentScore);
         }
 

@@ -1,13 +1,14 @@
 ﻿using MMManager.GameObjects;
+using MMManager.GameControls;
 namespace MMManager.GameInterfaces
 {
-    public interface IGameInfo:IScore
+    public interface IGameInfo
     {
         IGame Game { get; set; } 
         IGameOptions GameOptions { get; set; }
-        //List<PlayerClass> Players { get;  }
-        IPlayers Players { get; }
-        PlayerClass Player { get; set; }
+
+        TicTacToePlayers Players { get; }
+        TicTacToePlayer Player { get; set; }
         IScore GameScore { get; set; }
         void GameOver(string results);
         void AddGame(string gameName);

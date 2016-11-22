@@ -44,8 +44,8 @@ namespace MMManager
 
 
             //Set the main Player Information from outside the Game.
-            PlayerClass p = new PlayerClass() { PlayerName = tbUserName.Text.Trim(), PlayerScore = 0, PlayerStatus = "Test 1-2-3", PlayerSymbol = 10 };
-            ticTacToeBoard1.GameInfo.Player = p; 
+            //PlayerClass p = new PlayerClass() { PlayerName = tbUserName.Text.Trim(), PlayerScore = 0, PlayerStatus = "Test 1-2-3", PlayerSymbol = 10 };
+            //ticTacToeBoard1.GameInfo.Player = p; 
             
         }
 

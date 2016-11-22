@@ -52,11 +52,6 @@
             this.ticTacToeScore1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ticTacToeScore1.Location = new System.Drawing.Point(3, 93);
             this.ticTacToeScore1.Name = "ticTacToeScore1";
-            this.ticTacToeScore1.Player = null;
-            this.ticTacToeScore1.PlayerName = null;
-            this.ticTacToeScore1.PlayerScore = 0;
-            this.ticTacToeScore1.PlayerStatus = null;
-            this.ticTacToeScore1.PlayerSymbol = 0;
             this.ticTacToeScore1.Size = new System.Drawing.Size(184, 163);
             this.ticTacToeScore1.TabIndex = 4;
             // 
