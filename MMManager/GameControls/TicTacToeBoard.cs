@@ -538,16 +538,18 @@ namespace MMManager.GameControls
             _stttbd.MessageValue = theButton.Name;
             _stttbd.MessageString = s.ToString(); 
             SendMessage(GameInfo.GameName, GameInfo.Player.ToClass(), _stttbd);
+            //In normal play it can't be my turn again.. but with +1 it can be.
+            if (_stttbd.WhosTurn.PlayerName == GameInfo.Player.PlayerName)
+                myTurn = true; // What if there is a +x?
+            else
+                myTurn = false;
             DoButtonClick(theButton, s);
 
         }
         private void DoButtonClick(MMManagerTTTButton theButtonClicked, int s)
         {
-            int currentSymbol = getCurrentTurn();
-            if (GameInfo.Player.PlayerSymbol == currentSymbol)
-                myTurn = true; // What if there is a +x?
-            else
-                myTurn = false;
+           // int currentSymbol = getCurrentTurn();
+
             theButton = theButtonClicked; // set for timer
             if (theButton.Tag.ToString() != "1") // Normal Move
             {
@@ -562,6 +564,14 @@ namespace MMManager.GameControls
                 theButton.Tag = "0";
                 AllButtonsAllowClick(false); //Temp Dissallow Clicks
                 timer2.Enabled = true;
+            }
+            if (myTurn)
+            {
+                AllButtonsAllowClick(true);
+            }
+            else
+            {
+                AllButtonsAllowClick(false);
             }
         }
 
@@ -586,14 +596,14 @@ namespace MMManager.GameControls
                 theButton.Text = string.Empty;
                 theButton.ImageIndex = 0;
                 //ONly If it's their Turn
-                //if (myTurn)
+                if (myTurn)
                 {
                     AllButtonsAllowClick(true);
                 }
-                //else
-                //{
-                //    AllButtonsAllowClick(false);
-                //}
+                else
+                {
+                    AllButtonsAllowClick(false);
+                }
 
             }
 
@@ -766,6 +776,11 @@ namespace MMManager.GameControls
 
                 }
                 _stttbd = tsbd; // Sync with what the Host Sent
+                if (_stttbd.WhosTurn.PlayerName == GameInfo.Player.PlayerName)
+                    myTurn = true; // What if there is a +x?
+                else
+                    myTurn = false;
+                
             }
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.GameOver)
             {

@@ -381,8 +381,9 @@ namespace MMManager.GameControls
             theSharedTicTacToBoardData.Message = SharedTicTacToeBoardData.MessageCode.Start; //Set Message to Start the game
             theSharedTicTacToBoardData.MessageString = GameName;
             //Who's Turn is it?
-            
+            theSharedTicTacToBoardData.WhosTurn = Player.ToClass(); // Make it my turn
             Game.AllButtonsAllowClick(true); //The Host can click
+
             Game.SendMessage(GameName, Player.ToClass(), theSharedTicTacToBoardData); // Send message to Everyone
         }
 

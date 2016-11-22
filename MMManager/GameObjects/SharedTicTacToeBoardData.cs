@@ -42,6 +42,7 @@ namespace MMManager.GameObjects
             GameOver = 17
 
         };
+        private PlayerClass lastTurn { get; set; }
         public List<PlayerClass> Players;
         public string GameName { get; set; } // Filter so multiple Games can co-exist.
         public GameState State { get; set; }
@@ -49,7 +50,35 @@ namespace MMManager.GameObjects
         public string MessageString { get; set; }
         public string MessageValue { get; set; }
         public PlayerClass MessageSender { get; set; }
-        public int NextSymbol { get; set; }
+        public PlayerClass WhosTurn
+        {
+            get
+            {
+                int nt = 0;
+                for (int i = 0; i < Players.Count; i++)
+                {
+                    if (Players[i] == lastTurn)
+                    {
+                        if (i + 1 < Players.Count)
+                        {
+                            nt = i + 1;
+                        }
+                        else
+                        {
+                            nt = 0;
+                        }
+                        break;
+                    }
+                }
+                lastTurn = Players[nt]; // Set up for next time it's checked.
+                return Players[nt];
+            }
+            set
+            {
+                lastTurn = value;
+            }
+
+        }
         public int GameSize { get; set; }
         public int[] GameBoard;
         /// <summary>
