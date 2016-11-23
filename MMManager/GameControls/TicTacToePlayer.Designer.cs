@@ -86,9 +86,9 @@
             // lblSymbol
             // 
             this.lblSymbol.AutoSize = true;
-            this.lblSymbol.Location = new System.Drawing.Point(98, 45);
+            this.lblSymbol.Location = new System.Drawing.Point(90, 19);
             this.lblSymbol.Name = "lblSymbol";
-            this.lblSymbol.Size = new System.Drawing.Size(55, 13);
+            this.lblSymbol.Size = new System.Drawing.Size(13, 13);
             this.lblSymbol.TabIndex = 6;
             this.lblSymbol.Text = "0";
             // 
