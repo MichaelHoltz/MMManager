@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Windows.Forms;
 using MMManager.GameObjects;
 using MMManager.CommInterfaces;
+
 namespace MMManager.GameInterfaces
 {
     public interface IGame
     {
-        System.Windows.Forms.ImageList ButtonImageList {get; set;}
+        ImageList ButtonImageList {get; set;}
         IGameInfo GameInfo { get; set; }
         SharedTicTacToeBoardData GenerateNewGame(); //Host Only
         PlayerClass GetNextPlayer(PlayerClass currentPlayer);
