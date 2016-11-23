@@ -4,6 +4,7 @@ using System.ServiceModel;
 using System.Drawing;
 using MMManager.GameObjects;
 using MMManager.CommInterfaces;
+using MMManager.GameInterfaces;
 using MMManager.PersistanceObjects;
 namespace MMManager
 {
@@ -112,8 +113,21 @@ namespace MMManager
             {
                 rtbMessages.AppendColorText("\r\n" + name + " left at " + DateTime.Now.ToString() + "\r\n", Color.Green);
                 lstUsers.Items.Remove(name);
-                PlayerClass p = new PlayerClass() { PlayerName = name };
-                ticTacToeBoard1.GameInfo.Players.LeaveGame(p);
+                PlayerClass p = (ticTacToeBoard1 as IGame).theBoard.Players.Find(x => x.PlayerName == name); //Have the player that sent the Leave Message
+                if (p != null)
+                {
+
+                    String GameName = (ticTacToeBoard1 as IGame).theBoard.GameName;
+                    (ticTacToeBoard1 as IGame).theBoard.MessageSender = p;
+                    (ticTacToeBoard1 as IGame).theBoard.Message = SharedTicTacToeBoardData.MessageCode.LeaveGame;
+                    (ticTacToeBoard1 as IGame).theBoard.MessageString = "";
+                    (ticTacToeBoard1 as IGame).theBoard.MessageValue = "";
+                    (ticTacToeBoard1 as IGame).SendMessage(GameName, p, (ticTacToeBoard1 as IGame).theBoard); //Send the message
+                }
+                else
+                {
+                   // MessageBox.Show(name + " left the game by closing the window but can't be found in the board Players by name.");
+                }
             }
             catch (Exception ex)
             {
@@ -162,7 +176,7 @@ namespace MMManager
         /// <param name="theBoard">The Current Board</param>
         private void MMMChatClient_TicTacToeMessageSent(string gameName, PlayerClass player, SharedTicTacToeBoardData theSharedBoardData)
         {
-            propertyGrid1.SelectedObject = theSharedBoardData; // For Debugging Stuff.. will be removed.
+            propertyGrid1.SelectedObject = theSharedBoardData.Players; // For Debugging Stuff.. will be removed.
             ticTacToeBoard1.ReceiveMessage(gameName, player, theSharedBoardData);
         }
         #region IChatService Members

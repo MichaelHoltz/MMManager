@@ -31,6 +31,7 @@ namespace MMManager.GameControls
         public void UpdateScore(IPlayer player, int score)
         {
             Players.Find(x => x.PlayerName == player.PlayerName).PlayerScore = score;
+            RefreshData(Players);
         }
 
         private void TicTacToeScore_Load(object sender, EventArgs e)

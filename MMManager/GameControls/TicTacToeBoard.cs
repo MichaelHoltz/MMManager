@@ -28,6 +28,34 @@ namespace MMManager.GameControls
         MMManagerTTTButton[,] b;
         private Color bColor;
         private Boolean myTurn = true; // Default to my Turn.
+        /// <summary>
+        /// Function to get the next player after the current one
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <returns></returns>
+        public PlayerClass GetNextPlayer(PlayerClass currentPlayer)
+        {
+            int nt = 0;
+            //Go through each Player
+            for (int i = 0; i < GameInfo.Players.PlayerList.Count; i++)
+            {
+                if (GameInfo.Players.PlayerList[i].PlayerName == currentPlayer.PlayerName)
+                {
+                    if (i + 1 < GameInfo.Players.PlayerList.Count)
+                    {
+                        nt = i + 1; //Next Player in the list
+                    }
+                    else
+                    {
+                        nt = 0; // Go back to start
+                    }
+                    break;
+                }
+            }
+            label1.Text = "It's " + GameInfo.Players.PlayerList[nt].PlayerName + "'s Turn";
+            _stttbd.WhosTurn = GameInfo.Players.PlayerList[nt];//Assign to the Shared Board Data
+            return GameInfo.Players.PlayerList[nt];
+        }
         public IGameInfo GameInfo
         {
             get
@@ -77,7 +105,7 @@ namespace MMManager.GameControls
         public TicTacToeBoard()
         {
             InitializeComponent();
-
+            _stttbd = new SharedTicTacToeBoardData(); // Generate new empty Stuff.
             bColor = Color.FromKnownColor(KnownColor.Control);
             
         }
@@ -471,25 +499,25 @@ namespace MMManager.GameControls
 
         }
 
-        /// <summary>
-        /// Figure Out who's turn it is
-        /// </summary>
-        /// <returns></returns>
-        public int GetCurrentSymbol()
-        {
-            //need a shared index so that the players can take turns
-            label1.Text = "It's " + _stttbd.Players[0].PlayerName + "'s Turn";
-            return _stttbd.Players[0].PlayerSymbol;
-        }
-        /// <summary>
-        /// Function to get the next person's turn by symbol
-        /// </summary>
-        /// <returns></returns>
-        private int getCurrentTurn()
-        {
-            label1.Text = "It's " + _stttbd.Players[0].PlayerName + "'s Turn";
-            return _stttbd.Players[0].PlayerSymbol;
-        }
+        ///// <summary>
+        ///// Figure Out who's turn it is
+        ///// </summary>
+        ///// <returns></returns>
+        //public int GetCurrentSymbol()
+        //{
+        //    //need a shared index so that the players can take turns
+        //    label1.Text = "It's " + _stttbd.Players[0].PlayerName + "'s Turn";
+        //    return _stttbd.Players[0].PlayerSymbol;
+        //}
+        ///// <summary>
+        ///// Function to get the next person's turn by symbol
+        ///// </summary>
+        ///// <returns></returns>
+        //private int getCurrentTurn()
+        //{
+        //    label1.Text = "It's " + _stttbd.Players[0].PlayerName + "'s Turn";
+        //    return _stttbd.Players[0].PlayerSymbol;
+        //}
         /// <summary>
         /// Function to Set all buttons to Enable or Disable (Mostly Disable)
         /// </summary>
@@ -536,13 +564,23 @@ namespace MMManager.GameControls
             _stttbd.MessageSender = GameInfo.Player.ToClass();
             _stttbd.Message = SharedTicTacToeBoardData.MessageCode.Move;
             _stttbd.MessageValue = theButton.Name;
-            _stttbd.MessageString = s.ToString(); 
-            SendMessage(GameInfo.GameName, GameInfo.Player.ToClass(), _stttbd);
+            _stttbd.MessageString = s.ToString();
+
             //In normal play it can't be my turn again.. but with +1 it can be.
-            if (_stttbd.WhosTurn.PlayerName == GameInfo.Player.PlayerName)
-                myTurn = true; // What if there is a +x?
+            //IF I didn't get a +1 then it's not my turn - But that is determined in DoButtonClick.
+            //GetNextPlayer assigns to _Sttbd
+            
+            GameInfo.GameScore.UpdateScore(GameInfo.Player, GameInfo.GameScore.GetScore(GameInfo.Player) + 1);
+            _stttbd.Players = GameInfo.Players.PlayerList; // Brute Force Update.
+            if (GetNextPlayer(GameInfo.Player.ToClass()).PlayerName == GameInfo.Player.PlayerName) //Returns next Player
+            {
+                myTurn = true;
+            }
             else
+            {
                 myTurn = false;
+            }
+            SendMessage(GameInfo.GameName, GameInfo.Player.ToClass(), _stttbd); // Sending off including who's turn
             DoButtonClick(theButton, s);
 
         }
@@ -612,11 +650,6 @@ namespace MMManager.GameControls
   
         private void ticTacToeStartOrJoin1_Load(object sender, EventArgs e)
         {
-          // // GameInfo.Players = ticTacToeStartOrJoin1.Players;
-          //  GameInfo.Player = ticTacToeStartOrJoin1.Player;
-          //  GameInfo.GameScore = ticTacToeStartOrJoin1.GameScore;
-          ////  _gameInfo = this.ticTacToeStartOrJoin1;
-          ////  _gameInfo.Game = this;
         }
 
 
@@ -624,9 +657,6 @@ namespace MMManager.GameControls
         {
 
             GameInfo.Game = this; //Set the Child control to see parent.
-            //GameInfo.Player = ticTacToeStartOrJoin1.Player;
-            //GameInfo.GameScore = ticTacToeStartOrJoin1.GameScore;
-           
         }
 
         public void ReceiveMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData tsbd)
@@ -646,22 +676,31 @@ namespace MMManager.GameControls
                     {
                         tsbd = _stttbd; // Set to what is being Hosted
                         tsbd.MessageSender = GameInfo.Player.ToClass();
-                        tsbd.Message = SharedTicTacToeBoardData.MessageCode.NewGame;
+                        tsbd.Message = SharedTicTacToeBoardData.MessageCode.GameInfo;
                         tsbd.MessageString = GameInfo.GameName;
                         SendMessage(GameInfo.GameName, GameInfo.Player.ToClass(), tsbd); // Send message to Everyone
                     }
                 }
             }
+            if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.GameInfo)
+            {
+                if (GameInfo.GameMode != ControlStatus.Hosting) // ONly for Joining people
+                {
+                    _stttbd = tsbd; // Update the board from the host.
+                }
+            }
             //A new Game has been published
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.NewGame)
             {
-                GameInfo.BoardData = tsbd;
+                _stttbd = tsbd; // Set to what was just sent.
+                //GameInfo.BoardData = tsbd;
                 GameInfo.AddGame(tsbd.MessageString);
 
             }
             //A game has be removed
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.RemoveGame)
             {
+                
                 GameInfo.GameState = SharedTicTacToeBoardData.GameState.Waiting;
                 tsbd.Players.Clear(); // THis is the received Message and doesn't do anything but for the next message..
                 theBoard.Players.Clear(); // This removes the internal players.
@@ -695,13 +734,18 @@ namespace MMManager.GameControls
             {
                 
                 _stttbd = tsbd; // Sync with what the Host Sent
-                GameInfo.BoardData = tsbd;
+                //GameInfo.BoardData = tsbd;
                 if (GameInfo.GameMode != ControlStatus.Hosting)
                 {
                     ResetGame(tsbd);
                     GenerateGameButtons(tsbd); // The board is alread Decoded.
                 }
-                AllButtonsAllowClick(true); //ALLOW anyone to click for now
+                label1.Text = "It's " + _stttbd.WhosTurn.PlayerName + "'s Turn";
+                if (_stttbd.WhosTurn.PlayerName == GameInfo.Player.PlayerName)
+                    myTurn = true; // What if there is a +x?
+                else
+                    myTurn = false;
+                AllButtonsAllowClick(myTurn);
                 //Update the Score View and set all scores to zero.
                 foreach (var item in GameInfo.Players.PlayerList)
                 {
@@ -718,11 +762,14 @@ namespace MMManager.GameControls
                 {
                     _stttbd.Players.Add(tsbd.MessageSender);
                 }
-                tsbd.Message = SharedTicTacToeBoardData.MessageCode.SyncBoard;
-                tsbd.MessageSender = GameInfo.Player.ToClass();
-                tsbd.GameSize = GameInfo.GameOptions.GridSize;
-                SendMessage(GameInfo.GameName, GameInfo.Player.ToClass(), tsbd);
-                GameInfo.PlayersChanged(); // Allow the Start Button if there are more than 1 players.
+                if (GameInfo.GameMode == ControlStatus.Hosting)
+                {
+                    tsbd.Message = SharedTicTacToeBoardData.MessageCode.SyncBoard;
+                    tsbd.MessageSender = GameInfo.Player.ToClass();
+                    tsbd.GameSize = GameInfo.GameOptions.GridSize;
+                    SendMessage(GameInfo.GameName, GameInfo.Player.ToClass(), tsbd);
+                    GameInfo.PlayersChanged(); // Allow the Start Button if there are more than 1 players.
+                }
             }
             //Watch Only mode
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.Watch)
@@ -776,11 +823,12 @@ namespace MMManager.GameControls
 
                 }
                 _stttbd = tsbd; // Sync with what the Host Sent
+                label1.Text = "It's " + _stttbd.WhosTurn.PlayerName + "'s Turn";
                 if (_stttbd.WhosTurn.PlayerName == GameInfo.Player.PlayerName)
                     myTurn = true; // What if there is a +x?
                 else
                     myTurn = false;
-                
+                AllButtonsAllowClick(myTurn);
             }
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.GameOver)
             {
@@ -799,6 +847,12 @@ namespace MMManager.GameControls
             {
 
                 ServiceProvider.SendTicTacToeMessage(gameName, player, theSharedBoardData);
+                //Clear the settings so it doesn't cause bugs and confusion.
+                theSharedBoardData.Message = SharedTicTacToeBoardData.MessageCode.Nothing;
+                theSharedBoardData.MessageSender = null;
+                theSharedBoardData.MessageString = string.Empty;
+                theSharedBoardData.MessageValue = string.Empty;
+                
                 
             }
             //else

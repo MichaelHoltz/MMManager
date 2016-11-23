@@ -8,7 +8,7 @@ namespace MMManager.GameInterfaces
         System.Windows.Forms.ImageList ButtonImageList {get; set;}
         IGameInfo GameInfo { get; set; }
         SharedTicTacToeBoardData GenerateNewGame(); //Host Only
-        int GetCurrentSymbol();
+        PlayerClass GetNextPlayer(PlayerClass currentPlayer);
         void AllButtonsAllowClick(Boolean allow);
         void AllButtonsEnable(Boolean enable);
         SharedTicTacToeBoardData ResetGame(SharedTicTacToeBoardData theSharedBoardData);   //Members and Host

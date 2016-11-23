@@ -161,6 +161,7 @@ namespace MMManager.GameControls
             if (match != null)
             {
                 PlayerList.Remove(match);
+                
             }
             ScoreBoard.RefreshData(PlayerList);
         }

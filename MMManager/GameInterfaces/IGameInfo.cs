@@ -21,7 +21,7 @@ namespace MMManager.GameInterfaces
 
         ControlStatus GameMode { get; set;}
         SharedTicTacToeBoardData.GameState GameState { get; set; }
-        SharedTicTacToeBoardData BoardData { get; set; }
+        //SharedTicTacToeBoardData BoardData { get; set; }
     }
 
     public enum ControlStatus

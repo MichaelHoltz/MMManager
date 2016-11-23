@@ -121,7 +121,6 @@
             // 
             this.ticTacToeStartOrJoin1.AutoSize = true;
             this.ticTacToeStartOrJoin1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ticTacToeStartOrJoin1.BoardData = null;
             this.ticTacToeStartOrJoin1.Game = null;
             this.ticTacToeStartOrJoin1.GameMode = MMManager.GameInterfaces.ControlStatus.Unknown;
             this.ticTacToeStartOrJoin1.GameName = null;
