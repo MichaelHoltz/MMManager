@@ -6,7 +6,6 @@ namespace MMManager.GameInterfaces
     {
         IGame Game { get; set; } 
         IGameOptions GameOptions { get; set; }
-
         TicTacToePlayers Players { get; }
         TicTacToePlayer Player { get; set; }
         IScore GameScore { get; set; }
@@ -16,12 +15,10 @@ namespace MMManager.GameInterfaces
         string GameName { get; set; }
         void StartGame(string gameName);
         void PlayersChanged();
-
         void RefreshGameList();
-
         ControlStatus GameMode { get; set;}
         SharedTicTacToeBoardData.GameState GameState { get; set; }
-        //SharedTicTacToeBoardData BoardData { get; set; }
+
     }
 
     public enum ControlStatus
