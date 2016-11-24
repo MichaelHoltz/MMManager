@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using MMManager.GameInterfaces;
 using MMManager.GameObjects;
-
+using MMManager.Controls;
 namespace MMManager.GameControls
 {
     public partial class TicTacToeScore : UserControl, IScore
@@ -81,6 +81,11 @@ namespace MMManager.GameControls
                 //_ButtonImageList = value;
                 //lblSymbol.ImageList = _ButtonImageList;
             }
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            dataGridView1.ClearSelection();
         }
     }
 }

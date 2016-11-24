@@ -29,24 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TicTacToePlayers));
-            this.ticTacToePlayer1 = new MMManager.GameControls.TicTacToePlayer();
             this.ticTacToeScore1 = new MMManager.GameControls.TicTacToeScore();
+            this.ticTacToePlayer1 = new MMManager.GameControls.TicTacToePlayer();
             this.SuspendLayout();
-            // 
-            // ticTacToePlayer1
-            // 
-            this.ticTacToePlayer1.AutoSize = true;
-            this.ticTacToePlayer1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ticTacToePlayer1.BackgroundImage")));
-            this.ticTacToePlayer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ticTacToePlayer1.Location = new System.Drawing.Point(2, 1);
-            this.ticTacToePlayer1.Name = "ticTacToePlayer1";
-            this.ticTacToePlayer1.PlayerName = "Unknown";
-            this.ticTacToePlayer1.PlayerScore = 0;
-            this.ticTacToePlayer1.PlayerStatus = "Unknown";
-            this.ticTacToePlayer1.PlayerSymbol = 0;
-            this.ticTacToePlayer1.Size = new System.Drawing.Size(184, 77);
-            this.ticTacToePlayer1.TabIndex = 5;
             // 
             // ticTacToeScore1
             // 
@@ -57,6 +42,21 @@
             this.ticTacToeScore1.Name = "ticTacToeScore1";
             this.ticTacToeScore1.Size = new System.Drawing.Size(184, 163);
             this.ticTacToeScore1.TabIndex = 4;
+            // 
+            // ticTacToePlayer1
+            // 
+            this.ticTacToePlayer1.AutoSize = true;
+            this.ticTacToePlayer1.BackgroundImage = global::MMManager.Properties.Resources.Copper;
+            this.ticTacToePlayer1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ticTacToePlayer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ticTacToePlayer1.Location = new System.Drawing.Point(5, 3);
+            this.ticTacToePlayer1.Name = "ticTacToePlayer1";
+            this.ticTacToePlayer1.PlayerName = null;
+            this.ticTacToePlayer1.PlayerScore = 0;
+            this.ticTacToePlayer1.PlayerStatus = null;
+            this.ticTacToePlayer1.PlayerSymbol = 0;
+            this.ticTacToePlayer1.Size = new System.Drawing.Size(178, 71);
+            this.ticTacToePlayer1.TabIndex = 5;
             // 
             // TicTacToePlayers
             // 

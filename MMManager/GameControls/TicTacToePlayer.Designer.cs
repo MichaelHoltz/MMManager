@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TicTacToePlayer));
             this.lblNameLabel = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.lblSymbolLabel = new System.Windows.Forms.Label();
@@ -99,7 +98,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::MMManager.Properties.Resources.Copper;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.lblSymbol);
             this.Controls.Add(this.lblStatus);

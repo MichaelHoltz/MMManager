@@ -82,6 +82,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\MMMDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\RichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -252,6 +255,8 @@
   <ItemGroup>
     <Content Include="group.ico" />
     <None Include="images\Arcade - Pac-Man - General Sprites.png" />
+    <None Include="images\BrushedPlat.jpg" />
+    <None Include="images\Copper.jpg" />
     <Content Include="InformationAndLinks.txt" />
     <Content Include="Sounds\Blop.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
