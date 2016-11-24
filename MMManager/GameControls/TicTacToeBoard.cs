@@ -13,6 +13,7 @@ namespace MMManager.GameControls
     [Serializable]
     public partial class TicTacToeBoard : UserControl,IGame
     {
+        private System.Windows.Media.MediaPlayer mp;
         private SharedTicTacToeBoardData _stttbd; //Contains all neeeded
         private MMManagerTTTButton theButton; //Shared Button Object
         private int messagesReceivedCount = 0;
@@ -28,6 +29,23 @@ namespace MMManager.GameControls
         MMManagerTTTButton[,] b;
         private Color bColor;
         private Boolean myTurn = true; // Default to my Turn.
+        private void playSound(int sound)
+        {
+            mp = new System.Windows.Media.MediaPlayer();
+            string currentDir = System.IO.Directory.GetCurrentDirectory() + @"\Sounds\";
+            if (sound == 1)
+            {
+                mp.Open(new System.Uri(currentDir + @"GameStart.mp3"));
+            }
+            if (sound == 2)
+            {
+                mp.Open(new System.Uri(currentDir + @"PlayerRemove.mp3"));
+            }
+
+            mp.Play();
+
+
+        }
         /// <summary>
         /// Function to get the next player after the current one
         /// </summary>
@@ -74,7 +92,9 @@ namespace MMManager.GameControls
         /// This is the host form.. that handles messages in general
         /// </summary>
         public IMessageRelay ServiceProvider { get; set; }
-
+        /// <summary>
+        /// Master Image List For the Buttons
+        /// </summary>
         public ImageList ButtonImageList
         {
             get
@@ -84,6 +104,7 @@ namespace MMManager.GameControls
 
             set
             {
+                //GameInfo.Player.ButtonImageList = value;
                 _ButtonImageList = value;
             }
         }
@@ -488,12 +509,14 @@ namespace MMManager.GameControls
                     b[item.Y, item.X].BackColor = Color.Red;
                 }
                 label1.Text = "Game Over";
+                GameInfo.playSound(4); // Play Game End
                 GameInfo.GameOver(label1.Text);
             }
             //Check for Draw
             if (TotalNumMoves == maxX * maxY) // All spaces are filled
             {
                 label1.Text = "Cat's Game";
+                GameInfo.playSound(3); // Play Cat
                 GameInfo.GameOver(label1.Text);
             }
 
@@ -559,8 +582,7 @@ namespace MMManager.GameControls
         {
             theButton = (sender as MMManagerTTTButton);
             int s = GameInfo.Player.PlayerSymbol; //  GetCurrentSymbol().ToString(); // Use the Current Symbol
-            //Show Who's Turn it is
-
+            //How Am I sure that _sttbd is current?
             _stttbd.MessageSender = GameInfo.Player.ToClass();
             _stttbd.Message = SharedTicTacToeBoardData.MessageCode.Move;
             _stttbd.MessageValue = theButton.Name;
@@ -569,9 +591,11 @@ namespace MMManager.GameControls
             //In normal play it can't be my turn again.. but with +1 it can be.
             //IF I didn't get a +1 then it's not my turn - But that is determined in DoButtonClick.
             //GetNextPlayer assigns to _Sttbd
-            
-            GameInfo.GameScore.UpdateScore(GameInfo.Player, GameInfo.GameScore.GetScore(GameInfo.Player) + 1);
-            _stttbd.Players = GameInfo.Players.PlayerList; // Brute Force Update.
+            //GameInfo.UpdateScore(GameInfo.Player, GameInfo.GameScore.GetScore(GameInfo.Player) + 1);
+            Random r = new Random(DateTime.Now.Millisecond);
+            GameInfo.playSound(r.Next(10, 16)); // Play random Move Sound
+            GameInfo.GameScore.UpdateScore(GameInfo.Player, GameInfo.GameScore.GetScore(GameInfo.Player) + 1, _stttbd);
+           // _stttbd.Players = GameInfo.Players.PlayerList; // Brute Force Update.
             if (GetNextPlayer(GameInfo.Player.ToClass()).PlayerName == GameInfo.Player.PlayerName) //Returns next Player
             {
                 myTurn = true;
@@ -586,7 +610,6 @@ namespace MMManager.GameControls
         }
         private void DoButtonClick(MMManagerTTTButton theButtonClicked, int s)
         {
-           // int currentSymbol = getCurrentTurn();
 
             theButton = theButtonClicked; // set for timer
             if (theButton.Tag.ToString() != "1") // Normal Move
@@ -687,6 +710,7 @@ namespace MMManager.GameControls
                 if (GameInfo.GameMode != ControlStatus.Hosting) // ONly for Joining people
                 {
                     _stttbd = tsbd; // Update the board from the host.
+                    GameInfo.AddGame(tsbd.MessageString);
                 }
             }
             //A new Game has been published
@@ -747,10 +771,10 @@ namespace MMManager.GameControls
                     myTurn = false;
                 AllButtonsAllowClick(myTurn);
                 //Update the Score View and set all scores to zero.
-                foreach (var item in GameInfo.Players.PlayerList)
-                {
-                    GameInfo.GameScore.UpdateScore(item, 0);
-                }
+                //foreach (var item in GameInfo.Players.PlayerList)
+                //{
+                //    GameInfo.GameScore.UpdateScore(item, 0);
+                //}
                 //GameInfo.BoardData = theSharedBoardData;
                 GameInfo.StartGame(GameInfo.GameName);
             }
@@ -823,6 +847,10 @@ namespace MMManager.GameControls
 
                 }
                 _stttbd = tsbd; // Sync with what the Host Sent
+                GameInfo.GameScore.UpdateScore(GameInfo.Player, GameInfo.GameScore.GetScore(GameInfo.Player), _stttbd);
+                Random r = new Random(DateTime.Now.Millisecond);
+
+                GameInfo.playSound(r.Next(10, 16)); // Play random Move Sound
                 label1.Text = "It's " + _stttbd.WhosTurn.PlayerName + "'s Turn";
                 if (_stttbd.WhosTurn.PlayerName == GameInfo.Player.PlayerName)
                     myTurn = true; // What if there is a +x?
@@ -834,7 +862,16 @@ namespace MMManager.GameControls
             {
                 if (GameInfo.GameMode != ControlStatus.Hosting)
                 {
-                   // GameInfo.GameOver("unknown"); // Just acknowledging the Game Over Message.
+                    //GameInfo.GameOver(tsbd.MessageString); // Just acknowledging the Game Over Message.
+                }
+                label1.Text = tsbd.MessageString; // Update the status.
+                if (tsbd.MessageString == "Cat's Game")
+                {
+                    GameInfo.playSound(3); // Play Cat
+                }
+                if (tsbd.MessageString == "Game Over")
+                {
+                    GameInfo.playSound(4); // Play Game End
                 }
             }
 

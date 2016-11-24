@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            MMManager.GameObjects.PlayerClass playerClass1 = new MMManager.GameObjects.PlayerClass();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TicTacToeStartOrJoin));
             this.lbAvailableGames = new System.Windows.Forms.ListBox();
             this.lblAvailableGames = new System.Windows.Forms.Label();
             this.btnJoin = new System.Windows.Forms.Button();
@@ -37,13 +37,13 @@
             this.btnCreateRemove = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ticTacToeOptions1 = new MMManager.GameControls.TicTacToeOptions();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.ticTacToePlayers1 = new MMManager.GameControls.TicTacToePlayers();
             this.lblGameStatus = new System.Windows.Forms.Label();
             this.rbHost = new System.Windows.Forms.RadioButton();
             this.rbJoinGame = new System.Windows.Forms.RadioButton();
-            this.ticTacToePlayers1 = new MMManager.GameControls.TicTacToePlayers();
-            this.ticTacToeOptions1 = new MMManager.GameControls.TicTacToeOptions();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -137,6 +137,16 @@
             this.panel1.TabIndex = 10;
             this.panel1.Visible = false;
             // 
+            // ticTacToeOptions1
+            // 
+            this.ticTacToeOptions1.AutoSize = true;
+            this.ticTacToeOptions1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ticTacToeOptions1.Location = new System.Drawing.Point(0, -1);
+            this.ticTacToeOptions1.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.ticTacToeOptions1.Name = "ticTacToeOptions1";
+            this.ticTacToeOptions1.Size = new System.Drawing.Size(160, 209);
+            this.ticTacToeOptions1.TabIndex = 1;
+            // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -160,6 +170,17 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(207, 270);
             this.panel3.TabIndex = 12;
+            // 
+            // ticTacToePlayers1
+            // 
+            this.ticTacToePlayers1.AutoSize = true;
+            this.ticTacToePlayers1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ticTacToePlayers1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ticTacToePlayers1.Location = new System.Drawing.Point(7, 22);
+            this.ticTacToePlayers1.Name = "ticTacToePlayers1";
+            this.ticTacToePlayers1.Size = new System.Drawing.Size(191, 247);
+            this.ticTacToePlayers1.TabIndex = 10;
+            this.ticTacToePlayers1.Load += new System.EventHandler(this.ticTacToePlayers1_Load);
             // 
             // lblGameStatus
             // 
@@ -191,27 +212,6 @@
             this.rbJoinGame.Text = "Join a Game";
             this.rbJoinGame.UseVisualStyleBackColor = true;
             this.rbJoinGame.CheckedChanged += new System.EventHandler(this.rbJoinGame_CheckedChanged);
-            // 
-            // ticTacToePlayers1
-            // 
-            this.ticTacToePlayers1.AutoSize = true;
-            this.ticTacToePlayers1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ticTacToePlayers1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ticTacToePlayers1.Location = new System.Drawing.Point(8, 25);
-            this.ticTacToePlayers1.Name = "ticTacToePlayers1";
-            this.ticTacToePlayers1.Size = new System.Drawing.Size(192, 237);
-            this.ticTacToePlayers1.TabIndex = 10;
-            this.ticTacToePlayers1.Load += new System.EventHandler(this.ticTacToePlayers1_Load);
-            // 
-            // ticTacToeOptions1
-            // 
-            this.ticTacToeOptions1.AutoSize = true;
-            this.ticTacToeOptions1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ticTacToeOptions1.Location = new System.Drawing.Point(0, -1);
-            this.ticTacToeOptions1.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
-            this.ticTacToeOptions1.Name = "ticTacToeOptions1";
-            this.ticTacToeOptions1.Size = new System.Drawing.Size(160, 209);
-            this.ticTacToeOptions1.TabIndex = 1;
             // 
             // TicTacToeStartOrJoin
             // 

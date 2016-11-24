@@ -7,76 +7,55 @@ namespace MMManager.GameControls
 {
     public partial class TicTacToePlayers : UserControl, IPlayers
     {
+        private System.Windows.Media.MediaPlayer mp;
+        private void P2_MediaEnded(object sender, EventArgs e)
+        {
+            //(sender as System.Windows.Media.MediaPlayer).Position = TimeSpan.Zero;
+            //(sender as System.Windows.Media.MediaPlayer).Play();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            mp = new System.Windows.Media.MediaPlayer();
+            mp.MediaEnded += P2_MediaEnded;
+            string currentDir = System.IO.Directory.GetCurrentDirectory();
+            //SoundPlayer simpleSound = new SoundPlayer(currentDir + @"\Sounds\Bomb_Exploding.wav");
+            //mp.Open(new System.Uri(@"C:\Projects\MMManager\MMManager\Sounds\GameWaitingMusic.wav"));
+            mp.Open(new System.Uri(@"PlayerAdd.mp3"));
+            mp.Play();
+        }
+        private void playSound(int sound)
+        {
+            mp = new System.Windows.Media.MediaPlayer();
+            string currentDir = System.IO.Directory.GetCurrentDirectory() + @"\Sounds\";
+            if (sound == 1)
+            {
+                mp.Open(new System.Uri(currentDir + @"PlayerAdd.mp3"));
+            }
+            if (sound == 2)
+            {
+                mp.Open(new System.Uri(currentDir + @"PlayerRemove.mp3"));
+            }
+
+            mp.Play();
+
+
+        }
 
         public TicTacToePlayers()
         {
+
+
             InitializeComponent();
             PlayerList = new List<PlayerClass>(); // Must create here as it is read only
-            
         }
         private void TicTacToePlayers_Load(object sender, EventArgs e)
         {
-            ScoreBoard = ticTacToeScore1;
+          //  ScoreBoard = ticTacToeScore1;
+          //  Player = ticTacToePlayer1;
         }
 
-        //*********************************************************************************
-        #region IPlayer interface
-        //*********************************************************************************
-        //public string PlayerName
-        //{ 
-        //    get
-        //    {
-        //        return ticTacToePlayer1.PlayerName;
-        //    }
-
-        //    set
-        //    {
-        //        ticTacToePlayer1.PlayerName = value;
-
-        //    }
-        //}
-
-        //public int PlayerSymbol
-        //{
-        //    get
-        //    {
-        //        return ticTacToePlayer1.PlayerSymbol;
-        //    }
-
-        //    set
-        //    {
-        //        ticTacToePlayer1.PlayerSymbol = value;
-        //    }
-        //}
-
-        //public int PlayerScore
-        //{
-        //    get
-        //    {
-        //        return ticTacToePlayer1.PlayerScore;
-        //    }
-
-        //    set
-        //    {
-        //        ticTacToePlayer1.PlayerScore = value;
-        //    }
-        //}
-
-        //public string PlayerStatus
-        //{
-        //    get
-        //    {
-        //        return ticTacToePlayer1.PlayerStatus;
-        //    }
-        //    set
-        //    {
-        //        ticTacToePlayer1.PlayerStatus = value;
-        //    }
-        //}
-        //*********************************************************************************
-        #endregion
-        //*********************************************************************************
-
+ 
         public IScore ScoreBoard {
             get
             {
@@ -104,10 +83,10 @@ namespace MMManager.GameControls
                 if (value != null)
                 {
                     ticTacToePlayer1 = value;
-                    //ticTacToePlayer1.PlayerName = value.PlayerName;
-                    //ticTacToePlayer1.PlayerSymbol = value.PlayerSymbol;
-                    //ticTacToePlayer1.PlayerStatus = value.PlayerStatus;
-                    //ticTacToePlayer1.PlayerScore = value.PlayerScore;
+                   // ticTacToePlayer1.PlayerName = value.PlayerName;
+                   // ticTacToePlayer1.PlayerSymbol = value.PlayerSymbol;
+                   // ticTacToePlayer1.PlayerStatus = value.PlayerStatus;
+                   // ticTacToePlayer1.PlayerScore = value.PlayerScore;
                 }
                 
                 
@@ -124,10 +103,11 @@ namespace MMManager.GameControls
                 if (PlayerList.Find(x => x.PlayerName == player.PlayerName) == null)
                 {
                     PlayerList.Add(player.ToClass());
+                    playSound(1);
                 }
                 else
                 {
-                    MessageBox.Show(player.PlayerName + " Already Taken");
+                    //MessageBox.Show(player.PlayerName + " Already Taken");
                 }
                 ScoreBoard.RefreshData(PlayerList);
             }
@@ -161,7 +141,7 @@ namespace MMManager.GameControls
             if (match != null)
             {
                 PlayerList.Remove(match);
-                
+                playSound(2);
             }
             ScoreBoard.RefreshData(PlayerList);
         }
@@ -174,16 +154,15 @@ namespace MMManager.GameControls
         //*********************************************************************************
 
 
-        public void UpdateScore(IPlayer player, int currentScore)
-        {
-            ScoreBoard.UpdateScore(player, currentScore);
-            //theSharedTicTacToBoardData.Players = ticTacToePlayers1.Players; // Update Score by replacing Players completly..
-        }
+        //public void UpdateScore(IPlayer player, int currentScore)
+        //{
+        //    ScoreBoard.UpdateScore(player, currentScore);
+        //}
 
-        public int GetScore(IPlayer player)
-        {
-            return ScoreBoard.GetScore(player);
-        }
+        //public int GetScore(IPlayer player)
+        //{
+        //    return ScoreBoard.GetScore(player);
+        //}
         public void ClearAllPlayers()
         {
             PlayerList.Clear();

@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.lblScoreBoard = new System.Windows.Forms.Label();
+            this._ButtonImageList = new System.Windows.Forms.ImageList(this.components);
             this.PName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IPSymbol = new System.Windows.Forms.DataGridViewImageColumn();
             this.PScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PButtonImageList = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,15 +45,17 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PName,
-            this.PSymbol,
+            this.IPSymbol,
             this.PScore,
-            this.PStatus});
+            this.PSymbol,
+            this.PStatus,
+            this.PButtonImageList});
             this.dataGridView1.Location = new System.Drawing.Point(2, 18);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 3, 0, 0);
             this.dataGridView1.MultiSelect = false;
@@ -57,7 +63,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.ReadOnly = true;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.ColumnHeaderSelect;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridView1.Size = new System.Drawing.Size(180, 143);
             this.dataGridView1.TabIndex = 13;
             // 
@@ -71,6 +77,12 @@
             this.lblScoreBoard.TabIndex = 14;
             this.lblScoreBoard.Text = "Score Board";
             // 
+            // _ButtonImageList
+            // 
+            this._ButtonImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this._ButtonImageList.ImageSize = new System.Drawing.Size(10, 10);
+            this._ButtonImageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // PName
             // 
             this.PName.DataPropertyName = "PlayerName";
@@ -80,14 +92,15 @@
             this.PName.ReadOnly = true;
             this.PName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
-            // PSymbol
+            // IPSymbol
             // 
-            this.PSymbol.DataPropertyName = "PlayerSymbol";
-            this.PSymbol.FillWeight = 55.19345F;
-            this.PSymbol.HeaderText = "Sym";
-            this.PSymbol.Name = "PSymbol";
-            this.PSymbol.ReadOnly = true;
-            this.PSymbol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.IPSymbol.DataPropertyName = "IPlayerSymbol";
+            this.IPSymbol.FillWeight = 55.19345F;
+            this.IPSymbol.HeaderText = "Sym";
+            this.IPSymbol.Name = "IPSymbol";
+            this.IPSymbol.ReadOnly = true;
+            this.IPSymbol.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.IPSymbol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // PScore
             // 
@@ -98,6 +111,14 @@
             this.PScore.ReadOnly = true;
             this.PScore.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
+            // PSymbol
+            // 
+            this.PSymbol.DataPropertyName = "PlayerSymbol";
+            this.PSymbol.HeaderText = "SymNum";
+            this.PSymbol.Name = "PSymbol";
+            this.PSymbol.ReadOnly = true;
+            this.PSymbol.Visible = false;
+            // 
             // PStatus
             // 
             this.PStatus.DataPropertyName = "PlayerStatus";
@@ -107,6 +128,15 @@
             this.PStatus.ReadOnly = true;
             this.PStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.PStatus.Visible = false;
+            // 
+            // PButtonImageList
+            // 
+            this.PButtonImageList.DataPropertyName = "ButtonImageList";
+            this.PButtonImageList.HeaderText = "BIL";
+            this.PButtonImageList.Name = "PButtonImageList";
+            this.PButtonImageList.ReadOnly = true;
+            this.PButtonImageList.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.PButtonImageList.Visible = false;
             // 
             // TicTacToeScore
             // 
@@ -130,9 +160,12 @@
         #endregion
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label lblScoreBoard;
+        internal System.Windows.Forms.ImageList _ButtonImageList;
         private System.Windows.Forms.DataGridViewTextBoxColumn PName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PSymbol;
+        private System.Windows.Forms.DataGridViewImageColumn IPSymbol;
         private System.Windows.Forms.DataGridViewTextBoxColumn PScore;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PSymbol;
         private System.Windows.Forms.DataGridViewTextBoxColumn PStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PButtonImageList;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using MMManager.GameObjects;
 
 namespace MMManager.GameInterfaces
@@ -14,6 +15,6 @@ namespace MMManager.GameInterfaces
         int PlayerSymbol { get; set; }
         int PlayerScore { get; set; }
         String PlayerStatus { get; set; }
-        
+        ImageList ButtonImageList { get; set; }
     }
 }

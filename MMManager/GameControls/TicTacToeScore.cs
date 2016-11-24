@@ -28,9 +28,18 @@ namespace MMManager.GameControls
             //return PlayerScores[player.PlayerName]; // What if the player Name isn't there
             
         }
-        public void UpdateScore(IPlayer player, int score)
+        public void UpdateScore(IPlayer player, int score, SharedTicTacToeBoardData theBoard)
         {
-            Players.Find(x => x.PlayerName == player.PlayerName).PlayerScore = score;
+            
+            foreach (PlayerClass p in theBoard.Players)
+            {
+                if (p.PlayerName == player.PlayerName)
+                {
+                    p.PlayerScore = score; //Update theBoard
+                }
+                Players.Find(x => x.PlayerName == p.PlayerName).PlayerScore = p.PlayerScore; // This just updates this player
+            }
+            // Game.theBoard.Players.Find(x => x.PlayerName == player.PlayerName).PlayerScore = currentScore; // Update just the GameBoard Player
             RefreshData(Players);
         }
 
@@ -44,6 +53,34 @@ namespace MMManager.GameControls
         {
             Players = players; // Assign Locally
             dataGridView1.DataSource = players.ToList();
+            try
+            {
+                foreach (DataGridViewRow r in dataGridView1.Rows)
+                {
+                    DataGridViewImageCell ic = r.Cells["IPSymbol"] as DataGridViewImageCell;
+                    //DataGridViewImageCell ic2 = r.Cells["IPSymbol"] as DataGridViewImageCell;
+                    ic.Value = _ButtonImageList.Images[Convert.ToInt32(r.Cells["PSymbol"].Value)]; //PSymbol or PlayerSymbol
+                }
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+        }
+        public ImageList ButtonImageList
+        {
+            get { return _ButtonImageList; }
+            set
+            {
+                _ButtonImageList.ImageSize = new System.Drawing.Size(20, 20);
+                foreach (System.Drawing.Image item in value.Images)
+                {
+                    _ButtonImageList.Images.Add(item);
+                }
+               // dataGridView1.Columns["pButtonImageList"]
+                //_ButtonImageList = value;
+                //lblSymbol.ImageList = _ButtonImageList;
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Windows.Forms;
 using MMManager.GameControls;
 using MMManager.GameInterfaces;
+
 namespace MMManager.GameObjects
 {
     public class PlayerClass: IPlayer
@@ -9,7 +11,7 @@ namespace MMManager.GameObjects
         public int PlayerSymbol { get; set; }
         public int PlayerScore { get; set; }
         public String PlayerStatus { get; set; }
-
+        public ImageList ButtonImageList { get; set; }
         public PlayerClass ToClass()
         {
             return this;

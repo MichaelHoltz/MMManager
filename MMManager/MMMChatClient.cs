@@ -45,13 +45,20 @@ namespace MMManager
             if (userName != null)
             {
                 txtUserName.Text = userName;
-                //PlayerClass p = new PlayerClass() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = btnSymbolChoice.ImageIndex };
-                MMManager.GameControls.TicTacToePlayer p = new GameControls.TicTacToePlayer() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = btnSymbolChoice.ImageIndex };
-                ticTacToeBoard1.GameInfo.Player = p;
-                //Need Computer or Game Name so we can filter
+                SetPlayer();
             }
         }
+        private void SetPlayer()
+        {
+            ticTacToeBoard1.GameInfo.Players.Player.ButtonImageList = ticTacToeBoard1.ButtonImageList;
+            ticTacToeBoard1.GameInfo.Players.ScoreBoard.ButtonImageList = ticTacToeBoard1.ButtonImageList; 
+            ticTacToeBoard1.GameInfo.Players.Player.PlayerName = userName;
+            ticTacToeBoard1.GameInfo.Players.Player.PlayerScore = 0;
+            ticTacToeBoard1.GameInfo.Players.Player.PlayerStatus = "Waiting..!";
+            ticTacToeBoard1.GameInfo.Players.Player.PlayerSymbol = btnSymbolChoice.ImageIndex;
+            
 
+        }
         private void btnLogin_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtUserName.Text.Trim()))
@@ -66,14 +73,9 @@ namespace MMManager
                     TicTacToeMessageSent += new UserTicTacToeMessage(MMMChatClient_TicTacToeMessageSent);
                     channel = null;
                     this.userName = txtUserName.Text.Trim();
-                    //ticTacToeBoard1.GameInfo.Player.PlayerName = this.userName; // Assign Player Name when Logging in.
-                    //ticTacToeBoard1.GameInfo.GameName = this.userName + "'s Game"; // Default to something.. but will be overwritten in GameInfo if needed.
-
-                    //PlayerClass p = new PlayerClass() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = btnSymbolChoice.ImageIndex };
-                    MMManager.GameControls.TicTacToePlayer p = new GameControls.TicTacToePlayer() { PlayerName = userName, PlayerScore = 0, PlayerStatus = "Waiting...", PlayerSymbol = btnSymbolChoice.ImageIndex };
-                    ticTacToeBoard1.GameInfo.Player = p;
-                    InstanceContext context = new InstanceContext(new MMMChatClient(txtUserName.Text.Trim()));
-                    //InstanceContext context = new InstanceContext(this);
+                    SetPlayer();
+                    //InstanceContext context = new InstanceContext(new MMMChatClient(txtUserName.Text.Trim()));
+                    InstanceContext context = new InstanceContext(this);
                     factory =  new DuplexChannelFactory<IChatChannel>(context, "ChatEndPoint");
 
                     channel = factory.CreateChannel();
@@ -314,8 +316,9 @@ namespace MMManager
         public void SendTicTacToeMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData generatedBoardData)
         {
             channel.TicTacToeMessage(gameName,player, generatedBoardData); // Send messages using the proper channel
+            
             //Log messages as debugging
-            channel.SendMessage(player.PlayerName, generatedBoardData.Message + " " + generatedBoardData.MessageString + " " + generatedBoardData.MessageValue);
+            channel.SendMessage(player.PlayerName, gameName + " " + generatedBoardData.Message + " " + generatedBoardData.MessageString + " " + generatedBoardData.MessageValue);
         }
 
         private void ticTacToeBoard1_Load(object sender, EventArgs e)
