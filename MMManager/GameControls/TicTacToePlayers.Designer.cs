@@ -46,8 +46,8 @@
             // ticTacToePlayer1
             // 
             this.ticTacToePlayer1.AutoSize = true;
-            this.ticTacToePlayer1.BackgroundImage = global::MMManager.Properties.Resources.Copper;
-            this.ticTacToePlayer1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ticTacToePlayer1.BackgroundImage = global::MMManager.Properties.Resources.BrushedPlat;
+            this.ticTacToePlayer1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ticTacToePlayer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ticTacToePlayer1.Location = new System.Drawing.Point(5, 3);
             this.ticTacToePlayer1.Name = "ticTacToePlayer1";

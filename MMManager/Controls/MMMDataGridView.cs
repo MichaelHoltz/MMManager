@@ -11,15 +11,19 @@ namespace MMManager.Controls
         private System.Drawing.Image _backgroundImage;
         public MMMDataGridView()
         {
-            this._backgroundImage = Image.FromFile(@"C:\Projects\MMManager\MMManager\images\Copper.jpg");
+           // this._backgroundImage = Image.FromFile(@"C:\Projects\MMManager\MMManager\images\Copper.jpg");
+            this._backgroundImage = Properties.Resources.BrushedPlat;
 
         }
         protected override void PaintBackground(Graphics graphics, Rectangle clipBounds, Rectangle gridBounds)
         {
             base.PaintBackground(graphics, clipBounds, gridBounds);
-            graphics.DrawImage(this._backgroundImage, gridBounds);
+            if (this._backgroundImage != null)
+            {
+                graphics.DrawImage(this._backgroundImage, gridBounds);
+            }
         }
-        public Image BackgroundImage
+        public override Image BackgroundImage
         {
             get
             { return this._backgroundImage; }

@@ -19,7 +19,7 @@ namespace MMManager.GameControls
             PlayerScores = new Dictionary<string, int>();
             Players = new List<PlayerClass>();
             dataGridView1.DataSource = Players.ToList();
-
+            //dataGridView1.BackgroundImage = null;
         }
 
         public int GetScore(IPlayer player)

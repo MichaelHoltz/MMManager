@@ -30,9 +30,7 @@ namespace MMManager
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MMMChatClient));
             this.grpMessageWindow = new System.Windows.Forms.GroupBox();
-            this.rtbMessages = new MMManager.Controls.RichTextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.txtSendMessage = new System.Windows.Forms.TextBox();
             this.grpUserCredentials = new System.Windows.Forms.GroupBox();
@@ -43,9 +41,12 @@ namespace MMManager
             this.lstUsers = new System.Windows.Forms.ListBox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.lblMySymbol = new System.Windows.Forms.Label();
+            this.lblDebug = new System.Windows.Forms.Label();
+            this.mmManagerTTTButton2 = new MMManager.MMManagerTTTButton();
+            this.mmManagerTTTButton1 = new MMManager.MMManagerTTTButton();
             this.btnSymbolChoice = new MMManager.MMManagerTTTButton();
             this.ticTacToeBoard1 = new MMManager.GameControls.TicTacToeBoard();
-            this.lblDebug = new System.Windows.Forms.Label();
+            this.rtbMessages = new MMManager.Controls.RichTextBox();
             this.grpMessageWindow.SuspendLayout();
             this.grpUserCredentials.SuspendLayout();
             this.grpUserList.SuspendLayout();
@@ -63,15 +64,6 @@ namespace MMManager
             this.grpMessageWindow.TabIndex = 0;
             this.grpMessageWindow.TabStop = false;
             this.grpMessageWindow.Text = "Message window";
-            // 
-            // rtbMessages
-            // 
-            this.rtbMessages.Location = new System.Drawing.Point(9, 19);
-            this.rtbMessages.Name = "rtbMessages";
-            this.rtbMessages.ReadOnly = true;
-            this.rtbMessages.Size = new System.Drawing.Size(500, 204);
-            this.rtbMessages.TabIndex = 3;
-            this.rtbMessages.Text = "";
             // 
             // btnSend
             // 
@@ -167,6 +159,38 @@ namespace MMManager
             this.lblMySymbol.TabIndex = 39;
             this.lblMySymbol.Text = "My Symbol";
             // 
+            // lblDebug
+            // 
+            this.lblDebug.AutoSize = true;
+            this.lblDebug.Location = new System.Drawing.Point(596, 319);
+            this.lblDebug.Name = "lblDebug";
+            this.lblDebug.Size = new System.Drawing.Size(100, 13);
+            this.lblDebug.TabIndex = 40;
+            this.lblDebug.Text = "Message Debugger";
+            // 
+            // mmManagerTTTButton2
+            // 
+            this.mmManagerTTTButton2.allowClick = true;
+            this.mmManagerTTTButton2.customEnable = true;
+            this.mmManagerTTTButton2.Location = new System.Drawing.Point(515, 309);
+            this.mmManagerTTTButton2.Name = "mmManagerTTTButton2";
+            this.mmManagerTTTButton2.Size = new System.Drawing.Size(75, 23);
+            this.mmManagerTTTButton2.TabIndex = 42;
+            this.mmManagerTTTButton2.Text = "mmManagerTTTButton2";
+            this.mmManagerTTTButton2.UseVisualStyleBackColor = true;
+            this.mmManagerTTTButton2.Click += new System.EventHandler(this.mmManagerTTTButton2_Click);
+            // 
+            // mmManagerTTTButton1
+            // 
+            this.mmManagerTTTButton1.allowClick = true;
+            this.mmManagerTTTButton1.customEnable = true;
+            this.mmManagerTTTButton1.Location = new System.Drawing.Point(515, 354);
+            this.mmManagerTTTButton1.Name = "mmManagerTTTButton1";
+            this.mmManagerTTTButton1.Size = new System.Drawing.Size(75, 23);
+            this.mmManagerTTTButton1.TabIndex = 41;
+            this.mmManagerTTTButton1.Text = "mmManagerTTTButton1";
+            this.mmManagerTTTButton1.UseVisualStyleBackColor = true;
+            // 
             // btnSymbolChoice
             // 
             this.btnSymbolChoice.allowClick = true;
@@ -187,16 +211,17 @@ namespace MMManager
             this.ticTacToeBoard1.ServiceProvider = null;
             this.ticTacToeBoard1.Size = new System.Drawing.Size(221, 461);
             this.ticTacToeBoard1.TabIndex = 36;
+            this.ticTacToeBoard1.theBoard = null;
             this.ticTacToeBoard1.Load += new System.EventHandler(this.ticTacToeBoard1_Load);
             // 
-            // lblDebug
+            // rtbMessages
             // 
-            this.lblDebug.AutoSize = true;
-            this.lblDebug.Location = new System.Drawing.Point(596, 319);
-            this.lblDebug.Name = "lblDebug";
-            this.lblDebug.Size = new System.Drawing.Size(100, 13);
-            this.lblDebug.TabIndex = 40;
-            this.lblDebug.Text = "Message Debugger";
+            this.rtbMessages.Location = new System.Drawing.Point(9, 19);
+            this.rtbMessages.Name = "rtbMessages";
+            this.rtbMessages.ReadOnly = true;
+            this.rtbMessages.Size = new System.Drawing.Size(500, 204);
+            this.rtbMessages.TabIndex = 3;
+            this.rtbMessages.Text = "";
             // 
             // MMMChatClient
             // 
@@ -204,6 +229,8 @@ namespace MMManager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1323, 727);
+            this.Controls.Add(this.mmManagerTTTButton2);
+            this.Controls.Add(this.mmManagerTTTButton1);
             this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.lblMySymbol);
             this.Controls.Add(this.btnSymbolChoice);
@@ -213,7 +240,6 @@ namespace MMManager
             this.Controls.Add(this.grpUserCredentials);
             this.Controls.Add(this.grpMessageWindow);
             this.DoubleBuffered = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MMMChatClient";
             this.Text = "MMMChatClient";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MMMChatClient_FormClosing);
@@ -245,6 +271,8 @@ namespace MMManager
         private MMManagerTTTButton btnSymbolChoice;
         private System.Windows.Forms.Label lblMySymbol;
         private System.Windows.Forms.Label lblDebug;
+        private MMManagerTTTButton mmManagerTTTButton1;
+        private MMManagerTTTButton mmManagerTTTButton2;
     }
 }
 

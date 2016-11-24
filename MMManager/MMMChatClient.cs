@@ -333,5 +333,15 @@ namespace MMManager
             btnSymbolChoice.ImageIndex = fs.ImageSelected();
             tttProfile.Symbol = btnSymbolChoice.ImageIndex; // Save for Profile
         }
+
+        private void mmManagerTTTButton2_Click(object sender, EventArgs e)
+        {
+            if ((sender as MMManagerTTTButton).Top > 0)
+                (sender as MMManagerTTTButton).Fall(50);
+            else
+            {
+                (sender as MMManagerTTTButton).Rise(50);
+            }
+        }
     }
 }

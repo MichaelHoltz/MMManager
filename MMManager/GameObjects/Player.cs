@@ -5,6 +5,7 @@ using MMManager.GameInterfaces;
 
 namespace MMManager.GameObjects
 {
+    [Serializable]
     public class PlayerClass: IPlayer
     {
         public String PlayerName { get; set; }
