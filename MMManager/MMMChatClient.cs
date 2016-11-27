@@ -6,11 +6,13 @@ using MMManager.GameObjects;
 using MMManager.CommInterfaces;
 using MMManager.GameInterfaces;
 using MMManager.PersistanceObjects;
+using SpriteLibrary;
 namespace MMManager
 {
 
     public partial class MMMChatClient : Form, IChatService, IMessageRelay
     {
+        SpriteController MySpriteController;
         private int instanceNumber; // The instance number of this application.
         private TTTProfile tttProfile = new TTTProfile();
        // private SharedTicTacToeBoardData theTicTacToeBoardData; //Contains all neeeded
@@ -256,42 +258,6 @@ namespace MMManager
             }
 
         }
-        /// <summary>
-        /// Function to Initiate the Game and board.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnStartTicTacToe_Click(object sender, EventArgs e)
-        {
-            ////Can Start a Game
-            //if (theTicTacToeBoardData != null)
-            //{
-            //    if (theTicTacToeBoardData.State == SharedTicTacToeBoardData.GameState.Playing)
-            //        return;
-            //}
-            //if (btnStartTicTacToe.Text.StartsWith("Start"))
-            //{
-            //    theTicTacToeBoardData= new SharedTicTacToeBoardData();
-            //    //theTicTacToeBoard.FirstName = this.userName;
-            //    theTicTacToeBoardData.State = SharedTicTacToeBoardData.GameState.Waiting;
-            //    theTicTacToeBoardData.Message = SharedTicTacToeBoardData.MessageCode.Start;
-            //    channel.TicTacToeMessage(ticTacToeBoard1.GameInfo.GameName, ticTacToeBoard1.GameInfo.Player.PlayerName, theTicTacToeBoardData);
-            //    btnStartTicTacToe.Text = "Waiting..";
-            //    // btnStartTicTacToe.Enabled = false;
-            //}
-            //else //Accept
-            //{
-            //    if (theTicTacToeBoardData != null)
-            //    {
-            //       // theTicTacToeBoard.SecondName = this.userName;
-            //        theTicTacToeBoardData.Message = SharedTicTacToeBoardData.MessageCode.Join;
-            //        theTicTacToeBoardData.State = SharedTicTacToeBoardData.GameState.Playing;
-            //       // btnStartTicTacToe.Text = "Playing: " + theTicTacToeBoard.FirstName;
-            //        channel.TicTacToeMessage(ticTacToeBoard1.GameInfo.GameName, ticTacToeBoard1.GameInfo.Player.PlayerName, theTicTacToeBoardData);
-            //    }
-            //}
-
-        }
 
 
         private void txtUserName_TextChanged(object sender, EventArgs e)
@@ -336,12 +302,57 @@ namespace MMManager
 
         private void mmManagerTTTButton2_Click(object sender, EventArgs e)
         {
-            if ((sender as MMManagerTTTButton).Top > 0)
-                (sender as MMManagerTTTButton).Fall(50);
-            else
-            {
-                (sender as MMManagerTTTButton).Rise(50);
-            }
+            MMManagerTTTButton btn = (sender as MMManagerTTTButton);
+  //          Bitmap b = new Bitmap(btn.TurnToPicture());
+//            pictureBox1.BackgroundImage = b;
+            
+            //pictureBox1.Image = b;
+            Sprite OneSprite;
+            MySpriteController = new SpriteController(pictureBox1);
+
+            OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 50);
+            OneSprite.SetSize(new Size(50, 50));
+            OneSprite.SetName(SpriteNames.explosion.ToString());
+            //The function to run when the explosion animation completes
+            OneSprite.SpriteAnimationComplete += ExplosionCompletes;
+            //SpriteController MySpriteController;
+
+            //btn.explode();
+            //if (btn.Top > 0)
+            //    btn.Fall(50);
+            //else
+            //{
+            //    btn.Rise(50);
+            //}
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //SpriteController MySpriteController;
+            //Sprite OneSprite;
+            //MySpriteController = new SpriteController(pictureBox1);
+            //OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 50);
+            //OneSprite.SetSize(new Size(50, 50));
+            //OneSprite.SetName(SpriteNames.explosion.ToString());
+            ////The function to run when the explosion animation completes
+            //OneSprite.SpriteAnimationComplete += ExplosionCompletes;
+
+            Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
+            nSprite.PutBaseImageLocation(50, 50);
+            nSprite.SetSize(new Size(150, 150));
+             nSprite.AnimateOnce(0);
+            //nSprite.AnimateJustAFewTimes(1, 10);
+        }
+        public void ExplosionCompletes(object sender, EventArgs e)
+        {
+            Sprite tSprite = (Sprite)sender;
+            tSprite.Destroy();
+            // CountMonsters();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

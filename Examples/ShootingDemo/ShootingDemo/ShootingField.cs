@@ -257,7 +257,7 @@ namespace ShootingDemo
                     newPlayer.Play();
                     me.Destroy();
                     e.TargetSprite.Destroy();
-                }
+                 }
             }
         }
 

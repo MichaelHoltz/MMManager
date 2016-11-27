@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Windows.Forms;
-//using System.Media;
 using System.Threading;
 using System.Windows.Media;
+using System.Drawing;
+using SpriteLibrary;
 namespace MMManager
 {
+    public enum SpriteNames { shot, spaceship, explosion, jelly, dragon, walker, flier }
     class MMManagerTTTButton :Button
     {
+        SpriteController MySpriteController;
+        Sprite OneSprite;
         private int newLocation;
         private int direction;
         public Boolean customEnable { get; set; } = true;
@@ -44,9 +48,52 @@ namespace MMManager
 
 
         }
+        public MMManagerTTTButton()
+        {
+            InitializeComponent();
+             
+        }
+
+        public System.Drawing.Bitmap TurnToPicture()
+        {
+            PictureBox MainDrawingArea = new PictureBox();
+            MainDrawingArea.Top = 0;// this.Top;
+            MainDrawingArea.Left = 0;// this.Left;
+            MainDrawingArea.Height = this.Height;
+            MainDrawingArea.Width = this.Width;
+            
+            System.Drawing.Bitmap thisButtonBitmap = new System.Drawing.Bitmap(this.Width, this.Height);
+            this.DrawToBitmap(thisButtonBitmap, new System.Drawing.Rectangle(0,0,this.Width, this.Height));
+            MainDrawingArea.BackgroundImage = thisButtonBitmap;
+            this.Controls.Add(MainDrawingArea);
+            MainDrawingArea.Visible = true;
+
+            //MySpriteController = new SpriteController(MainDrawingArea);
+            //OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 50);
+            //OneSprite.SetSize(new Size(50, 50));
+            //OneSprite.SetName(SpriteNames.explosion.ToString());
+            ////The function to run when the explosion animation completes
+            //OneSprite.SpriteAnimationComplete += ExplosionCompletes;
+
+            return thisButtonBitmap;
+        }
+        public void explode()
+        {
+            //The function to run when the explosion animation completes
+            Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
+            nSprite.PutBaseImageLocation(-1, -1);
+            nSprite.SetSize(new Size(50, 50));
+            //  nSprite.AnimateOnce(0);
+            nSprite.AnimateJustAFewTimes(1, 10);
+        }
+        public void ExplosionCompletes(object sender, EventArgs e)
+        {
+            Sprite tSprite = (Sprite)sender;
+            tSprite.Destroy();
+           // CountMonsters();
+        }
         private void InitializeComponent()
         {
-            this.DoubleBuffered = true;
             this.SuspendLayout();
             this.ResumeLayout(false);
 
