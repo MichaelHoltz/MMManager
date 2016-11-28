@@ -65,7 +65,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="SpriteLibrary, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Examples\SpriteLibrary\SpriteLibrary\bin\Debug\SpriteLibrary.dll</HintPath>
+      <HintPath>..\Examples\SpriteLibrary\SpriteLibrary\bin\Release\SpriteLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

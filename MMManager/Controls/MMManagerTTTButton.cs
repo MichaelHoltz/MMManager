@@ -98,26 +98,38 @@ namespace MMManager
             this.ResumeLayout(false);
 
         }
+        /// <summary>
+        /// Fall a distance relative to current position by Thread
+        /// </summary>
+        /// <param name="distance"></param>
         public void Fall(int distance)
         {
             newLocation = this.Top + distance; // Where we want to be
             direction = +1;
-            Thread thread = new Thread(new ThreadStart(WorkThreadFunction));
+            Thread thread = new Thread(new ThreadStart(MovementThread));
             thread.Start();
         }
+        /// <summary>
+        /// Rise a distance relative to current position by Thread
+        /// </summary>
+        /// <param name="distance"></param>
         public void Rise(int distance)
         {
             newLocation = this.Top - distance; // Where we want to be
             direction = -1;
-            Thread thread = new Thread(new ThreadStart(WorkThreadFunction));
+            Thread thread = new Thread(new ThreadStart(MovementThread));
             thread.Start();
         }
-
-        private void WorkThreadFunction()
+        /// <summary>
+        /// Thread to manage movement
+        /// Movement is designed to be animated
+        /// </summary>
+        private void MovementThread()
         {
             int oldTop = this.Top;
             try
             {
+                //Move to new location in small steps.
                 do
                 {
                     if (this.Top + direction > 0 && ((this.Top + this.Height + direction) < Parent.Height ))
@@ -138,7 +150,15 @@ namespace MMManager
             }
         }
 
+        /// <summary>
+        /// Delegate for Setting the Top location
+        /// </summary>
+        /// <param name="location"></param>
         delegate void SetTopCallback(int location);
+        /// <summary>
+        /// Set the absolute top location - Thread Safe
+        /// </summary>
+        /// <param name="location"></param>
         private void SetTop(int location)
         {
             if (this.InvokeRequired)
