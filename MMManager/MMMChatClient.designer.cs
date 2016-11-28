@@ -41,12 +41,12 @@ namespace MMManager
             this.lstUsers = new System.Windows.Forms.ListBox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.lblMySymbol = new System.Windows.Forms.Label();
-            this.lblDebug = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.mmManagerTTTButton3 = new MMManager.MMManagerTTTButton();
+            this.mmManagerTTTButton1 = new MMManager.MMManagerTTTButton();
             this.mmManagerTTTButton2 = new MMManager.MMManagerTTTButton();
             this.btnSymbolChoice = new MMManager.MMManagerTTTButton();
             this.ticTacToeBoard1 = new MMManager.GameControls.TicTacToeBoard();
@@ -56,7 +56,6 @@ namespace MMManager
             this.grpUserList.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // grpMessageWindow
@@ -166,31 +165,34 @@ namespace MMManager
             this.lblMySymbol.TabIndex = 39;
             this.lblMySymbol.Text = "My Symbol";
             // 
-            // lblDebug
-            // 
-            this.lblDebug.AutoSize = true;
-            this.lblDebug.Location = new System.Drawing.Point(596, 319);
-            this.lblDebug.Name = "lblDebug";
-            this.lblDebug.Size = new System.Drawing.Size(100, 13);
-            this.lblDebug.TabIndex = 40;
-            this.lblDebug.Text = "Message Debugger";
-            // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.groupBox1.Controls.Add(this.mmManagerTTTButton3);
+            this.groupBox1.Controls.Add(this.mmManagerTTTButton1);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.mmManagerTTTButton2);
-            this.groupBox1.Location = new System.Drawing.Point(339, 332);
+            this.groupBox1.Location = new System.Drawing.Point(339, 164);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(226, 204);
             this.groupBox1.TabIndex = 43;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Testing Group Box";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(122, 167);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 45;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(128, 83);
+            this.button1.Location = new System.Drawing.Point(122, 138);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 44;
@@ -203,49 +205,63 @@ namespace MMManager
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(371, 111);
+            this.pictureBox1.Location = new System.Drawing.Point(339, 84);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(194, 167);
+            this.pictureBox1.Size = new System.Drawing.Size(226, 74);
             this.pictureBox1.TabIndex = 43;
             this.pictureBox1.TabStop = false;
             // 
-            // button2
+            // mmManagerTTTButton3
             // 
-            this.button2.Location = new System.Drawing.Point(41, 138);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 45;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.mmManagerTTTButton3.allowClick = true;
+            this.mmManagerTTTButton3.AutoFall = false;
+            this.mmManagerTTTButton3.ButtonBelow = null;
+            this.mmManagerTTTButton3.customEnable = true;
+            this.mmManagerTTTButton3.Falling = false;
+            this.mmManagerTTTButton3.Location = new System.Drawing.Point(44, 142);
+            this.mmManagerTTTButton3.Name = "mmManagerTTTButton3";
+            this.mmManagerTTTButton3.Size = new System.Drawing.Size(50, 50);
+            this.mmManagerTTTButton3.TabIndex = 47;
+            this.mmManagerTTTButton3.Text = "3";
+            this.mmManagerTTTButton3.UseVisualStyleBackColor = true;
+            this.mmManagerTTTButton3.Click += new System.EventHandler(this.mmManagerTTTButton3_Click);
             // 
-            // pictureBox2
+            // mmManagerTTTButton1
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Location = new System.Drawing.Point(371, 548);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(194, 167);
-            this.pictureBox2.TabIndex = 44;
-            this.pictureBox2.TabStop = false;
+            this.mmManagerTTTButton1.allowClick = true;
+            this.mmManagerTTTButton1.AutoFall = false;
+            this.mmManagerTTTButton1.ButtonBelow = "mmManagerTTTButton3";
+            this.mmManagerTTTButton1.customEnable = true;
+            this.mmManagerTTTButton1.Falling = false;
+            this.mmManagerTTTButton1.Location = new System.Drawing.Point(33, 82);
+            this.mmManagerTTTButton1.Name = "mmManagerTTTButton1";
+            this.mmManagerTTTButton1.Size = new System.Drawing.Size(50, 50);
+            this.mmManagerTTTButton1.TabIndex = 46;
+            this.mmManagerTTTButton1.Text = "2";
+            this.mmManagerTTTButton1.UseVisualStyleBackColor = true;
             // 
             // mmManagerTTTButton2
             // 
             this.mmManagerTTTButton2.allowClick = true;
+            this.mmManagerTTTButton2.AutoFall = false;
+            this.mmManagerTTTButton2.ButtonBelow = "mmManagerTTTButton1";
             this.mmManagerTTTButton2.customEnable = true;
+            this.mmManagerTTTButton2.Falling = false;
             this.mmManagerTTTButton2.Location = new System.Drawing.Point(22, 19);
             this.mmManagerTTTButton2.Name = "mmManagerTTTButton2";
             this.mmManagerTTTButton2.Size = new System.Drawing.Size(50, 50);
             this.mmManagerTTTButton2.TabIndex = 42;
-            this.mmManagerTTTButton2.Text = "mmManagerTTTButton2";
+            this.mmManagerTTTButton2.Text = "1";
             this.mmManagerTTTButton2.UseVisualStyleBackColor = true;
             this.mmManagerTTTButton2.Click += new System.EventHandler(this.mmManagerTTTButton2_Click);
             // 
             // btnSymbolChoice
             // 
             this.btnSymbolChoice.allowClick = true;
+            this.btnSymbolChoice.AutoFall = false;
+            this.btnSymbolChoice.ButtonBelow = null;
             this.btnSymbolChoice.customEnable = true;
+            this.btnSymbolChoice.Falling = false;
             this.btnSymbolChoice.Location = new System.Drawing.Point(83, 20);
             this.btnSymbolChoice.Name = "btnSymbolChoice";
             this.btnSymbolChoice.Size = new System.Drawing.Size(50, 50);
@@ -280,10 +296,8 @@ namespace MMManager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1323, 727);
-            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.lblMySymbol);
             this.Controls.Add(this.btnSymbolChoice);
             this.Controls.Add(this.ticTacToeBoard1);
@@ -302,7 +316,6 @@ namespace MMManager
             this.grpUserList.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -324,13 +337,13 @@ namespace MMManager
         private GameControls.TicTacToeBoard ticTacToeBoard1;
         private MMManagerTTTButton btnSymbolChoice;
         private System.Windows.Forms.Label lblMySymbol;
-        private System.Windows.Forms.Label lblDebug;
         private MMManagerTTTButton mmManagerTTTButton2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private MMManagerTTTButton mmManagerTTTButton1;
+        private MMManagerTTTButton mmManagerTTTButton3;
     }
 }
 

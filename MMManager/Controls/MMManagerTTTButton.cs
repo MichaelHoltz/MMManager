@@ -11,10 +11,92 @@ namespace MMManager
     {
         SpriteController MySpriteController;
         Sprite OneSprite;
+        private bool autoFall;
+        private string buttonBelow;
+        private bool falling;
         private int newLocation;
         private int direction;
         public Boolean customEnable { get; set; } = true;
         public Boolean allowClick { get; set; } = true;
+
+        /// <summary>
+        /// Have button automatically Fall to the next button or bottom of container.
+        /// </summary>
+        public bool AutoFall
+        {
+            get
+            {
+                return autoFall;
+            }
+
+            set
+            {
+                autoFall = value;
+                if (value)
+                {
+                    Fall(findButtonBelow());
+                }
+                else
+                {
+
+                }
+            }
+        }
+        /// <summary>
+        /// Get and Set the Button Below for use with auto falling.
+        /// </summary>
+        public string ButtonBelow
+        {
+            get
+            {
+                return buttonBelow;
+            }
+
+            set
+            {
+                buttonBelow = value;
+            }
+        }
+        /// <summary>
+        /// Set if the button is falling.
+        /// </summary>
+        public bool Falling
+        {
+            get
+            {
+                return falling;
+            }
+
+            set
+            {
+                falling = value;
+            }
+        }
+
+        private int findButtonBelow()
+        {
+            var p = this.Parent;
+
+            //GroupBox p = (this.Parent as GroupBox);
+            if (p != null)
+            {
+                //Go through each sibling control
+                foreach (var item in p.Controls)
+                {
+                    //If they are a MMMTTTButton
+                    if (item.GetType() == typeof(MMManagerTTTButton))
+                    {
+                        //Ignore all who's Top is higher than me.
+                        if ((item as MMManagerTTTButton).Top < this.Top)
+                        {
+                            return (item as MMManagerTTTButton).Top;
+                        }
+                    }
+                }
+            }
+            return p.Height + this.Height; // Return the bottom.
+        }
+
         protected override void OnClick(EventArgs e)
         {
             if (customEnable && allowClick)
@@ -83,14 +165,13 @@ namespace MMManager
             Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
             nSprite.PutBaseImageLocation(-1, -1);
             nSprite.SetSize(new Size(50, 50));
-            //  nSprite.AnimateOnce(0);
-            nSprite.AnimateJustAFewTimes(1, 10);
+            nSprite.AnimateOnce(0);
+            //nSprite.AnimateJustAFewTimes(1, 10);
         }
         public void ExplosionCompletes(object sender, EventArgs e)
         {
             Sprite tSprite = (Sprite)sender;
             tSprite.Destroy();
-           // CountMonsters();
         }
         private void InitializeComponent()
         {
@@ -118,10 +199,12 @@ namespace MMManager
             int oldTop = this.Top;
             try
             {
+                
                 do
                 {
                     if (this.Top + direction > 0 && ((this.Top + this.Height + direction) < Parent.Height ))
                     {
+                        this.Falling = true;
                         SetTop(this.Top + direction);
                         Thread.Sleep(5);
                     }
@@ -130,7 +213,9 @@ namespace MMManager
                         break;
                     }
                 } while (this.Top != newLocation);
+                this.Falling = false;
                 playSound(2);
+                
             }
             catch (Exception ex)
             {
@@ -148,6 +233,7 @@ namespace MMManager
             }
             else
             {
+                
                 this.Top = location;
             }
         }

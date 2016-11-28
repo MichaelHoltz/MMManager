@@ -352,6 +352,13 @@ namespace MMManager
 
         private void button2_Click(object sender, EventArgs e)
         {
+            mmManagerTTTButton1.AutoFall = true;
+           // mmManagerTTTButton2.AutoFall = true;
+            mmManagerTTTButton3.AutoFall = true;
+        }
+
+        private void mmManagerTTTButton3_Click(object sender, EventArgs e)
+        {
 
         }
     }
