@@ -89,5 +89,15 @@ namespace MMManager.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap metal_grunge_metallic_steel_555 {
+            get {
+                object obj = ResourceManager.GetObject("metal-grunge-metallic-steel-555", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

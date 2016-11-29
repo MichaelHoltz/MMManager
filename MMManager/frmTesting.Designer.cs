@@ -30,23 +30,23 @@
         {
             this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.btnGenerateGrid = new System.Windows.Forms.Button();
-            this.bgGame = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTipForm = new System.Windows.Forms.ToolTip(this.components);
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.mmmGroupBox1 = new MMManager.Controls.MMMGroupBox();
             this.mmManagerTTTButton1 = new MMManager.MMManagerTTTButton();
+            this.bgGame = new MMManager.Controls.MMMGroupBox();
             this.mmManagerTTTButton2 = new MMManager.MMManagerTTTButton();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -58,14 +58,6 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(103, 18);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(260, 48);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
             // 
             // openFileDialog1
             // 
@@ -114,6 +106,16 @@
             this.button4.Text = "button4";
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // btnGenerateGrid
+            // 
+            this.btnGenerateGrid.Location = new System.Drawing.Point(12, 111);
+            this.btnGenerateGrid.Name = "btnGenerateGrid";
+            this.btnGenerateGrid.Size = new System.Drawing.Size(75, 41);
+            this.btnGenerateGrid.TabIndex = 46;
+            this.btnGenerateGrid.Text = "Generate Grid";
+            this.btnGenerateGrid.UseVisualStyleBackColor = true;
+            this.btnGenerateGrid.Click += new System.EventHandler(this.btnGenerateGrid_Click);
+            // 
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
@@ -125,52 +127,46 @@
             this.pictureBox2.TabIndex = 45;
             this.pictureBox2.TabStop = false;
             // 
-            // btnGenerateGrid
+            // pictureBox1
             // 
-            this.btnGenerateGrid.Location = new System.Drawing.Point(12, 111);
-            this.btnGenerateGrid.Name = "btnGenerateGrid";
-            this.btnGenerateGrid.Size = new System.Drawing.Size(75, 41);
-            this.btnGenerateGrid.TabIndex = 46;
-            this.btnGenerateGrid.Text = "Generate Grid";
-            this.btnGenerateGrid.UseVisualStyleBackColor = true;
-            this.btnGenerateGrid.Click += new System.EventHandler(this.btnGenerateGrid_Click);
+            this.pictureBox1.Location = new System.Drawing.Point(103, 18);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(260, 48);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
-            // bgGame
+            // mmmGroupBox1
             // 
-            this.bgGame.AutoSize = true;
-            this.bgGame.Location = new System.Drawing.Point(164, 111);
-            this.bgGame.Name = "bgGame";
-            this.bgGame.Size = new System.Drawing.Size(176, 112);
-            this.bgGame.TabIndex = 47;
-            this.bgGame.TabStop = false;
-            this.bgGame.Text = "Button Grid";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(22, 185);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 48;
-            this.button2.Text = "button2";
-            this.toolTipForm.SetToolTip(this.button2, "Test Tool Tip");
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 50;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.mmmGroupBox1.Location = new System.Drawing.Point(27, 242);
+            this.mmmGroupBox1.Name = "mmmGroupBox1";
+            this.mmmGroupBox1.Size = new System.Drawing.Size(76, 87);
+            this.mmmGroupBox1.TabIndex = 50;
+            this.mmmGroupBox1.TabStop = false;
+            this.mmmGroupBox1.Text = "mmmGroupBox1";
             // 
             // mmManagerTTTButton1
             // 
             this.mmManagerTTTButton1.allowClick = true;
+            this.mmManagerTTTButton1.BackColor = System.Drawing.Color.DarkViolet;
             this.mmManagerTTTButton1.customEnable = true;
-            this.mmManagerTTTButton1.Location = new System.Drawing.Point(29, 238);
+            this.mmManagerTTTButton1.FlatAppearance.BorderSize = 0;
+            this.mmManagerTTTButton1.Location = new System.Drawing.Point(12, 170);
+            this.mmManagerTTTButton1.Margin = new System.Windows.Forms.Padding(0);
             this.mmManagerTTTButton1.Name = "mmManagerTTTButton1";
-            this.mmManagerTTTButton1.Size = new System.Drawing.Size(75, 23);
+            this.mmManagerTTTButton1.Size = new System.Drawing.Size(75, 33);
             this.mmManagerTTTButton1.TabIndex = 49;
             this.mmManagerTTTButton1.Text = "mmManagerTTTButton1";
             this.mmManagerTTTButton1.UseVisualStyleBackColor = true;
+            // 
+            // bgGame
+            // 
+            this.bgGame.AutoSize = true;
+            this.bgGame.Location = new System.Drawing.Point(106, 111);
+            this.bgGame.Name = "bgGame";
+            this.bgGame.Size = new System.Drawing.Size(452, 215);
+            this.bgGame.TabIndex = 47;
+            this.bgGame.TabStop = false;
+            this.bgGame.Text = "Button Grid";
             // 
             // mmManagerTTTButton2
             // 
@@ -188,8 +184,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(932, 542);
+            this.Controls.Add(this.mmmGroupBox1);
             this.Controls.Add(this.mmManagerTTTButton1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.bgGame);
             this.Controls.Add(this.btnGenerateGrid);
             this.Controls.Add(this.groupBox1);
@@ -200,9 +196,9 @@
             this.DoubleBuffered = true;
             this.Name = "frmTesting";
             this.Text = "frmTesting";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,10 +216,10 @@
         private MMManagerTTTButton mmManagerTTTButton2;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button btnGenerateGrid;
-        private System.Windows.Forms.GroupBox bgGame;
-        private System.Windows.Forms.Button button2;
+        private Controls.MMMGroupBox bgGame;
         private System.Windows.Forms.Timer timer1;
         private MMManagerTTTButton mmManagerTTTButton1;
         private System.Windows.Forms.ToolTip toolTipForm;
+        private Controls.MMMGroupBox mmmGroupBox1;
     }
 }

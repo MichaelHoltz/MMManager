@@ -19,6 +19,7 @@ namespace MMManager
         private int newLocation;
         private ToolTip toolTip1;
         private System.ComponentModel.IContainer components;
+        private PictureBox pictureBox1;
         private int direction;
         public Boolean customEnable { get; set; } = true;
         public Boolean allowClick { get; set; } = true;
@@ -32,6 +33,11 @@ namespace MMManager
             {
                 playSound(1);
             }
+        }
+        protected override void OnBackgroundImageChanged(EventArgs e)
+        {
+            base.OnBackgroundImageChanged(e);
+            pictureBox1.BackgroundImage = this.BackgroundImage; // Set the picture Box Background Image to the same as the button for later use.
         }
         delegate void playSoundCallback(int sound);
         private void playSound(int sound)
@@ -103,12 +109,13 @@ namespace MMManager
         }
         /// <summary>
         /// This will take a button out of the grid and put it on top, pushing all that were above down one.
+        /// This re-arranges the actual buttons in the grid so reference by name is all that is accurate once an explosion has happened.
         /// </summary>
         public void explode()
         {
             this.ImageIndex = 1;
-            playSound(4);
-            Thread.Sleep(500);
+            playSound(4); // Explosion Sound
+            //Thread.Sleep(500);
             ////The function to run when the explosion animation completes
             //Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
             //nSprite.PutBaseImageLocation(-1, -1);
@@ -124,6 +131,8 @@ namespace MMManager
                 bAbove.Name = "B" + bAbove.myGridY + bAbove.myGridX; // Rename
                 
                 bAbove.FallToNextButton();
+                //Thread.Sleep(50);
+               // Application.DoEvents();
                 
             }
             this.myGridY = 0; //Set to Top Most position off screen.
@@ -141,8 +150,21 @@ namespace MMManager
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.DoubleBuffered = true;
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -160,8 +182,8 @@ namespace MMManager
         }
         public void FallToNextButton()
         {
-            newLocation = (this.myGridY * this.Height) + 20;
-            if (newLocation > this.Top)
+            newLocation = (this.myGridY * this.Height) + 20; //Next "Quantum" location
+            if (newLocation > this.Top) //Need to move
             {
                 this.ToolTip(this.Name + " [" + this.myGridY + "," + this.myGridX + "]");
                 direction = +1;

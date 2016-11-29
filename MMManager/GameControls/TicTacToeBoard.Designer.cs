@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TicTacToeBoard));
             this.label1 = new System.Windows.Forms.Label();
-            this.bgGame = new System.Windows.Forms.GroupBox();
+            this.bgGame = new Controls.MMMGroupBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this._ButtonImageList = new System.Windows.Forms.ImageList(this.components);
             this.ticTacToeStartOrJoin1 = new MMManager.GameControls.TicTacToeStartOrJoin();
@@ -152,7 +152,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox bgGame;
+        private Controls.MMMGroupBox bgGame;
         private System.Windows.Forms.Timer timer2;
         private TicTacToeStartOrJoin ticTacToeStartOrJoin1;
         public System.Windows.Forms.ImageList _ButtonImageList;

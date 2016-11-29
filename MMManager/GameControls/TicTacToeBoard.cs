@@ -70,7 +70,7 @@ namespace MMManager.GameControls
                     break;
                 }
             }
-            label1.Text = "It's " + GameInfo.Players.PlayerList[nt].PlayerName + "'s Turn";
+            GameStatusText = "It's " + GameInfo.Players.PlayerList[nt].PlayerName + "'s Turn";
             _stttbd.WhosTurn = GameInfo.Players.PlayerList[nt];//Assign to the Shared Board Data
             return GameInfo.Players.PlayerList[nt];
         }
@@ -514,39 +514,36 @@ namespace MMManager.GameControls
                     btn = (bgGame.Controls.Find("B" + item.Y + item.X, false).First() as MMManagerTTTButton);
                     btn.BackColor = Color.Red;
                 }
-                label1.Text = "Game Over";
+
+                GameStatusText = "Game Over - " + GetWinnerName(winLine) + " won.";
                 GameInfo.playSound(4); // Play Game End
-                GameInfo.GameOver(label1.Text);
+                GameInfo.GameOver(GameStatusText);
             }
             //Check for Draw
             if (TotalNumMoves == maxX * maxY) // All spaces are filled
             {
-                label1.Text = "Cat's Game";
+                GameStatusText = "Cat's Game.";
                 GameInfo.playSound(3); // Play Cat
-                GameInfo.GameOver(label1.Text);
+                GameInfo.GameOver(GameStatusText);
             }
 
         }
+        private string GameStatusText
+        {
+            get
+            {
+                return label1.Text;
+            }
+            set
+            {
+                label1.Text = value;
+            }
+        }
+        private String GetWinnerName(int symbol)
+        {
+            return GameInfo.Players.PlayerList.Find(x => x.PlayerSymbol == symbol).PlayerName;
+        }
 
-        ///// <summary>
-        ///// Figure Out who's turn it is
-        ///// </summary>
-        ///// <returns></returns>
-        //public int GetCurrentSymbol()
-        //{
-        //    //need a shared index so that the players can take turns
-        //    label1.Text = "It's " + _stttbd.Players[0].PlayerName + "'s Turn";
-        //    return _stttbd.Players[0].PlayerSymbol;
-        //}
-        ///// <summary>
-        ///// Function to get the next person's turn by symbol
-        ///// </summary>
-        ///// <returns></returns>
-        //private int getCurrentTurn()
-        //{
-        //    label1.Text = "It's " + _stttbd.Players[0].PlayerName + "'s Turn";
-        //    return _stttbd.Players[0].PlayerSymbol;
-        //}
         /// <summary>
         /// Function to Set all buttons to Enable or Disable (Mostly Disable)
         /// </summary>
@@ -774,7 +771,7 @@ namespace MMManager.GameControls
                     ResetGame(tsbd);
                     GenerateGameButtons(tsbd); // The board is alread Decoded.
                 }
-                label1.Text = "It's " + _stttbd.WhosTurn.PlayerName + "'s Turn";
+                GameStatusText = "It's " + _stttbd.WhosTurn.PlayerName + "'s Turn";
                 if (_stttbd.WhosTurn.PlayerName == GameInfo.Player.PlayerName)
                     myTurn = true; // What if there is a +x?
                 else
@@ -861,7 +858,7 @@ namespace MMManager.GameControls
                 Random r = new Random(DateTime.Now.Millisecond);
 
                 GameInfo.playSound(r.Next(10, 16)); // Play random Move Sound
-                label1.Text = "It's " + _stttbd.WhosTurn.PlayerName + "'s Turn";
+                GameStatusText = "It's " + _stttbd.WhosTurn.PlayerName + "'s Turn";
                 if (_stttbd.WhosTurn.PlayerName == GameInfo.Player.PlayerName)
                     myTurn = true; // What if there is a +x?
                 else
@@ -874,7 +871,7 @@ namespace MMManager.GameControls
                 {
                     //GameInfo.GameOver(tsbd.MessageString); // Just acknowledging the Game Over Message.
                 }
-                label1.Text = tsbd.MessageString; // Update the status.
+                GameStatusText = tsbd.MessageString; // Update the status.
                 if (tsbd.MessageString == "Cat's Game")
                 {
                     GameInfo.playSound(3); // Play Cat

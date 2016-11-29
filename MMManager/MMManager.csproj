@@ -90,6 +90,9 @@
     <Compile Include="Controls\MMMDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\MMMGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\RichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -262,6 +265,7 @@
     <None Include="images\Arcade - Pac-Man - General Sprites.png" />
     <None Include="images\BrushedPlat.jpg" />
     <None Include="images\Copper.jpg" />
+    <None Include="images\metal-grunge-metallic-steel-555.jpg" />
     <Content Include="InformationAndLinks.txt" />
     <Content Include="Resources\explode.png" />
     <Content Include="Sounds\Blop.wav">
