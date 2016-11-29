@@ -566,6 +566,15 @@ namespace MMManager.GameControls
         /// <param name="allow"></param>
         public void AllButtonsAllowClick(Boolean allow)
         {
+            //Debugging to see if/when the logic error is occuring to allow clicking during animation.
+            if (allow)
+            {
+                bgGame.BackColor = Color.Green;
+            }
+            else
+            {
+                bgGame.BackColor = Color.Red;
+            }
             for (int y = 0; y < maxY; y++)
             {
                 for (int x = 0; x < maxX; x++)
@@ -595,8 +604,6 @@ namespace MMManager.GameControls
             //IF I didn't get a +1 then it's not my turn - But that is determined in DoButtonClick.
             //GetNextPlayer assigns to _Sttbd
             //GameInfo.UpdateScore(GameInfo.Player, GameInfo.GameScore.GetScore(GameInfo.Player) + 1);
-            Random r = new Random(DateTime.Now.Millisecond);
-            GameInfo.playSound(r.Next(10, 16)); // Play random Move Sound
             GameInfo.GameScore.UpdateScore(GameInfo.Player, GameInfo.GameScore.GetScore(GameInfo.Player) + 1, _stttbd);
            // _stttbd.Players = GameInfo.Players.PlayerList; // Brute Force Update.
             if (GetNextPlayer(GameInfo.Player.ToClass()).PlayerName == GameInfo.Player.PlayerName) //Returns next Player
@@ -618,6 +625,9 @@ namespace MMManager.GameControls
            
             if (theButton.Tag.ToString() != "1") // Normal Move
             {
+                Random r = new Random(DateTime.Now.Millisecond);
+                GameInfo.playSound(r.Next(10, 16)); // Play random Move Sound
+
                 //theButton.Text = s;
                 theButton.ImageIndex = s;
                 theButton.Font = new Font("Microsoft Sans Serif", 12);
@@ -677,18 +687,90 @@ namespace MMManager.GameControls
 
         }
 
-  
-        private void ticTacToeStartOrJoin1_Load(object sender, EventArgs e)
-        {
-        }
-
-
         private void TicTacToeBoard_Load(object sender, EventArgs e)
         {
 
             GameInfo.Game = this; //Set the Child control to see parent.
         }
+        /// <summary>
+        /// Message Received to Refresh Game List
+        /// </summary>
+        /// <param name="tsbd"></param>
+        private void RefreshGameList(SharedTicTacToeBoardData tsbd)
+        {
+            if (GameInfo.GameMode == ControlStatus.Hosting)
+            {
+                //Must have a game Generated for this to make sense.
+                if (_stttbd != null && _stttbd.Players.Count > 0)
+                {
+                    tsbd = _stttbd; // Set to what is being Hosted
+                    tsbd.MessageSender = GameInfo.Player.ToClass();
+                    tsbd.Message = SharedTicTacToeBoardData.MessageCode.GameInfo;
+                    tsbd.MessageString = GameInfo.GameName;
+                    SendMessage(GameInfo.GameName, GameInfo.Player.ToClass(), tsbd); // Send message to Everyone
+                }
+            }
 
+        }
+
+        private void ProcessGameInfo(SharedTicTacToeBoardData tsbd)
+        {
+            if (GameInfo.GameMode != ControlStatus.Hosting) // ONly for Joining people
+            {
+                _stttbd = tsbd; // Update the board from the host.
+                GameInfo.AddGame(tsbd.MessageString);
+            }
+        }
+        private void ProcessNewGame(SharedTicTacToeBoardData tsbd)
+        {
+            _stttbd = tsbd; // Set to what was just sent.
+                            //GameInfo.BoardData = tsbd;
+            GameInfo.AddGame(tsbd.MessageString);
+        }
+        private void RemoveGame(SharedTicTacToeBoardData tsbd)
+        {
+            GameInfo.GameState = SharedTicTacToeBoardData.GameState.Waiting;
+            tsbd.Players.Clear(); // THis is the received Message and doesn't do anything but for the next message..
+            theBoard.Players.Clear(); // This removes the internal players.
+            GameInfo.RemoveGame(tsbd.MessageString);
+            GameInfo.Players.ClearAllPlayers();
+            ResetGame(tsbd);
+        }
+        /// <summary>
+        /// Function to process a move a different player made
+        /// 
+        /// Needs to account for animations and events as well as the random generated movement of buttons and doesn't
+        /// Specific known issue is stacked bombs in a 3x3 grid. If top middle is a bomb for player 1, and player two clicks the middle which is also a bomb
+        /// This logic gets confused and can show a bomb, player move and worse oposite player move. (Who know's how bad it would be with more than two players.)
+        /// </summary>
+        /// <param name="tsbd"></param>
+        private void ProcessMove(SharedTicTacToeBoardData tsbd)
+        {
+            //IPlayer p = tsbd.MessageSender;
+            //string btnName = tsbd.MessageValue; //Name of button clicked (Not actual Coordinates in array)
+            int symbol = Convert.ToInt32(tsbd.MessageString);
+            //Do Everything that happens when Clicking a button except resending the Move.
+            //Button b = null;
+            foreach (Control item in bgGame.Controls)
+            {
+                if (item.Name == tsbd.MessageValue)
+                {
+                    DoButtonClick((item as MMManagerTTTButton), symbol); //Simulate clicking the button as the other player (ONLY OK if no random events.)
+                    break;
+                }
+
+            }
+            _stttbd = tsbd; // Sync with what the Host Sent
+            //Update this player Score (Which should not be changed) and the other players.
+            GameInfo.GameScore.UpdateScore(GameInfo.Player, GameInfo.GameScore.GetScore(GameInfo.Player), _stttbd);
+            GameStatusText = "It's " + _stttbd.WhosTurn.PlayerName + "'s Turn";
+            //Determine who's turn - Status update?
+            if (_stttbd.WhosTurn.PlayerName == GameInfo.Player.PlayerName)
+                myTurn = true; // What if there is a +x?
+            else
+                myTurn = false;
+            AllButtonsAllowClick(myTurn);
+        }
         public void ReceiveMessage(string gameName, PlayerClass player, SharedTicTacToeBoardData tsbd)
         {
             //Don't process your own messages EVER
@@ -699,46 +781,21 @@ namespace MMManager.GameControls
             //Someone is sending out a request looking for Games
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.RefreshGameList)
             {
-                if (GameInfo.GameMode == ControlStatus.Hosting)
-                {
-                    //Must have a game Generated for this to make sense.
-                    if (_stttbd != null && _stttbd.Players.Count > 0)
-                    {
-                        tsbd = _stttbd; // Set to what is being Hosted
-                        tsbd.MessageSender = GameInfo.Player.ToClass();
-                        tsbd.Message = SharedTicTacToeBoardData.MessageCode.GameInfo;
-                        tsbd.MessageString = GameInfo.GameName;
-                        SendMessage(GameInfo.GameName, GameInfo.Player.ToClass(), tsbd); // Send message to Everyone
-                    }
-                }
+                RefreshGameList(tsbd);
             }
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.GameInfo)
             {
-                if (GameInfo.GameMode != ControlStatus.Hosting) // ONly for Joining people
-                {
-                    _stttbd = tsbd; // Update the board from the host.
-                    GameInfo.AddGame(tsbd.MessageString);
-                }
+                ProcessGameInfo(tsbd);
             }
             //A new Game has been published
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.NewGame)
             {
-                _stttbd = tsbd; // Set to what was just sent.
-                //GameInfo.BoardData = tsbd;
-                GameInfo.AddGame(tsbd.MessageString);
-
+                ProcessNewGame(tsbd);
             }
             //A game has be removed
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.RemoveGame)
             {
-                
-                GameInfo.GameState = SharedTicTacToeBoardData.GameState.Waiting;
-                tsbd.Players.Clear(); // THis is the received Message and doesn't do anything but for the next message..
-                theBoard.Players.Clear(); // This removes the internal players.
-                GameInfo.RemoveGame(tsbd.MessageString);
-                GameInfo.Players.ClearAllPlayers();
-                ResetGame(tsbd);
-
+                RemoveGame(tsbd);
             }
             #endregion 
 
@@ -839,44 +896,16 @@ namespace MMManager.GameControls
             }
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.Move)
             {
-                
-                IPlayer p = tsbd.MessageSender;
-                string btnName = tsbd.MessageValue;
-                int symbol = Convert.ToInt32(tsbd.MessageString);
-                //Do Everything that happens when Clicking a button except resending the Move.
-                //Button b = null;
-                foreach (Control item in bgGame.Controls)
-                {
-                    if (item.Name == tsbd.MessageValue)
-                    {
-                        DoButtonClick((item as MMManagerTTTButton), symbol);
-                    }
-
-                }
-                _stttbd = tsbd; // Sync with what the Host Sent
-                GameInfo.GameScore.UpdateScore(GameInfo.Player, GameInfo.GameScore.GetScore(GameInfo.Player), _stttbd);
-                Random r = new Random(DateTime.Now.Millisecond);
-
-                GameInfo.playSound(r.Next(10, 16)); // Play random Move Sound
-                GameStatusText = "It's " + _stttbd.WhosTurn.PlayerName + "'s Turn";
-                if (_stttbd.WhosTurn.PlayerName == GameInfo.Player.PlayerName)
-                    myTurn = true; // What if there is a +x?
-                else
-                    myTurn = false;
-                AllButtonsAllowClick(myTurn);
+                ProcessMove(tsbd);
             }
             if (tsbd.Message == SharedTicTacToeBoardData.MessageCode.GameOver)
             {
-                if (GameInfo.GameMode != ControlStatus.Hosting)
-                {
-                    //GameInfo.GameOver(tsbd.MessageString); // Just acknowledging the Game Over Message.
-                }
                 GameStatusText = tsbd.MessageString; // Update the status.
                 if (tsbd.MessageString == "Cat's Game")
                 {
                     GameInfo.playSound(3); // Play Cat
                 }
-                if (tsbd.MessageString == "Game Over")
+                if (tsbd.MessageString.Contains("Game Over"))
                 {
                     GameInfo.playSound(4); // Play Game End
                 }

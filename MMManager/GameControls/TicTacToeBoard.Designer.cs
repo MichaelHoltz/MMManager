@@ -129,7 +129,6 @@
             this.ticTacToeStartOrJoin1.Name = "ticTacToeStartOrJoin1";
             this.ticTacToeStartOrJoin1.Size = new System.Drawing.Size(215, 298);
             this.ticTacToeStartOrJoin1.TabIndex = 13;
-            this.ticTacToeStartOrJoin1.Load += new System.EventHandler(this.ticTacToeStartOrJoin1_Load);
             // 
             // TicTacToeBoard
             // 
