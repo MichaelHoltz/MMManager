@@ -26,7 +26,7 @@ namespace MMManager.GameControls
         private int lastGridSize = 0;
         int maxBombCount = 2;
         private int[,] grid;
-        MMManagerTTTButton[,] b;
+        MMManagerTTTButton[,] B;
         private Color bColor;
         private Boolean myTurn = true; // Default to my Turn.
         private void playSound(int sound)
@@ -149,11 +149,11 @@ namespace MMManager.GameControls
             {
                 for (x = 0; x < maxX; x++)
                 {
-                    if (b != null)
+                    if (B != null)
                     {
-                        if (bgGame.Controls.Contains(b[y, x]))
+                        if (bgGame.Controls.Contains(B[y, x]))
                         {
-                            bgGame.Controls.Remove(b[y, x]);
+                            bgGame.Controls.Remove(B[y, x]);
                         }
                     }
                     //sharedTicTacToeBoardData.GameBoard[index++] = '\0'; //Clear 1d Grid
@@ -182,7 +182,7 @@ namespace MMManager.GameControls
             int index = 0;
 
             
-            b = new MMManagerTTTButton[maxY, maxX]; //2d array of buttons.
+            B = new MMManagerTTTButton[maxY, maxX]; //2d array of buttons.
             grid = new int[maxY, maxX];
             if(GameInfo.GameMode == ControlStatus.Hosting)
                 sharedTicTacToeBoardData.GameBoard = new int[maxX * maxY];
@@ -191,30 +191,35 @@ namespace MMManager.GameControls
             {
                 for (x = 0; x < maxX; x++)
                 {
-                    b[y, x] = new MMManagerTTTButton();
-                    b[y, x].Name = "B" + y + x;
-                    b[y, x].Text = String.Empty;                     //Clear Button
-                    b[y, x].ImageIndex = 0;                         //Clear Images
+                    B[y, x] = new MMManagerTTTButton();
+                    B[y, x].Name = "B" + y + x;
+                    B[y, x].Text = String.Empty;                     //Clear Button
+                    B[y, x].ImageIndex = 0;                         //Clear Images
                     if (GameInfo.GameMode == ControlStatus.Hosting)
                     {
                         sharedTicTacToeBoardData.GameBoard[index++] = 0; //Clear 1d Grid
                         grid[y, x] = 0;                                  //Clear 2d Grid
-                        b[y, x].Tag = "0";
+                        B[y, x].Tag = "0";
                     }
                     else
                     {
                         grid[y, x] = sharedTicTacToeBoardData.GameBoard[index]; //Set the 2d Grid
-                        b[y, x].Tag = sharedTicTacToeBoardData.GameBoard[index++]; // Set tag from shared Board.
+                        B[y, x].Tag = sharedTicTacToeBoardData.GameBoard[index++]; // Set tag from shared Board.
                     }
-                    b[y, x].Font = new Font("Microsoft Sans Serif", 12);
-                    b[y, x].Visible = true;
-                    b[y, x].Width = 50;
-                    b[y, x].Height = 50;
-                    b[y, x].Left = (x * 50) + 10;
-                    b[y, x].Top = (y * 50) + 20;
-                    b[y, x].Click += Button_Click;
-                    b[y, x].ImageList = ButtonImageList;
-                    bgGame.Controls.Add(b[y, x]);
+                    B[y, x].Font = new Font("Microsoft Sans Serif", 12);
+                    B[y, x].Visible = true;
+                    B[y, x].Width = 50;
+                    B[y, x].Height = 50;
+                    B[y, x].Left = (x * 50) + 10;
+                    B[y, x].Top = (y * 50) + 20;
+                    B[y, x].Click += Button_Click;
+                    B[y, x].myGridX = x;
+                    B[y, x].myGridY = y;
+                    B[y, x].maxGridX = maxX;
+                    B[y, x].maxGridY = maxY;
+                    B[y, x].ToolTip(B[y, x].Name + " [" + y + "," + x + "]"); // Add tool tip for debugging
+                    B[y, x].ImageList = ButtonImageList;
+                    bgGame.Controls.Add(B[y, x]);
 
                 }
             }
@@ -268,10 +273,10 @@ namespace MMManager.GameControls
                 {
                     y = r.Next(0, maxY);
                     x = r.Next(0, maxX);
-                    if (b[y, x].Tag.ToString() != "1")
+                    if (B[y, x].Tag.ToString() != "1")
                     {
                         bombCount++;
-                        b[y, x].Tag = "1";
+                        B[y, x].Tag = "1";
                     }
                 }
 
@@ -290,7 +295,7 @@ namespace MMManager.GameControls
             {
                 for (x = 0; x < maxX; x++)
                 {
-                    if (b[y, x].Tag.ToString() == "1") // Using the Button Tag
+                    if (B[y, x].Tag.ToString() == "1") // Using the Button Tag
                     {
                         sharedTicTacToeBoardData.GameBoard[y * maxY + x] = 1;
                     }
@@ -318,19 +323,19 @@ namespace MMManager.GameControls
                 {
                     y = i / maxY;
                     x = i % maxX;
-                    b[y, x].Text = string.Empty;
-                    b[y, x].ImageIndex = 0;
+                    B[y, x].Text = string.Empty;
+                    B[y, x].ImageIndex = 0;
                   //  b[y, x].Text = "b"; // Display's the Bombs For Debugging 
-                    b[y, x].Tag = "1";
+                    B[y, x].Tag = "1";
                     grid[y, x] = 1; // Put it in the local Grid
                 }
                 else
                 {
                     y = i / maxY;
                     x = i % maxX;
-                    b[y, x].Text = string.Empty;
-                    b[y, x].ImageIndex = 0;
-                    b[y, x].Tag = "0";
+                    B[y, x].Text = string.Empty;
+                    B[y, x].ImageIndex = 0;
+                    B[y, x].Tag = "0";
                     grid[y, x] = 0; //Put it in the local Grid
                 }
 
@@ -379,7 +384,7 @@ namespace MMManager.GameControls
             if (n == 0) // Set first Symbol in the line
                 winLine = grid[y, x];
             //winLine &= grid[y, x]; // Anding them together. but that is limiting.
-            if (winLine != grid[y, x] || winLine == 0)
+            if (winLine != grid[y, x] || winLine <10)
             {
                 win = false;
                 //break;
@@ -390,7 +395,7 @@ namespace MMManager.GameControls
         {
             int y = 0;
             int x = 0;
-            Button btn;
+            MMManagerTTTButton btn;
             Point p;
             List<Point> winningList = new List<Point>();
 
@@ -402,7 +407,7 @@ namespace MMManager.GameControls
             {
                 for (x = 0; x < maxX; x++)
                 {
-                    btn = (bgGame.Controls.Find("B" + y + x, false).First() as Button); //Find the Button
+                    btn = (bgGame.Controls.Find("B" + y + x, false).First() as MMManagerTTTButton); //Find the Button By Name
                     //This is a reset
                     btn.BackColor = bColor; 
                     btn.UseVisualStyleBackColor = true;
@@ -506,7 +511,8 @@ namespace MMManager.GameControls
             {
                 foreach (Point item in winningList)
                 {
-                    b[item.Y, item.X].BackColor = Color.Red;
+                    btn = (bgGame.Controls.Find("B" + item.Y + item.X, false).First() as MMManagerTTTButton);
+                    btn.BackColor = Color.Red;
                 }
                 label1.Text = "Game Over";
                 GameInfo.playSound(4); // Play Game End
@@ -553,7 +559,7 @@ namespace MMManager.GameControls
                 for (int x = 0; x < maxX; x++)
                 {
 
-                    b[y, x].customEnable = enable;
+                    B[y, x].customEnable = enable;
                 }
             }
         }
@@ -568,7 +574,7 @@ namespace MMManager.GameControls
                 for (int x = 0; x < maxX; x++)
                 {
 
-                    this.b[y, x].allowClick = allow;
+                    this.B[y, x].allowClick = allow;
                 }
             }
         }
@@ -585,7 +591,7 @@ namespace MMManager.GameControls
             //How Am I sure that _sttbd is current?
             _stttbd.MessageSender = GameInfo.Player.ToClass();
             _stttbd.Message = SharedTicTacToeBoardData.MessageCode.Move;
-            _stttbd.MessageValue = theButton.Name;
+            _stttbd.MessageValue = theButton.Name; //Name is OK and syncronized
             _stttbd.MessageString = s.ToString();
 
             //In normal play it can't be my turn again.. but with +1 it can be.
@@ -611,7 +617,8 @@ namespace MMManager.GameControls
         private void DoButtonClick(MMManagerTTTButton theButtonClicked, int s)
         {
 
-            theButton = theButtonClicked; // set for timer
+            theButton = (bgGame.Controls.Find(theButtonClicked.Name, false).First() as MMManagerTTTButton);; //Find the Button Clicked By Name as this might not be right.
+           
             if (theButton.Tag.ToString() != "1") // Normal Move
             {
                 //theButton.Text = s;
@@ -619,21 +626,24 @@ namespace MMManager.GameControls
                 theButton.Font = new Font("Microsoft Sans Serif", 12);
                 theButton.customEnable = false; //This button is taken - No more clicks
                 CheckForWinOrDraw();
+                if (myTurn)
+                {
+                    AllButtonsAllowClick(true);
+                }
+                else
+                {
+                    AllButtonsAllowClick(false);
+                }
             }
             else //Bomb Move
             {
                 theButton.Tag = "0";
-                AllButtonsAllowClick(false); //Temp Dissallow Clicks
-                timer2.Enabled = true;
+                AllButtonsAllowClick(false); //Temp Dissallow Clicks // Doesn't prefent the new player from moving..
+                theButton.explode();
+                CheckForWinOrDraw(); // Can win after explosion
+                // timer2.Enabled = true; // This does the animation
             }
-            if (myTurn)
-            {
-                AllButtonsAllowClick(true);
-            }
-            else
-            {
-                AllButtonsAllowClick(false);
-            }
+
         }
 
         private void timer2_Tick(object sender, EventArgs e)
