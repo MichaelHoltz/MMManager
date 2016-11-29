@@ -9,9 +9,16 @@ namespace MMManager
     public enum SpriteNames { shot, spaceship, explosion, jelly, dragon, walker, flier }
     class MMManagerTTTButton :Button
     {
+        MediaPlayer mp;
         SpriteController MySpriteController;
         Sprite OneSprite;
+        public int myGridX;
+        public int myGridY;
+        public int maxGridX;
+        public int maxGridY;
         private int newLocation;
+        private ToolTip toolTip1;
+        private System.ComponentModel.IContainer components;
         private int direction;
         public Boolean customEnable { get; set; } = true;
         public Boolean allowClick { get; set; } = true;
@@ -26,24 +33,38 @@ namespace MMManager
                 playSound(1);
             }
         }
+        delegate void playSoundCallback(int sound);
         private void playSound(int sound)
         {
-            MediaPlayer mp = new System.Windows.Media.MediaPlayer();
-            string currentDir = System.IO.Directory.GetCurrentDirectory() + @"\Sounds\";
-            if (sound == 1)
+            if (this.InvokeRequired)
             {
-                mp.Open(new System.Uri(currentDir + @"Blop.wav"));
+                SetTopCallback d = new SetTopCallback(playSound);
+                this.Invoke(d, new object[] { sound });
             }
-            if (sound == 3)
+            else
             {
-                mp.Open(new System.Uri(currentDir + @"Woosh.wav"));
+                string currentDir = System.IO.Directory.GetCurrentDirectory() + @"\Sounds\";
+                if (sound == 1)
+                {
+                    mp.Open(new System.Uri(currentDir + @"Blop.wav"));
+                }
+                if (sound == 2)
+                {
+                    mp.Open(new System.Uri(currentDir + @"Woosh.wav"));
+                    mp.SpeedRatio = 2.5;
+                }
+                if (sound == 3)
+                {
+                    mp.Open(new System.Uri(currentDir + @"Woosh.wav"));
+                }
+                if (sound == 4)
+                {
+                    mp.Open(new System.Uri(currentDir + @"Bomb_Exploding.wav"));
+                    mp.SpeedRatio = 2.5;
+                }
+                
+                mp.Play();
             }
-            if (sound == 2)
-            {
-                mp.Open(new System.Uri(currentDir + @"Woosh.wav"));
-                mp.SpeedRatio = 2.5;
-            }
-            mp.Play();
 
 
 
@@ -51,9 +72,12 @@ namespace MMManager
         public MMManagerTTTButton()
         {
             InitializeComponent();
-             
+            mp = new System.Windows.Media.MediaPlayer();
         }
-
+        public void ToolTip(string tip)
+        {
+            this.toolTip1.SetToolTip(this, tip);
+        }
         public System.Drawing.Bitmap TurnToPicture()
         {
             PictureBox MainDrawingArea = new PictureBox();
@@ -77,14 +101,36 @@ namespace MMManager
 
             return thisButtonBitmap;
         }
+        /// <summary>
+        /// This will take a button out of the grid and put it on top, pushing all that were above down one.
+        /// </summary>
         public void explode()
         {
-            //The function to run when the explosion animation completes
-            Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
-            nSprite.PutBaseImageLocation(-1, -1);
-            nSprite.SetSize(new Size(50, 50));
-            //  nSprite.AnimateOnce(0);
-            nSprite.AnimateJustAFewTimes(1, 10);
+            this.ImageIndex = 1;
+            playSound(4);
+            Thread.Sleep(500);
+            ////The function to run when the explosion animation completes
+            //Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
+            //nSprite.PutBaseImageLocation(-1, -1);
+            //nSprite.SetSize(new Size(50, 50));
+            ////  nSprite.AnimateOnce(0);
+            //nSprite.AnimateJustAFewTimes(1, 10);
+            //this.Name = "B-1" + this.myGridX; // Temporarally rename
+            //this.SendToBack();
+            for (int i = this.myGridY-1; i >= 0; i--) // Each Button Above this from closest to farthest
+            {
+                MMManagerTTTButton bAbove = this.Parent.Controls.Find("B" + i + this.myGridX, false)[0] as MMManagerTTTButton;
+                bAbove.myGridY++; // Add one to it's Y Posistion
+                bAbove.Name = "B" + bAbove.myGridY + bAbove.myGridX; // Rename
+                
+                bAbove.FallToNextButton();
+                
+            }
+            this.myGridY = 0; //Set to Top Most position off screen.
+            this.Name = "B0" + this.myGridX;
+            this.Top = this.Height * -1; // -50; // Instantly move off screen (After doing animation
+            this.FallToNextButton();
+            this.ToolTip(this.Name + " [" + this.myGridY + "," + this.myGridX + "]");
         }
         public void ExplosionCompletes(object sender, EventArgs e)
         {
@@ -94,9 +140,35 @@ namespace MMManager
         }
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             this.ResumeLayout(false);
 
+        }
+        private void setGridY(MMManagerTTTButton btn)
+        {
+            if (btn.myGridY + 1 < btn.maxGridY)
+            {
+                btn.myGridY++;
+            }
+            else
+            {
+                btn.myGridY = 0;
+            }
+
+        }
+        public void FallToNextButton()
+        {
+            newLocation = (this.myGridY * this.Height) + 20;
+            if (newLocation > this.Top)
+            {
+                this.ToolTip(this.Name + " [" + this.myGridY + "," + this.myGridX + "]");
+                direction = +1;
+                Thread thread = new Thread(new ThreadStart(MovementThread));
+                thread.Start();
+            }
+            return;
         }
         /// <summary>
         /// Fall a distance relative to current position by Thread
@@ -129,10 +201,11 @@ namespace MMManager
             int oldTop = this.Top;
             try
             {
+
                 //Move to new location in small steps.
                 do
                 {
-                    if (this.Top + direction > 0 && ((this.Top + this.Height + direction) < Parent.Height ))
+                    if ( (this.Top + this.Height + direction) < Parent.Height )
                     {
                         SetTop(this.Top + direction);
                         Thread.Sleep(5);
@@ -141,8 +214,11 @@ namespace MMManager
                     {
                         break;
                     }
-                } while (this.Top != newLocation);
-                playSound(2);
+                } while (this.Top != newLocation );
+                if (oldTop != this.Top)
+                {
+                    playSound(2);
+                }
             }
             catch (Exception ex)
             {
