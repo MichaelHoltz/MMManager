@@ -243,6 +243,30 @@ namespace MMManager
 
                 if (channel != null)
                 {
+                    try
+                    {
+                        if (ticTacToeBoard1.GameInfo.GameMode != ControlStatus.Unknown)
+                        {
+                            //Player Leaving
+                            ticTacToeBoard1.theBoard.Message = SharedTicTacToeBoardData.MessageCode.LeaveGame;
+                            ticTacToeBoard1.theBoard.MessageSender = ticTacToeBoard1.GameInfo.Player.ToClass();
+                            ticTacToeBoard1.theBoard.MessageString = ticTacToeBoard1.GameInfo.GameName;
+                            ticTacToeBoard1.SendMessage(ticTacToeBoard1.GameInfo.GameName, ticTacToeBoard1.GameInfo.Player.ToClass(), ticTacToeBoard1.theBoard); // Send message to Everyone
+
+                            if (ticTacToeBoard1.GameInfo.GameMode == ControlStatus.Hosting)
+                            {
+                                ticTacToeBoard1.theBoard.Message = SharedTicTacToeBoardData.MessageCode.RemoveGame; // Remove the hosted game.
+                                ticTacToeBoard1.theBoard.MessageSender = ticTacToeBoard1.GameInfo.Player.ToClass();
+                                ticTacToeBoard1.theBoard.MessageString = ticTacToeBoard1.GameInfo.GameName;
+                                ticTacToeBoard1.SendMessage(ticTacToeBoard1.GameInfo.GameName, ticTacToeBoard1.GameInfo.Player.ToClass(), ticTacToeBoard1.theBoard); // Send message to Everyone
+
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        //Ignore errors.
+                    }
                     channel.Leave(this.userName); //Removes user from other members list.
                     channel.Close();
                 }

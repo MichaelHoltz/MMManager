@@ -567,14 +567,14 @@ namespace MMManager.GameControls
         public void AllButtonsAllowClick(Boolean allow)
         {
             //Debugging to see if/when the logic error is occuring to allow clicking during animation.
-            if (allow)
-            {
-                bgGame.BackColor = Color.Green;
-            }
-            else
-            {
-                bgGame.BackColor = Color.Red;
-            }
+            //if (allow)
+            //{
+            //    bgGame.BackColor = Color.Green;
+            //}
+            //else
+            //{
+            //    bgGame.BackColor = Color.Red;
+            //}
             for (int y = 0; y < maxY; y++)
             {
                 for (int x = 0; x < maxX; x++)
@@ -646,7 +646,9 @@ namespace MMManager.GameControls
             {
                 theButton.Tag = "0";
                 AllButtonsAllowClick(false); //Temp Dissallow Clicks // Doesn't prefent the new player from moving..
+               // System.Threading.Thread.Sleep(3000);
                 theButton.explode();
+               // System.Threading.Thread.Sleep(3000);
                 CheckForWinOrDraw(); // Can win after explosion
                 // timer2.Enabled = true; // This does the animation
             }

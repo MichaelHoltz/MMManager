@@ -175,7 +175,9 @@ namespace MMManager.GameControls
                 {
                     case SharedTicTacToeBoardData.GameState.Waiting:
                         btnJoin.Text = "Join";
+                        btnJoin.Enabled = false;
                         btnWatch.Text = "Watch";
+                        btnWatch.Enabled = false;
                         Players.Player.PlayerStatus = "Waiting..";
                         rbHost.Enabled = true;
                         break;
@@ -210,7 +212,13 @@ namespace MMManager.GameControls
 
         private void RequestRefreshGame()
         {
-
+            //This could be the first time anything with a board is done...
+            
+            if (Game.theBoard == null)
+            {
+                Game.theBoard = new SharedTicTacToeBoardData(); // New Empty Board.
+                Game.theBoard.GameName = "No Game";
+            }
             Game.theBoard.Message = SharedTicTacToeBoardData.MessageCode.RefreshGameList; ;
             Game.theBoard.MessageSender = Player.ToClass();
             Game.SendMessage(Game.theBoard.GameName, Player.ToClass(), Game.theBoard);
@@ -219,6 +227,11 @@ namespace MMManager.GameControls
         }
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            lbAvailableGames.Items.Clear();
+            if (lbAvailableGames.Items.Count == 0)
+            {
+                lbAvailableGames.Items.Add("No Games Found");
+            }
             RequestRefreshGame();
         }
 
@@ -254,7 +267,8 @@ namespace MMManager.GameControls
         private void btnJoin_Click(object sender, EventArgs e)
         {
             if (btnJoin.Text == "Join") //Join
-            {
+            {   if (lbAvailableGames.SelectedItem == null)
+                    return;
                 btnWatch.Enabled = false;
                 //ticTacToePlayers1.PlayerSymbol =  theSharedTicTacToBoardData.NextSymbol; // Need to Get this from the Host.
                 Player.PlayerStatus = "Joined Game";
