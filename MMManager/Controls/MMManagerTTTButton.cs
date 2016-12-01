@@ -20,6 +20,8 @@ namespace MMManager
         private ToolTip toolTip1;
         private System.ComponentModel.IContainer components;
         private PictureBox pictureBox1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
         private int direction;
         public Boolean customEnable { get; set; } = true;
         public Boolean allowClick { get; set; } = true;
@@ -107,15 +109,20 @@ namespace MMManager
 
             return thisButtonBitmap;
         }
+
+        public void explode()
+        {
+            timer1.Enabled = true;
+        }
+
         /// <summary>
         /// This will take a button out of the grid and put it on top, pushing all that were above down one.
         /// This re-arranges the actual buttons in the grid so reference by name is all that is accurate once an explosion has happened.
         /// </summary>
-        public void explode()
+        private void explode2()
         {
-            this.ImageIndex = 1;
-            playSound(4); // Explosion Sound
-            //Thread.Sleep(500);
+         
+            this.ImageIndex = 0;
             ////The function to run when the explosion animation completes
             //Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
             //nSprite.PutBaseImageLocation(-1, -1);
@@ -124,22 +131,23 @@ namespace MMManager
             //nSprite.AnimateJustAFewTimes(1, 10);
             //this.Name = "B-1" + this.myGridX; // Temporarally rename
             //this.SendToBack();
-            for (int i = this.myGridY-1; i >= 0; i--) // Each Button Above this from closest to farthest
+            for (int i = this.myGridY - 1; i >= 0; i--) // Each Button Above this from closest to farthest
             {
                 MMManagerTTTButton bAbove = this.Parent.Controls.Find("B" + i + this.myGridX, false)[0] as MMManagerTTTButton;
                 bAbove.myGridY++; // Add one to it's Y Posistion
                 bAbove.Name = "B" + bAbove.myGridY + bAbove.myGridX; // Rename
-                
+
                 bAbove.FallToNextButton();
                 //Thread.Sleep(50);
-               // Application.DoEvents();
-                
+                // Application.DoEvents();
+
             }
             this.myGridY = 0; //Set to Top Most position off screen.
             this.Name = "B0" + this.myGridX;
             this.Top = this.Height * -1; // -50; // Instantly move off screen (After doing animation
             this.FallToNextButton();
             this.ToolTip(this.Name + " [" + this.myGridY + "," + this.myGridX + "]");
+
         }
         public void ExplosionCompletes(object sender, EventArgs e)
         {
@@ -150,9 +158,10 @@ namespace MMManager
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.DoubleBuffered = true;
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -164,6 +173,16 @@ namespace MMManager
             this.pictureBox1.Size = new System.Drawing.Size(100, 50);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 50;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timer2
+            // 
+            this.timer2.Interval = 500;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -240,6 +259,10 @@ namespace MMManager
                 if (oldTop != this.Top)
                 {
                     playSound(2);
+                    if (this.ImageIndex == 1)
+                    {
+                        this.ImageIndex = 0; // Remove bombs
+                    }
                 }
             }
             catch (Exception ex)
@@ -268,6 +291,21 @@ namespace MMManager
             {
                 this.Top = location;
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            this.ImageIndex = 1;
+            playSound(4); // Explosion Sound
+            timer2.Enabled = true;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            timer2.Enabled = false;
+            explode2();
+
         }
     }
 }
