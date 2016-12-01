@@ -12,7 +12,7 @@ namespace MMManager
 
     public partial class MMMChatClient : Form, IChatService, IMessageRelay
     {
-        SpriteController MySpriteController;
+        
         private int instanceNumber; // The instance number of this application.
         private TTTProfile tttProfile = new TTTProfile();
        // private SharedTicTacToeBoardData theTicTacToeBoardData; //Contains all neeeded
@@ -324,59 +324,7 @@ namespace MMManager
             tttProfile.Symbol = btnSymbolChoice.ImageIndex; // Save for Profile
         }
 
-        private void mmManagerTTTButton2_Click(object sender, EventArgs e)
-        {
-            MMManagerTTTButton btn = (sender as MMManagerTTTButton);
-  //          Bitmap b = new Bitmap(btn.TurnToPicture());
-//            pictureBox1.BackgroundImage = b;
-            
-            //pictureBox1.Image = b;
-            Sprite OneSprite;
-            MySpriteController = new SpriteController(pictureBox1);
 
-            OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 50);
-            OneSprite.SetSize(new Size(50, 50));
-            OneSprite.SetName(SpriteNames.explosion.ToString());
-            //The function to run when the explosion animation completes
-            OneSprite.SpriteAnimationComplete += ExplosionCompletes;
-            //SpriteController MySpriteController;
 
-            //btn.explode();
-            //if (btn.Top > 0)
-            //    btn.Fall(50);
-            //else
-            //{
-            //    btn.Rise(50);
-            //}
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //SpriteController MySpriteController;
-            //Sprite OneSprite;
-            //MySpriteController = new SpriteController(pictureBox1);
-            //OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 50);
-            //OneSprite.SetSize(new Size(50, 50));
-            //OneSprite.SetName(SpriteNames.explosion.ToString());
-            ////The function to run when the explosion animation completes
-            //OneSprite.SpriteAnimationComplete += ExplosionCompletes;
-
-            Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
-            nSprite.PutBaseImageLocation(50, 50);
-            nSprite.SetSize(new Size(150, 150));
-             nSprite.AnimateOnce(0);
-            //nSprite.AnimateJustAFewTimes(1, 10);
-        }
-        public void ExplosionCompletes(object sender, EventArgs e)
-        {
-            Sprite tSprite = (Sprite)sender;
-            tSprite.Destroy();
-            // CountMonsters();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

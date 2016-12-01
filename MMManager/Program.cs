@@ -17,7 +17,7 @@ namespace MMManager
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new mainForm());
-            //Application.Run(new frmTesting());
+           // Application.Run(new frmTesting());
             Application.Run(new MMMChatClient(PriorProcess())); // Start with an instance number.
         }
         public static int PriorProcess()

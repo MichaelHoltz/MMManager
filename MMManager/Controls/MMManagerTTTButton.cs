@@ -6,7 +6,7 @@ using System.Drawing;
 using SpriteLibrary;
 namespace MMManager
 {
-    public enum SpriteNames { shot, spaceship, explosion, jelly, dragon, walker, flier }
+    public enum SpriteNames { shot, spaceship, explosion, jelly, dragon, walker, flier, GreyButton }
     class MMManagerTTTButton :Button
     {
         MediaPlayer mp;

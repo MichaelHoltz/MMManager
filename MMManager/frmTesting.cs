@@ -3,10 +3,12 @@ using System.Drawing;
 using System.Windows.Forms;
 using MMManager.GameObjects;
 using System.Threading;
+using SpriteLibrary;
 namespace MMManager
 {
     public partial class frmTesting : Form
     {
+        SpriteController MySpriteController;
         private int[,] grid;
         private SharedTicTacToeBoardData _stttbd;
         private MMManagerTTTButton theButton; //Shared Button Object
@@ -92,6 +94,37 @@ namespace MMManager
             //Because the buttons are in a group box, and they have an odd border there is a visual annomoly from the falling buttons.
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Sprite OneSprite;
+            MySpriteController = new SpriteController(pictureBox1);
+            //MySpriteController.ReplaceOriginalImage(pictureBox1.BackgroundImage);
+            OneSprite = new Sprite(MySpriteController, Properties.Resources.GreyButton, 50, 50, 50);
+            OneSprite.SetSize(new Size(50, 150));
+            OneSprite.SetName(SpriteNames.GreyButton.ToString());
+            //The function to run when the explosion animation completes
+            OneSprite.SpriteAnimationComplete += ExplosionCompletes;
+        }
+        public void ExplosionCompletes(object sender, EventArgs e)
+        {
+            Sprite tSprite = (Sprite)sender;
+            tSprite.Destroy();
+            // CountMonsters();
+        }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.GreyButton.ToString());
+            nSprite.PutBaseImageLocation(0, 0);
+            nSprite.SetSize(new Size(50, 150));
+            
+
+            nSprite.MoveTo(new Point(1500, 1500));
+            nSprite.MovementSpeed = 100;
+            nSprite.CannotMoveOutsideBox = true;
+            
+            nSprite.AutomaticallyMoves = true;
+            //nSprite.AnimateOnce(0);
+        }
     }
 }

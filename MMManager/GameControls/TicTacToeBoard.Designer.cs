@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TicTacToeBoard));
             this.label1 = new System.Windows.Forms.Label();
-            this.bgGame = new Controls.MMMGroupBox();
+            this.bgGame = new MMManager.Controls.MMMGroupBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this._ButtonImageList = new System.Windows.Forms.ImageList(this.components);
             this.ticTacToeStartOrJoin1 = new MMManager.GameControls.TicTacToeStartOrJoin();
@@ -40,12 +40,13 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label1.Location = new System.Drawing.Point(0, 448);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(68, 13);
             this.label1.TabIndex = 12;
-            this.label1.Text = "label1";
+            this.label1.Text = "Game Status";
             // 
             // bgGame
             // 
