@@ -120,20 +120,20 @@ namespace MMManager
             this.Controls.Add(MainDrawingArea);
             MainDrawingArea.Visible = true;
 
-            //Create Animation for Explosion
-            MySpriteController = new SpriteController(MainDrawingArea);
-            OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 50);
-            OneSprite.SetSize(new Size(50, 50));
-            OneSprite.SetName(SpriteNames.explosion.ToString());
-            ////The function to run when the explosion animation completes
-            OneSprite.SpriteAnimationComplete += ExplosionCompletes;
+            ////Create Animation for Explosion
+            //MySpriteController = new SpriteController(MainDrawingArea);
+            //OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 100);
+            //OneSprite.SetSize(new Size(50, 50));
+            //OneSprite.SetName(SpriteNames.explosion.ToString());
+            //////The function to run when the explosion animation completes
+            //OneSprite.SpriteAnimationComplete += ExplosionCompletes;
 
 
-            Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
-            nSprite.PutBaseImageLocation(0, 0);
-            nSprite.SetSize(new Size(50, 50));
+            //Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
+            //nSprite.PutBaseImageLocation(0, 0);
+            //nSprite.SetSize(new Size(50, 50));
 
-            nSprite.AnimateOnce(0);
+            //nSprite.AnimateOnce(0);
 
 
             
@@ -162,6 +162,8 @@ namespace MMManager
             //nSprite.AnimateJustAFewTimes(1, 10);
             //this.Name = "B-1" + this.myGridX; // Temporarally rename
             //this.SendToBack();
+
+
             for (int i = this.myGridY - 1; i >= 0; i--) // Each Button Above this from closest to farthest
             {
                 MMManagerTTTButton bAbove = this.Parent.Controls.Find("B" + i + this.myGridX, false)[0] as MMManagerTTTButton;
@@ -196,7 +198,7 @@ namespace MMManager
             this.TurnToPicture();
             //Create Animation for Explosion
             MySpriteController = new SpriteController(MainDrawingArea);
-            OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 50);
+            OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 40);
             OneSprite.SetSize(new Size(50, 50));
             OneSprite.SetName(SpriteNames.explosion.ToString());
             ////The function to run when the explosion animation completes

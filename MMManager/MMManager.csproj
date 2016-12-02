@@ -63,10 +63,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="SpriteLibrary, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Examples\SpriteLibrary\SpriteLibrary\bin\Release\SpriteLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -271,6 +267,7 @@
     <Content Include="Resources\explode.png" />
     <None Include="Resources\GreyButton.png" />
     <None Include="Resources\GreyButtonE3.png" />
+    <None Include="Resources\PacMan.png" />
     <Content Include="Sounds\Blop.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -339,6 +336,12 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Examples\SpriteLibrary\SpriteLibrary\SpriteLibrary.csproj">
+      <Project>{fc04405b-2bc1-42ca-8410-a30f9baf4b6c}</Project>
+      <Name>SpriteLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

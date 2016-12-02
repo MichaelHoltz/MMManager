@@ -889,7 +889,7 @@ namespace SpriteLibrary
                         }
                     }
                     SpriteEventArgs e = new SpriteEventArgs();
-                    e.NewLocation = new Point((int)Math.Round(newX), (int)Math.Round(newY));
+                    e.NewLocation = new Point((int)Math.Round(newX), (int)Math.Round(newY)); // MJH Redone Below.
                     if (MovingToPoint && MovementDestinations.Count > 0)
                     {
                         //do not go past the destination point
@@ -903,6 +903,12 @@ namespace SpriteLibrary
                         //Console.WriteLine("Heading to: " + MovementDestinations[0].ToString() + " At: " + newX.ToString() + " " + newY.ToString());
                         if ((int)newX == MovementDestinations[0].X && (int)newY == MovementDestinations[0].Y)
                         {
+                            //MJH set sprite to exact location because rounding is a problem
+                            SpriteVector.X = MovementDestinations[0].X;
+                            SpriteVector.Y = MovementDestinations[0].Y;
+                            //Update Event Arguements as they were rounded
+                            e.NewLocation = new Point((int)SpriteVector.X, (int)SpriteVector.Y);
+
                             //check to see if we have hit the endpoint
                             MovementDestinations.RemoveAt(0); //Yank the destination
                             if (MovementDestinations.Count == 0)

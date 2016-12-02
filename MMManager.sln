@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMManager", "MMManager\MMMa
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "MMManagerSetup", "Setup\MMManagerSetup\MMManagerSetup.isproj", "{9DF7DE34-7FBC-401C-9FE4-FE0B3DCC059C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpriteLibrary", "Examples\SpriteLibrary\SpriteLibrary\SpriteLibrary.csproj", "{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -59,6 +61,26 @@ Global
 		{9DF7DE34-7FBC-401C-9FE4-FE0B3DCC059C}.SingleImage|Any CPU.Build.0 = SingleImage
 		{9DF7DE34-7FBC-401C-9FE4-FE0B3DCC059C}.SingleImage|x86.ActiveCfg = SingleImage
 		{9DF7DE34-7FBC-401C-9FE4-FE0B3DCC059C}.SingleImage|x86.Build.0 = SingleImage
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.CD_ROM|x86.Build.0 = Release|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.Debug|x86.Build.0 = Debug|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.DVD-5|x86.Build.0 = Debug|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.Release|x86.ActiveCfg = Release|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.Release|x86.Build.0 = Release|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.SingleImage|x86.ActiveCfg = Release|Any CPU
+		{FC04405B-2BC1-42CA-8410-A30F9BAF4B6C}.SingleImage|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

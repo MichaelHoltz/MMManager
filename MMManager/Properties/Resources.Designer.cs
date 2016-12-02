@@ -123,9 +123,9 @@ namespace MMManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap metal_grunge_metallic_steel_555 {
+        internal static System.Drawing.Bitmap PacMan {
             get {
-                object obj = ResourceManager.GetObject("metal-grunge-metallic-steel-555", resourceCulture);
+                object obj = ResourceManager.GetObject("PacMan", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

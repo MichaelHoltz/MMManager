@@ -38,16 +38,15 @@
             this.btnGenerateGrid = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTipForm = new System.Windows.Forms.ToolTip(this.components);
-            this.button2 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.pbBackGround = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.BBomb = new MMManager.MMManagerTTTButton();
             this.mmmGroupBox1 = new MMManager.Controls.MMMGroupBox();
             this.mmManagerTTTButton1 = new MMManager.MMManagerTTTButton();
             this.bgGame = new MMManager.Controls.MMMGroupBox();
             this.mmManagerTTTButton2 = new MMManager.MMManagerTTTButton();
-            this.BBomb = new MMManager.MMManagerTTTButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBackGround)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -121,19 +120,9 @@
             this.btnGenerateGrid.UseVisualStyleBackColor = true;
             this.btnGenerateGrid.Click += new System.EventHandler(this.btnGenerateGrid_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(453, 41);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 51;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(545, 49);
+            this.button5.Location = new System.Drawing.Point(372, 85);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 52;
@@ -173,6 +162,17 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            // 
+            // BBomb
+            // 
+            this.BBomb.allowClick = true;
+            this.BBomb.customEnable = true;
+            this.BBomb.Location = new System.Drawing.Point(455, 152);
+            this.BBomb.Name = "BBomb";
+            this.BBomb.Size = new System.Drawing.Size(50, 50);
+            this.BBomb.TabIndex = 54;
+            this.BBomb.UseVisualStyleBackColor = true;
+            this.BBomb.Click += new System.EventHandler(this.BBomb_Click);
             // 
             // mmmGroupBox1
             // 
@@ -218,17 +218,6 @@
             this.mmManagerTTTButton2.Text = "mmManagerTTTButton2";
             this.mmManagerTTTButton2.UseVisualStyleBackColor = true;
             // 
-            // BBomb
-            // 
-            this.BBomb.allowClick = true;
-            this.BBomb.customEnable = true;
-            this.BBomb.Location = new System.Drawing.Point(455, 152);
-            this.BBomb.Name = "BBomb";
-            this.BBomb.Size = new System.Drawing.Size(50, 50);
-            this.BBomb.TabIndex = 54;
-            this.BBomb.UseVisualStyleBackColor = true;
-            this.BBomb.Click += new System.EventHandler(this.BBomb_Click);
-            // 
             // frmTesting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,7 +226,6 @@
             this.Controls.Add(this.BBomb);
             this.Controls.Add(this.pbBackGround);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.mmmGroupBox1);
             this.Controls.Add(this.mmManagerTTTButton1);
             this.Controls.Add(this.bgGame);
@@ -249,6 +237,7 @@
             this.Controls.Add(this.button1);
             this.Name = "frmTesting";
             this.Text = "frmTesting";
+            this.Load += new System.EventHandler(this.frmTesting_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbBackGround)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -275,7 +264,6 @@
         private MMManagerTTTButton mmManagerTTTButton1;
         private System.Windows.Forms.ToolTip toolTipForm;
         private Controls.MMMGroupBox mmmGroupBox1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.PictureBox pbBackGround;
         private MMManagerTTTButton BBomb;
