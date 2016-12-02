@@ -9,6 +9,7 @@ namespace MMManager
     public enum SpriteNames { shot, spaceship, explosion, jelly, dragon, walker, flier, GreyButton }
     class MMManagerTTTButton :Button
     {
+        private PictureBox MainDrawingArea;
         MediaPlayer mp;
         SpriteController MySpriteController;
         Sprite OneSprite;
@@ -19,7 +20,6 @@ namespace MMManager
         private int newLocation;
         private ToolTip toolTip1;
         private System.ComponentModel.IContainer components;
-        private PictureBox pictureBox1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         private int direction;
@@ -35,11 +35,6 @@ namespace MMManager
             {
                 playSound(1);
             }
-        }
-        protected override void OnBackgroundImageChanged(EventArgs e)
-        {
-            base.OnBackgroundImageChanged(e);
-            pictureBox1.BackgroundImage = this.BackgroundImage; // Set the picture Box Background Image to the same as the button for later use.
         }
         delegate void playSoundCallback(int sound);
         private void playSound(int sound)
@@ -82,30 +77,66 @@ namespace MMManager
             InitializeComponent();
             mp = new System.Windows.Media.MediaPlayer();
         }
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.SuspendLayout();
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 10;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timer2
+            // 
+            this.timer2.Interval = 10;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.ResumeLayout(false);
+
+        }
         public void ToolTip(string tip)
         {
             this.toolTip1.SetToolTip(this, tip);
         }
+        /// <summary>
+        /// Turns the Button into a picture.. If doing this from clicking the button itself it will have the being clicked effect.
+        /// </summary>
+        /// <returns></returns>
         public System.Drawing.Bitmap TurnToPicture()
         {
-            PictureBox MainDrawingArea = new PictureBox();
+            MainDrawingArea = new PictureBox();
             MainDrawingArea.Top = 0;// this.Top;
             MainDrawingArea.Left = 0;// this.Left;
             MainDrawingArea.Height = this.Height;
             MainDrawingArea.Width = this.Width;
-            
+            MainDrawingArea.BackgroundImageLayout = ImageLayout.Stretch;
+            //MainDrawingArea.SizeMode = PictureBoxSizeMode.StretchImage;
             System.Drawing.Bitmap thisButtonBitmap = new System.Drawing.Bitmap(this.Width, this.Height);
             this.DrawToBitmap(thisButtonBitmap, new System.Drawing.Rectangle(0,0,this.Width, this.Height));
             MainDrawingArea.BackgroundImage = thisButtonBitmap;
             this.Controls.Add(MainDrawingArea);
             MainDrawingArea.Visible = true;
 
-            //MySpriteController = new SpriteController(MainDrawingArea);
-            //OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 50);
-            //OneSprite.SetSize(new Size(50, 50));
-            //OneSprite.SetName(SpriteNames.explosion.ToString());
+            //Create Animation for Explosion
+            MySpriteController = new SpriteController(MainDrawingArea);
+            OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 50);
+            OneSprite.SetSize(new Size(50, 50));
+            OneSprite.SetName(SpriteNames.explosion.ToString());
             ////The function to run when the explosion animation completes
-            //OneSprite.SpriteAnimationComplete += ExplosionCompletes;
+            OneSprite.SpriteAnimationComplete += ExplosionCompletes;
+
+
+            Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
+            nSprite.PutBaseImageLocation(0, 0);
+            nSprite.SetSize(new Size(50, 50));
+
+            nSprite.AnimateOnce(0);
+
+
+            
 
             return thisButtonBitmap;
         }
@@ -153,40 +184,41 @@ namespace MMManager
         {
             Sprite tSprite = (Sprite)sender;
             tSprite.Destroy();
-           // CountMonsters();
+            
+            this.Controls.Remove(MainDrawingArea);
+            timer2.Enabled = true;  //Start Falling
+            MainDrawingArea = null; // REmove the picture
+            // CountMonsters();
         }
-        private void InitializeComponent()
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            this.components = new System.ComponentModel.Container();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 50;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // timer2
-            // 
-            this.timer2.Interval = 500;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.ResumeLayout(false);
+            timer1.Enabled = false;
+            this.TurnToPicture();
+            //Create Animation for Explosion
+            MySpriteController = new SpriteController(MainDrawingArea);
+            OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 50);
+            OneSprite.SetSize(new Size(50, 50));
+            OneSprite.SetName(SpriteNames.explosion.ToString());
+            ////The function to run when the explosion animation completes
+            OneSprite.SpriteAnimationComplete += ExplosionCompletes;
+
+
+            Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
+            nSprite.PutBaseImageLocation(0, 0);
+            nSprite.SetSize(new Size(50, 50));
+
+            playSound(4); // Explosion Sound
+            nSprite.AnimateOnce(0);
 
         }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            timer2.Enabled = false;
+            explode2();
+
+        }
+
         private void setGridY(MMManagerTTTButton btn)
         {
             if (btn.myGridY + 1 < btn.maxGridY)
@@ -293,19 +325,6 @@ namespace MMManager
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            timer1.Enabled = false;
-            this.ImageIndex = 1;
-            playSound(4); // Explosion Sound
-            timer2.Enabled = true;
-        }
-
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            timer2.Enabled = false;
-            explode2();
-
-        }
+  
     }
 }

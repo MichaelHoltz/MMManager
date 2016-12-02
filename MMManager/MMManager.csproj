@@ -267,8 +267,10 @@
     <None Include="images\Copper.jpg" />
     <None Include="images\metal-grunge-metallic-steel-555.jpg" />
     <Content Include="InformationAndLinks.txt" />
+    <None Include="Resources\150x150Background.png" />
     <Content Include="Resources\explode.png" />
     <None Include="Resources\GreyButton.png" />
+    <None Include="Resources\GreyButtonE3.png" />
     <Content Include="Sounds\Blop.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

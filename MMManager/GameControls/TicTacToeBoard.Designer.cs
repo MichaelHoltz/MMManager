@@ -31,10 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TicTacToeBoard));
             this.label1 = new System.Windows.Forms.Label();
-            this.bgGame = new MMManager.Controls.MMMGroupBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this._ButtonImageList = new System.Windows.Forms.ImageList(this.components);
+            this.timerCheckWinOrDraw = new System.Windows.Forms.Timer(this.components);
             this.ticTacToeStartOrJoin1 = new MMManager.GameControls.TicTacToeStartOrJoin();
+            this.bgGame = new MMManager.Controls.MMMGroupBox();
             this.SuspendLayout();
             // 
             // label1
@@ -47,18 +48,6 @@
             this.label1.Size = new System.Drawing.Size(68, 13);
             this.label1.TabIndex = 12;
             this.label1.Text = "Game Status";
-            // 
-            // bgGame
-            // 
-            this.bgGame.AutoSize = true;
-            this.bgGame.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.bgGame.Location = new System.Drawing.Point(3, 308);
-            this.bgGame.MinimumSize = new System.Drawing.Size(150, 150);
-            this.bgGame.Name = "bgGame";
-            this.bgGame.Size = new System.Drawing.Size(150, 150);
-            this.bgGame.TabIndex = 10;
-            this.bgGame.TabStop = false;
-            this.bgGame.Text = "Tic Tac Toe";
             // 
             // timer2
             // 
@@ -118,6 +107,11 @@
             this._ButtonImageList.Images.SetKeyName(46, "yoshi.png");
             this._ButtonImageList.Images.SetKeyName(47, "Yoshi2.png");
             // 
+            // timerCheckWinOrDraw
+            // 
+            this.timerCheckWinOrDraw.Interval = 1000;
+            this.timerCheckWinOrDraw.Tick += new System.EventHandler(this.timerCheckWinOrDraw_Tick);
+            // 
             // ticTacToeStartOrJoin1
             // 
             this.ticTacToeStartOrJoin1.AutoSize = true;
@@ -130,6 +124,18 @@
             this.ticTacToeStartOrJoin1.Name = "ticTacToeStartOrJoin1";
             this.ticTacToeStartOrJoin1.Size = new System.Drawing.Size(215, 298);
             this.ticTacToeStartOrJoin1.TabIndex = 13;
+            // 
+            // bgGame
+            // 
+            this.bgGame.AutoSize = true;
+            this.bgGame.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.bgGame.Location = new System.Drawing.Point(3, 308);
+            this.bgGame.MinimumSize = new System.Drawing.Size(150, 150);
+            this.bgGame.Name = "bgGame";
+            this.bgGame.Size = new System.Drawing.Size(150, 150);
+            this.bgGame.TabIndex = 10;
+            this.bgGame.TabStop = false;
+            this.bgGame.Text = "Tic Tac Toe";
             // 
             // TicTacToeBoard
             // 
@@ -156,5 +162,6 @@
         private System.Windows.Forms.Timer timer2;
         private TicTacToeStartOrJoin ticTacToeStartOrJoin1;
         public System.Windows.Forms.ImageList _ButtonImageList;
+        private System.Windows.Forms.Timer timerCheckWinOrDraw;
     }
 }

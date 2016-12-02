@@ -97,11 +97,12 @@ namespace MMManager
         private void button2_Click(object sender, EventArgs e)
         {
             Sprite OneSprite;
-            MySpriteController = new SpriteController(pictureBox1);
+            MySpriteController = new SpriteController(pbBackGround);
             //MySpriteController.ReplaceOriginalImage(pictureBox1.BackgroundImage);
-            OneSprite = new Sprite(MySpriteController, Properties.Resources.GreyButton, 50, 50, 50);
-            OneSprite.SetSize(new Size(50, 150));
+            OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 25);
+            OneSprite.SetSize(new Size(50, 50));
             OneSprite.SetName(SpriteNames.GreyButton.ToString());
+            //OneSprite.UnhideSprite();
             //The function to run when the explosion animation completes
             OneSprite.SpriteAnimationComplete += ExplosionCompletes;
         }
@@ -115,16 +116,22 @@ namespace MMManager
         private void button5_Click(object sender, EventArgs e)
         {
             Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.GreyButton.ToString());
-            nSprite.PutBaseImageLocation(0, 0);
-            nSprite.SetSize(new Size(50, 150));
+            nSprite.PutBaseImageLocation(50, 50);
+            nSprite.SetSize(new Size(50, 50));
             
 
-            nSprite.MoveTo(new Point(1500, 1500));
-            nSprite.MovementSpeed = 100;
+            nSprite.MoveTo(new Point(50, 50));
+            nSprite.MovementSpeed = 5;
             nSprite.CannotMoveOutsideBox = true;
             
             nSprite.AutomaticallyMoves = true;
             //nSprite.AnimateOnce(0);
+        }
+
+        private void BBomb_Click(object sender, EventArgs e)
+        {
+            //BBomb.TurnToPicture();
+            BBomb.explode();
         }
     }
 }

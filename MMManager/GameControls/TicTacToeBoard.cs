@@ -520,7 +520,7 @@ namespace MMManager.GameControls
                 GameInfo.GameOver(GameStatusText);
             }
             //Check for Draw
-            if (TotalNumMoves == maxX * maxY) // All spaces are filled
+            else if (TotalNumMoves == maxX * maxY) // All spaces are filled
             {
                 GameStatusText = "Cat's Game.";
                 GameInfo.playSound(3); // Play Cat
@@ -632,24 +632,17 @@ namespace MMManager.GameControls
                 theButton.ImageIndex = s;
                 theButton.Font = new Font("Microsoft Sans Serif", 12);
                 theButton.customEnable = false; //This button is taken - No more clicks
-                CheckForWinOrDraw();
-                if (myTurn)
-                {
-                    AllButtonsAllowClick(true);
-                }
-                else
-                {
-                    AllButtonsAllowClick(false);
-                }
+                CheckForWinOrDraw(); // Check directly and immediately before allowing turns.
+                AllButtonsAllowClick(myTurn);
             }
             else //Bomb Move
             {
                 theButton.Tag = "0";
                 AllButtonsAllowClick(false); //Temp Dissallow Clicks // Doesn't prefent the new player from moving..
                // System.Threading.Thread.Sleep(3000);
-                theButton.explode();
-               // System.Threading.Thread.Sleep(3000);
-                CheckForWinOrDraw(); // Can win after explosion
+                theButton.explode(); // If there is an explosion the buttons haven't moved yet and so checking for winordraw will not work until after
+                //CheckForWinOrDraw(); // Can win after explosion
+                timerCheckWinOrDraw.Enabled = true; // need to allow animation before checking for Win or Draw.
                 // timer2.Enabled = true; // This does the animation
             }
 
@@ -936,6 +929,11 @@ namespace MMManager.GameControls
             //}
         }
 
-
+        private void timerCheckWinOrDraw_Tick(object sender, EventArgs e)
+        {
+            //if(GameInfo.GameState == SharedTicTacToeBoardData.GameState.GameOver)
+            timerCheckWinOrDraw.Enabled = false; //Just keep checking over and over?? Got win and Cat's game at once.
+            CheckForWinOrDraw();
+        }
     }
 }

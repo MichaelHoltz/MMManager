@@ -63,6 +63,16 @@ namespace MMManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _150x150Background {
+            get {
+                object obj = ResourceManager.GetObject("150x150Background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BrushedPlat {
             get {
                 object obj = ResourceManager.GetObject("BrushedPlat", resourceCulture);
@@ -96,6 +106,16 @@ namespace MMManager.Properties {
         internal static System.Drawing.Bitmap GreyButton {
             get {
                 object obj = ResourceManager.GetObject("GreyButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GreyButtonE3 {
+            get {
+                object obj = ResourceManager.GetObject("GreyButtonE3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
