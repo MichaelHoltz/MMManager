@@ -24939,9 +24939,6 @@
         UPn/AExrfB51RPvfB50Pn/T/2Q==
 </value>
   </data>
-  <data name="150x150Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\150x150Background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="explode" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\explode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -24950,5 +24947,8 @@
   </data>
   <data name="PacMan" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PacMan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Metal_plate_HD_pictures_9_40832_250x250" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metal-plate-HD-pictures-9-40832_250x250.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

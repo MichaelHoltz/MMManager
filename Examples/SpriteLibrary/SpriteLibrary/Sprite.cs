@@ -1419,6 +1419,7 @@ namespace SpriteLibrary
             if (how == SpriteCollisionMethod.circle)
             {
 
+                
             }
             if (how == SpriteCollisionMethod.transparency)
             {

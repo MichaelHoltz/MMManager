@@ -517,7 +517,7 @@ namespace SpriteLibrary
                         if (Sprites[checkloop] != null && !Sprites[checkloop].Destroying && Sprites[checkloop].HasBeenDrawn)
                         {
                             //Check to see if they have hit
-                            Sprites[looper].CheckSpriteHitsSprite(Sprites[checkloop], SpriteCollisionMethod.rectangle);
+                            Sprites[looper].CheckSpriteHitsSprite(Sprites[checkloop], SpriteCollisionMethod.rectangle);//.rectangle
                         }
                     }
                 }

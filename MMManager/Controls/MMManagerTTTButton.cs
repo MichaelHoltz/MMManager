@@ -113,30 +113,11 @@ namespace MMManager
             MainDrawingArea.Height = this.Height;
             MainDrawingArea.Width = this.Width;
             MainDrawingArea.BackgroundImageLayout = ImageLayout.Stretch;
-            //MainDrawingArea.SizeMode = PictureBoxSizeMode.StretchImage;
             System.Drawing.Bitmap thisButtonBitmap = new System.Drawing.Bitmap(this.Width, this.Height);
             this.DrawToBitmap(thisButtonBitmap, new System.Drawing.Rectangle(0,0,this.Width, this.Height));
             MainDrawingArea.BackgroundImage = thisButtonBitmap;
             this.Controls.Add(MainDrawingArea);
             MainDrawingArea.Visible = true;
-
-            ////Create Animation for Explosion
-            //MySpriteController = new SpriteController(MainDrawingArea);
-            //OneSprite = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 100);
-            //OneSprite.SetSize(new Size(50, 50));
-            //OneSprite.SetName(SpriteNames.explosion.ToString());
-            //////The function to run when the explosion animation completes
-            //OneSprite.SpriteAnimationComplete += ExplosionCompletes;
-
-
-            //Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
-            //nSprite.PutBaseImageLocation(0, 0);
-            //nSprite.SetSize(new Size(50, 50));
-
-            //nSprite.AnimateOnce(0);
-
-
-            
 
             return thisButtonBitmap;
         }
@@ -146,54 +127,10 @@ namespace MMManager
             timer1.Enabled = true;
         }
 
-        /// <summary>
-        /// This will take a button out of the grid and put it on top, pushing all that were above down one.
-        /// This re-arranges the actual buttons in the grid so reference by name is all that is accurate once an explosion has happened.
-        /// </summary>
-        private void explode2()
-        {
-         
-            this.ImageIndex = 0;
-            ////The function to run when the explosion animation completes
-            //Sprite nSprite = MySpriteController.DuplicateSprite(SpriteNames.explosion.ToString());
-            //nSprite.PutBaseImageLocation(-1, -1);
-            //nSprite.SetSize(new Size(50, 50));
-            ////  nSprite.AnimateOnce(0);
-            //nSprite.AnimateJustAFewTimes(1, 10);
-            //this.Name = "B-1" + this.myGridX; // Temporarally rename
-            //this.SendToBack();
 
-
-            for (int i = this.myGridY - 1; i >= 0; i--) // Each Button Above this from closest to farthest
-            {
-                MMManagerTTTButton bAbove = this.Parent.Controls.Find("B" + i + this.myGridX, false)[0] as MMManagerTTTButton;
-                bAbove.myGridY++; // Add one to it's Y Posistion
-                bAbove.Name = "B" + bAbove.myGridY + bAbove.myGridX; // Rename
-
-                bAbove.FallToNextButton();
-                //Thread.Sleep(50);
-                // Application.DoEvents();
-
-            }
-            this.myGridY = 0; //Set to Top Most position off screen.
-            this.Name = "B0" + this.myGridX;
-            this.Top = this.Height * -1; // -50; // Instantly move off screen (After doing animation
-            this.FallToNextButton();
-            this.ToolTip(this.Name + " [" + this.myGridY + "," + this.myGridX + "]");
-
-        }
-        public void ExplosionCompletes(object sender, EventArgs e)
-        {
-            Sprite tSprite = (Sprite)sender;
-            tSprite.Destroy();
-            
-            this.Controls.Remove(MainDrawingArea);
-            timer2.Enabled = true;  //Start Falling
-            MainDrawingArea = null; // REmove the picture
-            // CountMonsters();
-        }
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //Timer Function ONLY does the explosion Animation.
             timer1.Enabled = false;
             this.TurnToPicture();
             //Create Animation for Explosion
@@ -211,26 +148,48 @@ namespace MMManager
 
             playSound(4); // Explosion Sound
             nSprite.AnimateOnce(0);
-
+            //The Explosion Complete Event will follow and trigger the next step.
         }
+        public void ExplosionCompletes(object sender, EventArgs e)
+        {
+            Sprite tSprite = (Sprite)sender;
+            tSprite.Destroy();
+
+            this.Controls.Remove(MainDrawingArea); // Remove the picture so it's a button again.
+            timer2.Enabled = true;  //Start Falling
+            MainDrawingArea = null; // REmove the picture
+        }
+
 
         private void timer2_Tick(object sender, EventArgs e)
         {
+            //Called from ExplosionCompletes
             timer2.Enabled = false;
             explode2();
 
         }
 
-        private void setGridY(MMManagerTTTButton btn)
+        /// <summary>
+        /// This will take a button out of the grid and put it on top, pushing all that were above down one.
+        /// This re-arranges the actual buttons in the grid so reference by name is all that is accurate once an explosion has happened.
+        /// </summary>
+        private void explode2()
         {
-            if (btn.myGridY + 1 < btn.maxGridY)
+
+            this.ImageIndex = 0;
+
+            for (int i = this.myGridY - 1; i >= 0; i--) // Each Button Above this from closest to farthest
             {
-                btn.myGridY++;
+                MMManagerTTTButton bAbove = this.Parent.Controls.Find("B" + i + this.myGridX, false)[0] as MMManagerTTTButton;
+                bAbove.myGridY++; // Add one to it's Y Posistion
+                bAbove.Name = "B" + bAbove.myGridY + bAbove.myGridX; // Rename
+                bAbove.FallToNextButton();
             }
-            else
-            {
-                btn.myGridY = 0;
-            }
+            this.myGridY = 0; //Set to Top Most position off screen.
+            this.Name = "B0" + this.myGridX;
+            this.Top = this.Height * -1; // -50; // Instantly move off screen (After doing animation
+            this.FallToNextButton();
+            this.ToolTip(this.Name + " [" + this.myGridY + "," + this.myGridX + "]");
 
         }
         public void FallToNextButton()
@@ -245,6 +204,55 @@ namespace MMManager
             }
             return;
         }
+        /// <summary>
+        /// Thread to manage movement
+        /// Movement is designed to be animated
+        /// </summary>
+        private void MovementThread()
+        {
+            int oldTop = this.Top;
+            try
+            {
+                //Move to new location in small steps.
+                do
+                {
+                    if ((this.Top + this.Height + direction) < Parent.Height)
+                    {
+                        SetTop(this.Top + direction);
+                        Thread.Sleep(5);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                } while (this.Top != newLocation);
+                if (oldTop != this.Top)
+                {
+                    playSound(2);
+                    if (this.ImageIndex == 1)
+                    {
+                        this.ImageIndex = 0; // Remove bombs
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void setGridY(MMManagerTTTButton btn)
+        {
+            if (btn.myGridY + 1 < btn.maxGridY)
+            {
+                btn.myGridY++;
+            }
+            else
+            {
+                btn.myGridY = 0;
+            }
+
+        }
+
         /// <summary>
         /// Fall a distance relative to current position by Thread
         /// </summary>
@@ -267,43 +275,7 @@ namespace MMManager
             Thread thread = new Thread(new ThreadStart(MovementThread));
             thread.Start();
         }
-        /// <summary>
-        /// Thread to manage movement
-        /// Movement is designed to be animated
-        /// </summary>
-        private void MovementThread()
-        {
-            int oldTop = this.Top;
-            try
-            {
 
-                //Move to new location in small steps.
-                do
-                {
-                    if ( (this.Top + this.Height + direction) < Parent.Height )
-                    {
-                        SetTop(this.Top + direction);
-                        Thread.Sleep(5);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                } while (this.Top != newLocation );
-                if (oldTop != this.Top)
-                {
-                    playSound(2);
-                    if (this.ImageIndex == 1)
-                    {
-                        this.ImageIndex = 0; // Remove bombs
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
 
         /// <summary>
         /// Delegate for Setting the Top location
