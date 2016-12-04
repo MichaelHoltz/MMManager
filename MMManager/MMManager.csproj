@@ -265,11 +265,13 @@
     <None Include="images\metal-grunge-metallic-steel-555.jpg" />
     <Content Include="InformationAndLinks.txt" />
     <None Include="Resources\150x150Background.png" />
+    <None Include="Resources\Border1.png" />
     <Content Include="Resources\explode.png" />
     <None Include="Resources\GreyButton.png" />
     <None Include="Resources\GreyButtonE3.png" />
     <None Include="Resources\PacMan.png" />
     <None Include="Resources\Metal-plate-HD-pictures-9-40832_250x250.jpg" />
+    <None Include="Resources\Metal-plate-HD-pictures-9-40832_250x250_c.jpg" />
     <Content Include="Sounds\Blop.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -307,6 +309,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\move7.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\PacMan_Fast.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\PacMan_Slow.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\PlayerAdd.mp3">

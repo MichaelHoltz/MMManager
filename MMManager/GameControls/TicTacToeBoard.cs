@@ -210,8 +210,8 @@ namespace MMManager.GameControls
                     B[y, x].Visible = true;
                     B[y, x].Width = 50;
                     B[y, x].Height = 50;
-                    B[y, x].Left = (x * 50) + 10;
-                    B[y, x].Top = (y * 50) + 20;
+                    B[y, x].Left = (x * 50);// + 10;
+                    B[y, x].Top = (y * 50);// + 20;
                     B[y, x].Click += Button_Click;
                     B[y, x].myGridX = x;
                     B[y, x].myGridY = y;
@@ -684,7 +684,8 @@ namespace MMManager.GameControls
 
         private void TicTacToeBoard_Load(object sender, EventArgs e)
         {
-
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             GameInfo.Game = this; //Set the Child control to see parent.
         }
         /// <summary>

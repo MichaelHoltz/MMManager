@@ -14,6 +14,8 @@ namespace MMManager.GameControls
         public TicTacToeStartOrJoin()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
         }
         public void playSound(int sound)
         {

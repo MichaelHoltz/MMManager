@@ -63,6 +63,16 @@ namespace MMManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Border1 {
+            get {
+                object obj = ResourceManager.GetObject("Border1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BrushedPlat {
             get {
                 object obj = ResourceManager.GetObject("BrushedPlat", resourceCulture);
@@ -116,6 +126,16 @@ namespace MMManager.Properties {
         internal static System.Drawing.Bitmap Metal_plate_HD_pictures_9_40832_250x250 {
             get {
                 object obj = ResourceManager.GetObject("Metal_plate_HD_pictures_9_40832_250x250", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Metal_plate_HD_pictures_9_40832_250x250_c {
+            get {
+                object obj = ResourceManager.GetObject("Metal_plate_HD_pictures_9_40832_250x250_c", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

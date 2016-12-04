@@ -41,7 +41,7 @@ namespace MMManager
         {
             if (this.InvokeRequired)
             {
-                SetTopCallback d = new SetTopCallback(playSound);
+                playSoundCallback d = new playSoundCallback(playSound);
                 this.Invoke(d, new object[] { sound });
             }
             else
@@ -194,7 +194,7 @@ namespace MMManager
         }
         public void FallToNextButton()
         {
-            newLocation = (this.myGridY * this.Height) + 20; //Next "Quantum" location
+            newLocation = (this.myGridY * this.Height);// + 20; //Next "Quantum" location
             if (newLocation > this.Top) //Need to move
             {
                 this.ToolTip(this.Name + " [" + this.myGridY + "," + this.myGridX + "]");

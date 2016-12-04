@@ -295,6 +295,8 @@ namespace MMManager
 
         private void MMMChatClient_Load(object sender, EventArgs e)
         {
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             this.Text += String.Format("  Ver. {0}", version);
             btnSymbolChoice.ImageList = ticTacToeBoard1.ButtonImageList;

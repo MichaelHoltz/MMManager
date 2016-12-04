@@ -4,20 +4,65 @@ using System.Windows.Forms;
 using MMManager.GameObjects;
 using System.Threading;
 using SpriteLibrary;
+using System.Windows.Media;
 namespace MMManager
 {
     public partial class frmTesting : Form
     {
+        private MediaPlayer mp;
         SpriteController MySpriteController;
         private int[,] grid;
         private SharedTicTacToeBoardData _stttbd;
         private MMManagerTTTButton theButton; //Shared Button Object
         private MMManagerTTTButton[,] b;
-        Sprite OneSprite, Explode, pacMan, player;
+        Sprite OneSprite, Explode, pacMan, player, topBorder;
         public frmTesting()
         {
             InitializeComponent();
+            mp = new MediaPlayer();
         }
+        delegate void playSoundCallback(int sound);
+        private void playSound(int sound)
+        {
+            if (this.InvokeRequired)
+            {
+                playSoundCallback d = new playSoundCallback(playSound);
+                this.Invoke(d, new object[] { sound });
+            }
+            else
+            {
+                string currentDir = System.IO.Directory.GetCurrentDirectory() + @"\Sounds\";
+                if (sound == 1)
+                {
+                    mp.Open(new System.Uri(currentDir + @"PacMan_Fast.mp3"));
+                    mp.MediaEnded += PacManEnded;
+                }
+                if (sound == 2)
+                {
+                    mp.Open(new System.Uri(currentDir + @"PacMan_Slow.mp3"));
+                    mp.SpeedRatio = 2.5;
+                }
+                if (sound == 3)
+                {
+                    mp.Open(new System.Uri(currentDir + @"Woosh.wav"));
+                }
+                if (sound == 4)
+                {
+                    mp.Open(new System.Uri(currentDir + @"Bomb_Exploding.wav"));
+                    mp.SpeedRatio = 2.5;
+                }
+
+                mp.Play();
+            }
+        }
+
+        private void PacManEnded(object sender, EventArgs e)
+        {
+            (sender as MediaPlayer).Position = new TimeSpan();
+            (sender as MediaPlayer).Play();
+            
+        }
+
         private void frmTesting_Load(object sender, EventArgs e)
         {
             
@@ -40,7 +85,6 @@ namespace MMManager
             pacMan.SetSize(new Size(40, 40));
             pacMan.SetName("pacMan");
             pacMan.Zvalue = 55;
-            
 
         }
 
@@ -139,7 +183,7 @@ namespace MMManager
                     //Stupid Single Thread
                     Application.DoEvents();
                     //Thread.Sleep(2);
-                } while (pacMan.BaseImageLocation.X < (ePoint.X +20) );
+                } while (pacMan.BaseImageLocation.X < (ePoint.X +10) );
             }
             while (oldY - 50 >= -50)
             {
@@ -170,13 +214,13 @@ namespace MMManager
                     sB[y, x].SetName("sB" + y + x);
                     sB[y, x].SpriteArrivedAtEndPoint += SpriteArrivedAtEndPoint;
                     sB[y, x].Click += SpriteButton_Click;
-                    sB[y, x].PutBaseImageLocation(100, -50);
+                    sB[y, x].PutBaseImageLocation((100), -50);
                     sB[y, x].SetSize(new Size(50, 50));
-                    sB[y, x].MovementSpeed = 20;
+                    sB[y, x].MovementSpeed = 15;
                     sB[y, x].AutomaticallyMoves = true;
                     sB[y, x].Zvalue = 1;
                    // sB[y, x].ChangeAnimation(1, 9);
-                    sB[y, x].MoveTo(new Point(x*50, y*50));
+                    sB[y, x].MoveTo(new Point((int)(x*50), (int)(y*50)));
                     sB[y, x].Pause(SpritePauseType.PauseAnimation);
 
                 }
@@ -244,11 +288,13 @@ namespace MMManager
         {
             Sprite tSprite = (Sprite)sender;
             tSprite.Destroy();
+            mp.Stop();
         }
         private void BBomb_Click(object sender, EventArgs e)
         {
+            playSound(1);
             //BBomb.TurnToPicture();
-            BBomb.explode();
+            //BBomb.explode();
             //Pacman Runs from left to right
             //Sprite nSprite = MySpriteController.DuplicateSprite("pacMan");
             pacMan = new Sprite(MySpriteController, Properties.Resources.PacMan, 50, 50, 100);
@@ -258,11 +304,12 @@ namespace MMManager
             pacMan.SpriteArrivedAtEndPoint += PacManArrivedAtEndPoint;
             pacMan.SpriteHitsSprite += NSprite_SpriteHitsSprite;
 
-            pacMan.PutBaseImageLocation(-50, 110); // Have to offset
+            pacMan.PutBaseImageLocation(-100, 110); // Have to offset
             pacMan.SetSize(new Size(30, 30));
             pacMan.MovementSpeed = 10;
             pacMan.AutomaticallyMoves = true;
             pacMan.Zvalue = 60;
+           
             pacMan.MoveTo(new Point(300, 110)); // Move Off Screen
         }
 
@@ -273,6 +320,10 @@ namespace MMManager
             {
                 return;
                 //we are moving ignore
+            }
+            if (tSprite.SpriteOriginName == "player1")
+            {
+                tSprite.Destroy();
             }
             Point ePoint = tSprite.BaseImageLocation;
             e.TargetSprite.PutBaseImageLocation(e.TargetSprite.BaseImageLocation.X, -50);

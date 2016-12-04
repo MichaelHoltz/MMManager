@@ -40,10 +40,9 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTipForm = new System.Windows.Forms.ToolTip(this.components);
             this.button5 = new System.Windows.Forms.Button();
-            this.pbBackGround = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this._ButtonImageList = new System.Windows.Forms.ImageList(this.components);
+            this.pbBackGround = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.BBomb = new MMManager.MMManagerTTTButton();
             this.mmmGroupBox1 = new MMManager.Controls.MMMGroupBox();
             this.mmManagerTTTButton1 = new MMManager.MMManagerTTTButton();
@@ -51,7 +50,6 @@
             this.mmManagerTTTButton2 = new MMManager.MMManagerTTTButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBackGround)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -136,39 +134,6 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // pbBackGround
-            // 
-            this.pbBackGround.BackgroundImage = global::MMManager.Properties.Resources.Metal_plate_HD_pictures_9_40832_250x250;
-            this.pbBackGround.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbBackGround.Location = new System.Drawing.Point(109, 98);
-            this.pbBackGround.Name = "pbBackGround";
-            this.pbBackGround.Size = new System.Drawing.Size(250, 250);
-            this.pbBackGround.TabIndex = 53;
-            this.pbBackGround.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Location = new System.Drawing.Point(673, 18);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(194, 167);
-            this.pictureBox2.TabIndex = 45;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = global::MMManager.Properties.Resources.BrushedPlat;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(103, 18);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(344, 61);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
             // _ButtonImageList
             // 
             this._ButtonImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("_ButtonImageList.ImageStream")));
@@ -222,11 +187,33 @@
             this._ButtonImageList.Images.SetKeyName(46, "yoshi.png");
             this._ButtonImageList.Images.SetKeyName(47, "Yoshi2.png");
             // 
+            // pbBackGround
+            // 
+            this.pbBackGround.BackgroundImage = global::MMManager.Properties.Resources.Metal_plate_HD_pictures_9_40832_250x250_c;
+            this.pbBackGround.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbBackGround.Location = new System.Drawing.Point(109, 98);
+            this.pbBackGround.Name = "pbBackGround";
+            this.pbBackGround.Size = new System.Drawing.Size(250, 250);
+            this.pbBackGround.TabIndex = 53;
+            this.pbBackGround.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::MMManager.Properties.Resources.BrushedPlat;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Location = new System.Drawing.Point(103, 18);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(344, 61);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
             // BBomb
             // 
             this.BBomb.allowClick = true;
             this.BBomb.customEnable = true;
-            this.BBomb.Location = new System.Drawing.Point(455, 152);
+            this.BBomb.Location = new System.Drawing.Point(453, 58);
             this.BBomb.Name = "BBomb";
             this.BBomb.Size = new System.Drawing.Size(50, 50);
             this.BBomb.TabIndex = 54;
@@ -260,7 +247,9 @@
             // bgGame
             // 
             this.bgGame.AutoSize = true;
-            this.bgGame.Location = new System.Drawing.Point(109, 354);
+            this.bgGame.BackgroundImage = global::MMManager.Properties.Resources.Metal_plate_HD_pictures_9_40832_250x250_c;
+            this.bgGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bgGame.Location = new System.Drawing.Point(27, 354);
             this.bgGame.Name = "bgGame";
             this.bgGame.Size = new System.Drawing.Size(452, 215);
             this.bgGame.TabIndex = 47;
@@ -291,7 +280,6 @@
             this.Controls.Add(this.bgGame);
             this.Controls.Add(this.btnGenerateGrid);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
@@ -300,7 +288,6 @@
             this.Load += new System.EventHandler(this.frmTesting_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbBackGround)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -317,7 +304,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private MMManagerTTTButton mmManagerTTTButton2;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button btnGenerateGrid;
         private Controls.MMMGroupBox bgGame;
         private System.Windows.Forms.Timer timer1;
