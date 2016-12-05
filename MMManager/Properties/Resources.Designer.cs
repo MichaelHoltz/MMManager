@@ -83,6 +83,16 @@ namespace MMManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Coin {
+            get {
+                object obj = ResourceManager.GetObject("Coin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Copper {
             get {
                 object obj = ResourceManager.GetObject("Copper", resourceCulture);
@@ -116,6 +126,16 @@ namespace MMManager.Properties {
         internal static System.Drawing.Bitmap GreyButtonE3 {
             get {
                 object obj = ResourceManager.GetObject("GreyButtonE3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Jack_skellington_sprite_486cc8057e65df417413fdbc89b68a78 {
+            get {
+                object obj = ResourceManager.GetObject("Jack_skellington_sprite_486cc8057e65df417413fdbc89b68a78", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

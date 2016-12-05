@@ -18,7 +18,7 @@ namespace MMManager.GameInterfaces
         void RefreshGameList();
         ControlStatus GameMode { get; set;}
         SharedTicTacToeBoardData.GameState GameState { get; set; }
-        void playSound(int sound);
+        void playSound(Sounds sound);
        // void UpdateScore(IPlayer player, int currentScore);
     }
 

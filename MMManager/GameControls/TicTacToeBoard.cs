@@ -10,9 +10,13 @@ using MMManager.CommInterfaces;
 
 namespace MMManager.GameControls
 {
+   
+
     [Serializable]
     public partial class TicTacToeBoard : UserControl,IGame
     {
+       
+
         private System.Windows.Media.MediaPlayer mp;
         private SharedTicTacToeBoardData _stttbd; //Contains all neeeded
         private MMManagerTTTButton theButton; //Shared Button Object
@@ -29,15 +33,15 @@ namespace MMManager.GameControls
         MMManagerTTTButton[,] B;
         private Color bColor;
         private Boolean myTurn = true; // Default to my Turn.
-        private void playSound(int sound)
+        private void playSound(Sounds sound)
         {
             mp = new System.Windows.Media.MediaPlayer();
             string currentDir = System.IO.Directory.GetCurrentDirectory() + @"\Sounds\";
-            if (sound == 1)
+            if (sound == Sounds.GameStart)
             {
                 mp.Open(new System.Uri(currentDir + @"GameStart.mp3"));
             }
-            if (sound == 2)
+            if (sound == Sounds.PlayerRemove)
             {
                 mp.Open(new System.Uri(currentDir + @"PlayerRemove.mp3"));
             }
@@ -48,6 +52,7 @@ namespace MMManager.GameControls
         }
         /// <summary>
         /// Function to get the next player after the current one
+        /// 
         /// </summary>
         /// <param name="currentPlayer"></param>
         /// <returns></returns>
@@ -144,7 +149,7 @@ namespace MMManager.GameControls
             maxY = maxX; // Keep Symetry
             int y = 0;
             int x = 0;
-            int index = 0;
+            //int index = 0;
             for (y = 0; y < maxY; y++)
             {
                 for (x = 0; x < maxX; x++)
@@ -516,14 +521,14 @@ namespace MMManager.GameControls
                 }
 
                 GameStatusText = "Game Over - " + GetWinnerName(winLine) + " won.";
-                GameInfo.playSound(4); // Play Game End
+                GameInfo.playSound(Sounds.GameOver); // Play Game End
                 GameInfo.GameOver(GameStatusText);
             }
             //Check for Draw
             else if (TotalNumMoves == maxX * maxY) // All spaces are filled
             {
                 GameStatusText = "Cat's Game.";
-                GameInfo.playSound(3); // Play Cat
+                GameInfo.playSound(Sounds.CatsGame); // Play Cat
                 GameInfo.GameOver(GameStatusText);
             }
 
@@ -603,82 +608,116 @@ namespace MMManager.GameControls
             //In normal play it can't be my turn again.. but with +1 it can be.
             //IF I didn't get a +1 then it's not my turn - But that is determined in DoButtonClick.
             //GetNextPlayer assigns to _Sttbd
-            //GameInfo.UpdateScore(GameInfo.Player, GameInfo.GameScore.GetScore(GameInfo.Player) + 1);
-            GameInfo.GameScore.UpdateScore(GameInfo.Player, GameInfo.GameScore.GetScore(GameInfo.Player) + 1, _stttbd);
-           // _stttbd.Players = GameInfo.Players.PlayerList; // Brute Force Update.
-            if (GetNextPlayer(GameInfo.Player.ToClass()).PlayerName == GameInfo.Player.PlayerName) //Returns next Player
+
+            //Update the Score Based on the tag of the button clicked
+            GameInfo.GameScore.UpdateScore(GameInfo.Player, GameInfo.GameScore.GetScore(GameInfo.Player) + CalculateMoveScore(theButton.Tag.ToString()), _stttbd);
+            // _stttbd.Players = GameInfo.Players.PlayerList; // Brute Force Update.
+            if (theButton.Tag.ToString() != "2") // +1 - get an addition turn
             {
-                myTurn = true;
-            }
-            else
-            {
-                myTurn = false;
+                if (GetNextPlayer(GameInfo.Player.ToClass()).PlayerName == GameInfo.Player.PlayerName) //Returns next Player
+                {
+                    myTurn = true;
+                }
+                else
+                {
+                    myTurn = false;
+                }
             }
             SendMessage(GameInfo.GameName, GameInfo.Player.ToClass(), _stttbd); // Sending off including who's turn
             DoButtonClick(theButton, s);
 
         }
+        private int CalculateMoveScore(string tag)
+        {
+            int score = 0;
+            switch (tag)
+            {
+                case "0": //Normal Move
+                    score = 1;
+                    break;
+                case "1": //Bomb Move
+                    score = 0;
+                    break;
+                case "2":  //+1 Move  (Bonus)
+                    score = 2; 
+                    break;
+                default:
+                    break;
+            }
+            return score;
+        }
+
+        /// <summary>
+        /// Function Called by both actual button click and by another Player Clicking and a message being received to do the click
+        /// </summary>
+        /// <param name="theButtonClicked"></param>
+        /// <param name="s"></param>
         private void DoButtonClick(MMManagerTTTButton theButtonClicked, int s)
         {
-
+            
             theButton = (bgGame.Controls.Find(theButtonClicked.Name, false).First() as MMManagerTTTButton);; //Find the Button Clicked By Name as this might not be right.
-           
-            if (theButton.Tag.ToString() != "1") // Normal Move
+            switch (theButton.Tag.ToString())
             {
-                Random r = new Random(DateTime.Now.Millisecond);
-                GameInfo.playSound(r.Next(10, 16)); // Play random Move Sound
+                case "0": //Normal Move
+                    Random r = new Random(DateTime.Now.Millisecond);
+                    //int ss = r.Next((int)Sounds.Move1, (int)Sounds.Move7);
+                    GameInfo.playSound((Sounds)r.Next((int)Sounds.Move1, ((int)Sounds.Move7) + 1)); // Play random Move Sound
 
-                //theButton.Text = s;
-                theButton.ImageIndex = s;
-                theButton.Font = new Font("Microsoft Sans Serif", 12);
-                theButton.customEnable = false; //This button is taken - No more clicks
-                CheckForWinOrDraw(); // Check directly and immediately before allowing turns.
-                AllButtonsAllowClick(myTurn);
-            }
-            else //Bomb Move
-            {
-                theButton.Tag = "0";
-                AllButtonsAllowClick(false); //Temp Dissallow Clicks // Doesn't prefent the new player from moving..
-               // System.Threading.Thread.Sleep(3000);
-                theButton.explode(); // If there is an explosion the buttons haven't moved yet and so checking for winordraw will not work until after
-                //CheckForWinOrDraw(); // Can win after explosion
-                timerCheckWinOrDraw.Enabled = true; // need to allow animation before checking for Win or Draw.
-                // timer2.Enabled = true; // This does the animation
+                    //theButton.Text = s;
+                    theButton.ImageIndex = s;
+                    theButton.Font = new Font("Microsoft Sans Serif", 12);
+                    theButton.customEnable = false; //This button is taken - No more clicks
+                    CheckForWinOrDraw(); // Check directly and immediately before allowing turns.
+                    AllButtonsAllowClick(myTurn);
+                    break;
+                case "1": // Bomb
+                    theButton.Tag = "0"; // Would like 25% Chance of new bomb
+                    AllButtonsAllowClick(false); //Temp Dissallow Clicks // Doesn't prefent the new player from moving..
+                    theButton.explode(); // If there is an explosion the buttons haven't moved yet and so checking for winordraw will not work until after
+                    //Sould be an explosion Complete event.
+                    timerCheckWinOrDraw.Enabled = true; // need to allow animation before checking for Win or Draw.
+                    break;
+                case "2":
+                    theButton.Tag = "0";
+                    //Need Animation like explosion but simpler.
+                    break;
+                default:
+                    break;
             }
 
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            string currentDir = System.IO.Directory.GetCurrentDirectory();
-            SoundPlayer simpleSound = new SoundPlayer(currentDir + @"\Sounds\Bomb_Exploding.wav");
-            if (letterPos == 0)
-            {
-                theButton.Font = new Font("Wingdings", 20);
+            //string currentDir = System.IO.Directory.GetCurrentDirectory();
+            //SoundPlayer simpleSound = new SoundPlayer(currentDir + @"\Sounds\Bomb_Exploding.wav");
+            //if (letterPos == 0)
+            //{
+            //    theButton.Font = new Font("Wingdings", 20);
                 
-                simpleSound.Play();
+            //    simpleSound.Play();
 
-            }
-            theButton.Text = letters[letterPos++];
-            if (letterPos > 2) // Max
-            {
-                letterPos = 0; // Reset for next time
-                timer2.Enabled = false;
-                theButton.Font = new Font("Microsoft Sans Serif", 12);
-                simpleSound.Stop();
-                theButton.Text = string.Empty;
-                theButton.ImageIndex = 0;
-                //ONly If it's their Turn
-                if (myTurn)
-                {
-                    AllButtonsAllowClick(true);
-                }
-                else
-                {
-                    AllButtonsAllowClick(false);
-                }
+            //}
+            //theButton.Text = letters[letterPos++];
+            //if (letterPos > 2) // Max
+            //{
+            //    letterPos = 0; // Reset for next time
+            //    timer2.Enabled = false;
+            //    theButton.Font = new Font("Microsoft Sans Serif", 12);
+            //    simpleSound.Stop();
+            //    theButton.Text = string.Empty;
+            //    theButton.ImageIndex = 0;
+            //    //ONly If it's their Turn
+            //    if (myTurn)
+            //    {
+            //        AllButtonsAllowClick(true);
+            //    }
+            //    else
+            //    {
+            //        AllButtonsAllowClick(false);
+            //    }
 
-            }
+            //}
 
         }
 
@@ -899,11 +938,11 @@ namespace MMManager.GameControls
                 GameStatusText = tsbd.MessageString; // Update the status.
                 if (tsbd.MessageString == "Cat's Game")
                 {
-                    GameInfo.playSound(3); // Play Cat
+                    GameInfo.playSound(Sounds.CatsGame); // Play Cat
                 }
                 if (tsbd.MessageString.Contains("Game Over"))
                 {
-                    GameInfo.playSound(4); // Play Game End
+                    GameInfo.playSound(Sounds.CatsGame); // Play Game End
                 }
             }
 

@@ -17,56 +17,56 @@ namespace MMManager.GameControls
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
         }
-        public void playSound(int sound)
+        public void playSound(Sounds sound)
         {
             mp = new System.Windows.Media.MediaPlayer();
             string currentDir = System.IO.Directory.GetCurrentDirectory() + @"\Sounds\";
-            if (sound == 1)
+            if (sound == Sounds.GameStart)
             {
                 mp.Open(new System.Uri(currentDir + @"GameStart.mp3"));
             }
-            if (sound == 2)
+            if (sound == Sounds.PlayerRemove)
             {
                 mp.Open(new System.Uri(currentDir + @"PlayerRemove.mp3"));
             }
-            if (sound == 3) // Cat's Game
+            if (sound == Sounds.CatsGame) // Cat's Game
             {
                 mp.Open(new System.Uri(currentDir + @"TomCat.wav"));
             }
-            if (sound == 4) // GameOver Game
+            if (sound == Sounds.GameOver) // GameOver Game
             {
                 mp.Open(new System.Uri(currentDir + @"GameEnd.wav"));
             }
-            if (sound == 10) // Random Move
+            if (sound == Sounds.Move1) //10 Random Move
             {
                 mp.Open(new System.Uri(currentDir + @"move1.wav"));
             }
-            if (sound == 11) // Random Move
+            if (sound == Sounds.Move2) //11 Random Move
             {
                 mp.Open(new System.Uri(currentDir + @"move2.wav"));
             }
 
-            if (sound == 12) // Random Move
+            if (sound == Sounds.Move3) //12 Random Move
             {
                 mp.Open(new System.Uri(currentDir + @"move3.wav"));
             }
 
-            if (sound == 13) // Random Move
+            if (sound == Sounds.Move4) //13 Random Move
             {
                 mp.Open(new System.Uri(currentDir + @"move4.wav"));
             }
 
-            if (sound == 14) // Random Move
+            if (sound == Sounds.Move5) //14 Random Move
             {
                 mp.Open(new System.Uri(currentDir + @"move5.wav"));
             }
 
-            if (sound == 15) // Random Move
+            if (sound == Sounds.Move6) //15 Random Move
             {
                 mp.Open(new System.Uri(currentDir + @"move6.wav"));
             }
 
-            if (sound == 16) // Random Move
+            if (sound == Sounds.Move7) //16 Random Move
             {
                 mp.Open(new System.Uri(currentDir + @"move7.wav"));
             }
@@ -416,7 +416,7 @@ namespace MMManager.GameControls
             //Who's Turn is it?
             //            theSharedTicTacToBoardData.WhosTurn = Player.ToClass(); // Make it my turn
             //            Game.AllButtonsAllowClick(true); //The Host can click
-            playSound(1); // Game Start
+            playSound(Sounds.GameStart); // Game Start
             Game.SendMessage(GameName, Player.ToClass(), Game.theBoard); // Send message to Everyone
         }
 
@@ -438,7 +438,7 @@ namespace MMManager.GameControls
             //gameName is ignored but could be used
             panel1.Visible = false;
             panel2.Visible = false;
-            playSound(1); //Game Starting
+            playSound(Sounds.GameStart); //Game Starting
         }
         public void AddGame(string gameName)
         {

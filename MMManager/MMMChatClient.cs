@@ -76,14 +76,18 @@ namespace MMManager
                     channel = null;
                     this.userName = txtUserName.Text.Trim();
                     SetPlayer();
+                    Console.WriteLine("Before New InstanceContext");
                     //InstanceContext context = new InstanceContext(new MMMChatClient(txtUserName.Text.Trim()));
                     InstanceContext context = new InstanceContext(this);
+                    Console.WriteLine("Before new DuplexChannelFactory");
                     factory =  new DuplexChannelFactory<IChatChannel>(context, "ChatEndPoint");
-
+                    Console.WriteLine("Before factory.CreateChannel()");
                     channel = factory.CreateChannel();
+                    Console.WriteLine("Before channel.Get Online Status");
                     IOnlineStatus status = channel.GetProperty<IOnlineStatus>();
                     status.Offline += new EventHandler(Offline);
-                    status.Online += new EventHandler(Online);                    
+                    status.Online += new EventHandler(Online);
+                    Console.WriteLine("Before Channel.Open()");
                     channel.Open();                    
 
 
@@ -92,6 +96,7 @@ namespace MMManager
                     grpMessageWindow.Enabled = true;
                     grpUserList.Enabled = true;
                     channel.Join(this.userName);
+                    Console.WriteLine("After Channel.Join and before InitializeMesh()");
                     grpUserCredentials.Enabled = false;
                     //gbTicTacToe.Enabled = true; //Enable TicTacToe                    
                     channel.InitializeMesh(); //Doesn't do anything..

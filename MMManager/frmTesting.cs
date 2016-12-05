@@ -15,7 +15,7 @@ namespace MMManager
         private SharedTicTacToeBoardData _stttbd;
         private MMManagerTTTButton theButton; //Shared Button Object
         private MMManagerTTTButton[,] b;
-        Sprite OneSprite, Explode, pacMan, player, topBorder;
+        Sprite OneSprite, Explode, pacMan, player, Jack, Coin;
         public frmTesting()
         {
             InitializeComponent();
@@ -86,6 +86,13 @@ namespace MMManager
             pacMan.SetName("pacMan");
             pacMan.Zvalue = 55;
 
+            //Jack = new Sprite(MySpriteController, Properties.Resources.Jack_skellington_sprite_486cc8057e65df417413fdbc89b68a78, 265, 389, 10);
+            //Jack.SetSize(new Size(132, 194));
+            //Jack.SetName("Jack");
+
+            Coin = new Sprite(MySpriteController, Properties.Resources.Coin, 100, 100, 50);
+            Coin.SetSize(new Size(50, 50));
+            Coin.SetName("Coin");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -191,7 +198,7 @@ namespace MMManager
                 foreach (var item in MySpriteController.SpritesAtImagePoint(new Point(ePoint.X+3, (oldY - 50)+3)))
                 {
                     
-                    item.UnPause(SpritePauseType.PauseAll);
+                    //item.UnPause(SpritePauseType.PauseAll);
                     item.MovementSpeed = 8;
                     item.AutomaticallyMoves = true;
                     item.MoveTo(new Point(item.BaseImageLocation.X, item.BaseImageLocation.Y + 50));
@@ -204,6 +211,11 @@ namespace MMManager
 
         private void button5_Click(object sender, EventArgs e)
         {
+            //Jack.PutBaseImageLocation(new Point(0, 0));
+            //Jack.AnimateJustAFewTimes(0, 4);
+
+            Coin.PutBaseImageLocation(new Point(0, 0));
+           // return;
             //Generate Buttons as Sprites
             Sprite[,] sB = new Sprite[5, 5]; // Array of Sprites
             for (int y = 0; y < 5; y++)
@@ -221,7 +233,7 @@ namespace MMManager
                     sB[y, x].Zvalue = 1;
                    // sB[y, x].ChangeAnimation(1, 9);
                     sB[y, x].MoveTo(new Point((int)(x*50), (int)(y*50)));
-                    sB[y, x].Pause(SpritePauseType.PauseAnimation);
+                    //sB[y, x].Pause(SpritePauseType.PauseAnimation);
 
                 }
             }
@@ -302,7 +314,8 @@ namespace MMManager
             pacMan.SetName("pacMan");
             pacMan.Zvalue = 55;
             pacMan.SpriteArrivedAtEndPoint += PacManArrivedAtEndPoint;
-            pacMan.SpriteHitsSprite += NSprite_SpriteHitsSprite;
+            //REmove Comment to have collision detection
+  //          pacMan.SpriteHitsSprite += NSprite_SpriteHitsSprite;
 
             pacMan.PutBaseImageLocation(-100, 110); // Have to offset
             pacMan.SetSize(new Size(30, 30));

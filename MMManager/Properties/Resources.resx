@@ -24957,4 +24957,10 @@
   <data name="Metal_plate_HD_pictures_9_40832_250x250_c" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Metal-plate-HD-pictures-9-40832_250x250_c.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Jack_skellington_sprite_486cc8057e65df417413fdbc89b68a78" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\jack-skellington-sprite-486cc8057e65df417413fdbc89b68a78.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Coin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\coin.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
