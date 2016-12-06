@@ -20,7 +20,18 @@ namespace MMManager
         {
             InitializeComponent();
             mp = new MediaPlayer();
+
         }
+
+        private void Player_SpriteHitsSprite(object sender, SpriteEventArgs e)
+        {
+            
+            //(sender as Sprite).Pause(SpritePauseType.PauseMovement);
+            //e.TargetSprite.Pause(SpritePauseType.PauseAnimation);
+            
+            //throw new NotImplementedException();
+        }
+
         delegate void playSoundCallback(int sound);
         private void playSound(int sound)
         {
@@ -65,15 +76,21 @@ namespace MMManager
 
         private void frmTesting_Load(object sender, EventArgs e)
         {
-            
+
+            // pbBackGround.BackgroundImage = Properties.Resources.Metal_plate_250x250; // Set at design time
+            // pbBackGround.BackgroundImageLayout = ImageLayout.Stretch;
+
             MySpriteController = new SpriteController(pbBackGround);
-            OneSprite = new Sprite(MySpriteController, Properties.Resources.GreyButton, 50, 50, 0);
+             MySpriteController.ChangeTickInterval(10);
+            OneSprite = new Sprite(new Point(0,0),MySpriteController, Properties.Resources.GreyButton, 50, 50, 0,1); //No Duration Causes every 1/2 second
             OneSprite.SetSize(new Size(50, 50));
             OneSprite.SetName(SpriteNames.GreyButton.ToString());
 
-            player = new Sprite(MySpriteController, _ButtonImageList.Images[20], 100, 100); // Player
+
+            player = new Sprite(new Point(0,0), MySpriteController, Properties.Resources.deadpool_logo, 100, 100, 0,1); // Player again no duration
             player.SetSize(new Size(50, 50)); // Not sure about size here.
             player.SetName("player1");
+            //player.SpriteHitsSprite += Player_SpriteHitsSprite; // For Debugging smaller box collisions
 
 
             Explode = new Sprite(MySpriteController, Properties.Resources.explode, 50, 50, 40);
@@ -176,7 +193,7 @@ namespace MMManager
         {
             Sprite tSprite = (Sprite)sender;
             Point ePoint = tSprite.BaseImageLocation;
-            tSprite.Destroy(); // Distroy Explosion.
+            tSprite.Destroy(); // Destroy Explosion.
             ShiftDown(ePoint,false); // Shift all down
         }
 
@@ -195,38 +212,65 @@ namespace MMManager
             while (oldY - 50 >= -50)
             {
                 //Use OldY to locate sprites in old location
-                foreach (var item in MySpriteController.SpritesAtImagePoint(new Point(ePoint.X+3, (oldY - 50)+3)))
+                //+2 is because the edges are touching
+                foreach (var item in MySpriteController.SpritesAtImagePoint(new Point(ePoint.X+2, (oldY - 50)+2)))
                 {
                     
                     //item.UnPause(SpritePauseType.PauseAll);
-                    item.MovementSpeed = 8;
+                    item.MovementSpeed = 10;
                     item.AutomaticallyMoves = true;
-                    item.MoveTo(new Point(item.BaseImageLocation.X, item.BaseImageLocation.Y + 50));
-                    Console.WriteLine(item.SpriteName + " Was moved to: " + (item.BaseImageLocation.Y + 50));
+                    
+                    item.MoveTo(new Point(item.BaseImageLocation.X, roundTo50(item.BaseImageLocation.Y + 50)));
+                    Console.WriteLine(item.SpriteName + " Was moved to: " + roundTo50(item.BaseImageLocation.Y + 50));
                 }
                 oldY = oldY - 50; // Move Up a Row
             }
 
         }
+        private int roundTo50(int num)
+        {
+            int remainder = num % 50;
+            if (remainder != 0)
+            {
+                Console.WriteLine("Tried to move to: " + num + " but sent to " + num + "-" + remainder + "=" + (num - remainder));
+                return num - remainder;
+            }
+            else
+            {
+                return num;
+            }
+                
 
+        }
         private void button5_Click(object sender, EventArgs e)
         {
             //Jack.PutBaseImageLocation(new Point(0, 0));
             //Jack.AnimateJustAFewTimes(0, 4);
 
-            Coin.PutBaseImageLocation(new Point(0, 0));
-           // return;
+            Coin.PutBaseImageLocation(new Point(50, 50));
+            if (Coin.IsPaused(SpritePauseType.PauseAnimation))
+                Coin.UnPause(SpritePauseType.PauseAnimation);
+
+
+            //player.PutBaseImageLocation(new Point(110, 50));
+            //player.MoveTo(new Point(0, 50)); // Move off screen //Touching border only
+            //player.MovementSpeed = 2;
+            //player.AutomaticallyMoves = true;
+            //if(player.IsPaused(SpritePauseType.PauseMovement))
+            //    player.UnPause(SpritePauseType.PauseMovement);
+            //pbBackGround.Invalidate();
+            //return;
             //Generate Buttons as Sprites
-            Sprite[,] sB = new Sprite[5, 5]; // Array of Sprites
-            for (int y = 0; y < 5; y++)
+            Sprite[,] sB = new Sprite[6, 6]; // Array of Sprites
+            for (int y = 0; y <6; y++)
             {
-                for (int x = 0; x < 5; x++)
+                for (int x = 0; x < 6; x++)
                 {
                     sB[y,x] = MySpriteController.DuplicateSprite(SpriteNames.GreyButton.ToString());
                     sB[y, x].SetName("sB" + y + x);
                     sB[y, x].SpriteArrivedAtEndPoint += SpriteArrivedAtEndPoint;
                     sB[y, x].Click += SpriteButton_Click;
-                    sB[y, x].PutBaseImageLocation((100), -50);
+                    sB[y, x].PutBaseImageLocation(100, -50);
                     sB[y, x].SetSize(new Size(50, 50));
                     sB[y, x].MovementSpeed = 15;
                     sB[y, x].AutomaticallyMoves = true;
@@ -258,7 +302,7 @@ namespace MMManager
             if (MySpriteController.SpritesAtImagePoint(new Point(me.BaseImageLocation.X + 20, me.BaseImageLocation.Y + 20)).Count <2)
             {
                 Random r = new Random(DateTime.Now.Millisecond);
-                if (r.Next(0, 6)>0)
+                if (r.Next(0, 6)>3)
                 {
                     //Code to Do Explosion and shift Everyone Down
                     Sprite Exp; // Explosion Sprite
@@ -272,6 +316,7 @@ namespace MMManager
                 {
                     //Code to add player on top of button.
                     Sprite p = MySpriteController.DuplicateSprite("player1");
+                    p.SetName("P" + (sender as Sprite).SpriteName);
                     p.SetSize(new Size(50, 50));
                     p.Zvalue = 55;
                     
@@ -291,11 +336,17 @@ namespace MMManager
             //(sender as Sprite).Pause(SpritePauseType.PauseAll);
             if (y != 0 && y != 50 && y!= 100)
             {
-                Console.WriteLine((sender as Sprite).SpriteName +  " Done Moving and stopped at: " + y);
+                //Console.WriteLine((sender as Sprite).SpriteName +  " Done Moving and stopped at: " + y);
                 //MessageBox.Show("Done Moving and stopped at: " + y);
             }
             //throw new NotImplementedException();
         }
+
+        private void frmTesting_ResizeEnd(object sender, EventArgs e)
+        {
+            pbBackGround.Invalidate();
+        }
+
         private void PacManArrivedAtEndPoint(object sender, SpriteEventArgs e)
         {
             Sprite tSprite = (Sprite)sender;
@@ -315,7 +366,7 @@ namespace MMManager
             pacMan.Zvalue = 55;
             pacMan.SpriteArrivedAtEndPoint += PacManArrivedAtEndPoint;
             //REmove Comment to have collision detection
-  //          pacMan.SpriteHitsSprite += NSprite_SpriteHitsSprite;
+            pacMan.SpriteHitsSprite += NSprite_SpriteHitsSprite;
 
             pacMan.PutBaseImageLocation(-100, 110); // Have to offset
             pacMan.SetSize(new Size(30, 30));
@@ -331,20 +382,27 @@ namespace MMManager
             Sprite tSprite = (Sprite)e.TargetSprite;
             if (tSprite.MovingToPoint)
             {
+                Console.WriteLine(tSprite.SpriteName + " Hit " + e.TargetSprite.SpriteName);
                 return;
                 //we are moving ignore
             }
             if (tSprite.SpriteOriginName == "player1")
             {
+                Console.WriteLine(tSprite.SpriteName + " Destroyed by hitting " + e.TargetSprite.SpriteName);
                 tSprite.Destroy();
             }
-            Point ePoint = tSprite.BaseImageLocation;
-            e.TargetSprite.PutBaseImageLocation(e.TargetSprite.BaseImageLocation.X, -50);
-//            Console.WriteLine(e.TargetSprite.SpriteName + " Was moved to -50");
-//            Console.WriteLine("Called ShiftDown: " + ePoint.Y);
+            else
+            {
+                Point ePoint = tSprite.BaseImageLocation;
+                e.TargetSprite.PutBaseImageLocation(e.TargetSprite.BaseImageLocation.X, -50);
+                Console.WriteLine("Moving " + e.TargetSprite.SpriteName + " to -50");
+                ShiftDown(ePoint, true);
+            }
+            //            Console.WriteLine(e.TargetSprite.SpriteName + " Was moved to -50");
+            //            Console.WriteLine("Called ShiftDown: " + ePoint.Y);
 
             //Everyone bumps into PacMan
-            ShiftDown(ePoint, true);
+            
         }
 
         private void mmManagerTTTButton1_Click(object sender, EventArgs e)

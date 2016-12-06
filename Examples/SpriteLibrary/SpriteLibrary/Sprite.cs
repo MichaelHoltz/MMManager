@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-
+using System.Windows.Forms;
 namespace SpriteLibrary
 {
     /// <summary>
@@ -19,7 +19,7 @@ namespace SpriteLibrary
         /// </summary>
         public Sprite TargetSprite=null;
         /// <summary>
-        /// The CollisionMethod used in the event.  Currently, only rectangle collisions are used
+        /// The CollisionMethod used in the event.  Currently, only rectangle collisions are implemented rectangle is the default.
         /// </summary>
         public SpriteCollisionMethod CollisionMethod = SpriteCollisionMethod.rectangle;
         /// <summary>
@@ -36,10 +36,12 @@ namespace SpriteLibrary
     }
     /// <summary>
     /// A Sprite is an animated image that has a size, position, rotation, and possible vector
-    /// It tracks where in the animation sequence it is, can report colisions, etc.
+    /// It tracks where in the animation sequence it is, can report collisions, etc.
     /// </summary>
     public class Sprite
     {
+        Timer SpriteTimer = new Timer();
+        Timer DrawTimer = new Timer();
         //The image for the sprite
         int _ID = -1;
         /// <summary>
@@ -69,7 +71,7 @@ namespace SpriteLibrary
         {
             get { return _FrameIndex; }
             private set { _FrameIndex = value; }
-        } //We start out with -1 so we know we need to draw from the begining.
+        } //We start out with -1 so we know we need to draw from the beginning.
         int _AnimationIndex = 0;
         int AnimationNumberCount = 0;
         private bool SetToAnimateOnce = false;
@@ -141,7 +143,7 @@ namespace SpriteLibrary
         public bool CannotMoveOutsideBox = false; //If set to true, it will not automatically move outside the picture box.
 
         /// <summary>
-        /// Get or set the animation nimber.  It is best to change the animation using ChangeAnimation.
+        /// Get or set the animation number.  It is best to change the animation using ChangeAnimation.
         /// It is safer.
         /// </summary>
         public int AnimationIndex
@@ -313,7 +315,7 @@ namespace SpriteLibrary
         /// <summary>
         /// When the frame of an animation changes.  If you want to have something happen every time
         /// the foot of your monster comes down, when the swing of your sword is at certain points, etc.
-        /// Check to see that the Animaton and FrameIndex are what you expect them to be.
+        /// Check to see that the Animation and FrameIndex are what you expect them to be.
         /// </summary>
         public event SpriteEventHandler SpriteChangesAnimationFrames = delegate { };
         /// <summary>
@@ -332,6 +334,34 @@ namespace SpriteLibrary
         //     *************  Start of Sprite Code  **********
         //          *************************************
 
+        private void initTimer()
+        {
+
+          //  SpriteTimer.Interval = 10;
+          //  SpriteTimer.Tick += SpriteTimerTick;
+          //  SpriteTimer.Start();
+           // DrawTimer.Interval = 1;
+           // DrawTimer.Tick += DrawTimer_Tick;
+            //Don't start the DrawTimer yet
+        }
+
+        private void DrawTimer_Tick(object sender, EventArgs e)
+        {
+         //   DrawTimer.Stop();
+            
+            //DrawTimer.Enabled = false;
+            ///throw new NotImplementedException();
+          //  ActuallyDraw();
+        }
+
+        private void SpriteTimerTick(object sender, EventArgs e)
+        {
+            Tick();
+            //Application.DoEvents();
+            ActuallyDraw();
+            //DrawTimer.Start();// Start the timer so it can draw after Tick has actually completed
+            //ActuallyDraw();
+        }
 
         /// <summary>
         /// Generate a new sprite.  It takes the image and the width and height.  If there are multiple images of that width and height in the image, an animation is created.
@@ -348,6 +378,7 @@ namespace SpriteLibrary
             Height = height;
             MyImage = new SmartImage(MySpriteController, SpriteImage);
             MySpriteController.AddSprite(this);
+            initTimer();
         }
         /// <summary>
         /// Generate a new sprite.  It takes a width, height, and the duration in Milliseconds for each frame
@@ -365,6 +396,7 @@ namespace SpriteLibrary
             Height = height;
             MyImage = new SmartImage(MySpriteController, SpriteImage, width, height, durationInMilliseconds);
             MySpriteController.AddSprite(this);
+            initTimer();
         }
         /// <summary>
         /// Create a Sprite from an animation image, specifying the number of consecutive 
@@ -385,6 +417,7 @@ namespace SpriteLibrary
             Height = height;
             MyImage = new SmartImage(Start, MySpriteController, SpriteImage, width, height, duration, Count);
             MySpriteController.AddSprite(this);
+            initTimer();
         }
 
         /// <summary>
@@ -405,7 +438,7 @@ namespace SpriteLibrary
             MovementSpeed = OldSprite.MovementSpeed;
             SpriteOriginName = OldSprite.SpriteName;
 
-            //duplicate any eventhandlers we may have added to the one being cloned.
+            //duplicate any event handlers we may have added to the one being cloned.
             SpriteHitsPictureBox += OldSprite.SpriteHitsPictureBox;
             SpriteExitsPictureBox += OldSprite.SpriteExitsPictureBox;
             SpriteHitsSprite += OldSprite.SpriteHitsSprite;
@@ -421,6 +454,7 @@ namespace SpriteLibrary
             if (RetainName)
                 SpriteName = OldSprite.SpriteName;
             MySpriteController.AddSprite(this);
+            initTimer();
         }
 
 
@@ -604,7 +638,7 @@ namespace SpriteLibrary
         }
 
         /// <summary>
-        /// Return the animation speed of this particualar animation of the sprite.
+        /// Return the animation speed of this particular animation of the sprite.
         /// </summary>
         /// <param name="WhichAnimation"></param>
         /// <returns></returns>
@@ -692,7 +726,7 @@ namespace SpriteLibrary
         }
 
         /// <summary>
-        /// Put the Sprite at a specified location, using the dimentions of the BackgroundImage.
+        /// Put the Sprite at a specified location, using the dimensions of the BackgroundImage.
         /// Unless you are using coordinates you have gotten from a mouse-click, this is how you want
         /// to place a Sprite somewhere.  It is the easiest way to track things.  But, if you are
         /// doing something using mouse-click coordinates, you want to use PutPictureBoxLocation
@@ -716,7 +750,7 @@ namespace SpriteLibrary
             }
         }
         /// <summary>
-        /// Put the Sprite at a specified location, using the dimentions of the BackgroundImage.
+        /// Put the Sprite at a specified location, using the dimensions of the BackgroundImage.
         /// Unless you are using coordinates you have gotten from a mouse-click, this is how you want
         /// to place a Sprite somewhere.  It is the easiest way to track things.  But, if you are
         /// doing something using mouse-click coordinates, you want to use PutPictureBoxLocation
@@ -743,7 +777,7 @@ namespace SpriteLibrary
         }
 
         /// <summary>
-        /// Put the Sprite at a specified location, using the dimentions of the PictureBox.
+        /// Put the Sprite at a specified location, using the dimensions of the PictureBox.
         /// You want to use this if you got your X/Y position from a mouse-click.  Otherwise,
         /// this is the harder way to track things, particularly if your window can resize.  Use
         /// PutBaseImageLocation instead.
@@ -824,7 +858,7 @@ namespace SpriteLibrary
         }
 
         /// <summary>
-        /// This is run from the sprite controller every 10 miliseconds.  You should never
+        /// This is run from the sprite controller every 10 milliseconds.  You should never
         /// need to call this yourself.
         /// </summary>
         public void Tick()
@@ -906,7 +940,7 @@ namespace SpriteLibrary
                             //MJH set sprite to exact location because rounding is a problem
                             SpriteVector.X = MovementDestinations[0].X;
                             SpriteVector.Y = MovementDestinations[0].Y;
-                            //Update Event Arguements as they were rounded
+                            //Update Event Arguments as they were rounded
                             e.NewLocation = new Point((int)SpriteVector.X, (int)SpriteVector.Y);
 
                             //check to see if we have hit the endpoint
@@ -934,7 +968,7 @@ namespace SpriteLibrary
                     //}
                     if (!e.Cancel)
                     {
-                        //This allows our 'check before move'function to adjust the destination.
+                        //This allows our 'check before move' function to adjust the destination.
                         PutBaseImageLocation(e.NewLocation);
                     }
                     LastMovement = DateTime.UtcNow;
@@ -973,6 +1007,8 @@ namespace SpriteLibrary
             //If we are not already destroying ourselves
             if (!_Destroying)
             {
+                SpriteTimer.Enabled = false; // Disable the timer for this.
+                DrawTimer.Enabled = false;
                 //Mark ourselves as being destroyed
                 _Destroying = true;
                 //Erase ourselves
@@ -1003,7 +1039,7 @@ namespace SpriteLibrary
             HasBeenDrawn = true;
         }
         /// <summary>
-        /// Return true or false, asking if the specifiec sprite is at the point on the picturebox.
+        /// Return true or false, asking if the specified sprite is at the point on the picturebox.
         /// You can use this with a mouse-click to see if you are clicking on a sprite.  Use the 
         /// SpriteCollisionMethod "transparent" to see if you have clicked on an actual pixel of the 
         /// sprite instead of just within the sprite rectangle.
@@ -1068,7 +1104,7 @@ namespace SpriteLibrary
             }
             if (method == SpriteCollisionMethod.circle)
             {
-
+                //Original Method
                 Point center = new Point(
                   MyRectangle.Width / 2,
                   MyRectangle.Height / 2);
@@ -1361,7 +1397,7 @@ namespace SpriteLibrary
         }
 
         /// <summary>
-        /// Get the direction that the sprite is traveling in in degrees.  You may want to
+        /// Get the direction that the sprite is traveling in, in degrees.  You may want to
         /// use Math.Round on the results.  The value returned is usually just a tiny bit off
         /// from what you set it with.  For example, if you set the sprite movement direction
         /// to be 270 degrees (down), this function may return it as 269.999992.  Rounding the
@@ -1376,11 +1412,17 @@ namespace SpriteLibrary
             return degrees;
         }
 
+        
         // ***************** Events ***********
+        /// <summary>
+        /// This is a rectangular check and doesn't account for transparency.
+        /// </summary>
+        /// <returns></returns>
         private bool CheckForHittingEdgeOfImage()
         {
             Image tImage = MySpriteController.BackgroundImage;
             bool outOfBounds = false;
+            //outOfBounds = !SpriteIntersectsRectangle(this.MyRectangle); 
             if (xPositionOnImage < 0) outOfBounds = true;
             if (xPositionOnImage + Width > tImage.Width) outOfBounds = true;
             if (yPositionOnImage < 0) outOfBounds = true;
@@ -1392,10 +1434,15 @@ namespace SpriteLibrary
             }
             return outOfBounds;
         }
+        /// <summary>
+        /// Check to see if the Image is completely gone.
+        /// </summary>
+        /// <returns></returns>
         private bool CheckForExitingImage()
         {
             Image tImage = MySpriteController.BackgroundImage;
             bool outOfBounds = false;
+            outOfBounds = !SpriteIntersectsRectangle(this.MyRectangle);
             if (xPositionOnImage + Width < 0) outOfBounds = true;
             if (xPositionOnImage > tImage.Width) outOfBounds = true;
             if (yPositionOnImage + Width < 0) outOfBounds = true;
@@ -1410,20 +1457,50 @@ namespace SpriteLibrary
 
         private bool CheckToSeeIfSpriteHitsSprite(Sprite target, SpriteCollisionMethod how)
         {
-            if (target == this) return false; //We do not collide with ourselves.
-            if (target.xPositionOnImage + target.Width < xPositionOnImage) return false;
-            if (target.xPositionOnImage > xPositionOnImage + Width) return false;
-            if (target.yPositionOnImage + target.Height < yPositionOnImage) return false;
-            if (target.yPositionOnImage > yPositionOnImage + Height) return false;
-            //If we get here, we have two rectangles ovelapping.
+            if (!SpriteIntersectsRectangle(target.MyRectangle))
+            {
+                return false;   //Nothing Overlapping
+            }
+           
+            
+            //If we get here, we have two rectangles overlapping.
             if (how == SpriteCollisionMethod.circle)
             {
+                Point center = new Point(
+                  MyRectangle.Width / 2,
+                  MyRectangle.Height / 2);
 
-                
+                double _xRadius = MyRectangle.Width / 2;
+                double _yRadius = MyRectangle.Height / 2;
+
+
+                if (_xRadius <= 0.0 || _yRadius <= 0.0)
+                    return false;
+                /* This is a more general form of the circle equation
+                 *
+                 * X^2/a^2 + Y^2/b^2 <= 1
+                 */
+
+                Point normalized = new Point(target.MyRectangle.X - center.X,
+                                             target.MyRectangle.Y - center.Y);
+
+                return ((double)(normalized.X * normalized.X)
+                         / (_xRadius * _xRadius)) + ((double)(normalized.Y * normalized.Y) / (_yRadius * _yRadius))
+                    <= 1.0;
+
             }
             if (how == SpriteCollisionMethod.transparency)
             {
 
+            }
+            if (how == SpriteCollisionMethod.centerRectangle)
+            {
+                Rectangle reducedSize = new Rectangle((int)(target.MyRectangle.X + target.MyRectangle.Width / 2), 
+                                                      (int)(target.MyRectangle.Y + target.MyRectangle.Height / 2), 
+                                                      (int)(target.MyRectangle.Width / 4), 
+                                                      (int)(target.MyRectangle.Height / 4));
+                bool result = SpriteIntersectsRectangle(reducedSize);
+                return result;
             }
             return true;
         }
@@ -1432,14 +1509,14 @@ namespace SpriteLibrary
         /// Check to see if the specified rectangle overlaps with the sprite.
         /// </summary>
         /// <param name="target">The rectangle we are looking to see if we hit</param>
-        /// <returns>True if the rectangle overlaps the sprite rectabgle</returns>
+        /// <returns>True if the rectangle overlaps the sprite rectangle</returns>
         public bool SpriteIntersectsRectangle(Rectangle target)
         {
-            if (target.X + target.Width < xPositionOnImage) return false;
-            if (target.X > xPositionOnImage + Width) return false;
-            if (target.Y + target.Height < yPositionOnImage) return false;
-            if (target.Y > yPositionOnImage + Height) return false;
-            //If we get here, we have two rectangles ovelapping.
+            if (target.X + target.Width < xPositionOnImage) return false;   //Target is on Left
+            if (target.X > xPositionOnImage + Width) return false;          //Target is on Right
+            if (target.Y + target.Height < yPositionOnImage) return false;  //Target is above
+            if (target.Y > yPositionOnImage + Height) return false;         //Target is Below  
+            //If we get here, we have two rectangles overlapping.
             return true;
         }
 

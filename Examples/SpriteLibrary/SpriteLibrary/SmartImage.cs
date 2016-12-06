@@ -62,7 +62,7 @@ namespace SpriteLibrary
         /// <param name="SpriteImage">the image we use for the sprite.  Should have lots of images as a part of it.</param>
         /// <param name="width">the width of each frame</param>
         /// <param name="height">the height of each frame</param>
-        /// <param name="duration">The duration in miliseconds for this frame</param>
+        /// <param name="duration">The duration in milliseconds for this frame</param>
         public Animation(Point Start, SmartImage Smart_Image, Image SpriteImage, int width, int height, int duration, int Count)
         {
             //We create a new animation number for this new animation
@@ -103,7 +103,7 @@ namespace SpriteLibrary
         /// <param name="SpriteImage">the image we use for the sprite.  Should have lots of images as a part of it.</param>
         /// <param name="width">the width of each frame</param>
         /// <param name="height">the height of each frame</param>
-        /// <param name="duration">The duration in miliseconds for this frame</param>
+        /// <param name="duration">The duration in milliseconds for this frame</param>
 
         public Animation(SmartImage Smart_Image, Image SpriteImage, int width, int height, int duration)
         {
@@ -148,6 +148,7 @@ namespace SpriteLibrary
 
         public SmartImage(SpriteController Controller, Image SpriteImage)
         {
+            
             MyController = Controller;
             AddAnimation(SpriteImage);
         }
@@ -159,7 +160,7 @@ namespace SpriteLibrary
         /// <param name="SpriteImage">The image we use to draw the animation from</param>
         /// <param name="width">The width of the image to cut out of the main image</param>
         /// <param name="height">The height of the image to cut out of the main image</param>
-        /// <param name="duration">The duration in miliseconds</param>
+        /// <param name="duration">The duration in milliseconds</param>
         public SmartImage(SpriteController Controller, Image SpriteImage, int width, int height, int duration)
         {
             MyController = Controller;
@@ -221,6 +222,7 @@ namespace SpriteLibrary
         public Image GetImage(int animation, int frame, Size HowBig)
         {
             Image tImage;
+            
             bool NeedsResize = false;
             //This will change.
             if (animation >= 0 && animation < Animations.Count)
@@ -281,6 +283,7 @@ namespace SpriteLibrary
         public bool NeedsNewImage(int animation, int frame, TimeSpan duration)
         {
             //If we do not have a valid index, return true
+            //if (Animations.Count == 0) return false;
             if (frame < 0) return true;
             if (animation < 0) return true;
             if (animation >= Animations.Count) return true; //Hopefully we never get here
@@ -288,7 +291,7 @@ namespace SpriteLibrary
 
             //If no duration is set, we never have to change it.
             if (Animations[animation].Frames[frame].Duration.TotalMilliseconds == 0)
-                return true;
+                return true; // was true
 
             //If we get here, we the current index is a valid one.  Now, see if the timeframe needs to be changed
             if (duration > Animations[animation].Frames[frame].Duration)
@@ -299,7 +302,7 @@ namespace SpriteLibrary
         }
 
         /// <summary>
-        /// Check to see if the animation is in the last frame.  Only works if animateonce is set to true
+        /// Check to see if the animation is in the last frame.  Only works if AnimateOnce is set to true
         /// </summary>
         /// <param name="AnimateOnce">The animateOnce value of the sprite</param>
         /// <param name="animation">The animation we think we are on</param>

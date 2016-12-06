@@ -264,10 +264,16 @@
     <None Include="images\BrushedPlat.jpg" />
     <None Include="images\Copper.jpg" />
     <None Include="images\metal-grunge-metallic-steel-555.jpg" />
+    <None Include="images\100x100\deadpool-logo.png" />
+    <None Include="images\Metal-steel-plate-series-vector-material-30303.png" />
     <Content Include="InformationAndLinks.txt" />
     <None Include="Resources\150x150Background.png" />
     <None Include="Resources\Border1.png" />
+    <None Include="Resources\BrushedPlat.jpg" />
+    <None Include="Resources\BrushedPlat.png" />
     <Content Include="Resources\Coin.jpg" />
+    <None Include="Resources\Copper.jpg" />
+    <None Include="Resources\Copper.png" />
     <Content Include="Resources\explode.png" />
     <None Include="Resources\GreyButton.png" />
     <None Include="Resources\GreyButtonE3.png" />
@@ -275,6 +281,8 @@
     <None Include="Resources\Metal-plate-HD-pictures-9-40832_250x250.jpg" />
     <None Include="Resources\Metal-plate-HD-pictures-9-40832_250x250_c.jpg" />
     <Content Include="Resources\Jack-skellington-sprite-486cc8057e65df417413fdbc89b68a78.png" />
+    <None Include="Resources\Metal_plate_HD_pictures_9_40832_250x250_c.jpg" />
+    <None Include="Resources\Metal-plate_250x250.png" />
     <Content Include="Sounds\Blop.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

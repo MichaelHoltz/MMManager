@@ -24,6 +24,10 @@ namespace SpriteLibrary
         /// </summary>
         rectangle,
         /// <summary>
+        /// checks if the two rectangles that contain the sprites overlap in the center using center rectangle.
+        /// </summary>
+        centerRectangle,
+        /// <summary>
         /// Draws a circle (ellipse) inside the sprite rectangles and see if those ellipses overlap
         /// </summary>
         circle,
@@ -246,7 +250,7 @@ namespace SpriteLibrary
         }
 
         /// <summary>
-        /// The function called by the timer every 10 millisecods  We also call do_tick, which
+        /// The function called by the timer every 10 milliseconds  We also call do_tick, which
         /// is the function defined by the user.
         /// </summary>
         /// <param name="sender"></param>
@@ -477,7 +481,8 @@ namespace SpriteLibrary
             if (DrawingArea.BackgroundImageLayout == ImageLayout.Stretch)
             {
                 Rectangle newRec = AdjustRectangle(ImageRectangle);
-                newRec = new Rectangle(newRec.Location.X, newRec.Location.Y, newRec.Width + 2, newRec.Height + 2);
+                //newRec = new Rectangle(newRec.Location.X, newRec.Location.Y, newRec.Width + 2, newRec.Height + 2); // Why+2???
+                newRec = new Rectangle(newRec.Location.X, newRec.Location.Y, newRec.Width, newRec.Height); 
                 //Now we invalidate the adjusted rectangle
                 DrawingArea.Invalidate(newRec);
             }
@@ -507,17 +512,17 @@ namespace SpriteLibrary
 
         void Tick()
         {
-            //We check for collisions.
+            //We check for collisions. (Every Sprite Against Every other Sprite)
             for (int looper = 0; looper < Sprites.Count; looper++)
             {
-                if (Sprites[looper] != null && !Sprites[looper].Destroying && Sprites[looper].HasBeenDrawn)
+                if (Sprites[looper] != null && !Sprites[looper].Destroying && Sprites[looper].HasBeenDrawn )
                 {
                     for (int checkloop = 0; checkloop < Sprites.Count; checkloop++)
                     {
                         if (Sprites[checkloop] != null && !Sprites[checkloop].Destroying && Sprites[checkloop].HasBeenDrawn)
                         {
                             //Check to see if they have hit
-                            Sprites[looper].CheckSpriteHitsSprite(Sprites[checkloop], SpriteCollisionMethod.rectangle);//.rectangle
+                            Sprites[looper].CheckSpriteHitsSprite(Sprites[checkloop], SpriteCollisionMethod.centerRectangle);//.rectangle
                         }
                     }
                 }
@@ -641,7 +646,8 @@ namespace SpriteLibrary
             List<Sprite> tList = new List<Sprite>();
             foreach (Sprite OneSprite in Sprites)
             {
-                if (OneSprite.HasBeenDrawn && OneSprite.SpriteAtPictureBoxPoint(Location))
+                if (OneSprite.HasBeenDrawn && OneSprite.SpriteAtPictureBoxPoint(Location)) // Original code that uses Default Rectangle
+                //if (OneSprite.HasBeenDrawn && OneSprite.SpriteAtPictureBoxPoint(Location,  SpriteCollisionMethod.transparency))
                 {
                     tList.Add(OneSprite);
                 }
@@ -907,7 +913,9 @@ namespace SpriteLibrary
                 Sprites[i].UnPause(What);
             }
         }
-
+        /// <summary>
+        /// Sort Sprites by Zvalue
+        /// </summary>
         internal void SortSprites()
         {
             Sprites.Sort((x, y) => x.Zvalue.CompareTo(y.Zvalue));
