@@ -118,7 +118,15 @@ namespace SpriteLibrary
         public SpriteController(PictureBox Area)
         {
             DrawingArea = Area;
+            DrawingArea.Paint += DrawingArea_Paint;
             Local_Setup();
+        }
+
+        private void DrawingArea_Paint(object sender, PaintEventArgs e)
+        {
+            
+            //Console.WriteLine("Painting from: X,Y=" + e.ClipRectangle.X + "," +e.ClipRectangle.Y + " Width,Height=" + e.ClipRectangle.Width + "," + e.ClipRectangle.Height);
+            //throw new NotImplementedException();
         }
 
         /// <summary>

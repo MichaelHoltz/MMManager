@@ -280,6 +280,7 @@
     <None Include="Resources\PacMan.png" />
     <None Include="Resources\Metal-plate-HD-pictures-9-40832_250x250.jpg" />
     <None Include="Resources\Metal-plate-HD-pictures-9-40832_250x250_c.jpg" />
+    <None Include="Resources\GreyButton_pt.png" />
     <Content Include="Resources\Jack-skellington-sprite-486cc8057e65df417413fdbc89b68a78.png" />
     <None Include="Resources\Metal_plate_HD_pictures_9_40832_250x250_c.jpg" />
     <None Include="Resources\Metal-plate_250x250.png" />

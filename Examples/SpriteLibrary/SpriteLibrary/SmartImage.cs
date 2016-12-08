@@ -291,7 +291,7 @@ namespace SpriteLibrary
 
             //If no duration is set, we never have to change it.
             if (Animations[animation].Frames[frame].Duration.TotalMilliseconds == 0)
-                return true; // was true
+                return true; //  -Setting to false works but re-drawing isn't frequent enough
 
             //If we get here, we the current index is a valid one.  Now, see if the timeframe needs to be changed
             if (duration > Animations[animation].Frames[frame].Duration)

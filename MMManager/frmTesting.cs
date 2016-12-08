@@ -82,7 +82,7 @@ namespace MMManager
 
             MySpriteController = new SpriteController(pbBackGround);
              MySpriteController.ChangeTickInterval(10);
-            OneSprite = new Sprite(new Point(0,0),MySpriteController, Properties.Resources.GreyButton, 50, 50, 0,1); //No Duration Causes every 1/2 second
+            OneSprite = new Sprite(new Point(0,0),MySpriteController, Properties.Resources.GreyButton_pt, 50, 50, 0,1); //No Duration Causes every 1/2 second
             OneSprite.SetSize(new Size(50, 50));
             OneSprite.SetName(SpriteNames.GreyButton.ToString());
 
@@ -247,9 +247,9 @@ namespace MMManager
             //Jack.PutBaseImageLocation(new Point(0, 0));
             //Jack.AnimateJustAFewTimes(0, 4);
 
-            Coin.PutBaseImageLocation(new Point(50, 50));
-            if (Coin.IsPaused(SpritePauseType.PauseAnimation))
-                Coin.UnPause(SpritePauseType.PauseAnimation);
+            //Coin.PutBaseImageLocation(new Point(50, 50));
+            //if (Coin.IsPaused(SpritePauseType.PauseAnimation))
+            //    Coin.UnPause(SpritePauseType.PauseAnimation);
 
 
             //player.PutBaseImageLocation(new Point(110, 50));
@@ -261,10 +261,10 @@ namespace MMManager
             //pbBackGround.Invalidate();
             //return;
             //Generate Buttons as Sprites
-            Sprite[,] sB = new Sprite[6, 6]; // Array of Sprites
-            for (int y = 0; y <6; y++)
+            Sprite[,] sB = new Sprite[5, 5]; // Array of Sprites
+            for (int y = 0; y <5; y++)
             {
-                for (int x = 0; x < 6; x++)
+                for (int x = 0; x < 5; x++)
                 {
                     sB[y,x] = MySpriteController.DuplicateSprite(SpriteNames.GreyButton.ToString());
                     sB[y, x].SetName("sB" + y + x);
@@ -319,8 +319,10 @@ namespace MMManager
                     p.SetName("P" + (sender as Sprite).SpriteName);
                     p.SetSize(new Size(50, 50));
                     p.Zvalue = 55;
-                    
                     p.PutPictureBoxLocation(me.BaseImageLocation);
+//                    p.MovementSpeed = 10;
+//                    p.AutomaticallyMoves = true;
+//                    p.MoveTo(me.BaseImageLocation);
                     //p.PutBaseImageLocation(me.BaseImageLocation.X, (sender as Sprite).BaseImageLocation.Y); // Could offset
                     //p.Pause(SpritePauseType.PauseAnimation); // Don't animate
                     //p.MoveTo(p.BaseImageLocation); // Show it

@@ -707,6 +707,7 @@ namespace SpriteLibrary
                     //Pen tmpPen = new Pen(Color.Black);
                     //Graphics.FromImage(ChangedImage).DrawRectangle(tmpPen, MyRectangle);
                     MySpriteController.Invalidate(MyRectangle);
+                   // Console.WriteLine(this.SpriteName + ": Sprite.DrawMe(" + tLocation.X + "," + tLocation.Y + ")");
                 }
                 NeedsDrawingAtEndOfTick = false;
             }
@@ -746,6 +747,7 @@ namespace SpriteLibrary
                 xOnVector = NewLocationOnImage.X;
                 yOnVector = NewLocationOnImage.Y;
                 DrawMe(NewLocationOnImage);
+             //   Console.WriteLine("Sprite.PutBaseImageLocation(" + NewLocationOnImage.X + "," + NewLocationOnImage.Y + ")");
                 HasBeenDrawn = true;
             }
         }
@@ -821,7 +823,7 @@ namespace SpriteLibrary
                 //Console.WriteLine(SpriteName + " " + SpriteOriginName + " " + orig.ToString() + " " + Adjust.ToString());
                 duration = TimeSpan.FromMilliseconds(Adjust);
             }
-            if (MyImage.NeedsNewImage(AnimationIndex, FrameIndex, duration) || ForceRedraw)
+            if (MyImage.NeedsNewImage(AnimationIndex, FrameIndex, duration) || ForceRedraw )
             {
                 EraseMe();
                 bool AtEnd = false;

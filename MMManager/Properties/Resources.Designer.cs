@@ -143,6 +143,16 @@ namespace MMManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap GreyButton_pt {
+            get {
+                object obj = ResourceManager.GetObject("GreyButton_pt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap GreyButtonE3 {
             get {
                 object obj = ResourceManager.GetObject("GreyButtonE3", resourceCulture);

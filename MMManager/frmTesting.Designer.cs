@@ -36,6 +36,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.mmManagerTTTButton2 = new MMManager.MMManagerTTTButton();
             this.btnGenerateGrid = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTipForm = new System.Windows.Forms.ToolTip(this.components);
@@ -44,7 +45,6 @@
             this.mmmGroupBox1 = new MMManager.Controls.MMMGroupBox();
             this.mmManagerTTTButton1 = new MMManager.MMManagerTTTButton();
             this.bgGame = new MMManager.Controls.MMMGroupBox();
-            this.mmManagerTTTButton2 = new MMManager.MMManagerTTTButton();
             this.BBomb = new MMManager.MMManagerTTTButton();
             this.pbBackGround = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -109,6 +109,17 @@
             this.button4.TabIndex = 44;
             this.button4.Text = "button4";
             this.button4.UseVisualStyleBackColor = true;
+            // 
+            // mmManagerTTTButton2
+            // 
+            this.mmManagerTTTButton2.allowClick = true;
+            this.mmManagerTTTButton2.customEnable = true;
+            this.mmManagerTTTButton2.Location = new System.Drawing.Point(22, 19);
+            this.mmManagerTTTButton2.Name = "mmManagerTTTButton2";
+            this.mmManagerTTTButton2.Size = new System.Drawing.Size(50, 50);
+            this.mmManagerTTTButton2.TabIndex = 42;
+            this.mmManagerTTTButton2.Text = "mmManagerTTTButton2";
+            this.mmManagerTTTButton2.UseVisualStyleBackColor = true;
             // 
             // btnGenerateGrid
             // 
@@ -222,17 +233,6 @@
             this.bgGame.TabStop = false;
             this.bgGame.Text = "Button Grid";
             // 
-            // mmManagerTTTButton2
-            // 
-            this.mmManagerTTTButton2.allowClick = true;
-            this.mmManagerTTTButton2.customEnable = true;
-            this.mmManagerTTTButton2.Location = new System.Drawing.Point(22, 19);
-            this.mmManagerTTTButton2.Name = "mmManagerTTTButton2";
-            this.mmManagerTTTButton2.Size = new System.Drawing.Size(50, 50);
-            this.mmManagerTTTButton2.TabIndex = 42;
-            this.mmManagerTTTButton2.Text = "mmManagerTTTButton2";
-            this.mmManagerTTTButton2.UseVisualStyleBackColor = true;
-            // 
             // BBomb
             // 
             this.BBomb.allowClick = true;
@@ -283,7 +283,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
-            this.DoubleBuffered = true;
             this.Name = "frmTesting";
             this.Text = "frmTesting";
             this.Load += new System.EventHandler(this.frmTesting_Load);
